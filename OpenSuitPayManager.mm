@@ -1792,7 +1792,7 @@ void UnityReadyToContinuePurchaseFromPromotion(const char* gameObjectName, const
     }];
 }
 
-void UnityFetchStorePayPromotionVisibilityForProduct(const char* uniformProductId, const char* gameObjectName, const char* methodName)
+void UnityFetchStorePromotionVisibilityForProduct(const char* uniformProductId, const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1879,7 +1879,7 @@ void UnityUpdateStorePromotionOrder(const char* productids, const char* gameObje
     }];
 }
 
-void UnityUpdateStorePayPromotionVisibility(bool visible, const char* uniformProductId, const char* gameObjectName, const char* methodName)
+void UnityUpdateStorePromotionVisibility(bool visible, const char* uniformProductId, const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
