@@ -3,7 +3,7 @@
 //  ShareManager
 //
 //  Created by Jerry on 12/31/14.
-//  Copyright (c) 2015 Jerry. All rights reserved.
+//  Copyright (c) 2016 Jerry. All rights reserved.
 //
 
 #import "OpenSuitShareUI.h"
