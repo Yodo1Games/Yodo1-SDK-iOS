@@ -10,6 +10,6 @@
 
 @interface OpenSuitAnalyticsAdapterUmeng : OpenSuitAnalyticsAdapter
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType;
++ (OpenSuitAnalyticsType)analyticsType;
 
 @end

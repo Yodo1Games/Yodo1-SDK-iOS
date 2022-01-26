@@ -27,7 +27,7 @@ NSString* const kOpenSuitChargeRequstAnalytics = @"kChargeRequstAnalytics";
     // BOOL isUSOrIN;
 }
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType
++ (OpenSuitAnalyticsType)analyticsType
 {
     return OpenSuitAnalyticsTypeUmeng;
 }
