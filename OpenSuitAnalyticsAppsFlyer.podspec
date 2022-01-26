@@ -40,16 +40,16 @@ Pod::Spec.new do |s|
     }
 
    s.frameworks = [
-        'Accounts', 
+        'Accounts',
         'AssetsLibrary',
-        'AVFoundation', 
+        'AVFoundation',
         'CoreTelephony',
-        'CoreLocation', 
+        'CoreLocation',
         'CoreMotion',
         'CoreMedia',
         'EventKit',
-        'EventKitUI', 
-        'iAd', 
+        'EventKitUI',
+        'iAd',
         'ImageIO',
         'MobileCoreServices',
         'MediaPlayer',
