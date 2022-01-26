@@ -24,7 +24,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 
 @implementation OpenSuitAnalyticsAdapterAppsFlyer
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType {
++ (OpenSuitAnalyticsType)analyticsType {
     return OpenSuitAnalyticsTypeAppsFlyer;
 }
 

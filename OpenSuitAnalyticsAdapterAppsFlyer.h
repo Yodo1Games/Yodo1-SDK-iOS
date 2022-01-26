@@ -9,6 +9,6 @@
 
 @interface OpenSuitAnalyticsAdapterAppsFlyer : OpenSuitAnalyticsAdapter
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType;
++ (OpenSuitAnalyticsType)analyticsType;
 
 @end
