@@ -19,7 +19,7 @@ NSString* const kOpenSuitAnalyticsChannelId = @"AppStore";
     TDGAProfile* account;
 }
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType
++ (OpenSuitAnalyticsType)analyticsType
 {
     return OpenSuitAnalyticsTypeTalkingData;
 }

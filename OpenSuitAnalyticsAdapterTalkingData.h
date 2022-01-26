@@ -9,6 +9,6 @@
 
 @interface OpenSuitAnalyticsAdapterTalkingData : OpenSuitAnalyticsAdapter
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType;
++ (OpenSuitAnalyticsType)analyticsType;
 
 @end
