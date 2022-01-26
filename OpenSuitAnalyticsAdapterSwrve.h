@@ -9,6 +9,6 @@
 
 @interface OpenSuitAnalyticsAdapterSwrve : OpenSuitAnalyticsAdapter
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType;
++ (OpenSuitAnalyticsType)analyticsType;
 
 @end

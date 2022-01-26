@@ -16,7 +16,7 @@ NSString* const OPENSUIT_ANALYTICS_SWRVE_API_KEY     = @"SwrveApiKey";
 
 @implementation OpenSuitAnalyticsAdapterSwrve
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType {
++ (OpenSuitAnalyticsType)analyticsType {
     return OpenSuitAnalyticsTypeSwrve;
 }
 

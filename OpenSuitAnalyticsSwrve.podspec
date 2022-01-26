@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'OpenSuitAnalyticsSwrve'
-    s.version          = '1.0.1'
+    s.version          = '1.0.2'
     s.summary          = 'v6.8.0->v7.1.0'
 
     s.description      = <<-DESC
