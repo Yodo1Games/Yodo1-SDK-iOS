@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'OpenSuitAnalyticsFirebase'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'v8.9.1'
   
   s.description      = <<-DESC

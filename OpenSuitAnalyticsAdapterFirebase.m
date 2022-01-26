@@ -19,7 +19,7 @@
 
 }
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType
++ (OpenSuitAnalyticsType)analyticsType
 {
     return OpenSuitAnalyticsTypeFirebase;
 }

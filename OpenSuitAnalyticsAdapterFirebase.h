@@ -10,6 +10,6 @@
 
 @interface OpenSuitAnalyticsAdapterFirebase : OpenSuitAnalyticsAdapter
 
-+ (OpenSuitAnalyticsType)OpenSuitAnalyticsType;
++ (OpenSuitAnalyticsType)analyticsType;
 
 @end
