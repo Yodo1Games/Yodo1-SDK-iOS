@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '6.1.2.1'
+    s.version          = '6.1.3'
     # s.version          = '0.0.31'
     # s.version          = '6.1.0.1'
     s.summary          = '    
@@ -153,7 +153,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitShare','1.0.4'
+        ss.dependency 'OpenSuitShare','1.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
