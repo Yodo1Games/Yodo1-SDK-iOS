@@ -632,7 +632,7 @@ static BOOL _bInit_ = NO;
 
 extern "C" {
     
-    char* UnityGetTalkingDataDeviceId_OpenSuit()
+    char* UnityGetTalkingDataDeviceId()
     {
         const char* deviceId = [[OpenSuitAnalyticsManager sharedInstance]talkingDataDeviceId].UTF8String;
         return Yodo1MakeStringCopy(deviceId);
@@ -643,7 +643,7 @@ extern "C" {
      TalkingData:
      同道：
      */
-    void UnityEventWithJson_OpenSuit(const char* eventId, const char* jsonData)
+    void UnityEventWithJson(const char* eventId, const char* jsonData)
     {
         NSString* eventData = Yodo1CreateNSString(jsonData);
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
@@ -651,28 +651,28 @@ extern "C" {
                                                     eventData:eventDataDic];
     }
     
-    void UnityStartLevelAnalytics_OpenSuit(const char* level)
+    void UnityStartLevelAnalytics(const char* level)
     {
         [[OpenSuitAnalyticsManager sharedInstance]startLevelAnalytics:Yodo1CreateNSString(level)];
     }
     
-    void UnityFinishLevelAnalytics_OpenSuit(const char* level)
+    void UnityFinishLevelAnalytics(const char* level)
     {
         [[OpenSuitAnalyticsManager sharedInstance]finishLevelAnalytics:Yodo1CreateNSString(level)];
     }
     
-    void UnityFailLevelAnalytics_OpenSuit(const char* level,const char* cause)
+    void UnityFailLevelAnalytics(const char* level,const char* cause)
     {
         [[OpenSuitAnalyticsManager sharedInstance]failLevelAnalytics:Yodo1CreateNSString(level)
                                                       failedCause:Yodo1CreateNSString(cause)];
     }
     
-    void UnityUserLevelIdAnalytics_OpenSuit(int level)
+    void UnityUserLevelIdAnalytics(int level)
     {
         [[OpenSuitAnalyticsManager sharedInstance]userLevelIdAnalytics:level];
     }
     
-    void UnityChargeRequstAnalytics_OpenSuit(const char* orderId,
+    void UnityChargeRequstAnalytics(const char* orderId,
                                     const char* iapId,
                                     double currencyAmount,
                                     const char* currencyType,
@@ -687,26 +687,26 @@ extern "C" {
                                                          paymentType:Yodo1CreateNSString(paymentType)];
     }
     
-    void UnityChargeSuccessAnalytics_OpenSuit(const char* orderId,int source)
+    void UnityChargeSuccessAnalytics(const char* orderId,int source)
     {
         [[OpenSuitAnalyticsManager sharedInstance]chargeSuccessAnalytics:Yodo1CreateNSString(orderId) source:source];
     }
     
-    void UnityRewardAnalytics_OpenSuit(double virtualCurrencyAmount,const char* reason ,int source)
+    void UnityRewardAnalytics(double virtualCurrencyAmount,const char* reason ,int source)
     {
         [[OpenSuitAnalyticsManager sharedInstance]rewardAnalytics:virtualCurrencyAmount
                                                         reason:Yodo1CreateNSString(reason)
                                                         source:source];
     }
     
-    void UnityPurchaseAnalytics_OpenSuit(const char* item,int number,double price)
+    void UnityPurchaseAnalytics(const char* item,int number,double price)
     {
         [[OpenSuitAnalyticsManager sharedInstance]purchaseAnalytics:Yodo1CreateNSString(item)
                                                       itemNumber:number
                                           priceInVirtualCurrency:price];
     }
     
-    void UnityUseAnalytics_OpenSuit(const char* item,int amount,double price)
+    void UnityUseAnalytics(const char* item,int amount,double price)
     {
         [[OpenSuitAnalyticsManager sharedInstance]useAnalytics:Yodo1CreateNSString(item)
                                                      amount:amount
@@ -715,12 +715,12 @@ extern "C" {
     }
     
 #pragma mark - DplusMobClick
-    void UnityTrack_OpenSuit(const char* eventName)
+    void UnityTrack(const char* eventName)
     {
         [[OpenSuitAnalyticsManager sharedInstance]track:Yodo1CreateNSString(eventName)];
     }
     
-    void UnitySaveTrackWithEventName_OpenSuit(const char* eventName,const char* propertyKey,const char* propertyValue)
+    void UnitySaveTrackWithEventName(const char* eventName,const char* propertyKey,const char* propertyValue)
     {
         if(eventName == NULL || propertyKey == NULL || propertyValue == NULL)return;
         [[OpenSuitAnalyticsManager sharedInstance]saveTrackWithEventName:Yodo1CreateNSString(eventName)
@@ -728,7 +728,7 @@ extern "C" {
                                                         propertyValue:Yodo1CreateNSString(propertyValue)];
     }
     
-    void UnitySaveTrackWithEventNameIntValue_OpenSuit(const char* eventName,const char* propertyKey,const char* propertyValue)
+    void UnitySaveTrackWithEventNameIntValue(const char* eventName,const char* propertyKey,const char* propertyValue)
     {
         if(eventName == NULL || propertyKey == NULL)return;
         [[OpenSuitAnalyticsManager sharedInstance]saveTrackWithEventName:Yodo1CreateNSString(eventName)
@@ -736,7 +736,7 @@ extern "C" {
                                                      propertyIntValue:[Yodo1CreateNSString(propertyValue) intValue]];
     }
     
-    void UnitySaveTrackWithEventNameFloatValue_OpenSuit(const char* eventName,const char* propertyKey,const char* propertyValue)
+    void UnitySaveTrackWithEventNameFloatValue(const char* eventName,const char* propertyKey,const char* propertyValue)
     {
         if(eventName == NULL || propertyKey == NULL)return;
         [[OpenSuitAnalyticsManager sharedInstance]saveTrackWithEventName:Yodo1CreateNSString(eventName)
@@ -744,7 +744,7 @@ extern "C" {
                                                    propertyFloatValue:[Yodo1CreateNSString(propertyValue) floatValue]];
     }
     
-    void UnitySaveTrackWithEventNameDoubleValue_OpenSuit(const char* eventName,const char* propertyKey,const char* propertyValue)
+    void UnitySaveTrackWithEventNameDoubleValue(const char* eventName,const char* propertyKey,const char* propertyValue)
     {
         if(eventName == NULL || propertyKey == NULL)return;
         [[OpenSuitAnalyticsManager sharedInstance]saveTrackWithEventName:Yodo1CreateNSString(eventName)
@@ -752,13 +752,13 @@ extern "C" {
                                                   propertyDoubleValue:[Yodo1CreateNSString(propertyValue) doubleValue]];
     }
     
-    void UnitySubmitTrack_OpenSuit(const char* eventName)
+    void UnitySubmitTrack(const char* eventName)
     {
         if(eventName == NULL)return;
         [[OpenSuitAnalyticsManager sharedInstance] submitTrackWithEventName:Yodo1CreateNSString(eventName)];
     }
     
-    void UnityRegisterSuperProperty_OpenSuit(const char* propertyJson)
+    void UnityRegisterSuperProperty(const char* propertyJson)
     {
         NSString* properties = Yodo1CreateNSString(propertyJson);
         NSDictionary* dic = [Yodo1Commons JSONObjectWithString:properties error:nil];
@@ -767,13 +767,13 @@ extern "C" {
         }
     }
     
-    void UnityUnregisterSuperProperty_OpenSuit(const char* propertyName)
+    void UnityUnregisterSuperProperty(const char* propertyName)
     {
         [[OpenSuitAnalyticsManager sharedInstance]unregisterSuperProperty:Yodo1CreateNSString(propertyName)];
     }
     
     //返回单个值
-    char* UnityGetSuperProperty_OpenSuit(const char* propertyName)
+    char* UnityGetSuperProperty(const char* propertyName)
     {
         NSString* properties = [[OpenSuitAnalyticsManager sharedInstance]getSuperProperty:Yodo1CreateNSString(propertyName)];
         if(properties){
@@ -783,7 +783,7 @@ extern "C" {
     }
     
     //返回json字符串，那边解析为词典
-    char* UnityGetSuperProperties_OpenSuit()
+    char* UnityGetSuperProperties()
     {
         NSDictionary* dic = [[OpenSuitAnalyticsManager sharedInstance]getSuperProperties];
         if([dic count] > 0){
@@ -793,25 +793,25 @@ extern "C" {
         return NULL;
     }
     
-    void UnityClearSuperProperties_OpenSuit()
+    void UnityClearSuperProperties()
     {
         [[OpenSuitAnalyticsManager sharedInstance]clearSuperProperties];
     }
     
 #pragma mark - GameAnalytics
-    void UnitySetGACustomDimension01_OpenSuit(const char* dimension01)
+    void UnitySetGACustomDimension01(const char* dimension01)
     {
         NSString* dimension =  Yodo1CreateNSString(dimension01);
         [[OpenSuitAnalyticsManager sharedInstance]setGACustomDimension01:dimension];
     }
     
-    void UnitySetGACustomDimension02_OpenSuit(const char* dimension02)
+    void UnitySetGACustomDimension02(const char* dimension02)
     {
         NSString* dimension =  Yodo1CreateNSString(dimension02);
         [[OpenSuitAnalyticsManager sharedInstance]setGACustomDimension02:dimension];
     }
     
-    void UnitySetGACustomDimension03_OpenSuit(const char* dimension03)
+    void UnitySetGACustomDimension03(const char* dimension03)
     {
         NSString* dimension =  Yodo1CreateNSString(dimension03);
         [[OpenSuitAnalyticsManager sharedInstance]setGACustomDimension03:dimension];
@@ -819,7 +819,7 @@ extern "C" {
     
      #pragma mark - AppsFlyer
     // AppsFlyer
-    void UnityValidateAndTrackInAppPurchase_OpenSuit(const char*productIdentifier,
+    void UnityValidateAndTrackInAppPurchase(const char*productIdentifier,
                                             const char*price,
                                             const char*currency,
                                             const char*transactionId){
@@ -829,7 +829,7 @@ extern "C" {
                                                                transactionId:Yodo1CreateNSString(transactionId)];
     }
     // AppsFlyer Event
-    void UnityEventAdAnalyticsWithName_OpenSuit(const char*eventName, const char* jsonData) {
+    void UnityEventAdAnalyticsWithName(const char*eventName, const char* jsonData) {
         NSString* m_EventName = Yodo1CreateNSString(eventName);
         NSString* eventData = Yodo1CreateNSString(jsonData);
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
@@ -838,7 +838,7 @@ extern "C" {
     
      #pragma mark - Swrve
     //Swrve event
-    void UnitySwrveEventAnalyticsWithName_OpenSuit(const char*eventName, const char* jsonData) {
+    void UnitySwrveEventAnalyticsWithName(const char*eventName, const char* jsonData) {
         NSString* m_EventName = Yodo1CreateNSString(eventName);
         NSString* eventData = Yodo1CreateNSString(jsonData);
         NSError *error = nil;
@@ -850,7 +850,7 @@ extern "C" {
                                                                  eventData:eventDataDic];
     }
     
-    void UnitySwrveUserUpdate_OpenSuit(const char* jsonData) {
+    void UnitySwrveUserUpdate(const char* jsonData) {
         NSString* eventData = Yodo1CreateNSString(jsonData);
         NSError *error = nil;
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:&error];
@@ -860,7 +860,7 @@ extern "C" {
         [[OpenSuitAnalyticsManager sharedInstance]swrveUserUpdate:eventDataDic];
     }
 
-    void UnitySwrveTransactionProcessed_OpenSuit(const char* jsonData) {
+    void UnitySwrveTransactionProcessed(const char* jsonData) {
  
     }
 }
