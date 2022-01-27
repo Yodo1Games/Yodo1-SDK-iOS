@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'MasSdk'
-    s.version          = '3.16.9'
+    s.version          = '3.17.0'
     # s.version          = '3.16.8.1'
     s.summary          = '广告聚合发布:修复IS的bug --> 这个版本是优汇量统计版本--3.16.3.1优汇量版本'
     
@@ -70,21 +70,21 @@ Pod::Spec.new do |s|
     s.dependency 'Yodo1Ads/ApplovinMax_Vungle', "#{customVersion}"
     s.dependency 'Yodo1Ads/ApplovinMax_Yandex', "#{customVersion}"
     # Yodo1
-    s.dependency 'Yodo1Ads/YD1_AdColony', "#{customVersion}"
+    # s.dependency 'Yodo1Ads/YD1_AdColony', "#{customVersion}"
     s.dependency 'Yodo1Ads/YD1_Admob', "#{customVersion}"
     s.dependency 'Yodo1Ads/YD1_Applovin', "#{customVersion}"
     s.dependency 'Yodo1Ads/YD1_ApplovinMax', "#{customVersion}"
-    s.dependency 'Yodo1Ads/YD1_Facebook', "#{customVersion}"
+    # s.dependency 'Yodo1Ads/YD1_Facebook', "#{customVersion}"
     s.dependency 'Yodo1Ads/YD1_GDT', "#{customVersion}"
-    s.dependency 'Yodo1Ads/YD1_Inmobi', "#{customVersion}"
+    # s.dependency 'Yodo1Ads/YD1_Inmobi', "#{customVersion}"
     s.dependency 'Yodo1Ads/YD1_IronSource', "#{customVersion}"
     # s.dependency 'Yodo1Ads/YD1_Mintegral', "#{customVersion}"
-    s.dependency 'Yodo1Ads/YD1_MyTarget', "#{customVersion}"
+    # s.dependency 'Yodo1Ads/YD1_MyTarget', "#{customVersion}"
     s.dependency 'Yodo1Ads/YD1_Pangle', "#{customVersion}"
     # s.dependency 'Yodo1Ads/YD1_Smaato', "#{customVersion}"
-    s.dependency 'Yodo1Ads/YD1_Tapjoy', "#{customVersion}"
-    s.dependency 'Yodo1Ads/YD1_UnityAds', "#{customVersion}"
-    s.dependency 'Yodo1Ads/YD1_Vungle', "#{customVersion}"
-    s.dependency 'Yodo1Ads/YD1_Yandex', "#{customVersion}"
+    # s.dependency 'Yodo1Ads/YD1_Tapjoy', "#{customVersion}"
+    # s.dependency 'Yodo1Ads/YD1_UnityAds', "#{customVersion}"
+    # s.dependency 'Yodo1Ads/YD1_Vungle', "#{customVersion}"
+    # s.dependency 'Yodo1Ads/YD1_Yandex', "#{customVersion}"
 
 end
