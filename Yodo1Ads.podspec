@@ -358,7 +358,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsTalkingData','1.0.3'
+        ss.dependency 'OpenSuitAnalyticsTalkingData','1.0.4'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsUmeng' do |ss|
