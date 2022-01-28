@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '6.1.1'
+    s.version          = '6.1.3.2'
     # s.version          = '0.0.31'
     # s.version          = '6.1.0.1'
     s.summary          = '    
-                            添加优汇量统计测试
+                            添加优汇量统计测试test
                             最低支持iOS 10.0
                             广告:v3.16.0
                             大更改
@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
         ss.dependency 'Yodo1AdvertSDK','6.0.3'
         ss.dependency 'Bugly','2.5.91'
         ss.dependency 'Yodo1Analytics','6.0.1'
-        ss.dependency 'OpenSuitThirdsAnalytics', '1.0.1'
+        ss.dependency 'OpenSuitThirdsAnalytics', '1.0.2'
     end
 
     s.subspec 'Yodo1_ConfigKey' do |ss|
@@ -153,7 +153,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitShare','1.0.4'
+        ss.dependency 'OpenSuitShare','1.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
@@ -321,7 +321,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.0.5'
+        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsFirebase' do |ss|
@@ -333,7 +333,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsFirebase','1.0.1'
+        ss.dependency 'OpenSuitAnalyticsFirebase','1.0.2'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsSwrve' do |ss|
@@ -345,7 +345,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsSwrve','1.0.2'
+        ss.dependency 'OpenSuitAnalyticsSwrve','1.0.3'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     
