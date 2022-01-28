@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '6.1.3.3'
+    s.version          = '6.1.3.4'
     # s.version          = '0.0.31'
     # s.version          = '6.1.0.1'
     s.summary          = '    
