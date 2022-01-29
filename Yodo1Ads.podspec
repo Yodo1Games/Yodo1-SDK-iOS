@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '6.1.3.9'
+    s.version          = '6.1.3.10'
     # s.version          = '0.0.31'
     # s.version          = '6.1.0.1'
     s.summary          = '    
@@ -321,7 +321,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.0.8'
+        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.0.9'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsFirebase' do |ss|
