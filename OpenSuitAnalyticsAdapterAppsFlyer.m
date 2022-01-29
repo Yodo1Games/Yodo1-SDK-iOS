@@ -49,7 +49,19 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
             AppsFlyerLib.shared.isDebug = YES;
 #endif
             
-            [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":ThinkingAnalyticsSDK.sharedInstance.getDistinctId}];
+            // ThinkingData初始化失败会导致getDistinctId获取不到值，导致AppsFlyer初始化崩溃
+            if (!ThinkingAnalyticsSDK.sharedInstance.getDistinctId) {
+                if (Yodo1Commons.idfaString) {
+                    [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":Yodo1Commons.deviceId}];
+                } else {
+                    [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":@"00000000-0000-0000-0000-000000000000"}];
+                }
+                
+            } else {
+                [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":ThinkingAnalyticsSDK.sharedInstance.getDistinctId}];
+            }
+            
+            
             
             if (@available(iOS 14, *)) {
                 NSString* timeInterval = [Yd1OnlineParameter.shared stringConfigWithKey:@"AF_waitForATT_TimeoutInterval" defaultValue:@"60"];
