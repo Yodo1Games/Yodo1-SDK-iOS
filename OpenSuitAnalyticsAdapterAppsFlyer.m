@@ -52,7 +52,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
             // ThinkingData初始化失败会导致getDistinctId获取不到值，导致AppsFlyer初始化崩溃
             if (!ThinkingAnalyticsSDK.sharedInstance.getDistinctId) {
                 if (Yodo1Commons.idfaString) {
-                    [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":Yodo1Commons.deviceId}];
+                    [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":Yodo1Commons.idfaString}];
                 } else {
                     [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":@"00000000-0000-0000-0000-000000000000"}];
                 }
