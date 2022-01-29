@@ -16,10 +16,10 @@
 
 #import "Yodo1Ads.h"
 
-#ifdef YODO1_ANALYTICS
+//#ifdef YODO1_ANALYTICS
 #import "Yodo1AnalyticsManager.h"
 #import "OpenSuitAnalyticsManager.h"
-#endif
+//#endif
 
 #ifdef YODO1_SNS
 #import "OpenSuitSNSManager.h"
@@ -134,7 +134,7 @@ static NSString* __kAppKey = @"";
 
 + (void)analyticInit
 {
-#ifdef YODO1_ANALYTICS
+//#ifdef YODO1_ANALYTICS
     OpenSuitAnalyticsInitConfig * config = [[OpenSuitAnalyticsInitConfig alloc]init];
     config.gaCustomDimensions01 = kYodo1Config.gaCustomDimensions01;
     config.gaCustomDimensions02 = kYodo1Config.gaCustomDimensions02;
@@ -143,7 +143,7 @@ static NSString* __kAppKey = @"";
     config.gaResourceItemTypes = kYodo1Config.gaResourceItemTypes;
     config.appsflyerCustomUserId = kYodo1Config.appsflyerCustomUserId;
     [[OpenSuitAnalyticsManager sharedInstance]initializeAnalyticsWithConfig:config];
-#endif
+//#endif
 }
 
 
@@ -180,12 +180,12 @@ static NSString* __kAppKey = @"";
 }
 
 - (void)dealloc {
-#ifdef YODO1_ANALYTICS
+//#ifdef YODO1_ANALYTICS
     [[NSNotificationCenter defaultCenter]removeObserver:self
                                                    name:kYodo1OnlineConfigFinishedNotification
                                                  object:nil];
     kYodo1Config = nil;
-#endif
+//#endif
 }
 
 + (void)handleOpenURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication {
