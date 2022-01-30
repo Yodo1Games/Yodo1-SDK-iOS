@@ -16,10 +16,7 @@
 
 #import "Yodo1Ads.h"
 
-#ifdef YODO1_ANALYTICS
 #import "Yodo1AnalyticsManager.h"
-#endif
-
 #import "OpenSuitAnalyticsManager.h"
 
 #ifdef YODO1_SNS
