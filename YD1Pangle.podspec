@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'YD1Pangle'
-    s.version          = '6.0.8.1'
+    s.version          = '6.0.9'
     s.summary          = 'v4.2.0.2/优汇量统计版本v4.1.0.2'
 
     s.description      = <<-DESC
@@ -70,13 +70,13 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-    s.dependency 'Yodo1AdvertSDK','6.0.3'
-    # s.dependency 'Ads-CN', '4.2.0.2'
-    # s.dependency 'Ads-CN/Domestic', '4.2.0.2'
-    # s.dependency 'Ads-CN/International', '4.2.0.2'
+    s.dependency 'Yodo1AdvertSDK','6.0.4'
+    s.dependency 'Ads-CN', '4.2.0.2'
+    s.dependency 'Ads-CN/Domestic', '4.2.0.2'
+    s.dependency 'Ads-CN/International', '4.2.0.2'
 
-    s.dependency 'Ads-CN', '4.1.0.2'
-    s.dependency 'Ads-CN/Domestic', '4.1.0.2'
-    s.dependency 'Ads-CN/International', '4.1.0.2'
+    # s.dependency 'Ads-CN', '4.1.0.2'
+    # s.dependency 'Ads-CN/Domestic', '4.1.0.2'
+    # s.dependency 'Ads-CN/International', '4.1.0.2'
 
 end
