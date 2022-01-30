@@ -41,6 +41,7 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
     self = [super init];
     if (self) {
 
+#ifndef YODO1_ADS
         NSString* appId = [[Yodo1KeyInfo shareInstance] configInfoForKey:YODO1_ANALYTICS_TA_APPKEY];
         NSString* configURL = [[Yodo1KeyInfo shareInstance] configInfoForKey:YODO1_ANALYTICS_TA_SERVERURL];
         
@@ -49,6 +50,7 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         config.configureURL = configURL;
         
         [ThinkingAnalyticsSDK startWithConfig:config];
+#endif
         
 #ifdef DEBUG
         [ThinkingAnalyticsSDK setLogLevel:TDLoggingLevelDebug];
