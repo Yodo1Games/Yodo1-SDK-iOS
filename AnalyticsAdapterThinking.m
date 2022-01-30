@@ -40,9 +40,20 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
 {
     self = [super init];
     if (self) {
+
+        NSString* appId = [[Yodo1KeyInfo shareInstance] configInfoForKey:YODO1_ANALYTICS_TA_APPKEY];
+        NSString* configURL = [[Yodo1KeyInfo shareInstance] configInfoForKey:YODO1_ANALYTICS_TA_SERVERURL];
+        
+        TDConfig *config = [TDConfig new];
+        config.appid = appId;
+        config.configureURL = configURL;
+        
+        [ThinkingAnalyticsSDK startWithConfig:config];
+        
 #ifdef DEBUG
         [ThinkingAnalyticsSDK setLogLevel:TDLoggingLevelDebug];
 #endif
+        
         NSNumber* bThinkig = (NSNumber*)[Yodo1Tool.shared.cached objectForKey:@"ThinkingDataSwitch"];
         isThinkingSwitch = [bThinkig boolValue];
     }
