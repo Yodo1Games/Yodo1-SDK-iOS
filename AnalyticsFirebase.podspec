@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'AnalyticsFirebase'
-  s.version          = '6.0.3'
+  s.version          = '6.0.4'
   s.summary          = 'v8.10.0'
   
   s.description      = <<-DESC
@@ -70,7 +70,7 @@ Pod::Spec.new do |s|
   'c++',
   'z']
   
-  s.dependency 'Yodo1ThirdsAnalytics','6.0.3'
+  s.dependency 'Yodo1ThirdsAnalytics','6.0.7'
   s.dependency 'Firebase/Analytics','8.10.0'
   s.dependency 'Firebase/Crashlytics','8.10.0'
 end
