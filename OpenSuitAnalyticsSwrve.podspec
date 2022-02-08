@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'OpenSuitAnalyticsSwrve'
-    s.version          = '1.0.4'
+    s.version          = '1.0.5'
     s.summary          = 'v6.8.0->v7.1.0'
 
     s.description      = <<-DESC
@@ -76,7 +76,7 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-        s.dependency 'OpenSuitThirdsAnalytics','1.0.3'
+        s.dependency 'OpenSuitThirdsAnalytics','1.0.4'
         s.dependency 'Yodo1OnlineParameter','6.0.1'
         s.dependency 'SwrveSDK','7.3.0' 
 
