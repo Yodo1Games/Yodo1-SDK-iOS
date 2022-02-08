@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'OpenSuitAnalyticsTalkingData'
-    s.version          = '1.0.5'
+    s.version          = '1.0.6'
     s.summary          = 'v4.0.63'
 
     s.description      = <<-DESC
@@ -71,7 +71,7 @@ Pod::Spec.new do |s|
         'z']
 
 
-    s.dependency 'OpenSuitThirdsAnalytics','1.0.3'
+    s.dependency 'OpenSuitThirdsAnalytics','1.0.4'
     s.dependency 'Yodo1OnlineParameter','6.0.1'
 
 end
