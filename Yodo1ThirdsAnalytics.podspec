@@ -69,6 +69,6 @@ TODO: Add long description of the pod here.
     s.libraries = ['sqlite3', 'z']
 
     s.dependency 'Yodo1OnlineParameter','6.0.1'
-    s.dependency 'ThinkingSDK','2.7.3'
+    s.dependency 'ThinkingSDK','2.7.5'
 
 end
