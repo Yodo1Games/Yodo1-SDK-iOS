@@ -75,6 +75,6 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-    s.dependency 'Yodo1ThirdsAnalytics','6.0.8'
+    s.dependency 'Yodo1ThirdsAnalytics','6.0.5'
 
 end
