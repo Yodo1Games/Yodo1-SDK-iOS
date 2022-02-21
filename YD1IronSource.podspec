@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'YD1IronSource'
-    s.version          = '6.1.0'
+    s.version          = '6.0.9'
     s.summary          = 'v7.1.12.0'
 
     s.description      = <<-DESC
