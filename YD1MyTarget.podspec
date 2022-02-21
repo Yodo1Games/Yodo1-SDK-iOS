@@ -70,7 +70,7 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-    s.dependency 'Yodo1AdvertSDK','6.0.3'
+    s.dependency 'Yodo1AdvertSDK','6.0.4'
     # s.dependency 'myTargetSDK', '5.14.4'
     s.dependency 'Yodo1AdsMyTarget','6.0.2'
 end
