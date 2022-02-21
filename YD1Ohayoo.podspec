@@ -75,5 +75,5 @@ Pod::Spec.new do |s|
         'compression',
         'z']
 
-    s.dependency 'Yodo1AdvertSDK','6.0.3'
+    s.dependency 'Yodo1AdvertSDK','6.0.4'
 end
