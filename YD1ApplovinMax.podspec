@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'YD1ApplovinMax'
-    s.version          = '6.0.7'
+    s.version          = '6.0.6'
     s.summary          = '10.3.7'
 
     s.description      = <<-DESC
