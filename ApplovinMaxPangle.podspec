@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'ApplovinMaxPangle'
-    s.version          = '6.0.8.1'
+    s.version          = '6.0.9'
     s.summary          = 'v 6.0.8.1 是优汇量版本'
 
     s.description      = <<-DESC
@@ -72,11 +72,11 @@ Pod::Spec.new do |s|
         'c++',
         'z']
     
-    # s.dependency 'Ads-CN/Domestic','4.2.0.2'
-    # s.dependency 'Ads-CN/International','4.2.0.2'
-    # s.dependency 'Ads-CN','4.2.0.2'
-    s.dependency 'Ads-CN/Domestic','4.1.0.2'
-    s.dependency 'Ads-CN/International','4.1.0.2'
-    s.dependency 'Ads-CN','4.1.0.2'
-    s.dependency 'YD1ApplovinMax', '6.0.6'
+    s.dependency 'Ads-CN/Domestic','4.2.5.3'
+    s.dependency 'Ads-CN/International','4.2.5.3'
+    s.dependency 'Ads-CN','4.2.5.3'
+    #s.dependency 'Ads-CN/Domestic','4.1.0.2'
+    #s.dependency 'Ads-CN/International','4.1.0.2'
+    #s.dependency 'Ads-CN','4.1.0.2'
+    s.dependency 'YD1ApplovinMax', '6.0.7'
 end
