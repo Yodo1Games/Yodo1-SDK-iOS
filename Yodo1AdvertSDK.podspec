@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1AdvertSDK'
     s.version          = '6.0.4'
-    s.summary          = 'Yodo1AdvertSDK Have Banner,Intersttial,Video [修改广点通特殊处理逻辑]'
+    s.summary          = 'Yodo1AdvertSDK Have Banner,Intersttial,Video [修改广点通特殊处理逻辑]--------'
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
                        DESC
