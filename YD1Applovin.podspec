@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'YD1Applovin'
     s.version          = '6.0.7'
-    s.summary          = 'v11.1.0'
+    s.summary          = '11.1.0'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
