@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'ISTapjoy'
-    s.version          = '6.0.8'
+    s.version          = '6.0.9'
     s.summary          = 'v '
 
     s.description      = <<-DESC
@@ -73,5 +73,5 @@ Pod::Spec.new do |s|
         'z']
 
     s.dependency 'TapjoySDK','12.8.1'
-    s.dependency 'YD1IronSource', '6.0.9'
+    s.dependency 'YD1IronSource', '6.1.0'
 end
