@@ -77,8 +77,8 @@ Pod::Spec.new do |s|
     s.dependency 'Ads-CN/Domestic', '4.2.5.3'
     s.dependency 'Ads-CN/International', '4.2.5.3'
 
-    s.dependency 'Ads-CN', '4.1.0.2'
-    s.dependency 'Ads-CN/Domestic', '4.1.0.2'
-    s.dependency 'Ads-CN/International', '4.1.0.2'
+    #s.dependency 'Ads-CN', '4.1.0.2'
+    #s.dependency 'Ads-CN/Domestic', '4.1.0.2'
+    #s.dependency 'Ads-CN/International', '4.1.0.2'
     s.dependency 'YD1IronSource', '6.1.0'
 end
