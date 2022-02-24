@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'ISMyTarget'
-    s.version          = '6.1.0'
+    s.version          = '6.1.1'
     s.summary          = 'v '
 
     s.description      = <<-DESC
@@ -73,5 +73,5 @@ Pod::Spec.new do |s|
         'z']
     # s.dependency 'myTargetSDK','5.12.1'
     s.dependency 'Yodo1AdsMyTarget','6.0.2'
-    s.dependency 'YD1IronSource', '6.0.9'
+    s.dependency 'YD1IronSource', '6.1.0'
 end
