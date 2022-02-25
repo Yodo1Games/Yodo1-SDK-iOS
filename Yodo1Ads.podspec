@@ -542,7 +542,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
         # ss.dependency 'YD1GDT','6.1.1.1'
-        ss.dependency 'YD1GDT','6.1.3'
+        ss.dependency 'YD1GDT','6.1.4'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     
