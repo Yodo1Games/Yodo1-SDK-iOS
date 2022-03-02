@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'AnalyticsAppsFlyer'
-    s.version          = '6.0.6'
+    s.version          = '6.0.7'
     s.summary          = 'v6.3.2 [库的格式改变],更新到v6.4.0'
 
     s.description      = <<-DESC
