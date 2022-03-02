@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'OpenSuitAnalyticsAppsFlyer'
-    s.version          = '1.1.2'
+    s.version          = '1.1.3'
     s.summary          = 'v6.3.2 [库的格式改变],更新到v6.3.4'
 
     s.description      = <<-DESC

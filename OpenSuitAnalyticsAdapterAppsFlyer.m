@@ -63,7 +63,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
                 [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":ThinkingAnalyticsSDK.sharedInstance.getDistinctId}];
             }
             
-            if ([[[NSUserDefaults standardUserDefaults] objectForKey:YODO1LoginYID] length] > 0) {
+            if ([[[NSUserDefaults standardUserDefaults] objectForKey:OPENSUITLoginYID] length] > 0) {
                 [AppsFlyerLib.shared setAdditionalData:@{@"ta_account_id":[[NSUserDefaults standardUserDefaults] objectForKey:OPENSUITLoginYID]}];
             }
             
