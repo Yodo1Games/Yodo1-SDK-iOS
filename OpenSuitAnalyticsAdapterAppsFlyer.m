@@ -15,6 +15,8 @@
 #import "Yd1OnlineParameter.h"
 #import "ThinkingAnalyticsSDK.h"
 
+#define OPENSUITLoginYID @"YODO1LoginYID"
+
 NSString* const OPENSUIT_ANALYTICS_APPSFLYER_DEV_KEY       = @"AppsFlyerDevKey";
 NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 
@@ -59,6 +61,10 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
                 
             } else {
                 [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":ThinkingAnalyticsSDK.sharedInstance.getDistinctId}];
+            }
+            
+            if ([[[NSUserDefaults standardUserDefaults] objectForKey:YODO1LoginYID] length] > 0) {
+                [AppsFlyerLib.shared setAdditionalData:@{@"ta_account_id":[[NSUserDefaults standardUserDefaults] objectForKey:OPENSUITLoginYID]}];
             }
             
             
