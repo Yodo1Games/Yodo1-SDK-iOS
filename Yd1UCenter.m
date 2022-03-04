@@ -148,6 +148,8 @@
         }
         if ([[response allKeys]containsObject:Yd1OpsTools.data]) {
             NSDictionary* m_data = (NSDictionary*)[response objectForKey:Yd1OpsTools.data];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:m_data forKey:@"YODO1LoginUserData"];
             YD1User* user = [YD1User yodo1_modelWithDictionary:m_data];
             if (callback) {
                 callback(user,nil);
