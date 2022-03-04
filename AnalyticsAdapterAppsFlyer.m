@@ -97,7 +97,7 @@ NSString* const YODO1_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 
 - (void)eventAdAnalyticsWithName:(NSString *)eventName eventData:(NSDictionary *)eventData
 {
-    [AppsFlyerLib.shared logEvent:eventName withValues:@{}];
+    [AppsFlyerLib.shared logEvent:eventName withValues:eventData];
 }
 
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
