@@ -138,6 +138,31 @@ extern "C" {
             }else{
                 [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
             }
+            
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1LoginUserData"]) {
+
+                NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
+                userDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1LoginUserData"];
+
+                NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
+                [dataDict setObject:userDict[@"uid"] forKey:@"opsUid"];
+                [dataDict setObject:userDict[@"token"] forKey:@"opsToken"];
+                [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"thirdpartyChannel"];
+                [dataDict setObject:@"Yodo1" forKey:@"from"];
+                [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"level"];
+                [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"age"];
+                [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"gender"];
+                [dataDict setObject:[NSNumber numberWithBool:true] forKey:@"isLogin"];
+                [dataDict setObject:[NSNumber numberWithBool:userDict[@"isnewuser"]] forKey:@"isNewUser"];
+                [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"partyid"];
+                [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"partyroleid"];
+                [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"power"];
+                [dataDict setObject:userDict[@"yid"] forKey:@"yid"];
+                [dataDict setObject:userDict[@"uid"] forKey:@"userId"];
+                
+                [dict setObject:dataDict forKey:@"data"];
+            }
+            
             NSError* parseJSONError = nil;
             NSString* msg = [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
             if(parseJSONError){
@@ -145,6 +170,8 @@ extern "C" {
                 [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
                 [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                 msg =  [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
+            } else {
+                [dict setObject:[NSNumber numberWithInt:0] forKey:@"error_code"];
             }
             UnitySendMessage([ocObjectName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
