@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'AnalyticsUmeng'
-  s.version          = '6.0.5'
+  s.version          = '6.0.6'
   s.summary          = 'v7.2.4+G-->v7.3.3+G;添加UAPM crash 库，UMDevice v2.1.0,UMAPM v1.5.6'
   
   s.description      = <<-DESC
@@ -70,7 +70,7 @@ Pod::Spec.new do |s|
   'c++',
   'z']
   
-  s.dependency 'Yodo1ThirdsAnalytics','6.0.7'
+  s.dependency 'Yodo1ThirdsAnalytics','6.0.9'
   #由原来的UMCCommon变为UMCommon
   s.dependency 'UMCommon', '7.3.5'
   s.dependency 'UMAnalyticsGame', '7.3.5+G'
