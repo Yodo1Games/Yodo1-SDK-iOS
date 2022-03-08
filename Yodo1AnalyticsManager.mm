@@ -14,6 +14,9 @@
 #import "Yodo1UnityTool.h"
 #import "Yd1OnlineParameter.h"
 
+#define Yodo1OpenUrl        @"Yodo1OpenUrl"
+#define Yodo1UserActivity   @"Yodo1UserActivity"
+
 @implementation AnalyticsInitConfig
 
 
@@ -620,6 +623,64 @@ static BOOL _bInit_ = NO;
     }
 }
 
+/**
+ *  订阅openURL
+ *
+ *  @param application  生命周期中的application
+ *  @param url                    生命周期中的openurl
+ *  @param options           生命周期中的options
+ */
+- (void)SubApplication:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    if (application) {
+        [dict setObject:application forKey:@"application"];
+    } else {
+        [dict setObject:@"" forKey:@"application"];
+    }
+    if (url) {
+        [dict setObject:application forKey:@"url"];
+    } else {
+        [dict setObject:@"" forKey:@"url"];
+    }
+    if (options) {
+        [dict setObject:options forKey:@"options"];
+    } else {
+        [dict setObject:@"" forKey:@"options"];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1OpenUrl object:self userInfo:dict];
+}
+
+/**
+ *  订阅continueUserActivity
+ *
+ *  @param application                      生命周期中的application
+ *  @param userActivity                    生命周期中的userActivity
+ *  @param restorationHandler       生命周期中的restorationHandler
+ */
+
+- (void)SubApplication:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    if (application) {
+        [dict setObject:application forKey:@"application"];
+    } else {
+        [dict setObject:@"" forKey:@"application"];
+    }
+    if (userActivity) {
+        [dict setObject:userActivity forKey:@"userActivity"];
+    } else {
+        [dict setObject:@"" forKey:@"userActivity"];
+    }
+    if (restorationHandler) {
+        [dict setObject:restorationHandler forKey:@"restorationHandler"];
+    } else {
+        [dict setObject:@"" forKey:@"restorationHandler"];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1UserActivity object:self userInfo:dict];
+}
+
 - (void)dealloc
 {
     self.analyticsDict = nil;
@@ -834,6 +895,34 @@ extern "C" {
         NSString* eventData = Yodo1CreateNSString(jsonData);
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
         [[Yodo1AnalyticsManager sharedInstance]eventAdAnalyticsWithName:m_EventName eventData:eventDataDic];
+    }
+    
+    // save AppsFlyer deeplink
+    void UnitySaveToNativeRuntime(const char*deeplink, const char*appsflyer_id) {
+        NSMutableDictionary *msg = [NSMutableDictionary dictionary];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:msg forKey:@"YODO1AppsFlyerDeeplink"];
+        
+        NSString *deeplinkUrl = Yodo1CreateNSString(deeplink);
+        NSString *afID = Yodo1CreateNSString(appsflyer_id);
+        
+        if ([msg objectForKey:@"YODO1AppsFlyerDeeplink"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": afID.length?@"":afID, @"appsflyer_deeplink": deeplinkUrl.length?@"":deeplinkUrl} forKey:@"YODO1AppsFlyerDeeplink"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+    // get AppsFlyer deeplink
+    char* UnityGetNativeRuntime() {
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"]) {
+            NSMutableDictionary *deeplinkUrl = [NSMutableDictionary dictionary];
+           deeplinkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:deeplinkUrl options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *msg = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            msg = [msg stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            [msg stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            return Yodo1MakeStringCopy(msg.UTF8String);
+        }
+        return NULL;
     }
     
      #pragma mark - Swrve

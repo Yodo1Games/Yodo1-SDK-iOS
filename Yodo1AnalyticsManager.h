@@ -280,4 +280,23 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
 - (void)swrveTransactionProcessed:(SKPaymentTransaction*) transaction
                     productBought:(SKProduct*) product;
 
+
+/**
+ *  订阅openURL
+ *
+ *  @param application  生命周期中的application
+ *  @param url                    生命周期中的openurl
+ *  @param options           生命周期中的options
+ */
+- (void)SubApplication:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options;
+
+/**
+ *  订阅continueUserActivity
+ *
+ *  @param application                      生命周期中的application
+ *  @param userActivity                    生命周期中的userActivity
+ *  @param restorationHandler       生命周期中的restorationHandler
+ */
+- (void)SubApplication:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler;
+
 @end
