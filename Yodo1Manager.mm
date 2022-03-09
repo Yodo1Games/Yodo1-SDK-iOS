@@ -28,7 +28,7 @@
 #endif
 
 #ifdef YODO1_UCCENTER
-#import "OpenSuitPayManager.h"
+#import "Yd1UCenterManager.h"
 #endif
 
 #ifdef YODO1_SOOMLA
