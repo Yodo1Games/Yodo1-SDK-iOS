@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'ApplovinMaxFacebook'
-    s.version          = '6.0.9'
+    s.version          = '6.1.0'
     s.summary          = 'v '
 
     s.description      = <<-DESC
@@ -75,5 +75,5 @@ Pod::Spec.new do |s|
     # s.dependency 'FBAudienceNetwork','6.5.1'
     
     s.dependency 'Yodo1AdsFacebook','5.0.5'
-    s.dependency 'YD1ApplovinMax', '6.0.7'
+    s.dependency 'YD1ApplovinMax', '6.0.9'
 end
