@@ -15,12 +15,13 @@
 #import "Yd1OnlineParameter.h"
 #import "ThinkingAnalyticsSDK.h"
 
-#define OPENSUITLoginYID @"YODO1LoginYID"
+#define OpenSuitLoginYID @"YODO1LoginYID"
+#define OpenSuitAppsFlyerDeeplink @"YODO1AppsFlyerDeeplink"
 
 NSString* const OPENSUIT_ANALYTICS_APPSFLYER_DEV_KEY       = @"AppsFlyerDevKey";
 NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 
-@interface OpenSuitAnalyticsAdapterAppsFlyer ()<AppsFlyerLibDelegate>
+@interface OpenSuitAnalyticsAdapterAppsFlyer ()<AppsFlyerLibDelegate, AppsFlyerDeepLinkDelegate>
 
 @end
 
@@ -46,7 +47,9 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
             
             AppsFlyerLib.shared.appsFlyerDevKey = devkey;
             AppsFlyerLib.shared.appleAppID = appleAppId;
+
             AppsFlyerLib.shared.delegate = self;
+            AppsFlyerLib.shared.deepLinkDelegate = self;
 #ifdef DEBUG
             AppsFlyerLib.shared.isDebug = YES;
 #endif
@@ -63,11 +66,9 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
                 [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":ThinkingAnalyticsSDK.sharedInstance.getDistinctId}];
             }
             
-            if ([[[NSUserDefaults standardUserDefaults] objectForKey:OPENSUITLoginYID] length] > 0) {
-                [AppsFlyerLib.shared setAdditionalData:@{@"ta_account_id":[[NSUserDefaults standardUserDefaults] objectForKey:OPENSUITLoginYID]}];
+            if ([[[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitLoginYID] length] > 0) {
+                [AppsFlyerLib.shared setAdditionalData:@{@"ta_account_id":[[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitLoginYID]}];
             }
-            
-            
             
             if (@available(iOS 14, *)) {
                 NSString* timeInterval = [Yd1OnlineParameter.shared stringConfigWithKey:@"AF_waitForATT_TimeoutInterval" defaultValue:@"60"];
@@ -89,9 +90,20 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
                 AppsFlyerLib.shared.isStopped = true;
             } else {
                 [AppsFlyerLib.shared start];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": @""} forKey:OpenSuitAppsFlyerDeeplink];
                 [[NSNotificationCenter defaultCenter] addObserver:self
                     selector:@selector(sendLaunch:)
                     name:UIApplicationDidBecomeActiveNotification
+                    object:nil];
+                
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(sendApplicationOfOpenURL:)
+                    name:@"Yodo1OpenUrl"
+                    object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(sendApplicationOfContinueUserActivity:)
+                    name:@"Yodo1UserActivity"
                     object:nil];
             }
         }
@@ -101,6 +113,15 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 
 -(void)sendLaunch:(UIApplication *)application {
     [AppsFlyerLib.shared start];
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink]) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        dict = [[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": dict[@"appsflyer_deeplink"]} forKey:OpenSuitAppsFlyerDeeplink];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)eventWithAnalyticsEventName:(NSString *)eventName
@@ -157,6 +178,62 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 
 - (void)dealloc {
     [NSNotificationCenter.defaultCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    //删除观察者
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"Yodo1OpenUrl" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"Yodo1UserActivity" object:nil];
+}
+
+// deeplink
+- (BOOL)sendApplicationOfContinueUserActivity:(NSNotification *)noti {
+    NSDictionary *dict = noti.userInfo;
+    if ([dict[@"userActivity"] length] == 0) {
+        [AppsFlyerLib.shared continueUserActivity:nil restorationHandler:nil];
+    } else {
+        [AppsFlyerLib.shared continueUserActivity:dict[@"userActivity"] restorationHandler:nil];
+    }
+    
+    return YES;
+}
+
+- (BOOL)sendApplicationOfOpenURL:(NSNotification *)noti {
+    
+    NSDictionary *dict = noti.userInfo;
+    [AppsFlyerLib.shared handleOpenUrl:dict[@"url"] options:dict[@"options"]];
+    return YES;
+}
+
+- (void)didResolveDeepLink:(AppsFlyerDeepLinkResult *)result {
+    switch (result.status) {
+        case AFSDKDeepLinkResultStatusNotFound:
+            NSLog(@"Deep link not found");
+            break;
+        case AFSDKDeepLinkResultStatusFound:
+        {
+            NSLog(@"DeepLink data is: %@", result.deepLink.toString);
+            
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink]) {
+                if ([[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink]) {
+                    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                    dict = [[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink];
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": result.deepLink.toString} forKey:OpenSuitAppsFlyerDeeplink];
+                    
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                }
+            }
+            if (result.deepLink.isDeferred) {
+                NSLog(@"This is a deferred deep link");
+            } else {
+                NSLog(@"This is a direct deep link");
+            }
+        }
+            break;
+        case AFSDKDeepLinkResultStatusFailure:
+            NSLog(@"Error %@", result.error);
+            break;
+        default:
+            break;
+    }
 }
 
 @end
