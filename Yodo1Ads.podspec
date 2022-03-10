@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
         ss.dependency 'Yodo1AdvertSDK','6.0.5'
         ss.dependency 'Bugly','2.5.91'
         ss.dependency 'Yodo1Analytics','6.0.1'
-        ss.dependency 'OpenSuitThirdsAnalytics', '1.0.4'
+        ss.dependency 'OpenSuitThirdsAnalytics', '1.0.5'
     end
 
     s.subspec 'Yodo1_ConfigKey' do |ss|
@@ -140,7 +140,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        #ss.dependency 'OpenSuitPayment','1.0.8'
+        #ss.dependency 'OpenSuitPayment','1.0.9'
         ss.dependency 'Yodo1UCenter','6.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
@@ -322,7 +322,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.1.1'
+        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.1.5'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsFirebase' do |ss|
@@ -334,7 +334,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsFirebase','1.0.5'
+        ss.dependency 'OpenSuitAnalyticsFirebase','1.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsSwrve' do |ss|
@@ -346,7 +346,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsSwrve','1.0.5'
+        ss.dependency 'OpenSuitAnalyticsSwrve','1.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     
@@ -359,7 +359,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsTalkingData','1.0.6'
+        ss.dependency 'OpenSuitAnalyticsTalkingData','1.0.7'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsUmeng' do |ss|
@@ -371,7 +371,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsUmeng','1.0.4'
+        ss.dependency 'OpenSuitAnalyticsUmeng','1.0.5'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     
