@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'AdmobChartboost'
-    s.version          = '6.0.8'
+    s.version          = '6.0.9'
     s.summary          = 'v '
 
     s.description      = <<-DESC
@@ -72,6 +72,6 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-    s.dependency 'YD1Admob', '6.0.6'
+    s.dependency 'YD1Admob', '6.0.7'
     s.dependency 'ChartboostSDK','8.5.0.1'
 end
