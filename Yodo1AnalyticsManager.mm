@@ -80,7 +80,7 @@ static BOOL _bInit_ = NO;
     return YES;
 }
 
-- (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig  
+- (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig
 {
     if (_bInit_) {
         return;
@@ -202,7 +202,7 @@ static BOOL _bInit_ = NO;
     }
 }
 
-- (void)eventAdAnalyticsWithName:(NSString *)eventName 
+- (void)eventAdAnalyticsWithName:(NSString *)eventName
                        eventData:(NSDictionary *)eventData
 {
     if (eventName == nil) {
@@ -636,17 +636,17 @@ static BOOL _bInit_ = NO;
     if (application) {
         [dict setObject:application forKey:@"application"];
     } else {
-        [dict setObject:@"" forKey:@"application"];
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"application"];
     }
     if (url) {
-        [dict setObject:application forKey:@"url"];
+        [dict setObject:url forKey:@"url"];
     } else {
-        [dict setObject:@"" forKey:@"url"];
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"url"];
     }
     if (options) {
         [dict setObject:options forKey:@"options"];
     } else {
-        [dict setObject:@"" forKey:@"options"];
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"options"];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1OpenUrl object:self userInfo:dict];
 }
@@ -665,17 +665,17 @@ static BOOL _bInit_ = NO;
     if (application) {
         [dict setObject:application forKey:@"application"];
     } else {
-        [dict setObject:@"" forKey:@"application"];
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"application"];
     }
     if (userActivity) {
         [dict setObject:userActivity forKey:@"userActivity"];
     } else {
-        [dict setObject:@"" forKey:@"userActivity"];
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"userActivity"];
     }
     if (restorationHandler) {
         [dict setObject:restorationHandler forKey:@"restorationHandler"];
     } else {
-        [dict setObject:@"" forKey:@"restorationHandler"];
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"restorationHandler"];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1UserActivity object:self userInfo:dict];
@@ -898,30 +898,55 @@ extern "C" {
     }
     
     // save AppsFlyer deeplink
-    void UnitySaveToNativeRuntime(const char*deeplink, const char*appsflyer_id) {
-        NSMutableDictionary *msg = [NSMutableDictionary dictionary];
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:msg forKey:@"YODO1AppsFlyerDeeplink"];
+    void UnitySaveToNativeRuntime(const char*key, const char*valuepairs) {
         
-        NSString *deeplinkUrl = Yodo1CreateNSString(deeplink);
-        NSString *afID = Yodo1CreateNSString(appsflyer_id);
+        NSString *keyString = Yodo1CreateNSString(key);
+        NSString *valuepairsString = Yodo1CreateNSString(valuepairs);
         
-        if ([msg objectForKey:@"YODO1AppsFlyerDeeplink"]) {
-            [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": afID.length?@"":afID, @"appsflyer_deeplink": deeplinkUrl.length?@"":deeplinkUrl} forKey:@"YODO1AppsFlyerDeeplink"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+        if ([keyString isEqualToString:@"appsflyer_id"] || [keyString isEqualToString:@"appsflyer_deeplink"]) {
+            NSMutableDictionary *msg = [NSMutableDictionary dictionary];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            if ([userDefaults objectForKey:@"YODO1AppsFlyerDeeplink"]) {
+                msg = [userDefaults objectForKey:@"YODO1AppsFlyerDeeplink"];
+                if ([keyString isEqualToString:@"appsflyer_id"]) {
+                    [userDefaults setObject:@{keyString: valuepairsString, @"appsflyer_deeplink": msg[@"appsflyer_deeplink"]} forKey:@"YODO1AppsFlyerDeeplink"];
+                }
+                
+                if ([keyString isEqualToString:@"appsflyer_deeplink"]) {
+                    [userDefaults setObject:@{keyString: valuepairsString, @"appsflyer_id": msg[@"appsflyer_id"]} forKey:@"YODO1AppsFlyerDeeplink"];
+                }
+                
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        } else {
+            if (keyString.length > 0 && valuepairsString.length > 0) {
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@{keyString: valuepairsString} forKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
         }
+        
+        
     }
     // get AppsFlyer deeplink
-    char* UnityGetNativeRuntime() {
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"]) {
-            NSMutableDictionary *deeplinkUrl = [NSMutableDictionary dictionary];
-           deeplinkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"];
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:deeplinkUrl options:NSJSONWritingPrettyPrinted error:nil];
-            NSString *msg = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            msg = [msg stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            [msg stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            return Yodo1MakeStringCopy(msg.UTF8String);
+    char* UnityGetNativeRuntime(const char*key) {
+        NSString *keyString = Yodo1CreateNSString(key);
+        if ([keyString isEqualToString:@"appsflyer_id"] || [keyString isEqualToString:@"appsflyer_deeplink"]) {
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"]) {
+                NSMutableDictionary *deeplinkUrl = [NSMutableDictionary dictionary];
+                deeplinkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"];
+                NSString *msg = deeplinkUrl[keyString];
+                return Yodo1MakeStringCopy(msg.UTF8String);
+            } else {
+                if (keyString.length > 0 && [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]]) {
+                    NSMutableDictionary *deeplinkUrl = [NSMutableDictionary dictionary];
+                    deeplinkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]];
+                    NSString *msg = deeplinkUrl[keyString];
+                    return Yodo1MakeStringCopy(msg.UTF8String);
+                }
+            }
         }
+        
         return NULL;
     }
     
