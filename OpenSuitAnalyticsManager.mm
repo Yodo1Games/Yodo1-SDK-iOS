@@ -14,6 +14,9 @@
 #import "Yodo1UnityTool.h"
 #import "Yd1OnlineParameter.h"
 
+#define OpenSuitOpenUrl        @"Yodo1OpenUrl"
+#define OpenSuitUserActivity   @"Yodo1UserActivity"
+
 @implementation OpenSuitAnalyticsInitConfig
 
 
@@ -620,6 +623,64 @@ static BOOL _bInit_ = NO;
     }
 }
 
+/**
+ *  订阅openURL
+ *
+ *  @param application  生命周期中的application
+ *  @param url                    生命周期中的openurl
+ *  @param options           生命周期中的options
+ */
+- (void)SubApplication:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    if (application) {
+        [dict setObject:application forKey:@"application"];
+    } else {
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"application"];
+    }
+    if (url) {
+        [dict setObject:url forKey:@"url"];
+    } else {
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"url"];
+    }
+    if (options) {
+        [dict setObject:options forKey:@"options"];
+    } else {
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"options"];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitOpenUrl object:self userInfo:dict];
+}
+
+/**
+ *  订阅continueUserActivity
+ *
+ *  @param application                      生命周期中的application
+ *  @param userActivity                    生命周期中的userActivity
+ *  @param restorationHandler       生命周期中的restorationHandler
+ */
+
+- (void)SubApplication:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    if (application) {
+        [dict setObject:application forKey:@"application"];
+    } else {
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"application"];
+    }
+    if (userActivity) {
+        [dict setObject:userActivity forKey:@"userActivity"];
+    } else {
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"userActivity"];
+    }
+    if (restorationHandler) {
+        [dict setObject:restorationHandler forKey:@"restorationHandler"];
+    } else {
+        [dict setObject:[NSNumber numberWithBool:false] forKey:@"restorationHandler"];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitUserActivity object:self userInfo:dict];
+}
+
 - (void)dealloc
 {
     self.analyticsDict = nil;
@@ -834,6 +895,59 @@ extern "C" {
         NSString* eventData = Yodo1CreateNSString(jsonData);
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
         [[OpenSuitAnalyticsManager sharedInstance]eventAdAnalyticsWithName:m_EventName eventData:eventDataDic];
+    }
+    
+    // save AppsFlyer deeplink
+    void Unity_SaveToNativeRuntime(const char*key, const char*valuepairs) {
+        
+        NSString *keyString = Yodo1CreateNSString(key);
+        NSString *valuepairsString = Yodo1CreateNSString(valuepairs);
+        
+        if ([keyString isEqualToString:@"appsflyer_id"] || [keyString isEqualToString:@"appsflyer_deeplink"]) {
+            NSMutableDictionary *msg = [NSMutableDictionary dictionary];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            if ([userDefaults objectForKey:@"YODO1AppsFlyerDeeplink"]) {
+                msg = [userDefaults objectForKey:@"YODO1AppsFlyerDeeplink"];
+                if ([keyString isEqualToString:@"appsflyer_id"]) {
+                    [userDefaults setObject:@{keyString: valuepairsString, @"appsflyer_deeplink": msg[@"appsflyer_deeplink"]} forKey:@"YODO1AppsFlyerDeeplink"];
+                }
+                
+                if ([keyString isEqualToString:@"appsflyer_deeplink"]) {
+                    [userDefaults setObject:@{keyString: valuepairsString, @"appsflyer_id": msg[@"appsflyer_id"]} forKey:@"YODO1AppsFlyerDeeplink"];
+                }
+                
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        } else {
+            if (keyString.length > 0 && valuepairsString.length > 0) {
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:@{keyString: valuepairsString} forKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
+        
+        
+    }
+    // get AppsFlyer deeplink
+    char* Unity_GetNativeRuntime(const char*key) {
+        NSString *keyString = Yodo1CreateNSString(key);
+        if ([keyString isEqualToString:@"appsflyer_id"] || [keyString isEqualToString:@"appsflyer_deeplink"]) {
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"]) {
+                NSMutableDictionary *deeplinkUrl = [NSMutableDictionary dictionary];
+                deeplinkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"];
+                NSString *msg = deeplinkUrl[keyString];
+                return Yodo1MakeStringCopy(msg.UTF8String);
+            } else {
+                if (keyString.length > 0 && [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]]) {
+                    NSMutableDictionary *deeplinkUrl = [NSMutableDictionary dictionary];
+                    deeplinkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]];
+                    NSString *msg = deeplinkUrl[keyString];
+                    return Yodo1MakeStringCopy(msg.UTF8String);
+                }
+            }
+        }
+        
+        return NULL;
     }
     
      #pragma mark - Swrve
