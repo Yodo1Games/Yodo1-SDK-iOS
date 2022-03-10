@@ -133,11 +133,12 @@ extern "C" {
         if(ocObjectName != nil && ocMethodName != nil){
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
             [dict setObject:[NSNumber numberWithInt:3001] forKey:@"resulType"];
-            if([[GameCenterManager sharedManager]isGameCenterAvailable]){
-                [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
-            }else{
-                [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
-            }
+//            if([[GameCenterManager sharedManager]isGameCenterAvailable]){
+//                [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
+//            }else{
+//                [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
+//            }
+            [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
             
             if ([[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1LoginUserData"]) {
 
