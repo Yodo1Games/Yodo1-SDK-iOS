@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'ApplovinMaxPangle'
-    s.version          = '6.0.9'
+    s.version          = '6.1.0'
     s.summary          = 'v 6.0.8.1 是优汇量版本'
 
     s.description      = <<-DESC
@@ -78,5 +78,5 @@ Pod::Spec.new do |s|
     #s.dependency 'Ads-CN/Domestic','4.1.0.2'
     #s.dependency 'Ads-CN/International','4.1.0.2'
     #s.dependency 'Ads-CN','4.1.0.2'
-    s.dependency 'YD1ApplovinMax', '6.0.7'
+    s.dependency 'YD1ApplovinMax', '6.0.9'
 end
