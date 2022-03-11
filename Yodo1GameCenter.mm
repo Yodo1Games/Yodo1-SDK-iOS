@@ -154,7 +154,12 @@ extern "C" {
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"age"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"gender"];
                 [dataDict setObject:[NSNumber numberWithBool:true] forKey:@"isLogin"];
-                [dataDict setObject:[NSNumber numberWithBool:userDict[@"isnewuser"]] forKey:@"isNewUser"];
+                NSInteger isnew = [userDict[@"isnewuser"] integerValue];
+                if (isnew == 1) {
+                    [dataDict setObject:[NSNumber numberWithBool:true] forKey:@"isNewUser"];
+                } else {
+                    [dataDict setObject:[NSNumber numberWithBool:false] forKey:@"isNewUser"];
+                }
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"partyid"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"partyroleid"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"power"];
