@@ -11,6 +11,7 @@
 #import "Yodo1Commons.h"
 #import "GameCenterManager.h"
 #import "Yodo1UnityTool.h"
+#import "Yd1UCenter.h"
 
 @interface Yodo1GameCenter ()<GameCenterManagerDelegate>
 
@@ -129,60 +130,59 @@ extern "C" {
     {
         NSString *ocObjectName = Yodo1CreateNSString(callbackGameObj);
         NSString *ocMethodName = Yodo1CreateNSString(callbackMethod);
-        
-        if(ocObjectName != nil && ocMethodName != nil){
-            NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-            [dict setObject:[NSNumber numberWithInt:3001] forKey:@"resulType"];
-//            if([[GameCenterManager sharedManager]isGameCenterAvailable]){
-//                [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
-//            }else{
-//                [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
-//            }
-            [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
+        [Yd1UCenter.shared deviceLoginWithPlayerId:@"" callback:^(YD1User * _Nullable user, NSError * _Nullable error) {
             
-            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1LoginUserData"]) {
-
-                NSMutableDictionary *userDict = [NSMutableDictionary dictionary];
-                userDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1LoginUserData"];
+            if (error) {
+                return;
+            }
+            
+            if(ocObjectName != nil && ocMethodName != nil){
+                NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+                [dict setObject:[NSNumber numberWithInt:3001] forKey:@"resulType"];
+                [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
+                
 
                 NSMutableDictionary *dataDict = [NSMutableDictionary dictionary];
-                [dataDict setObject:userDict[@"uid"] forKey:@"opsUid"];
-                [dataDict setObject:userDict[@"token"] forKey:@"opsToken"];
+                [dataDict setObject:user.uid forKey:@"opsUid"];
+                [dataDict setObject:user.token forKey:@"opsToken"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"thirdpartyChannel"];
                 [dataDict setObject:@"Yodo1" forKey:@"from"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"level"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"age"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"gender"];
                 [dataDict setObject:[NSNumber numberWithBool:true] forKey:@"isLogin"];
-                NSInteger isnew = [userDict[@"isnewuser"] integerValue];
+                
+                int isnew = user.isnewuser;
                 if (isnew == 1) {
                     [dataDict setObject:[NSNumber numberWithBool:true] forKey:@"isNewUser"];
                 } else {
                     [dataDict setObject:[NSNumber numberWithBool:false] forKey:@"isNewUser"];
                 }
+                
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"partyid"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"partyroleid"];
                 [dataDict setObject:[NSNumber numberWithInt:0] forKey:@"power"];
-                [dataDict setObject:userDict[@"yid"] forKey:@"yid"];
-                [dataDict setObject:userDict[@"uid"] forKey:@"userId"];
+                [dataDict setObject:user.yid forKey:@"yid"];
+                [dataDict setObject:user.uid forKey:@"userId"];
                 
                 [dict setObject:dataDict forKey:@"data"];
+                
+                NSError* parseJSONError = nil;
+                NSString* msg = [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
+                if(parseJSONError){
+                    [dict setObject:[NSNumber numberWithInt:3001] forKey:@"resulType"];
+                    [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
+                    [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
+                    msg =  [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
+                } else {
+                    [dict setObject:[NSNumber numberWithInt:0] forKey:@"error_code"];
+                }
+                UnitySendMessage([ocObjectName cStringUsingEncoding:NSUTF8StringEncoding],
+                                 [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
+                                 [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             }
             
-            NSError* parseJSONError = nil;
-            NSString* msg = [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
-            if(parseJSONError){
-                [dict setObject:[NSNumber numberWithInt:3001] forKey:@"resulType"];
-                [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
-                [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
-                msg =  [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
-            } else {
-                [dict setObject:[NSNumber numberWithInt:0] forKey:@"error_code"];
-            }
-            UnitySendMessage([ocObjectName cStringUsingEncoding:NSUTF8StringEncoding],
-                             [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
-                             [msg cStringUsingEncoding:NSUTF8StringEncoding]);
-        }
+        }];
     }
     
     //是否登录
