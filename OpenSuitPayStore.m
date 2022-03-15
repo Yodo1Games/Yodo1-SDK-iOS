@@ -25,21 +25,21 @@ NSInteger const OpenSuitPayStoreErrorCodeDownloadCanceled = 300;
 NSInteger const OpenSuitPayStoreErrorCodeUnknownProductIdentifier = 100;
 NSInteger const OpenSuitPayStoreErrorCodeUnableToCompleteVerification = 200;
 
-NSString* const RMSKDownloadCanceled = @"RMSKDownloadCanceled";
-NSString* const RMSKDownloadFailed = @"RMSKDownloadFailed";
-NSString* const RMSKDownloadFinished = @"RMSKDownloadFinished";
-NSString* const RMSKDownloadPaused = @"RMSKDownloadPaused";
-NSString* const RMSKDownloadUpdated = @"RMSKDownloadUpdated";
-NSString* const RMSKPaymentTransactionDeferred = @"RMSKPaymentTransactionDeferred";
-NSString* const RMSKPaymentTransactionFailed = @"RMSKPaymentTransactionFailed";
-NSString* const RMSKPaymentTransactionFinished = @"RMSKPaymentTransactionFinished";
-NSString* const RMSKProductsRequestFailed = @"RMSKProductsRequestFailed";
-NSString* const RMSKProductsRequestFinished = @"RMSKProductsRequestFinished";
-NSString* const RMSKRefreshReceiptFailed = @"RMSKRefreshReceiptFailed";
-NSString* const RMSKRefreshReceiptFinished = @"RMSKRefreshReceiptFinished";
-NSString* const RMSKRestoreTransactionsFailed = @"RMSKRestoreTransactionsFailed";
-NSString* const RMSKRestoreTransactionsFinished = @"RMSKRestoreTransactionsFinished";
-NSString* const RMSKProductsPromotionFinished = @"RMSKProductsPromotionFinished";
+NSString* const OpenSuitSKDownloadCanceled = @"RMSKDownloadCanceled";
+NSString* const OpenSuitSKDownloadFailed = @"RMSKDownloadFailed";
+NSString* const OpenSuitSKDownloadFinished = @"RMSKDownloadFinished";
+NSString* const OpenSuitSKDownloadPaused = @"RMSKDownloadPaused";
+NSString* const OpenSuitSKDownloadUpdated = @"RMSKDownloadUpdated";
+NSString* const OpenSuitSKPaymentTransactionDeferred = @"RMSKPaymentTransactionDeferred";
+NSString* const OpenSuitSKPaymentTransactionFailed = @"RMSKPaymentTransactionFailed";
+NSString* const OpenSuitSKPaymentTransactionFinished = @"RMSKPaymentTransactionFinished";
+NSString* const OpenSuitSKProductsRequestFailed = @"RMSKProductsRequestFailed";
+NSString* const OpenSuitSKProductsRequestFinished = @"RMSKProductsRequestFinished";
+NSString* const OpenSuitSKRefreshReceiptFailed = @"RMSKRefreshReceiptFailed";
+NSString* const OpenSuitSKRefreshReceiptFinished = @"RMSKRefreshReceiptFinished";
+NSString* const OpenSuitSKRestoreTransactionsFailed = @"RMSKRestoreTransactionsFailed";
+NSString* const OpenSuitSKRestoreTransactionsFinished = @"RMSKRestoreTransactionsFinished";
+NSString* const OpenSuitSKProductsPromotionFinished = @"RMSKProductsPromotionFinished";
 
 NSString* const OpenSuitPayStoreNotificationInvalidProductIdentifiers = @"invalidProductIdentifiers";
 NSString* const OpenSuitPayStoreNotificationDownloadProgress = @"downloadProgress";
@@ -106,7 +106,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
 
 @end
 
-@interface RMProductsRequestDelegate : NSObject<SKProductsRequestDelegate>
+@interface OpenSuitProductsRequestDelegate : NSObject<SKProductsRequestDelegate>
 
 @property (nonatomic, strong) RMSKProductsRequestSuccessBlock successBlock;
 @property (nonatomic, strong) RMSKProductsRequestFailureBlock failureBlock;
@@ -114,14 +114,14 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
 
 @end
 
-@interface RMAddPaymentParameters : NSObject
+@interface OpenSuitAddPaymentParameters : NSObject
 
 @property (nonatomic, strong) RMSKPaymentTransactionSuccessBlock successBlock;
 @property (nonatomic, strong) RMSKPaymentTransactionFailureBlock failureBlock;
 
 @end
 
-@implementation RMAddPaymentParameters
+@implementation OpenSuitAddPaymentParameters
 
 @end
 
@@ -198,7 +198,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
                       success:(void (^)(SKPaymentTransaction *transaction))successBlock
                       failure:(void (^)(SKPaymentTransaction *transaction, NSError *error))failureBlock {
     
-    RMAddPaymentParameters *parameters = [[RMAddPaymentParameters alloc] init];
+    OpenSuitAddPaymentParameters *parameters = [[OpenSuitAddPaymentParameters alloc] init];
     parameters.successBlock = successBlock;
     parameters.failureBlock = failureBlock;
     _addPaymentParameters[payment.productIdentifier] = parameters;
@@ -227,7 +227,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
         payment.applicationUsername = userIdentifier;
     }
     
-    RMAddPaymentParameters *parameters = [[RMAddPaymentParameters alloc] init];
+    OpenSuitAddPaymentParameters *parameters = [[OpenSuitAddPaymentParameters alloc] init];
     parameters.successBlock = successBlock;
     parameters.failureBlock = failureBlock;
     _addPaymentParameters[productIdentifier] = parameters;
@@ -244,7 +244,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
                 success:(RMSKProductsRequestSuccessBlock)successBlock
                 failure:(RMSKProductsRequestFailureBlock)failureBlock
 {
-    RMProductsRequestDelegate *delegate = [[RMProductsRequestDelegate alloc] init];
+    OpenSuitProductsRequestDelegate *delegate = [[OpenSuitProductsRequestDelegate alloc] init];
     delegate.store = self;
     delegate.successBlock = successBlock;
     delegate.failureBlock = failureBlock;
@@ -329,40 +329,40 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
 
 - (void)addStoreObserver:(id<OpenSuitPayStoreObserver>)observer
 {
-    [self addStoreObserver:observer selector:@selector(storeDownloadCanceled:) notificationName:RMSKDownloadCanceled];
-    [self addStoreObserver:observer selector:@selector(storeDownloadFailed:) notificationName:RMSKDownloadFailed];
-    [self addStoreObserver:observer selector:@selector(storeDownloadFinished:) notificationName:RMSKDownloadFinished];
-    [self addStoreObserver:observer selector:@selector(storeDownloadPaused:) notificationName:RMSKDownloadPaused];
-    [self addStoreObserver:observer selector:@selector(storeDownloadUpdated:) notificationName:RMSKDownloadUpdated];
-    [self addStoreObserver:observer selector:@selector(storeProductsRequestFailed:) notificationName:RMSKProductsRequestFailed];
-    [self addStoreObserver:observer selector:@selector(storeProductsRequestFinished:) notificationName:RMSKProductsRequestFinished];
-    [self addStoreObserver:observer selector:@selector(storePaymentTransactionDeferred:) notificationName:RMSKPaymentTransactionDeferred];
-    [self addStoreObserver:observer selector:@selector(storePaymentTransactionFailed:) notificationName:RMSKPaymentTransactionFailed];
-    [self addStoreObserver:observer selector:@selector(storePaymentTransactionFinished:) notificationName:RMSKPaymentTransactionFinished];
-    [self addStoreObserver:observer selector:@selector(storeRefreshReceiptFailed:) notificationName:RMSKRefreshReceiptFailed];
-    [self addStoreObserver:observer selector:@selector(storeRefreshReceiptFinished:) notificationName:RMSKRefreshReceiptFinished];
-    [self addStoreObserver:observer selector:@selector(storeRestoreTransactionsFailed:) notificationName:RMSKRestoreTransactionsFailed];
-    [self addStoreObserver:observer selector:@selector(storeRestoreTransactionsFinished:) notificationName:RMSKRestoreTransactionsFinished];
-    [self addStoreObserver:observer selector:@selector(storePromotionPaymentFinished:) notificationName:RMSKProductsPromotionFinished];
+    [self addStoreObserver:observer selector:@selector(storeDownloadCanceled:) notificationName:OpenSuitSKDownloadCanceled];
+    [self addStoreObserver:observer selector:@selector(storeDownloadFailed:) notificationName:OpenSuitSKDownloadFailed];
+    [self addStoreObserver:observer selector:@selector(storeDownloadFinished:) notificationName:OpenSuitSKDownloadFinished];
+    [self addStoreObserver:observer selector:@selector(storeDownloadPaused:) notificationName:OpenSuitSKDownloadPaused];
+    [self addStoreObserver:observer selector:@selector(storeDownloadUpdated:) notificationName:OpenSuitSKDownloadUpdated];
+    [self addStoreObserver:observer selector:@selector(storeProductsRequestFailed:) notificationName:OpenSuitSKProductsRequestFailed];
+    [self addStoreObserver:observer selector:@selector(storeProductsRequestFinished:) notificationName:OpenSuitSKProductsRequestFinished];
+    [self addStoreObserver:observer selector:@selector(storePaymentTransactionDeferred:) notificationName:OpenSuitSKPaymentTransactionDeferred];
+    [self addStoreObserver:observer selector:@selector(storePaymentTransactionFailed:) notificationName:OpenSuitSKPaymentTransactionFailed];
+    [self addStoreObserver:observer selector:@selector(storePaymentTransactionFinished:) notificationName:OpenSuitSKPaymentTransactionFinished];
+    [self addStoreObserver:observer selector:@selector(storeRefreshReceiptFailed:) notificationName:OpenSuitSKRefreshReceiptFailed];
+    [self addStoreObserver:observer selector:@selector(storeRefreshReceiptFinished:) notificationName:OpenSuitSKRefreshReceiptFinished];
+    [self addStoreObserver:observer selector:@selector(storeRestoreTransactionsFailed:) notificationName:OpenSuitSKRestoreTransactionsFailed];
+    [self addStoreObserver:observer selector:@selector(storeRestoreTransactionsFinished:) notificationName:OpenSuitSKRestoreTransactionsFinished];
+    [self addStoreObserver:observer selector:@selector(storePromotionPaymentFinished:) notificationName:OpenSuitSKProductsPromotionFinished];
 }
 
 - (void)removeStoreObserver:(id<OpenSuitPayStoreObserver>)observer
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKDownloadCanceled object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKDownloadFailed object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKDownloadFinished object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKDownloadPaused object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKDownloadUpdated object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKProductsRequestFailed object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKProductsRequestFinished object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKPaymentTransactionDeferred object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKPaymentTransactionFailed object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKPaymentTransactionFinished object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKRefreshReceiptFailed object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKRefreshReceiptFinished object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKRestoreTransactionsFailed object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKRestoreTransactionsFinished object:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:observer name:RMSKProductsPromotionFinished object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKDownloadCanceled object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKDownloadFailed object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKDownloadFinished object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKDownloadPaused object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKDownloadUpdated object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKProductsRequestFailed object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKProductsRequestFinished object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKPaymentTransactionDeferred object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKPaymentTransactionFailed object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKPaymentTransactionFinished object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKRefreshReceiptFailed object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKRefreshReceiptFinished object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKRestoreTransactionsFailed object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKRestoreTransactionsFinished object:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:observer name:OpenSuitSKProductsPromotionFinished object:self];
 }
 
 // Private
@@ -422,7 +422,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     { // error might be nil (e.g., on airplane mode)
         userInfo = @{OpenSuitPayStoreNotificationStoreError: error};
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:RMSKRestoreTransactionsFailed object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitSKRestoreTransactionsFailed object:self userInfo:userInfo];
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray *)downloads
@@ -455,7 +455,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
 #ifdef __IPHONE_11_0
 - (BOOL)paymentQueue:(SKPaymentQueue *)queue shouldAddStorePayment:(SKPayment *)payment forProduct:(SKProduct *)product {
     NSDictionary *userInfo = @{ OpenSuitPayStoreNotificationPromotion : payment };
-    [[NSNotificationCenter defaultCenter] postNotificationName:RMSKProductsPromotionFinished object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitSKProductsPromotionFinished object:self userInfo:userInfo];
     //defer
     return NO;
 }
@@ -474,7 +474,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     SKPaymentTransaction *transaction = download.transaction;
     OpenSuitPayStoreLog(@"download %@ for product %@ canceled", download.contentIdentifier, download.transaction.payment.productIdentifier);
 
-    [self postNotificationWithName:RMSKDownloadCanceled download:download userInfoExtras:nil];
+    [self postNotificationWithName:OpenSuitSKDownloadCanceled download:download userInfoExtras:nil];
 
     NSError *error = [NSError errorWithDomain:OpenSuitPayStoreErrorDomain code:OpenSuitPayStoreErrorCodeDownloadCanceled userInfo:@{NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Download canceled", @"OpenSuitPayStore", @"Error description")}];
 
@@ -492,7 +492,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     OpenSuitPayStoreLog(@"download %@ for product %@ failed with error %@", download.contentIdentifier, transaction.payment.productIdentifier, error.debugDescription);
 
     NSDictionary *extras = error ? @{OpenSuitPayStoreNotificationStoreError : error} : nil;
-    [self postNotificationWithName:RMSKDownloadFailed download:download userInfoExtras:extras];
+    [self postNotificationWithName:OpenSuitSKDownloadFailed download:download userInfoExtras:extras];
 
     const BOOL hasPendingDownloads = [self.class hasPendingDownloadsInTransaction:transaction];
     if (!hasPendingDownloads)
@@ -506,7 +506,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     SKPaymentTransaction *transaction = download.transaction;
     OpenSuitPayStoreLog(@"download %@ for product %@ finished", download.contentIdentifier, transaction.payment.productIdentifier);
     
-    [self postNotificationWithName:RMSKDownloadFinished download:download userInfoExtras:nil];
+    [self postNotificationWithName:OpenSuitSKDownloadFinished download:download userInfoExtras:nil];
 
     const BOOL hasPendingDownloads = [self.class hasPendingDownloadsInTransaction:transaction];
     if (!hasPendingDownloads)
@@ -518,14 +518,14 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
 - (void)didPauseDownload:(SKDownload*)download queue:(SKPaymentQueue*)queue
 {
     OpenSuitPayStoreLog(@"download %@ for product %@ paused", download.contentIdentifier, download.transaction.payment.productIdentifier);
-    [self postNotificationWithName:RMSKDownloadPaused download:download userInfoExtras:nil];
+    [self postNotificationWithName:OpenSuitSKDownloadPaused download:download userInfoExtras:nil];
 }
 
 - (void)didUpdateDownload:(SKDownload*)download queue:(SKPaymentQueue*)queue
 {
     OpenSuitPayStoreLog(@"download %@ for product %@ updated", download.contentIdentifier, download.transaction.payment.productIdentifier);
     NSDictionary *extras = @{OpenSuitPayStoreNotificationDownloadProgress : @(download.progress)};
-    [self postNotificationWithName:RMSKDownloadUpdated download:download userInfoExtras:extras];
+    [self postNotificationWithName:OpenSuitSKDownloadUpdated download:download userInfoExtras:extras];
 }
 
 + (BOOL)hasPendingDownloadsInTransaction:(SKPaymentTransaction*)transaction
@@ -579,14 +579,14 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
         [queue finishTransaction:transaction];
     }
     
-    RMAddPaymentParameters *parameters = [self popAddPaymentParametersForIdentifier:productIdentifier];
+    OpenSuitAddPaymentParameters *parameters = [self popAddPaymentParametersForIdentifier:productIdentifier];
     if (parameters.failureBlock != nil)
     {
         parameters.failureBlock(transaction, error);
     }
     
     NSDictionary *extras = error ? @{OpenSuitPayStoreNotificationStoreError : error} : nil;
-    [self postNotificationWithName:RMSKPaymentTransactionFailed transaction:transaction userInfoExtras:extras];
+    [self postNotificationWithName:OpenSuitSKPaymentTransactionFailed transaction:transaction userInfoExtras:extras];
     
     if (transaction.transactionState == SKPaymentTransactionStateRestored)
     {
@@ -616,7 +616,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
 
 - (void)didDeferTransaction:(SKPaymentTransaction *)transaction
 {
-    [self postNotificationWithName:RMSKPaymentTransactionDeferred transaction:transaction userInfoExtras:nil];
+    [self postNotificationWithName:OpenSuitSKPaymentTransactionDeferred transaction:transaction userInfoExtras:nil];
 }
 
 - (void)didVerifyTransaction:(SKPaymentTransaction *)transaction queue:(SKPaymentQueue*)queue
@@ -624,14 +624,14 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     if (self.contentDownloader != nil)
     {
         [self.contentDownloader downloadContentForTransaction:transaction success:^{
-            [self postNotificationWithName:RMSKDownloadFinished transaction:transaction userInfoExtras:nil];
+            [self postNotificationWithName:OpenSuitSKDownloadFinished transaction:transaction userInfoExtras:nil];
             [self didDownloadSelfHostedContentForTransaction:transaction queue:queue];
         } progress:^(float progress) {
             NSDictionary *extras = @{OpenSuitPayStoreNotificationDownloadProgress : @(progress)};
-            [self postNotificationWithName:RMSKDownloadUpdated transaction:transaction userInfoExtras:extras];
+            [self postNotificationWithName:OpenSuitSKDownloadUpdated transaction:transaction userInfoExtras:extras];
         } failure:^(NSError *error) {
             NSDictionary *extras = error ? @{OpenSuitPayStoreNotificationStoreError : error} : nil;
-            [self postNotificationWithName:RMSKDownloadFailed transaction:transaction userInfoExtras:extras];
+            [self postNotificationWithName:OpenSuitSKDownloadFailed transaction:transaction userInfoExtras:extras];
             [self didFailTransaction:transaction queue:queue error:error];
         }];
     }
@@ -662,14 +662,14 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     [queue finishTransaction:transaction];
     [self.transactionPersistor persistTransaction:transaction];
     
-    RMAddPaymentParameters *wrapper = [self popAddPaymentParametersForIdentifier:productIdentifier];
+    OpenSuitAddPaymentParameters *wrapper = [self popAddPaymentParametersForIdentifier:productIdentifier];
     if (wrapper.successBlock != nil) {
         wrapper.successBlock(transaction);
     }
     if (transaction.transactionState == SKPaymentTransactionStateRestored) {
         [self notifyRestoreTransactionFinishedIfApplicableAfterTransaction:transaction];
     } else if (transaction.transactionState == SKPaymentTransactionStatePurchased) {
-        [self postNotificationWithName:RMSKPaymentTransactionFinished transaction:transaction userInfoExtras:nil];
+        [self postNotificationWithName:OpenSuitSKPaymentTransactionFinished transaction:transaction userInfoExtras:nil];
     }
 }
 
@@ -689,13 +689,13 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
             _restoreTransactionsSuccessBlock = nil;
         }
         NSDictionary *userInfo = @{ OpenSuitPayStoreNotificationTransactions : restoredTransactions };
-        [[NSNotificationCenter defaultCenter] postNotificationName:RMSKRestoreTransactionsFinished object:self userInfo:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitSKRestoreTransactionsFinished object:self userInfo:userInfo];
     }
 }
 
-- (RMAddPaymentParameters*)popAddPaymentParametersForIdentifier:(NSString*)identifier
+- (OpenSuitAddPaymentParameters*)popAddPaymentParametersForIdentifier:(NSString*)identifier
 {
-    RMAddPaymentParameters *parameters = _addPaymentParameters[identifier];
+    OpenSuitAddPaymentParameters *parameters = _addPaymentParameters[identifier];
     [_addPaymentParameters removeObjectForKey:identifier];
     return parameters;
 }
@@ -711,7 +711,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
         _refreshReceiptSuccessBlock();
         _refreshReceiptSuccessBlock = nil;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:RMSKRefreshReceiptFinished object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitSKRefreshReceiptFinished object:self];
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error
@@ -728,7 +728,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     { // error might be nil (e.g., on airplane mode)
         userInfo = @{OpenSuitPayStoreNotificationStoreError: error};
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:RMSKRefreshReceiptFailed object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitSKRefreshReceiptFailed object:self userInfo:userInfo];
 }
 
 #pragma mark Private
@@ -758,14 +758,14 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:self userInfo:userInfo];
 }
 
-- (void)removeProductsRequestDelegate:(RMProductsRequestDelegate*)delegate
+- (void)removeProductsRequestDelegate:(OpenSuitProductsRequestDelegate*)delegate
 {
     [_productsRequestDelegates removeObject:delegate];
 }
 
 @end
 
-@implementation RMProductsRequestDelegate
+@implementation OpenSuitProductsRequestDelegate
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
@@ -788,7 +788,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
         self.successBlock(products, invalidProductIdentifiers);
     }
     NSDictionary *userInfo = @{OpenSuitPayStoreNotificationProducts: products, OpenSuitPayStoreNotificationInvalidProductIdentifiers: invalidProductIdentifiers};
-    [[NSNotificationCenter defaultCenter] postNotificationName:RMSKProductsRequestFinished object:self.store userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitSKProductsRequestFinished object:self.store userInfo:userInfo];
 }
 
 - (void)requestDidFinish:(SKRequest *)request
@@ -808,7 +808,7 @@ typedef void (^OpenSuitPayStoreSuccessBlock)(void);
     { // error might be nil (e.g., on airplane mode)
         userInfo = @{OpenSuitPayStoreNotificationStoreError: error};
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:RMSKProductsRequestFailed object:self.store userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitSKProductsRequestFailed object:self.store userInfo:userInfo];
     [self.store removeProductsRequestDelegate:self];
 }
 

@@ -1474,7 +1474,7 @@ static NSString* const __kStatus                 = @"status";
 
 extern "C" {
 
-void UnityStartOpenSuitPayWithAppKey(const char* appKey,const char* channelId)
+void unity_StartOpenSuitPayWithAppKey(const char* appKey,const char* channelId)
 {
     NSString* _appKey = Yodo1CreateNSString(appKey);
     NSString* _channelId = Yodo1CreateNSString(channelId);
@@ -1482,7 +1482,7 @@ void UnityStartOpenSuitPayWithAppKey(const char* appKey,const char* channelId)
                                                 channelId:_channelId];
 }
 
-void UnitySubmitUser(const char* jsonUser)
+void unity_SubmitUser(const char* jsonUser)
 {
     NSString* _jsonUser = Yodo1CreateNSString(jsonUser);
     NSDictionary* user = [OpenSuitCommons JSONObjectWithString:_jsonUser error:nil];
@@ -1503,24 +1503,24 @@ void UnitySubmitUser(const char* jsonUser)
 /**
  *设置ops 环境
  */
-void UnityAPIEnvironment(int env)
+void unity_APIEnvironment(int env)
 {
 }
 
 /**
  *设置是否显示log
  */
-void UnityLogEnabled(BOOL enable)
+void unity_LogEnabled(BOOL enable)
 {
     
 }
 
-void UnityGameUserId(const char* gameUserId)
+void unity_GameUserId(const char* gameUserId)
 {
     
 }
 
-void UnityGameNickname(const char* gameNickname)
+void unity_GameNickname(const char* gameNickname)
 {
     
 }
@@ -1528,7 +1528,7 @@ void UnityGameNickname(const char* gameNickname)
 /*
  获取在线分区列表
  */
-void UnityRegionList(const char* channelCode, const char* gameAppkey, const char* regionGroupCode, int env, const char* gameObjectName, const char* methodName)
+void unity_RegionList(const char* channelCode, const char* gameAppkey, const char* regionGroupCode, int env, const char* gameObjectName, const char* methodName)
 {
 
 }
@@ -1536,7 +1536,7 @@ void UnityRegionList(const char* channelCode, const char* gameAppkey, const char
 /**
  *获取版本更新信息
  */
-void UnityGetUpdateInfoWithAppKey(const char*gameAppkey,const char* channelCode,const char* gameObjectName, const char* methodName)
+void unity_GetUpdateInfoWithAppKey(const char*gameAppkey,const char* channelCode,const char* gameObjectName, const char* methodName)
 {
 
 }
@@ -1544,7 +1544,7 @@ void UnityGetUpdateInfoWithAppKey(const char*gameAppkey,const char* channelCode,
 /**
  *注册
  */
-void UnityRegistUsername(const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
+void unity_RegistUsername(const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
 {
 
 }
@@ -1552,7 +1552,7 @@ void UnityRegistUsername(const char* username, const char* pwd, const char* game
 /**
  *登录
  */
-void UnityLogin(int usertype, const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
+void unity_Login(int usertype, const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
 {
 
 }
@@ -1560,7 +1560,7 @@ void UnityLogin(int usertype, const char* username, const char* pwd, const char*
 /**
  *注销
  */
-void UnityLoginOut(const char* gameObjectName, const char* methodName)
+void unity_LoginOut(const char* gameObjectName, const char* methodName)
 {
    
 }
@@ -1568,12 +1568,12 @@ void UnityLoginOut(const char* gameObjectName, const char* methodName)
 /**
  *设备账号转换
  */
-void UnityConverDeviceToNormal(const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
+void unity_ConverDeviceToNormal(const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
 {
 
 }
 
-void UnityReplaceContentOfUserId(const char* replacedUserId, const char* deviceId, const char* gameObjectName, const char* methodName)
+void unity_ReplaceContentOfUserId(const char* replacedUserId, const char* deviceId, const char* gameObjectName, const char* methodName)
 {
     
 }
@@ -1586,7 +1586,7 @@ void UnityReplaceContentOfUserId(const char* replacedUserId, const char* deviceI
  *transferedUserId 用户id
  *device_id  设备id
  */
-void UnityTransferWithDeviceUserId(const char* transferedUserId, const char* deviceId, const char* gameObjectName, const char* methodName)
+void unity_TransferWithDeviceUserId(const char* transferedUserId, const char* deviceId, const char* gameObjectName, const char* methodName)
 {
 
 }
@@ -1595,7 +1595,7 @@ void UnityTransferWithDeviceUserId(const char* transferedUserId, const char* dev
 /**
  *查询漏单
  */
-void UnityQueryLossOrder(const char* gameObjectName, const char* methodName)
+void unity_QueryLossOrder(const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1628,12 +1628,12 @@ void UnityQueryLossOrder(const char* gameObjectName, const char* methodName)
     }];
 }
 
-void UnityCancelPromotion(const char* gameObjectName, const char* methodName)
+void unity_CancelPromotion(const char* gameObjectName, const char* methodName)
 {
     [OpenSuitPayManager.shared cancelPromotion];
 }
 
-void UnityGetPromotionProduct(const char* gameObjectName, const char* methodName)
+void unity_GetPromotionProduct(const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1667,7 +1667,7 @@ void UnityGetPromotionProduct(const char* gameObjectName, const char* methodName
     }
 }
 
-void UnityReadyToContinuePurchaseFromPromotion(const char* gameObjectName, const char* methodName)
+void unity_ReadyToContinuePurchaseFromPromotion(const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1792,7 +1792,7 @@ void UnityReadyToContinuePurchaseFromPromotion(const char* gameObjectName, const
     }];
 }
 
-void UnityFetchStorePromotionVisibilityForProduct(const char* uniformProductId, const char* gameObjectName, const char* methodName)
+void unity_FetchStorePromotionVisibilityForProduct(const char* uniformProductId, const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1829,7 +1829,7 @@ void UnityFetchStorePromotionVisibilityForProduct(const char* uniformProductId, 
     }];
 }
 
-void UnityFetchStorePromotionOrder(const char* gameObjectName, const char* methodName)
+void unity_FetchStorePromotionOrder(const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1855,7 +1855,7 @@ void UnityFetchStorePromotionOrder(const char* gameObjectName, const char* metho
     }];
 }
 
-void UnityUpdateStorePromotionOrder(const char* productids, const char* gameObjectName, const char* methodName)
+void unity_UpdateStorePromotionOrder(const char* productids, const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1879,7 +1879,7 @@ void UnityUpdateStorePromotionOrder(const char* productids, const char* gameObje
     }];
 }
 
-void UnityUpdateStorePromotionVisibility(bool visible, const char* uniformProductId, const char* gameObjectName, const char* methodName)
+void unity_UpdateStorePromotionVisibility(bool visible, const char* uniformProductId, const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1906,7 +1906,7 @@ void UnityUpdateStorePromotionVisibility(bool visible, const char* uniformProduc
 /**
  *查询订阅
  */
-void UnityQuerySubscriptions(BOOL excludeOldTransactions, const char* gameObjectName, const char* methodName)
+void unity_QuerySubscriptions(BOOL excludeOldTransactions, const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1953,7 +1953,7 @@ void UnityQuerySubscriptions(BOOL excludeOldTransactions, const char* gameObject
 /**
  *appstore渠道，恢复购买
  */
-void UintyRestorePayment(const char* gameObjectName, const char* methodName)
+void Unity_RestorePayment(const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -1988,7 +1988,7 @@ void UintyRestorePayment(const char* gameObjectName, const char* methodName)
 /**
  *根据产品ID,获取产品信息
  */
-void UnityProductInfoWithProductId(const char* uniformProductId, const char* gameObjectName, const char* methodName)
+void unity_ProductInfoWithProductId(const char* uniformProductId, const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -2023,7 +2023,7 @@ void UnityProductInfoWithProductId(const char* uniformProductId, const char* gam
 /**
  *根据,获取所有产品信息
  */
-void UnityProductsInfo(const char* gameObjectName, const char* methodName)
+void unity_ProductsInfo(const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -2055,7 +2055,7 @@ void UnityProductsInfo(const char* gameObjectName, const char* methodName)
 /**
  *支付
  */
-void UnityPayNetGame(const char* mUniformProductId,const char* extra, const char* gameObjectName, const char* methodName)
+void unity_PayNetGame(const char* mUniformProductId,const char* extra, const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -2200,7 +2200,7 @@ void UnityPayNetGame(const char* mUniformProductId,const char* extra, const char
 /**
  *  购买成功发货通知成功
  */
-void UnitySendGoodsOver(const char* orders,const char* gameObjectName, const char* methodName)
+void unity_SendGoodsOver(const char* orders,const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -2251,7 +2251,7 @@ void UnitySendGoodsOver(const char* orders,const char* gameObjectName, const cha
 /**
  *  购买成功发货通知失败
  */
-void UnitySendGoodsOverFault(const char* orders,const char* gameObjectName, const char* methodName)
+void unity_SendGoodsOverFault(const char* orders,const char* gameObjectName, const char* methodName)
 {
     NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
     NSString* ocMethodName = Yodo1CreateNSString(methodName);
