@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '6.1.5'
+    s.version          = '0.0.40'
     # s.version          = '0.0.31'
     # s.version          = '6.1.0.1'
     s.summary          = '  修改TD在线参数  
@@ -140,8 +140,8 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        #ss.dependency 'OpenSuitPayment','1.0.9'
-        ss.dependency 'Yodo1UCenter','6.0.6'
+        ss.dependency 'OpenSuitPayment','1.1.0'
+        #ss.dependency 'Yodo1UCenter','6.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
