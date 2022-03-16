@@ -1602,7 +1602,7 @@ extern "C" {
     /**
      *appstore渠道，恢复购买
      */
-    void UintyRestorePayment(const char* gameObjectName, const char* methodName)
+    void UnityRestorePayment(const char* gameObjectName, const char* methodName)
     {
         NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
         NSString* ocMethodName = Yodo1CreateNSString(methodName);
