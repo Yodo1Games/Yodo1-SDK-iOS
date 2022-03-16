@@ -119,15 +119,10 @@ static Yodo1GameCenter* _instance = nil;
 #ifdef __cplusplus
 extern "C" {
     
-    ///初始化GameCenter
-    void UnityGameCenterInit()
-    {
-        [[Yodo1GameCenter sharedInstance]initGameCenter];
-    }
-    
     //登录
     void UnityGameCenterLogin(char* callbackGameObj, char* callbackMethod)
     {
+        [[Yodo1GameCenter sharedInstance]initGameCenter];
         NSString *ocObjectName = Yodo1CreateNSString(callbackGameObj);
         NSString *ocMethodName = Yodo1CreateNSString(callbackMethod);
         [Yd1UCenter.shared deviceLoginWithPlayerId:@"" callback:^(YD1User * _Nullable user, NSError * _Nullable error) {
