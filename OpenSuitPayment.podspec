@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'OpenSuitPayment'
-  s.version          = '1.1.0'
+  s.version          = '1.1.1'
   s.summary          = '重构支付模块'
   
   s.description      = <<-DESC
@@ -75,7 +75,7 @@ Pod::Spec.new do |s|
   'c++',
   'z']
   
-  s.dependency 'OpenSuitThirdsAnalytics','1.0.5'
+  s.dependency 'OpenSuitThirdsAnalytics','1.0.6'
   s.dependency 'OpenSuitTool','1.0.1'
   
 end

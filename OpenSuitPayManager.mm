@@ -1525,68 +1525,10 @@ void unity_GameNickname(const char* gameNickname)
     
 }
 
-/*
- 获取在线分区列表
- */
-void unity_RegionList(const char* channelCode, const char* gameAppkey, const char* regionGroupCode, int env, const char* gameObjectName, const char* methodName)
-{
-
-}
-
 /**
  *获取版本更新信息
  */
 void unity_GetUpdateInfoWithAppKey(const char*gameAppkey,const char* channelCode,const char* gameObjectName, const char* methodName)
-{
-
-}
-
-/**
- *注册
- */
-void unity_RegistUsername(const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
-{
-
-}
-
-/**
- *登录
- */
-void unity_Login(int usertype, const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
-{
-
-}
-
-/**
- *注销
- */
-void unity_LoginOut(const char* gameObjectName, const char* methodName)
-{
-   
-}
-
-/**
- *设备账号转换
- */
-void unity_ConverDeviceToNormal(const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
-{
-
-}
-
-void unity_ReplaceContentOfUserId(const char* replacedUserId, const char* deviceId, const char* gameObjectName, const char* methodName)
-{
-    
-}
-
-/**
- *将device_id代表用户的存档的主帐号变更为user_id代表的帐号，user_id本身的数据被删除，替换的数据包括user_id本身
- *用户再次登录时取到的user_id是操作前device_id对应的user_id，原user_id已经删除了
- *device_id再次登录是取到的user_id是全新的
- *appkey 游戏 game_appkey
- *transferedUserId 用户id
- *device_id  设备id
- */
-void unity_TransferWithDeviceUserId(const char* transferedUserId, const char* deviceId, const char* gameObjectName, const char* methodName)
 {
 
 }
