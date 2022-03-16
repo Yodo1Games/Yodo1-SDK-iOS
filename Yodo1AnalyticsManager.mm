@@ -813,71 +813,6 @@ extern "C" {
                                                   propertyDoubleValue:[Yodo1CreateNSString(propertyValue) doubleValue]];
     }
     
-    void UnitySubmitTrack(const char* eventName)
-    {
-        if(eventName == NULL)return;
-        [[Yodo1AnalyticsManager sharedInstance] submitTrackWithEventName:Yodo1CreateNSString(eventName)];
-    }
-    
-    void UnityRegisterSuperProperty(const char* propertyJson)
-    {
-        NSString* properties = Yodo1CreateNSString(propertyJson);
-        NSDictionary* dic = [Yodo1Commons JSONObjectWithString:properties error:nil];
-        if([dic count] > 0){
-            [[Yodo1AnalyticsManager sharedInstance]registerSuperProperty:dic];
-        }
-    }
-    
-    void UnityUnregisterSuperProperty(const char* propertyName)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]unregisterSuperProperty:Yodo1CreateNSString(propertyName)];
-    }
-    
-    //返回单个值
-    char* UnityGetSuperProperty(const char* propertyName)
-    {
-        NSString* properties = [[Yodo1AnalyticsManager sharedInstance]getSuperProperty:Yodo1CreateNSString(propertyName)];
-        if(properties){
-            return Yodo1MakeStringCopy(properties.UTF8String);
-        }
-        return NULL;
-    }
-    
-    //返回json字符串，那边解析为词典
-    char* UnityGetSuperProperties()
-    {
-        NSDictionary* dic = [[Yodo1AnalyticsManager sharedInstance]getSuperProperties];
-        if([dic count] > 0){
-            NSString* properties = [Yodo1Commons stringWithJSONObject:dic error:nil];
-            return Yodo1MakeStringCopy(properties.UTF8String);
-        }
-        return NULL;
-    }
-    
-    void UnityClearSuperProperties()
-    {
-        [[Yodo1AnalyticsManager sharedInstance]clearSuperProperties];
-    }
-    
-#pragma mark - GameAnalytics
-    void UnitySetGACustomDimension01(const char* dimension01)
-    {
-        NSString* dimension =  Yodo1CreateNSString(dimension01);
-        [[Yodo1AnalyticsManager sharedInstance]setGACustomDimension01:dimension];
-    }
-    
-    void UnitySetGACustomDimension02(const char* dimension02)
-    {
-        NSString* dimension =  Yodo1CreateNSString(dimension02);
-        [[Yodo1AnalyticsManager sharedInstance]setGACustomDimension02:dimension];
-    }
-    
-    void UnitySetGACustomDimension03(const char* dimension03)
-    {
-        NSString* dimension =  Yodo1CreateNSString(dimension03);
-        [[Yodo1AnalyticsManager sharedInstance]setGACustomDimension03:dimension];
-    }
-    
      #pragma mark - AppsFlyer
     // AppsFlyer
     void UnityValidateAndTrackInAppPurchase(const char*productIdentifier,
@@ -948,34 +883,6 @@ extern "C" {
         }
         
         return NULL;
-    }
-    
-     #pragma mark - Swrve
-    //Swrve event
-    void UnitySwrveEventAnalyticsWithName(const char*eventName, const char* jsonData) {
-        NSString* m_EventName = Yodo1CreateNSString(eventName);
-        NSString* eventData = Yodo1CreateNSString(jsonData);
-        NSError *error = nil;
-        NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:&error];
-        if(error){
-            NSLog(@"Swrve Event error:%@",error.localizedDescription);
-        }
-        [[Yodo1AnalyticsManager sharedInstance]swrveEventAnalyticsWithName:m_EventName
-                                                                 eventData:eventDataDic];
-    }
-    
-    void UnitySwrveUserUpdate(const char* jsonData) {
-        NSString* eventData = Yodo1CreateNSString(jsonData);
-        NSError *error = nil;
-        NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:&error];
-        if(error){
-            NSLog(@"Swrve UserUpdate error:%@",error.localizedDescription);
-        }
-        [[Yodo1AnalyticsManager sharedInstance]swrveUserUpdate:eventDataDic];
-    }
-
-    void UnitySwrveTransactionProcessed(const char* jsonData) {
- 
     }
 }
 #endif
