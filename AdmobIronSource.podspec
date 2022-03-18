@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'AdmobIronSource'
-    s.version          = '6.1.1'
+    s.version          = '6.1.2'
     s.summary          = 'v '
 
     s.description      = <<-DESC
@@ -73,5 +73,5 @@ Pod::Spec.new do |s|
         'z']
 
     s.dependency 'IronSourceSDK','7.1.14.0'
-    s.dependency 'YD1Admob', '6.0.7'
+    s.dependency 'YD1Admob', '6.0.8'
 end
