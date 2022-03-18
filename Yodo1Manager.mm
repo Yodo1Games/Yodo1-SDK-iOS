@@ -238,6 +238,22 @@ extern "C" {
         const char* userId = Yd1OpsTools.keychainUUID.UTF8String;
         return Yodo1MakeStringCopy(userId);
     }
+    
+    void UnityOpenWebPage(const char* url, const char* jsonparam) {
+        
+    }
+    
+    char* UnityGetConfigParameter(const char* key) {
+        return NULL;
+    }
+    
+    char* UnityGetCountryCode() {
+        
+        NSLocale *locale = [NSLocale currentLocale];
+        NSString *countrycode = [locale localeIdentifier];
+             
+        return Yodo1MakeStringCopy([countrycode cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
 }
 
 #endif

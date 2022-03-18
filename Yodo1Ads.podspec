@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '0.0.40'
+    s.version          = '0.0.41'
     # s.version          = '0.0.31'
     # s.version          = '6.1.0.1'
     s.summary          = '  修改TD在线参数  
@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
         ss.dependency 'Yodo1AdvertSDK','6.0.5'
         ss.dependency 'Bugly','2.5.91'
         ss.dependency 'Yodo1Analytics','6.0.1'
-        ss.dependency 'OpenSuitThirdsAnalytics', '1.0.5'
+        ss.dependency 'OpenSuitThirdsAnalytics', '1.0.6'
     end
 
     s.subspec 'Yodo1_ConfigKey' do |ss|
@@ -140,8 +140,8 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitPayment','1.1.0'
-        #ss.dependency 'Yodo1UCenter','6.0.6'
+        ss.dependency 'OpenSuitPayment','1.1.1'
+        #ss.dependency 'Yodo1UCenter','6.0.8'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
@@ -180,7 +180,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'Yodo1GameCenter','6.0.3'
+        ss.dependency 'Yodo1GameCenter','6.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
      s.subspec 'Yodo1_iCloud' do |ss|
@@ -244,7 +244,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'AnalyticsAppsFlyer','6.0.9'
+        ss.dependency 'AnalyticsAppsFlyer','6.1.0'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
@@ -270,7 +270,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'AnalyticsUmeng','6.0.6'
+        ss.dependency 'AnalyticsUmeng','6.0.7'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
@@ -296,7 +296,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'AnalyticsFirebase','6.0.6'
+        ss.dependency 'AnalyticsFirebase','6.0.7'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
@@ -322,7 +322,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.1.5'
+        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.1.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsFirebase' do |ss|
@@ -334,7 +334,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsFirebase','1.0.6'
+        ss.dependency 'OpenSuitAnalyticsFirebase','1.0.7'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsSwrve' do |ss|
@@ -371,7 +371,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsUmeng','1.0.5'
+        ss.dependency 'OpenSuitAnalyticsUmeng','1.0.6'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
     
