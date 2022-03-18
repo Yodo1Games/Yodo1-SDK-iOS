@@ -70,7 +70,6 @@ Pod::Spec.new do |s|
  
     s.dependency 'Yodo1Analytics','6.0.1'
     s.dependency 'Yodo1FeedbackError','6.0.1'
-    s.dependency 'Yodo1ThirdsAnalytics','6.1.1'
     s.dependency 'ThinkingSDK','2.7.5'
     
 end
