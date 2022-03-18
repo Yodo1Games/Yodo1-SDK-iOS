@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'OpenSuitAnalyticsFirebase'
-  s.version          = '1.0.6'
+  s.version          = '1.0.7'
   s.summary          = 'v8.9.1'
   
   s.description      = <<-DESC
@@ -71,7 +71,7 @@ Pod::Spec.new do |s|
   'z']
   
 
-  s.dependency 'OpenSuitThirdsAnalytics','1.0.5'
+  s.dependency 'OpenSuitThirdsAnalytics','1.0.6'
   s.dependency 'Yodo1OnlineParameter','6.0.1'
   s.dependency 'Firebase/Analytics','8.12.1'
   s.dependency 'Firebase/Crashlytics','8.12.1'
