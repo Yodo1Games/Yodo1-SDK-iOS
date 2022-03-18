@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'ApplovinMaxGDT'
-    s.version          = '6.1.1'
+    s.version          = '6.1.2'
     s.summary          = 'v 优汇量统计版本 v6.0.9.1是统计版本'
 
     s.description      = <<-DESC
@@ -72,6 +72,6 @@ Pod::Spec.new do |s|
         'c++',
         'z']
     # s.dependency 'AdsGDT','1.0.3'
-    s.dependency 'GDTMobSDK', '4.13.42'
-    s.dependency 'YD1ApplovinMax', '6.0.9'
+    s.dependency 'GDTMobSDK', '4.13.51'
+    s.dependency 'YD1ApplovinMax', '6.1.0'
 end
