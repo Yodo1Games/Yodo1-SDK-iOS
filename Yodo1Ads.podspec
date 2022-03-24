@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '0.0.42'
+    s.version          = '6.1.6'
     # s.version          = '0.0.31'
     # s.version          = '6.1.0.1'
     s.summary          = '  修改TD在线参数  
@@ -89,7 +89,7 @@ Pod::Spec.new do |s|
         'z']
 
         ss.dependency 'Yodo1AdvertSDK','6.0.6'
-        s.dependency 'Yodo1ThirdsAnalytics','6.1.1'
+        ss.dependency 'Yodo1ThirdsAnalytics','6.1.1'
         ss.dependency 'Bugly','2.5.91'
         ss.dependency 'Yodo1Analytics','6.0.1'
         ss.dependency 'OpenSuitThirdsAnalytics', '1.0.6'
@@ -141,8 +141,8 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitPayment','1.1.1'
-        #ss.dependency 'Yodo1UCenter','6.0.8'
+        #ss.dependency 'OpenSuitPayment','1.1.1'
+        ss.dependency 'Yodo1UCenter','6.0.8'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
