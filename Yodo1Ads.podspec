@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '6.1.6'
+    s.version          = '6.1.6.1'
     # s.version          = '0.0.31'
     # s.version          = '6.1.0.1'
     s.summary          = '  修改TD在线参数  
@@ -104,6 +104,13 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
+        ss.dependency 'Yodo1GameCenter','6.0.6'
+        ss.dependency 'OpenSuitShare','1.0.6'
+        ss.dependency 'Yodo1iCloud','6.0.1'
+        ss.dependency 'Yodo1iRate','6.0.0'
+        ss.dependency 'Yodo1Replay','6.0.1'
+        ss.dependency 'Yodo1Notification','6.0.1'
+        ss.dependency 'Yodo1Privacy','6.0.1'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
@@ -116,6 +123,13 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
+        ss.dependency 'Yodo1GameCenter','6.0.6'
+        ss.dependency 'OpenSuitShare','1.0.6'
+        ss.dependency 'Yodo1iCloud','6.0.1'
+        ss.dependency 'Yodo1iRate','6.0.0'
+        ss.dependency 'Yodo1Replay','6.0.1'
+        ss.dependency 'Yodo1Notification','6.0.1'
+        ss.dependency 'Yodo1Privacy','6.0.1'
         ss.dependency 'Yodo1Ads/Yodo1_Ads',"#{s.version}"
     end
 
