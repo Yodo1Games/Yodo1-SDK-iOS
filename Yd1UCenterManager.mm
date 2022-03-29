@@ -1254,12 +1254,11 @@ extern "C" {
     {
         NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
         NSString* ocMethodName = Yodo1CreateNSString(methodName);
-        
-        [Yd1UCenterManager.shared queryLossOrder:^(NSArray * _Nonnull productIds, NSString * _Nonnull response) {
+        [Yd1UCenterManager.shared restorePayment:^(NSArray * _Nonnull productIds, NSString * _Nonnull response) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(ocGameObjName && ocMethodName){
                     NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-                    [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_LossOrderIdQuery] forKey:@"resulType"];
+                    [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_RestorePayment] forKey:@"resulType"];
                     if([productIds count] > 0 ){
                         [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
                         [dict setObject:productIds forKey:@"data"];
@@ -1269,16 +1268,16 @@ extern "C" {
                     NSError* parseJSONError = nil;
                     NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                     if(parseJSONError){
-                        [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_LossOrderIdQuery] forKey:@"resulType"];
+                        [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_RestorePayment] forKey:@"resulType"];
                         [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
                         [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                         msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                     }
                     UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
-                                     [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
-                                     [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+                                 [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
+                                 [msg cStringUsingEncoding:NSUTF8StringEncoding]);
                 }
-                
+            
             });
         }];
     }
@@ -1602,6 +1601,7 @@ extern "C" {
     /**
      *appstore渠道，恢复购买
      */
+/*
     void UnityRestorePayment(const char* gameObjectName, const char* methodName)
     {
         NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
@@ -1633,7 +1633,7 @@ extern "C" {
             });
         }];
     }
-
+*/
     /**
      *根据产品ID,获取产品信息
      */
