@@ -19,9 +19,7 @@
 #import "Yodo1AnalyticsManager.h"
 #import "OpenSuitAnalyticsManager.h"
 
-#ifdef YODO1_SNS
 #import "OpenSuitSNSManager.h"
-#endif
 
 #ifdef YODO1_MORE_GAME
 #import "MoreGameManager.h"
@@ -91,7 +89,6 @@ static NSString* __kAppKey = @"";
     
     kYodo1Config = sdkConfig;
 
-#ifdef YODO1_SNS
     //初始化sns
     NSMutableDictionary* snsPlugn = [NSMutableDictionary dictionary];
     NSString* qqAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitQQAppId];
@@ -126,7 +123,6 @@ static NSString* __kAppKey = @"";
     }
     [[OpenSuitSNSManager sharedInstance] initSNSPlugn:snsPlugn];
     
-#endif
     [Yodo1Manager analyticInit];
 }
 
@@ -183,11 +179,9 @@ static NSString* __kAppKey = @"";
 }
 
 + (void)handleOpenURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication {
-#ifdef YODO1_SNS
     if ([OpenSuitSNSManager sharedInstance].isYodo1Shared) {
         [[OpenSuitSNSManager sharedInstance] application:nil openURL:url options:nil];
     }
-#endif
 
 }
 
