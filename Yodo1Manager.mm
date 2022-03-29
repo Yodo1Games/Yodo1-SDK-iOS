@@ -233,6 +233,11 @@ extern "C" {
         const char* deviceId = Yd1OpsTools.keychainDeviceId.UTF8String;
         return Yodo1MakeStringCopy(deviceId);
     }
+    
+    char* UnityGetSDKVersion() {
+        const char* sdkVersion = K_YODO1_ADS_VERSION.UTF8String;
+        return Yodo1MakeStringCopy(sdkVersion);
+    }
 
     char* UnityUserId(){
         const char* userId = Yd1OpsTools.keychainUUID.UTF8String;
