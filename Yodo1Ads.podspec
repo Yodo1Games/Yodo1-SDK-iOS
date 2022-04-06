@@ -148,7 +148,7 @@ Pod::Spec.new do |s|
 
     s.subspec 'Yodo1_UCenter' do |ss|
         ss.xcconfig = {
-            "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_UCENTER',
+            "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_UCCENTER',
             'OTHER_LDFLAGS' => '-ObjC',
             'ENABLE_BITCODE' => "NO",
             "VALID_ARCHS": "armv7 arm64",
