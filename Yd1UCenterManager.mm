@@ -1238,10 +1238,68 @@ extern "C" {
         
     }
 
+    /*
+     获取在线分区列表
+     */
+    void UnityRegionList(const char* channelCode, const char* gameAppkey, const char* regionGroupCode, int env, const char* gameObjectName, const char* methodName)
+    {
+
+    }
+
     /**
      *获取版本更新信息
      */
     void UnityGetUpdateInfoWithAppKey(const char*gameAppkey,const char* channelCode,const char* gameObjectName, const char* methodName)
+    {
+
+    }
+
+    /**
+     *注册
+     */
+    void UnityRegistUsername(const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
+    {
+  
+    }
+
+    /**
+     *登录
+     */
+    void UnityLogin(int usertype, const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
+    {
+
+    }
+
+    /**
+     *注销
+     */
+    void UnityLoginOut(const char* gameObjectName, const char* methodName)
+    {
+       
+    }
+
+    /**
+     *设备账号转换
+     */
+    void UnityConverDeviceToNormal(const char* username, const char* pwd, const char* gameObjectName, const char* methodName)
+    {
+
+    }
+
+    void UnityReplaceContentOfUserId(const char* replacedUserId, const char* deviceId, const char* gameObjectName, const char* methodName)
+    {
+        
+    }
+
+    /**
+     *将device_id代表用户的存档的主帐号变更为user_id代表的帐号，user_id本身的数据被删除，替换的数据包括user_id本身
+     *用户再次登录时取到的user_id是操作前device_id对应的user_id，原user_id已经删除了
+     *device_id再次登录是取到的user_id是全新的
+     *appkey 游戏 game_appkey
+     *transferedUserId 用户id
+     *device_id  设备id
+     */
+    void UnityTransferWithDeviceUserId(const char* transferedUserId, const char* deviceId, const char* gameObjectName, const char* methodName)
     {
 
     }
@@ -1252,6 +1310,7 @@ extern "C" {
      */
     void UnityQueryLossOrder(const char* gameObjectName, const char* methodName)
     {
+        
         NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
         NSString* ocMethodName = Yodo1CreateNSString(methodName);
         [Yd1UCenterManager.shared restorePayment:^(NSArray * _Nonnull productIds, NSString * _Nonnull response) {
@@ -1274,12 +1333,45 @@ extern "C" {
                         msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                     }
                     UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
-                                 [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
-                                 [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+                                     [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
+                                     [msg cStringUsingEncoding:NSUTF8StringEncoding]);
                 }
-            
+                
             });
         }];
+        
+        
+        /*
+        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
+        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        
+        [Yd1UCenterManager.shared queryLossOrder:^(NSArray * _Nonnull productIds, NSString * _Nonnull response) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(ocGameObjName && ocMethodName){
+                    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+                    [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_LossOrderIdQuery] forKey:@"resulType"];
+                    if([productIds count] > 0 ){
+                        [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
+                        [dict setObject:productIds forKey:@"data"];
+                    }else{
+                        [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
+                    }
+                    NSError* parseJSONError = nil;
+                    NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
+                    if(parseJSONError){
+                        [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_LossOrderIdQuery] forKey:@"resulType"];
+                        [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
+                        [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
+                        msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
+                    }
+                    UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                                     [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
+                                     [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+                }
+                
+            });
+        }];
+         */
     }
 
     void UnityCancelPromotion(const char* gameObjectName, const char* methodName)
@@ -1601,7 +1693,7 @@ extern "C" {
     /**
      *appstore渠道，恢复购买
      */
-/*
+    /*
     void UnityRestorePayment(const char* gameObjectName, const char* methodName)
     {
         NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
@@ -1633,7 +1725,7 @@ extern "C" {
             });
         }];
     }
-*/
+     */
     /**
      *根据产品ID,获取产品信息
      */
@@ -1824,20 +1916,6 @@ extern "C" {
             });
         }
         }];
-        [Yd1UCenterManager.shared setValidatePaymentBlock:^(NSString * _Nonnull uniformProductId, NSString * _Nonnull response) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if(ocGameObjName && ocMethodName){
-                    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-                    [dict setObject:(_uniformProductId? :@"") forKey:@"uniformProductId"];
-                    [dict setObject:(response? :@"") forKey:@"response"];
-                    [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_ValidatePayment] forKey:@"resulType"];
-                    NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:nil];
-                    UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
-                                     [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
-                                     [msg cStringUsingEncoding:NSUTF8StringEncoding]);
-                }
-            });
-        }];
     }
     
     /**
@@ -1918,6 +1996,71 @@ extern "C" {
         }];
     }
     
+    /**
+     *  激活码/优惠券
+     */
+    void UnityVerifyActivationcode(const char* activationCode,const char* gameObjectName, const char* methodName)
+    {
+        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
+        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        NSString* code = Yodo1CreateNSString(activationCode);
+        
+        [Yd1UCenter.shared verifyActivationcode:code callback:^(BOOL success, NSDictionary * _Nullable response, NSString * _Nullable error) {
+            NSLog(@">>>>%@", response);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(ocGameObjName && ocMethodName) {
+                    if (success) {
+                        NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+                        
+                        [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_VerifyActivationcode] forKey:@"resulType"];
+                        [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
+                        [dict setObject:[NSNumber numberWithInt:0] forKey:@"error"];
+                        [dict setObject:@"success" forKey:@"errorMsg"];
+                        
+                        if ([response[@"reward"] length] > 0) {
+                            int rewa = [response[@"reward"] intValue];
+                            [dict setObject:[NSNumber numberWithInt:rewa] forKey:@"reward"];
+                        } else {
+                            [dict setObject:@"" forKey:@"reward"];
+                        }
+                        
+                        [dict setObject:response[@"comment"] forKey:@"rewardDes"];
+                        
+                        NSError* parseJSONError = nil;
+                        NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
+                        if(parseJSONError){
+                            [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
+                            msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
+                        }
+                        UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                                         [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
+                                         [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+                    } else {
+                        NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+                        
+                        [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_VerifyActivationcode] forKey:@"resulType"];
+                        [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
+                        [dict setObject:[NSNumber numberWithInt:1] forKey:@"error"];
+                        [dict setObject:response[@"error"] forKey:@"errorMsg"];
+                        [dict setObject:@"" forKey:@"reward"];
+                        [dict setObject:@"" forKey:@"rewardDes"];
+                        
+                        NSError* parseJSONError = nil;
+                        NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
+                        if(parseJSONError){
+                            [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
+                            msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
+                        }
+                        UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                                         [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
+                                         [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+                    }
+                }
+            });
+        }];
+    }
+
 }
 
 #endif

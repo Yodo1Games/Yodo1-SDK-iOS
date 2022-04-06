@@ -13,6 +13,7 @@
 #import "Yd1OnlineParameter.h"
 #import "Yodo1Tool+OpsParameters.h"
 #import "Yodo1Model.h"
+#import "Yodo1KeyInfo.h"
 
 @implementation YD1User
 
@@ -148,8 +149,6 @@
         }
         if ([[response allKeys]containsObject:Yd1OpsTools.data]) {
             NSDictionary* m_data = (NSDictionary*)[response objectForKey:Yd1OpsTools.data];
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:m_data forKey:@"YODO1LoginUserData"];
             YD1User* user = [YD1User yodo1_modelWithDictionary:m_data];
             if (callback) {
                 callback(user,nil);
@@ -708,6 +707,53 @@
         YD1LOG(@"%@",error);
         callback(false,@[],error.localizedDescription);
     }];
+}
+
+/**
+ * 激活码/优惠券
+ */
+- (void)verifyActivationcode:(NSString *)code
+                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSString* _Nullable error))callback {
+    
+    if (!code || code.length < 1) {
+        callback(false,@{}, @"code is empty!");
+        return;
+    }
+    Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
+    manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    
+    NSString *appKey = @"";
+    if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
+        appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
+        NSLog(@"[Yodo1 Ads] plist中设置GameKey");
+        return;
+    }
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://activationcode.yodo1api.com/activationcode/activateWithReward?game_appkey=%@&channel_code=%@&activation_code=%@&dev_id=%@", appKey, @"appstore", code, Yd1OpsTools.keychainDeviceId];
+    
+    
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
+        int errorCode = -1;
+        NSString* error = @"";
+        if ([[response allKeys]containsObject:Yd1OpsTools.errorCode]) {
+            errorCode = [[response objectForKey:Yd1OpsTools.errorCode] intValue];
+        }
+        if ([[response allKeys]containsObject:Yd1OpsTools.error]) {
+            error = [response objectForKey:Yd1OpsTools.error];
+        }
+        if (errorCode == 0) {
+            callback(true,response,NULL);
+        } else {
+            callback(false,@{},error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        YD1LOG(@"%@",error);
+        callback(false,@{},error.localizedDescription);
+    }];
+    
 }
 
 @end

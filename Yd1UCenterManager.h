@@ -25,9 +25,9 @@ typedef enum {
     Yodo1U3dSDK_ResulType_UpdateStorePromotionVisibility = 2009,
     Yodo1U3dSDK_ResulType_UpdateStorePromotionOrder = 2010,
     Yodo1U3dSDK_ResulType_GetPromotionProduct = 2011,
-    Yodo1U3dSDK_ResulType_ValidatePayment = 2012,
     Yodo1U3dSDK_ResulType_SendGoodsOver = 2013,
     Yodo1U3dSDK_ResulType_SendGoodsOverFault = 2014,
+    Yodo1U3dSDK_ResulType_VerifyActivationcode = 7001,
 }Yodo1U3dSDKResulType;
 
 typedef enum {

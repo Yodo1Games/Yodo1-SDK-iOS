@@ -166,6 +166,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)offlineMissorders:(YD1ItemInfo *)itemInfo
                  callback:(void (^)(BOOL success,NSArray* missorders,NSString* error))callback;
 
+/**
+ * 激活码/优惠券
+ */
+- (void)verifyActivationcode:(NSString *)code
+                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSString* _Nullable error))callback;
+
 @end
 
 NS_ASSUME_NONNULL_END
