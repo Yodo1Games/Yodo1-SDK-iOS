@@ -181,9 +181,7 @@ NSString* const YODO1_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 // deeplink
 - (BOOL)sendApplicationOfContinueUserActivity:(NSNotification *)noti {
     NSDictionary *dict = noti.userInfo;
-    if ([dict[@"userActivity"] length] == 0) {
-        [AppsFlyerLib.shared continueUserActivity:nil restorationHandler:nil];
-    } else {
+    if (dict[@"userActivity"]) {
         [AppsFlyerLib.shared continueUserActivity:dict[@"userActivity"] restorationHandler:nil];
     }
     
