@@ -661,24 +661,10 @@ static BOOL _bInit_ = NO;
 
 - (void)SubApplication:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
     
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if (application) {
-        [dict setObject:application forKey:@"application"];
-    } else {
-        [dict setObject:[NSNumber numberWithBool:false] forKey:@"application"];
-    }
-    if (userActivity) {
-        [dict setObject:userActivity forKey:@"userActivity"];
-    } else {
-        [dict setObject:[NSNumber numberWithBool:false] forKey:@"userActivity"];
-    }
-    if (restorationHandler) {
-        [dict setObject:restorationHandler forKey:@"restorationHandler"];
-    } else {
-        [dict setObject:[NSNumber numberWithBool:false] forKey:@"restorationHandler"];
-    }
+    NSDictionary *dict = [NSDictionary dictionary];
+    dict = @{@"userActivity":userActivity};
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitUserActivity object:self userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1UserActivity object:self userInfo:dict];
 }
 
 - (void)dealloc
