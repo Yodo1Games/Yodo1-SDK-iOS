@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'OpenSuitThirdsAnalytics'
-    s.version          = '1.0.7'
+    s.version          = '1.0.8'
     s.summary          = '更新ThinkingSDK2.7.5'
 
     s.description      = <<-DESC

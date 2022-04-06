@@ -664,7 +664,7 @@ static BOOL _bInit_ = NO;
     NSDictionary *dict = [NSDictionary dictionary];
     dict = @{@"userActivity":userActivity};
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1UserActivity object:self userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitUserActivity object:self userInfo:dict];
 }
 
 - (void)dealloc
