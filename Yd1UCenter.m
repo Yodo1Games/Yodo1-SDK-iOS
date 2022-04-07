@@ -727,12 +727,9 @@
     NSString *appKey = @"";
     if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
         appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
-        NSLog(@"[Yodo1 Ads] plist中设置GameKey");
-        return;
     }
     
     NSString *urlString = [NSString stringWithFormat:@"https://activationcode.yodo1api.com/activationcode/activateWithReward?game_appkey=%@&channel_code=%@&activation_code=%@&dev_id=%@", appKey, @"appstore", code, Yd1OpsTools.keychainDeviceId];
-    
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
