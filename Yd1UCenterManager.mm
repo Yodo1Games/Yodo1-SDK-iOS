@@ -1310,6 +1310,37 @@ extern "C" {
      */
     void UnityQueryLossOrder(const char* gameObjectName, const char* methodName)
     {
+        
+        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
+        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        [Yd1UCenterManager.shared restorePayment:^(NSArray * _Nonnull productIds, NSString * _Nonnull response) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(ocGameObjName && ocMethodName){
+                    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+                    [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_LossOrderIdQuery] forKey:@"resulType"];
+                    if([productIds count] > 0 ){
+                        [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
+                        [dict setObject:productIds forKey:@"data"];
+                    }else{
+                        [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
+                    }
+                    NSError* parseJSONError = nil;
+                    NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
+                    if(parseJSONError){
+                        [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_LossOrderIdQuery] forKey:@"resulType"];
+                        [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
+                        [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
+                        msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
+                    }
+                    UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                                     [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
+                                     [msg cStringUsingEncoding:NSUTF8StringEncoding]);
+                }
+                
+            });
+        }];
+        
+        /*
         NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
         NSString* ocMethodName = Yodo1CreateNSString(methodName);
         
@@ -1339,6 +1370,7 @@ extern "C" {
                 
             });
         }];
+         */
     
     }
 
@@ -1692,6 +1724,7 @@ extern "C" {
             });
         }];
     }
+     
     /**
      *根据产品ID,获取产品信息
      */
@@ -1972,7 +2005,7 @@ extern "C" {
         NSString* code = Yodo1CreateNSString(activationCode);
         
         [Yd1UCenter.shared verifyActivationcode:code callback:^(BOOL success, NSDictionary * _Nullable response, NSString * _Nullable error) {
-            NSLog(@"response=%@ error=%@", response, error);
+            NSLog(@">>>>%@", response);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(ocGameObjName && ocMethodName) {
@@ -1984,17 +2017,14 @@ extern "C" {
                         [dict setObject:[NSNumber numberWithInt:0] forKey:@"error"];
                         [dict setObject:@"success" forKey:@"errorMsg"];
                         
-                        if (response[@"reward"]) {
-                            [dict setObject:response[@"reward"] forKey:@"reward"];
+                        if ([response[@"reward"] length] > 0) {
+                            int rewa = [response[@"reward"] intValue];
+                            [dict setObject:[NSNumber numberWithInt:rewa] forKey:@"reward"];
                         } else {
                             [dict setObject:@"" forKey:@"reward"];
                         }
                         
-                        if ([response[@"comment"] length] > 0) {
-                            [dict setObject:response[@"comment"] forKey:@"rewardDes"];
-                        } else {
-                            [dict setObject:@"" forKey:@"rewardDes"];
-                        }
+                        [dict setObject:response[@"comment"] forKey:@"rewardDes"];
                         
                         NSError* parseJSONError = nil;
                         NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
@@ -2002,7 +2032,6 @@ extern "C" {
                             [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                             msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                         }
-                        
                         UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                          [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                          [msg cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -2012,7 +2041,7 @@ extern "C" {
                         [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_VerifyActivationcode] forKey:@"resulType"];
                         [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
                         [dict setObject:[NSNumber numberWithInt:1] forKey:@"error"];
-                        [dict setObject:error forKey:@"errorMsg"];
+                        [dict setObject:response[@"error"] forKey:@"errorMsg"];
                         [dict setObject:@"" forKey:@"reward"];
                         [dict setObject:@"" forKey:@"rewardDes"];
                         
