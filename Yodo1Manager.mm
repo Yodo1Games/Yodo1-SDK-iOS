@@ -39,6 +39,8 @@
 
 #import "Yodo1Model.h"
 
+#define DEBUG [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] integerValue]
+
 NSString* const kFacebookAppId      = @"FacebookAppId";
 NSString* const kYodo1ChannelId     = @"AppStore";
 
