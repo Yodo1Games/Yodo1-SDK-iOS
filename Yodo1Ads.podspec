@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Ads'
-    s.version          = '0.0.45'
+    s.version          = '1.5.0.1'
     # s.version          = '0.0.43'
     # s.version          = '6.1.0.1'
     s.summary          = '  修改TD在线参数  
