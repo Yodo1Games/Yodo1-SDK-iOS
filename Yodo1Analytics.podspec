@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Analytics'
-    s.version          = '6.0.1'
+    s.version          = '6.0.2'
     s.summary          = ' v5.0.0 '
 
     s.description      = <<-DESC
@@ -69,6 +69,6 @@ TODO: Add long description of the pod here.
         'c++',
         'z']
 
-    s.dependency 'Yodo1OnlineParameter','6.0.1'
+    s.dependency 'Yodo1OnlineParameter','6.0.3'
 
 end
