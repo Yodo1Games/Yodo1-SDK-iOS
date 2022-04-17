@@ -14,7 +14,7 @@
 #import "Yodo1Tool+Storage.h"
 #import <Bugly/Bugly.h>
 
-#import "Yodo1Ads.h"
+#import "Yodo1Suit.h"
 
 #import "Yodo1AnalyticsManager.h"
 #import "OpenSuitAnalyticsManager.h"
@@ -67,7 +67,7 @@ static NSString* __kAppKey = @"";
     isInitialized = true;
     
 #ifdef YODO1_SUIT
-    [Yodo1Ads initWithAppKey:__kAppKey];
+    [Yodo1Suit initWithAppKey:__kAppKey];
 #endif
     
 #ifndef YODO1_SUIT
@@ -128,7 +128,7 @@ static NSString* __kAppKey = @"";
 
 + (NSDictionary*)config {
     NSBundle *bundle = [[NSBundle alloc] initWithPath:[[NSBundle mainBundle]
-                                                       pathForResource:@"Yodo1Ads"
+                                                       pathForResource:@"Yodo1Suit"
                                                        ofType:@"bundle"]];
     if (bundle) {
         NSString *configPath = [bundle pathForResource:@"config" ofType:@"plist"];
