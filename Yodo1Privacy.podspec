@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Privacy'
-    s.version          = '6.0.1'
+    s.version          = '6.0.2'
     s.summary          = '新的隐私UI'
 
     s.description      = <<-DESC
@@ -76,7 +76,7 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-    s.dependency 'Yodo1OnlineParameter','6.0.1'
+    s.dependency 'Yodo1OnlineParameter','6.0.3'
     s.dependency 'Yodo1Layout','5.0.0'
 
 end
