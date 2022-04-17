@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PublishType</key>
+	<string>mas_global</string>
+	<key>PublishVersion</key>
+	<string>3.16.6</string>
+</dict>
+</plist>

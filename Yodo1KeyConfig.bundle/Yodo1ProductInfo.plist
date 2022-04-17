@@ -1,0 +1,6409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd-->
+<plist version="1.0">
+  <dict>
+    <key>iap_cash_cow</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cash Cow</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer400</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cash Cow</string>
+      <key>PriceDisplay</key>
+      <string>$5.99</string>
+      <key>ProductPrice</key>
+      <string>5.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_cash_cow_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cash Cow China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer400cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cash Cow China</string>
+      <key>PriceDisplay</key>
+      <string>$5.99</string>
+      <key>ProductPrice</key>
+      <string>5.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_cash_cow_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cash Cow Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer257</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cash Cow Sale</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_cash_cow_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cash Cow China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer257cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cash Cow China</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_cash_cow_combination</key>
+    <dict>
+      <key>ProductName</key>
+      <string>EpicCombination</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer243</string>
+      <key>ProductDescription</key>
+      <string>Purchase EpicCombination</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_cash_cow_combination_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>EpicCombination China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer243cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase EpicCombination China</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mission_mule</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mission Mule</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer102</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mission Mule</string>
+      <key>PriceDisplay</key>
+      <string>5.99</string>
+      <key>ProductPrice</key>
+      <string>5.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mission_mule_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mission Mule China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer102cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mission Mule China</string>
+      <key>PriceDisplay</key>
+      <string>5.99</string>
+      <key>ProductPrice</key>
+      <string>5.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mission_mule_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mission Mule Sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer258cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mission Mule Sale China</string>
+      <key>PriceDisplay</key>
+      <string>3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mission_mule_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mission Mule Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer258</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mission Mule Sale</string>
+      <key>PriceDisplay</key>
+      <string>3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mission_mule_combination</key>
+    <dict>
+      <key>ProductName</key>
+      <string>EpicCombination</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer244</string>
+      <key>ProductDescription</key>
+      <string>Purchase EpicCombination</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mission_mule_combination_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>EpicCombination China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer244cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase EpicCombination China</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_revive_bird</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Revive Raven</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer185</string>
+      <key>ProductDescription</key>
+      <string>Purchase Revive Raven</string>
+      <key>PriceDisplay</key>
+      <string>5.99</string>
+      <key>ProductPrice</key>
+      <string>5.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_revive_bird_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Revive Raven China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer185cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Revive Raven China</string>
+      <key>PriceDisplay</key>
+      <string>5.99</string>
+      <key>ProductPrice</key>
+      <string>5.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_revive_bird_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Revive Raven Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer259</string>
+      <key>ProductDescription</key>
+      <string>Purchase Revive Raven Sale</string>
+      <key>PriceDisplay</key>
+      <string>3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_revive_bird_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Revive Raven Sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer259cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Revive Raven Sale China</string>
+      <key>PriceDisplay</key>
+      <string>3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_revive_bird_combination</key>
+    <dict>
+      <key>ProductName</key>
+      <string>EpicCombination</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer245</string>
+      <key>ProductDescription</key>
+      <string>Purchase EpicCombination</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_revive_bird_combination_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>EpicCombination China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer245cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase EpicCombination China</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_lucky_lamb</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lucky Lamb</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer265</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lucky Lamb</string>
+      <key>PriceDisplay</key>
+      <string>$5.99</string>
+      <key>ProductPrice</key>
+      <string>5.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_lucky_lamb_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lucky Lamb China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer265cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lucky Lamb China</string>
+      <key>PriceDisplay</key>
+      <string>$5.99</string>
+      <key>ProductPrice</key>
+      <string>5.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_lucky_lamb_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lucky Lamb Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer266</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lucky Lamb Sale</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_lucky_lamb_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lucky Lamb Sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer266cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lucky Lamb Sale China</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_lucky_lamb_combination</key>
+    <dict>
+      <key>ProductName</key>
+      <string>EpicCombination</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer286</string>
+      <key>ProductDescription</key>
+      <string>Purchase EpicCombination</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_lucky_lamb_combination_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>EpicCombination China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer286cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase EpicCombination China</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_sale_newuser</key>
+    <dict>
+      <key>ProductName</key>
+      <string>NewUserSale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer246</string>
+      <key>ProductDescription</key>
+      <string>Purchase NewUserSale</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_epic_bundle</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Winter Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer256</string>
+      <key>ProductDescription</key>
+      <string>Purchase Winter Sale</string>
+      <key>PriceDisplay</key>
+      <string>$27.99</string>
+      <key>ProductPrice</key>
+      <string>27.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_epic_bundle_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Winter Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer186</string>
+      <key>ProductDescription</key>
+      <string>Purchase Winter Sale</string>
+      <key>PriceDisplay</key>
+      <string>$15.99</string>
+      <key>ProductPrice</key>
+      <string>15.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_few_coins</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Luxury Tour</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer1</string>
+      <key>ProductDescription</key>
+      <string>Get 3000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_few_coins_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Luxury Tour China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer1cn</string>
+      <key>ProductDescription</key>
+      <string>Get 3000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_few_coins_cnex</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Luxury Tour China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer1cnex</string>
+      <key>ProductDescription</key>
+      <string>Get 3000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_few_coins_gbex</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Luxury Tour Global</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer1gb</string>
+      <key>ProductDescription</key>
+      <string>Get 3000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_few_coins_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Luxury Tour Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer260</string>
+      <key>ProductDescription</key>
+      <string>Get 3000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_few_coins_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Luxury Tour Sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer260cn</string>
+      <key>ProductDescription</key>
+      <string>Get 3000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_pile_coins</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Executive Tour</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer2</string>
+      <key>ProductDescription</key>
+      <string>Get 6000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_pile_coins_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Executive Tour China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer2cn</string>
+      <key>ProductDescription</key>
+      <string>Get 6000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_pile_coins_cnex</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Executive Tour China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer2cnex</string>
+      <key>ProductDescription</key>
+      <string>Get 6000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_pile_coins_gbex</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Executive Tour Global</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer2gb</string>
+      <key>ProductDescription</key>
+      <string>Get 6000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_pile_coins_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Executive Tour Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer261</string>
+      <key>ProductDescription</key>
+      <string>Get 6000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_pile_coins_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Executive Tour Sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer261cn</string>
+      <key>ProductDescription</key>
+      <string>Get 6000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mountain_coins</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Celebrity Tour</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer3</string>
+      <key>ProductDescription</key>
+      <string>Get 15000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$9.99</string>
+      <key>ProductPrice</key>
+      <string>9.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mountain_coins_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Celebrity Tour China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer3cn</string>
+      <key>ProductDescription</key>
+      <string>Get 15000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$9.99</string>
+      <key>ProductPrice</key>
+      <string>9.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mountain_coins_cnex</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Celebrity Tour China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer3cnex</string>
+      <key>ProductDescription</key>
+      <string>Get 15000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$9.99</string>
+      <key>ProductPrice</key>
+      <string>9.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mountain_coins_gbex</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Celebrity Tour Global</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer3gb</string>
+      <key>ProductDescription</key>
+      <string>Get 15000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$9.99</string>
+      <key>ProductPrice</key>
+      <string>9.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mountain_coins_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Celebrity Tour Sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer262</string>
+      <key>ProductDescription</key>
+      <string>Get 15000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_mountain_coins_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Celebrity Tour Sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer262cn</string>
+      <key>ProductDescription</key>
+      <string>Get 15000 Coins</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>1</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_jurassic</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer268</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_jurassic_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer268cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic China</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_jurassic_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer273</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic sale</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_jurassic_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer273cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic sale China</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_jurassic_combination_small</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic combination small</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer276</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic combination small</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_jurassic_combination_medium</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic combinationm medium</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer277</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic combinationm medium</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_jurassic_combination_large</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic combination large</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer278</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic combination large</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_olympus</key>
+    <dict>
+      <key>ProductName</key>
+      <string>olympus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer269</string>
+      <key>ProductDescription</key>
+      <string>Purchase olympus</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_olympus_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>olympus China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer269cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase olympus China</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_olympus_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>olympus sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer274</string>
+      <key>ProductDescription</key>
+      <string>Purchase olympus sale</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_olympus_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>olympus sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer274cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase olympus sale China</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_olympus_combination_small</key>
+    <dict>
+      <key>ProductName</key>
+      <string>olympus combination small</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer279</string>
+      <key>ProductDescription</key>
+      <string>Purchase olympus combination small</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_olympus_combination_medium</key>
+    <dict>
+      <key>ProductName</key>
+      <string>olympus combination medium</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer280</string>
+      <key>ProductDescription</key>
+      <string>Purchase olympus combination medium</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_olympus_combination_large</key>
+    <dict>
+      <key>ProductName</key>
+      <string>olympus combination large</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer281</string>
+      <key>ProductDescription</key>
+      <string>Purchase olympus combination large</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_insect</key>
+    <dict>
+      <key>ProductName</key>
+      <string>insect</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer270</string>
+      <key>ProductDescription</key>
+      <string>Purchase insect</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_insect_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>insect China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer270cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase insect China</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_insect_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>insect sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer275</string>
+      <key>ProductDescription</key>
+      <string>Purchase insect sale</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_insect_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>insect sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer275cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase insect sale China</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_insect_combination_small</key>
+    <dict>
+      <key>ProductName</key>
+      <string>insect combination small</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer282</string>
+      <key>ProductDescription</key>
+      <string>Purchase insect combination small</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_insect_combination_medium</key>
+    <dict>
+      <key>ProductName</key>
+      <string>insect combination medium</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer283</string>
+      <key>ProductDescription</key>
+      <string>Purchase insect combination medium</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_insect_combination_large</key>
+    <dict>
+      <key>ProductName</key>
+      <string>insect combination large</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer284</string>
+      <key>ProductDescription</key>
+      <string>Purchase insect combination large</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_greatwall</key>
+    <dict>
+      <key>ProductName</key>
+      <string>greatwall</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer287</string>
+      <key>ProductDescription</key>
+      <string>Purchase greatwall</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_greatwall_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>greatwall China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer287cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase greatwall China</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_greatwall_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>greatwall sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer288</string>
+      <key>ProductDescription</key>
+      <string>Purchase greatwall sale</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_greatwall_sale_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>greatwall sale China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer288cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase greatwall sale China</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_greatwall_combination_small</key>
+    <dict>
+      <key>ProductName</key>
+      <string>greatwall combination small</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer289</string>
+      <key>ProductDescription</key>
+      <string>Purchase greatwall combination small</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_greatwall_combination_medium</key>
+    <dict>
+      <key>ProductName</key>
+      <string>greatwall combination medium</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer290</string>
+      <key>ProductDescription</key>
+      <string>Purchase greatwall combination medium</string>
+      <key>PriceDisplay</key>
+      <string>$4.99</string>
+      <key>ProductPrice</key>
+      <string>4.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_greatwall_combination_large</key>
+    <dict>
+      <key>ProductName</key>
+      <string>greatwall combination large</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer291</string>
+      <key>ProductDescription</key>
+      <string>Purchase greatwall combination large</string>
+      <key>PriceDisplay</key>
+      <string>$6.99</string>
+      <key>ProductPrice</key>
+      <string>6.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_combination</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic+olympus+insect</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer271</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic+olympus+insect</string>
+      <key>PriceDisplay</key>
+      <string>$19.99</string>
+      <key>ProductPrice</key>
+      <string>19.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_combination_sale</key>
+    <dict>
+      <key>ProductName</key>
+      <string>jurassic+olympus+insect_sale</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer272</string>
+      <key>ProductDescription</key>
+      <string>Purchase jurassic+olympus+insect_sale</string>
+      <key>PriceDisplay</key>
+      <string>$14.99</string>
+      <key>ProductPrice</key>
+      <string>14.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_buffalo1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Forest Buffalo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer9</string>
+      <key>ProductDescription</key>
+      <string>Purchase Forest Buffalo</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_buffalo2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Water Buffalo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer8</string>
+      <key>ProductDescription</key>
+      <string>Purchase Water Buffalo</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_buffalo3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bison</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer7</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bison</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_buffalo4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Kerfuffle'o</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer6</string>
+      <key>ProductDescription</key>
+      <string>Purchase Kerfuffle'o</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_buffalo5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Diabuffalo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer5</string>
+      <key>ProductDescription</key>
+      <string>Purchase Diabuffalo</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_zebra1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Brazeb</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer10</string>
+      <key>ProductDescription</key>
+      <string>Purchase Brazeb</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_zebra2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Candicorn</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer11</string>
+      <key>ProductDescription</key>
+      <string>Purchase Candicorn</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_zebra3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Trojan Zebra</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer12</string>
+      <key>ProductDescription</key>
+      <string>Purchase Trojan Zebra</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_zebra4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Punky Zeb</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer13</string>
+      <key>ProductDescription</key>
+      <string>Purchase Punky Zeb</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_zebra5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Elektro Zebra</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer14</string>
+      <key>ProductDescription</key>
+      <string>Purchase Elektro Zebra</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_vulture1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Egyptian Vulture</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer15</string>
+      <key>ProductDescription</key>
+      <string>Purchase Egyptian Vulture</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_vulture2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Viva Las Vulture</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer16</string>
+      <key>ProductDescription</key>
+      <string>Purchase Viva Las Vulture</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_vulture3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Vulture Captialist</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer17</string>
+      <key>ProductDescription</key>
+      <string>Purchase Captialist</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_vulture4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Pop Vulture</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer18</string>
+      <key>ProductDescription</key>
+      <string>Purchase Pop Vulture</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_vulture5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Vulture-on</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer19</string>
+      <key>ProductDescription</key>
+      <string>Purchase Vulture-on</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_alligator1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Frogator</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer20</string>
+      <key>ProductDescription</key>
+      <string>Purchase Frogator</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_alligator2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Snorkadile</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer21</string>
+      <key>ProductDescription</key>
+      <string>Purchase Snorkadile</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_alligator3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bunny Gator</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer22</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bunny Gator</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_alligator4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bridezilla</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer23</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bridezilla</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_alligator5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cockadoodile</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer24</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cockadoodile</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_hippo1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Pygmy Hippo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer25</string>
+      <key>ProductDescription</key>
+      <string>Purchase Pygmy Hippo</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_hippo2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Ballerina Hippo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer26</string>
+      <key>ProductDescription</key>
+      <string>Purchase Ballerina Hippo</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_hippo3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>HipHopapotamus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer27</string>
+      <key>ProductDescription</key>
+      <string>Purchase HipHopapotamus</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_hippo4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Hippiepotamus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer28</string>
+      <key>ProductDescription</key>
+      <string>Purchase Hippiepotamus</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_hippo5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Platypotamus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer29</string>
+      <key>ProductDescription</key>
+      <string>Purchase Platypotamus</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_toucan1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Hornbill</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer30</string>
+      <key>ProductDescription</key>
+      <string>Purchase Hornbill</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_toucan2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bluecan</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer31</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bluecan</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_toucan3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Moocan</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer32</string>
+      <key>ProductDescription</key>
+      <string>Purchase Moocan</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_toucan4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Brewcan</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer33</string>
+      <key>ProductDescription</key>
+      <string>Purchase Brewcan</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_toucan5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Threecan</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer34</string>
+      <key>ProductDescription</key>
+      <string>Purchase Threecan</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rhino1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Hawaiino</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer35</string>
+      <key>ProductDescription</key>
+      <string>Purchase Hawaiino</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rhino2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Apple Pieno</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer36</string>
+      <key>ProductDescription</key>
+      <string>Purchase Apple Pieno</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rhino3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Feline'o</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer37</string>
+      <key>ProductDescription</key>
+      <string>Purchase Feline'o</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rhino4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Skynocerus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer38</string>
+      <key>ProductDescription</key>
+      <string>Purchase Skynocerus</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rhino5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Dhinoceros</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer39</string>
+      <key>ProductDescription</key>
+      <string>Purchase Dhinoceros</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_lion1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Dande Lion</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer40</string>
+      <key>ProductDescription</key>
+      <string>Purchase Dande Lion</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_lion2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Sabretooth Lion</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer411</string>
+      <key>ProductDescription</key>
+      <string>Purchase Sabretooth Lion</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_lion3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Gryphon</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer42</string>
+      <key>ProductDescription</key>
+      <string>Purchase Gryphon</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_lion4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Le' Ion Chef</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer43</string>
+      <key>ProductDescription</key>
+      <string>Purchase Le' Ion Chef</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_lion5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cryin' Lion</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer44</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cryin' Lion</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_ostrich1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Celebirdy</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer45</string>
+      <key>ProductDescription</key>
+      <string>Purchase Celebirdy</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_ostrich2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Glam Rockstrich</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer46</string>
+      <key>ProductDescription</key>
+      <string>Purchase Glam Rockstrich</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_ostrich3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Ostri Chevalier</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer47</string>
+      <key>ProductDescription</key>
+      <string>Purchase Ostri Chevalier</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_ostrich4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Ostrich of Hearts</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer48</string>
+      <key>ProductDescription</key>
+      <string>Purchase Ostrich of Hearts</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_elephant1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mammoth</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer49</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mammoth</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_elephant2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Earl of Phant</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer50</string>
+      <key>ProductDescription</key>
+      <string>Purchase Psychadeliphant</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_elephant3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Psychadelephant</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer51</string>
+      <key>ProductDescription</key>
+      <string>Purchase Smelliphant</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_elephant4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Tootyphant</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer52</string>
+      <key>ProductDescription</key>
+      <string>Purchase Tootyphant</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_giraffe1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Girafferty</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer53</string>
+      <key>ProductDescription</key>
+      <string>Purchase Girafferty</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_giraffe2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Taco Jirafa</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer54</string>
+      <key>ProductDescription</key>
+      <string>Purchase Taco Jirafa</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_giraffe3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Highballer</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer55</string>
+      <key>ProductDescription</key>
+      <string>Purchase Highballer</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_giraffe4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Giraxxus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer56</string>
+      <key>ProductDescription</key>
+      <string>Purchase Giraxxus</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_boar1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Indian Boar</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer57</string>
+      <key>ProductDescription</key>
+      <string>Purchase Indian Boar</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_boar2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Boaring</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer58</string>
+      <key>ProductDescription</key>
+      <string>Purchase Boaring</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_boar3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Borc</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer59</string>
+      <key>ProductDescription</key>
+      <string>Purchase Borc</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_boar4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Beautiful Boar</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer60</string>
+      <key>ProductDescription</key>
+      <string>Purchase Beautiful Boar</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_gorilla1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mountain Gorilla</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer61</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mountain Gorilla</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_gorilla2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>QuarterBack Gorilla</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer62</string>
+      <key>ProductDescription</key>
+      <string>Purchase QuarterBack Gorilla</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_gorilla3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Guerilla</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer63</string>
+      <key>ProductDescription</key>
+      <string>Purchase Guerilla</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_gorilla4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lawrilla</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer64</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lawrilla</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_tiger1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Liger</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer65</string>
+      <key>ProductDescription</key>
+      <string>Purchase Liger</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_tiger2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Crouching Tiger</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer66</string>
+      <key>ProductDescription</key>
+      <string>Purchase Crouching Tiger</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_tiger3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>White Tiger</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer67</string>
+      <key>ProductDescription</key>
+      <string>Purchase White Tiger</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_tiger4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>H.R. Tiger</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer68</string>
+      <key>ProductDescription</key>
+      <string>Purchase H.R. Tiger</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_bear1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bear Chieftain</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer69</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bear Chieftain</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_bear2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Honey Bear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer70</string>
+      <key>ProductDescription</key>
+      <string>Purchase Honey Bear</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_bear3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bearthday Cake</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer71</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bearthday Cake</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_bear4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Beaver Bear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer72</string>
+      <key>ProductDescription</key>
+      <string>Purchase Beaver Bear</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_bear5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>SU-24 Bearoplane</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer73</string>
+      <key>ProductDescription</key>
+      <string>Purchase SU-24 Bearoplane</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_eagle1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Knight Hawk</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer74</string>
+      <key>ProductDescription</key>
+      <string>Purchase Knight Hawk</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_eagle2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Eaglward Scissorwings</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer75</string>
+      <key>ProductDescription</key>
+      <string>Purchase Eaglward Scissorwings</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_eagle3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Count Batcula</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer76</string>
+      <key>ProductDescription</key>
+      <string>Purchase Count Batcula</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_eagle4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Greater Eaglemoth</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer77</string>
+      <key>ProductDescription</key>
+      <string>Purchase Greater Eaglemoth</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_eagle5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Robin Should</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer78</string>
+      <key>ProductDescription</key>
+      <string>Purchase Robin Should</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_goat1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Viking Goat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer79</string>
+      <key>ProductDescription</key>
+      <string>Purchase Viking Goat</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_goat2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Aqua Goat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer80</string>
+      <key>ProductDescription</key>
+      <string>Purchase Aqua Goat</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_goat3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Go-Nut</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer81</string>
+      <key>ProductDescription</key>
+      <string>Purchase Go-Nut</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_goat4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mk.II Stealth Goat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer82</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mk.II Stealth Goat</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_llama1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Saltwater Llama</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer83</string>
+      <key>ProductDescription</key>
+      <string>Purchase Saltwater Llama</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_llama2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Pinata Llama</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer84</string>
+      <key>ProductDescription</key>
+      <string>Purchase Pinata Llama</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_llama3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Elizabethan Llama</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer85</string>
+      <key>ProductDescription</key>
+      <string>Purchase Elizabethan Llama</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_llama4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Butterfllama</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer86</string>
+      <key>ProductDescription</key>
+      <string>Purchase Butterfllama</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_moose1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mossy Moose</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer87</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mossy Moose</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_moose2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Spruce Moose</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer88</string>
+      <key>ProductDescription</key>
+      <string>Purchase Spruce Moose</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_moose3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mesa Moose</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer89</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mesa Moose</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_moose4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Monstroose</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer90</string>
+      <key>ProductDescription</key>
+      <string>Purchase Monstroose</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_moose5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Dark Mousse</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer91</string>
+      <key>ProductDescription</key>
+      <string>Purchase Dark Mousse</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wolf1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Fire Wolf</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer92</string>
+      <key>ProductDescription</key>
+      <string>Purchase Fire Wolf</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wolf2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Survivor Wolf</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer93</string>
+      <key>ProductDescription</key>
+      <string>Purchase Survivor Wolf</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wolf3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Big Bad Wolf</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer94</string>
+      <key>ProductDescription</key>
+      <string>Purchase Big Bad Wolf</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wolf4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Jabberwolfy</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer95</string>
+      <key>ProductDescription</key>
+      <string>Purchase Jabberwolfy</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_yak1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Skyunk</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer96</string>
+      <key>ProductDescription</key>
+      <string>Purchase Skyunk</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_yak2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Abominable Snow Yak</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer97</string>
+      <key>ProductDescription</key>
+      <string>Purchase Abominable Snow Yak</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_yak3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Gnarlyak Tree</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer98</string>
+      <key>ProductDescription</key>
+      <string>Purchase Gnarlyak Tree</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_yak4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Battle Yak</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer99</string>
+      <key>ProductDescription</key>
+      <string>Purchase Battle Yak</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_yak5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Gearpunk Yak</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer100</string>
+      <key>ProductDescription</key>
+      <string>Purchase Gearpunk Yak</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_buffalo7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bufferrari</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer101</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bufferrari</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_zebra7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Legend of Zebra</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer103</string>
+      <key>ProductDescription</key>
+      <string>Purchase Legend of Zebra</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_elephant6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Fire Hydrophant</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer104</string>
+      <key>ProductDescription</key>
+      <string>Purchase Fire Hydrophant</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_ostrich6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mosstrich</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer105</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mosstrich</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_giraffe6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Giraffatar</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer106</string>
+      <key>ProductDescription</key>
+      <string>Purchase Giraffatar</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_vulture6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Dracorian</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer107</string>
+      <key>ProductDescription</key>
+      <string>Purchase Dracorian</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_lion6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Massai Lion</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer108</string>
+      <key>ProductDescription</key>
+      <string>Purchase Massai Lion</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_boar6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Wild Snore</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer109</string>
+      <key>ProductDescription</key>
+      <string>Purchase Wild Snore</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_gorilla6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Thorilla</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer110</string>
+      <key>ProductDescription</key>
+      <string>Purchase Thorilla</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_alligator6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Crookodile</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer111</string>
+      <key>ProductDescription</key>
+      <string>Purchase Crookodile</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_hippo6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Taweret</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer112</string>
+      <key>ProductDescription</key>
+      <string>Purchase Taweret</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rhino6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Marcel Rhineau</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer113</string>
+      <key>ProductDescription</key>
+      <string>Purchase Marcel Rhineau</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_tiger6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Pink Panthera</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer114</string>
+      <key>ProductDescription</key>
+      <string>Purchase Pink Panthera</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_toucan6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Kazoocan</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer115</string>
+      <key>ProductDescription</key>
+      <string>Purchase Kazoocan</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_llama6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Barack Obllama</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer116</string>
+      <key>ProductDescription</key>
+      <string>Purchase Barack Obllama</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_goat6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Heterozygoat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer117</string>
+      <key>ProductDescription</key>
+      <string>Purchase Heterozygoat</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_bear6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>TIME LOCKER BEAR</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer118</string>
+      <key>ProductDescription</key>
+      <string>Purchase TIME LOCKER BEAR</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wolf6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>TIME LOCKER DOG</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer119</string>
+      <key>ProductDescription</key>
+      <string>Purchase TIME LOCKER DOG</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_yak6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Afro Dizzy Yak</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer120</string>
+      <key>ProductDescription</key>
+      <string>Purchase Afro Dizzy Yak</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_eagle6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Flight Attendant</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer121</string>
+      <key>ProductDescription</key>
+      <string>Purchase Flight Attendant</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_moose6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Chocolate Mousse</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer122</string>
+      <key>ProductDescription</key>
+      <string>Purchase Chocolate Mousse</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_elephant7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Jellephant</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer123</string>
+      <key>ProductDescription</key>
+      <string>Purchase Jellephant</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_boar7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>BoarBQ</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer124</string>
+      <key>ProductDescription</key>
+      <string>Purchase BoarBQ</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_gorilla7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Marylin Monrilla</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer125</string>
+      <key>ProductDescription</key>
+      <string>Purchase Marylin Monrilla</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_alligator7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Termigator</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer126</string>
+      <key>ProductDescription</key>
+      <string>Purchase Termigator</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_hippo7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Sabretooth Hippo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer127</string>
+      <key>ProductDescription</key>
+      <string>Purchase Sabretooth Hippo</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rhino7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Slimenocerus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer128</string>
+      <key>ProductDescription</key>
+      <string>Purchase Slimenocerus</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_tiger7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Tigermoth</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer129</string>
+      <key>ProductDescription</key>
+      <string>Purchase Tigermoth</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_toucan7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bazookan</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer130</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bazookan</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_goat7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Ghoast</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer131</string>
+      <key>ProductDescription</key>
+      <string>Purchase Ghoast</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_moose7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Zeus Moose</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer134</string>
+      <key>ProductDescription</key>
+      <string>Purchase Zeus Moose</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sheep1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Sheep in Wolf's Clothing</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer135</string>
+      <key>ProductDescription</key>
+      <string>Purchase Sheep in Wolf's Clothing</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sheep2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Candylamb</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer136</string>
+      <key>ProductDescription</key>
+      <string>Purchase Candylamb</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sheep3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lady Baabaa</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer137</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lady Baabaa</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sheep4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Little Bo Sheep</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer138</string>
+      <key>ProductDescription</key>
+      <string>Purchase Little Bo Sheep</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sheep5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Conan the Baabaarian</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer139</string>
+      <key>ProductDescription</key>
+      <string>Purchase Conan the Baabaarian</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sheep6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lamburgerini</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer140</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lamburgerini</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sheep7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lambembert Cheese</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer141</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lambembert Cheese</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_kangaroo1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Kickboxeroo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer142</string>
+      <key>ProductDescription</key>
+      <string>Purchase Kickboxeroo</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_kangaroo2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Ranger Roo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer143</string>
+      <key>ProductDescription</key>
+      <string>Purchase Ranger Roo</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_kangaroo3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lollihops</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer144</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lollihops</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_kangaroo4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Skibby Dippy Doo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer145</string>
+      <key>ProductDescription</key>
+      <string>Purchase Skibby Dippy Doo</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_kangaroo5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Kan Guru</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer146</string>
+      <key>ProductDescription</key>
+      <string>Purchase Kan Guru</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_kangaroo6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Kangapoodle</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer147</string>
+      <key>ProductDescription</key>
+      <string>Purchase Kangapoodle</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_emu1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Aviator Emu</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer149</string>
+      <key>ProductDescription</key>
+      <string>Purchase Aviator Emu</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_emu2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Emo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer150</string>
+      <key>ProductDescription</key>
+      <string>Purchase Emo</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_emu3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Emusician</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer151</string>
+      <key>ProductDescription</key>
+      <string>Purchase Emusician</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_emu4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Dame Emu</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer152</string>
+      <key>ProductDescription</key>
+      <string>Purchase Dame Emu</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_emu5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Fiery Phoemu</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer153</string>
+      <key>ProductDescription</key>
+      <string>Purchase Fiery Phoemu</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_emu6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Tropical Emu</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer154</string>
+      <key>ProductDescription</key>
+      <string>Purchase Tropical Emu</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_emu7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Nestkeeper</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer155</string>
+      <key>ProductDescription</key>
+      <string>Purchase Nestkeeper</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wombat1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Combat Wombat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer156</string>
+      <key>ProductDescription</key>
+      <string>Purchase Combat Wombat</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wombat2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Womcat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer157</string>
+      <key>ProductDescription</key>
+      <string>Purchase Womcat</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wombat3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Wombaby</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer158</string>
+      <key>ProductDescription</key>
+      <string>Purchase Wombaby</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wombat4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Womdrian</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer159</string>
+      <key>ProductDescription</key>
+      <string>Purchase Womdrian</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wombat5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Wombamelon</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer160</string>
+      <key>ProductDescription</key>
+      <string>Purchase Wombamelon</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wombat6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bombat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer161</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bombat</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wombat7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Wombatman</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer162</string>
+      <key>ProductDescription</key>
+      <string>Purchase Wombatman</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_camel1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Camelflage</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer163</string>
+      <key>ProductDescription</key>
+      <string>Purchase Camelflage</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_camel2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Sinbad Camel</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer164</string>
+      <key>ProductDescription</key>
+      <string>Purchase Sinbad Camel</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_camel3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Volcamelno</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer165</string>
+      <key>ProductDescription</key>
+      <string>Purchase Volcamelno</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_camel4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Camelot</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer166</string>
+      <key>ProductDescription</key>
+      <string>Purchase Camelot</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_camel5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cameleon</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer167</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cameleon</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_camel6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Humpback Camel</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer168</string>
+      <key>ProductDescription</key>
+      <string>Purchase Humpback Camel</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_camel7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Sufi Camel</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer169</string>
+      <key>ProductDescription</key>
+      <string>Purchase Sufi Camel</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_flyingfox1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Flying Box</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer170</string>
+      <key>ProductDescription</key>
+      <string>Purchase Flying Box</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_flyingfox2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Flying Foxie</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer171</string>
+      <key>ProductDescription</key>
+      <string>Purchase Flying Foxie</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_flyingfox3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Vampire Bat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer172</string>
+      <key>ProductDescription</key>
+      <string>Purchase Vampire Bat</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_flyingfox4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Fruit Bat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer173</string>
+      <key>ProductDescription</key>
+      <string>Purchase Fruit Bat</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_flyingfox5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Spying Fox</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer174</string>
+      <key>ProductDescription</key>
+      <string>Purchase Spying Fox</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_flyingfox6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Flying Socks</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer175</string>
+      <key>ProductDescription</key>
+      <string>Purchase Flying Socks</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_flyingfox7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cute Bat</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer176</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cute Bat</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_dropbear1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Dropbear Dundee</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer177</string>
+      <key>ProductDescription</key>
+      <string>Purchase Dropbear Dundee</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_dropbear2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Drop Bikie</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer178</string>
+      <key>ProductDescription</key>
+      <string>Purchase Drop Bikie</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_dropbear3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Pennywise the Koala</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer179</string>
+      <key>ProductDescription</key>
+      <string>Purchase Pennywise the Koala</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_dropbear4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Rustle Ko</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer180</string>
+      <key>ProductDescription</key>
+      <string>Purchase Rustle Ko</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_dropbear5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>The Hon. Lady Dropbear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer181</string>
+      <key>ProductDescription</key>
+      <string>Purchase The Hon. Lady Dropbear</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_dropbear6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bunyip</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer182</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bunyip</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_dropbear7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Professor Dropbear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer183</string>
+      <key>ProductDescription</key>
+      <string>Purchase Professor Dropbear</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_ostrich7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Ostwitch</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer184</string>
+      <key>ProductDescription</key>
+      <string>Purchase Ostwitch</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_seal1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Leopard Seal</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer187</string>
+      <key>ProductDescription</key>
+      <string>Purchase Leopard Seal</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_seal2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Banana Peal</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer188</string>
+      <key>ProductDescription</key>
+      <string>Purchase Banana Peal</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_seal3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Security Seal</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer189</string>
+      <key>ProductDescription</key>
+      <string>Purchase Security Seal</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_seal4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Harp Seal</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer190</string>
+      <key>ProductDescription</key>
+      <string>Purchase Harp Seal</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_seal5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Navy Seal</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer191</string>
+      <key>ProductDescription</key>
+      <string>Purchase Navy Seal</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_seal6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Eskimo Seal</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer192</string>
+      <key>ProductDescription</key>
+      <string>Purchase Eskimo Seal</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_seal7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Seal of Fortune</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer193</string>
+      <key>ProductDescription</key>
+      <string>Purchase Seal of Fortune</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rabbit1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Anne Bunny</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer194</string>
+      <key>ProductDescription</key>
+      <string>Purchase Anne Bunny</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rabbit2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Chocolate Bunny</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer195</string>
+      <key>ProductDescription</key>
+      <string>Purchase Chocolate Bunny</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rabbit3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Gunny</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer196</string>
+      <key>ProductDescription</key>
+      <string>Purchase Gunny</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rabbit4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Grass Hopper</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer197</string>
+      <key>ProductDescription</key>
+      <string>Purchase Grass Hopper</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rabbit5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Snow Bunny</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer198</string>
+      <key>ProductDescription</key>
+      <string>Purchase Snow Bunny</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rabbit6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Funny Bunny</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer199</string>
+      <key>ProductDescription</key>
+      <string>Purchase Funny Bunny</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_rabbit7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Crabbit</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer200</string>
+      <key>ProductDescription</key>
+      <string>Purchase Crabbit</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_arcticFox1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Faux News</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer201</string>
+      <key>ProductDescription</key>
+      <string>Purchase Faux News</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_arcticFox2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>El Zorro</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer202</string>
+      <key>ProductDescription</key>
+      <string>Purchase El Zorro</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_arcticFox3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Kitsune</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer203</string>
+      <key>ProductDescription</key>
+      <string>Purchase Kitsune</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_arcticFox4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Goldifox</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer204</string>
+      <key>ProductDescription</key>
+      <string>Purchase Goldifox</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_arcticFox5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Clockwork Fox</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer205</string>
+      <key>ProductDescription</key>
+      <string>Purchase Clockwork Fox</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_arcticFox6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Jukefox</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer206</string>
+      <key>ProductDescription</key>
+      <string>Purchase Jukefox</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_arcticFox7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Sunset Twinkle</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer207</string>
+      <key>ProductDescription</key>
+      <string>Purchase Sunset Twinkle</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_penguin1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Emperor Penguin</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer208</string>
+      <key>ProductDescription</key>
+      <string>Purchase Emperor Penguin</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_penguin2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Plague Doctor Penguin</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer209</string>
+      <key>ProductDescription</key>
+      <string>Purchase Plague Doctor Penguin</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_penguin3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Pilot Penguin</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer210</string>
+      <key>ProductDescription</key>
+      <string>Purchase Pilot Penguin</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_penguin4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Penghis Khan</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer211</string>
+      <key>ProductDescription</key>
+      <string>Purchase Penghis Khan</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_penguin5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Fairy Penguin</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer212</string>
+      <key>ProductDescription</key>
+      <string>Purchase Fairy Penguin</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_penguin6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Hockey Puckguin</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer213</string>
+      <key>ProductDescription</key>
+      <string>Purchase Hockey Puckguin</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_penguin7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Pengdjinn</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer214</string>
+      <key>ProductDescription</key>
+      <string>Purchase Pengdjinn</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_walrus1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Sea Cow</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer215</string>
+      <key>ProductDescription</key>
+      <string>Purchase Sea Cow</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_walrus2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lawless Walrus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer216</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lawless Walrus</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_walrus3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Warrus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer217</string>
+      <key>ProductDescription</key>
+      <string>Purchase Warrus</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_walrus4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Walrus Viking</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer218</string>
+      <key>ProductDescription</key>
+      <string>Purchase Walrus Viking</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_walrus5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Sabre Tooth Walrus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer219</string>
+      <key>ProductDescription</key>
+      <string>Purchase Sabre Tooth Walrus</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_walrus6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Belle of the Ballrus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer220</string>
+      <key>ProductDescription</key>
+      <string>Purchase Belle of the Ballrus</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_walrus7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Wealthy Walrus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer221</string>
+      <key>ProductDescription</key>
+      <string>Purchase Wealthy Walrus</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_polarBear1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Strawbeary</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer222</string>
+      <key>ProductDescription</key>
+      <string>Purchase Strawbeary</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_polarBear2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Polo Bear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer223</string>
+      <key>ProductDescription</key>
+      <string>Purchase Polo Bear</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_polarBear3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Solar Bear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer224</string>
+      <key>ProductDescription</key>
+      <string>Purchase Solar Bear</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_polarBear4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Patroller Bear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer225</string>
+      <key>ProductDescription</key>
+      <string>Purchase Patroller Bear</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_polarBear5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Roller Bear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer226</string>
+      <key>ProductDescription</key>
+      <string>Purchase Roller Bear</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_polarBear6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Bowler Bear</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer227</string>
+      <key>ProductDescription</key>
+      <string>Purchase Bowler Bear</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_polarBear7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Lumbearjack</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer228</string>
+      <key>ProductDescription</key>
+      <string>Purchase Lumbearjack</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_owl1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Horned Owl</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer229</string>
+      <key>ProductDescription</key>
+      <string>Purchase Horned Owl</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_owl2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Prowler</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer230</string>
+      <key>ProductDescription</key>
+      <string>Purchase Prowler</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_owl3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Barn Owl</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer231</string>
+      <key>ProductDescription</key>
+      <string>Purchase Barn Owl</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_owl4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Robin Hoot</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer232</string>
+      <key>ProductDescription</key>
+      <string>Purchase Robin Hoot</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_owl5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Owlgebra</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer233</string>
+      <key>ProductDescription</key>
+      <string>Purchase Owlgebra</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_owl6</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Whooodunnit</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer234</string>
+      <key>ProductDescription</key>
+      <string>Purchase Whooodunnit</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_owl7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Knight Owl</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer235</string>
+      <key>ProductDescription</key>
+      <string>Purchase Knight Owl</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_buffalo8</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Buff the Magic Dragon</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer236</string>
+      <key>ProductDescription</key>
+      <string>Purchase Buff the Magic Dragon</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_buffalo8_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Buff the Magic Dragon China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer236cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Buff the Magic Dragon China</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_zebra8</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Zegasus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer237</string>
+      <key>ProductDescription</key>
+      <string>Purchase Zegasus</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_zebra8_cn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Zegasus China</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer237cn</string>
+      <key>ProductDescription</key>
+      <string>Purchase Zegasus China</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_giraffe7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>World's Tallest Sheep</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer238</string>
+      <key>ProductDescription</key>
+      <string>Purchase World's Tallest Sheep</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_vulture7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Volture</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer239</string>
+      <key>ProductDescription</key>
+      <string>Purchase Volture</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_eagle7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Regal Eagle</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer240</string>
+      <key>ProductDescription</key>
+      <string>Purchase Regal Eagle</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_yak7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Zodiyak</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer241</string>
+      <key>ProductDescription</key>
+      <string>Purchase Zodiyak</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wolf8</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Red Riding Wolf</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer242</string>
+      <key>ProductDescription</key>
+      <string>Purchase Red Riding Wolf</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_kangaroo7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Mongol Roo</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer148</string>
+      <key>ProductDescription</key>
+      <string>Purchase Mongol Roo</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wolf7</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Cerberus</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer132</string>
+      <key>ProductDescription</key>
+      <string>Purchase Cerberus</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_subscribe_cashcow</key>
+    <dict>
+      <key>ProductName</key>
+      <string>cashcow</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer292</string>
+      <key>ProductDescription</key>
+      <string>Purchase cashcow</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>2</string>
+      <key>PeriodUnit</key>
+      <string>每周</string>
+    </dict>
+    <key>iap_subscribe_unicorn</key>
+    <dict>
+      <key>ProductName</key>
+      <string>unicorn</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer293</string>
+      <key>ProductDescription</key>
+      <string>Purchase unicorn</string>
+      <key>PriceDisplay</key>
+      <string>$7.99</string>
+      <key>ProductPrice</key>
+      <string>7.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>2</string>
+      <key>PeriodUnit</key>
+      <string>每周</string>
+    </dict>
+    <key>iap_subscribe_weeklycard</key>
+    <dict>
+      <key>ProductName</key>
+      <string>weeklycard</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer285</string>
+      <key>ProductDescription</key>
+      <string>Purchase weeklycard</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>2</string>
+      <key>PeriodUnit</key>
+      <string>每周</string>
+    </dict>
+    <key>iap_unlock_area_jurassic_discount</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Jurassic Discount</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer294</string>
+      <key>ProductDescription</key>
+      <string>Purchase Jurassic Discount</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_olympus_discount</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Olympus Discount</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer295</string>
+      <key>ProductDescription</key>
+      <string>Purchase Olympus Discount</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_insect_discount</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Insect Discount</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer296</string>
+      <key>ProductDescription</key>
+      <string>Purchase Insect Discount</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_unlock_area_greatwall_discount</key>
+    <dict>
+      <key>ProductName</key>
+      <string>Greatwall Discount</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer297</string>
+      <key>ProductDescription</key>
+      <string>Purchase Greatwall Discount</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift1</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift1</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer298</string>
+      <key>ProductDescription</key>
+      <string>vip gift</string>
+      <key>PriceDisplay</key>
+      <string>$0.99</string>
+      <key>ProductPrice</key>
+      <string>0.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift2</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift2</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer299</string>
+      <key>ProductDescription</key>
+      <string>vip gift</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift3</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift3</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer300</string>
+      <key>ProductDescription</key>
+      <string>vip gift</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift4</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift4</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer301</string>
+      <key>ProductDescription</key>
+      <string>vip gift</string>
+      <key>PriceDisplay</key>
+      <string>$9.99</string>
+      <key>ProductPrice</key>
+      <string>9.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift5</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift5</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer302</string>
+      <key>ProductDescription</key>
+      <string>vip gift</string>
+      <key>PriceDisplay</key>
+      <string>$9.99</string>
+      <key>ProductPrice</key>
+      <string>9.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_ostrichsp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>ostrichsp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer303</string>
+      <key>ProductDescription</key>
+      <string>Purchase ostrichsp0</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_gorillasp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>gorillasp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer304</string>
+      <key>ProductDescription</key>
+      <string>Purchase gorillasp0</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_pegasussp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>pegasussp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer305</string>
+      <key>ProductDescription</key>
+      <string>Purchase pegasussp0</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_wolfsp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>wolfsp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer306</string>
+      <key>ProductDescription</key>
+      <string>Purchase wolfsp0</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sheepsp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>sheepsp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer307</string>
+      <key>ProductDescription</key>
+      <string>Purchase sheepsp0</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_sealsp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>sealsp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer308</string>
+      <key>ProductDescription</key>
+      <string>Purchase sealsp0</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_parasaurolophussp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>parasaurolophussp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer309</string>
+      <key>ProductDescription</key>
+      <string>Purchase parasaurolophussp0</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_grasshoppersp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>grasshoppersp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer310</string>
+      <key>ProductDescription</key>
+      <string>Purchase grasshoppersp0</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_animal_roostersp0</key>
+    <dict>
+      <key>ProductName</key>
+      <string>roostersp0</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer311</string>
+      <key>ProductDescription</key>
+      <string>Purchase roostersp0</string>
+      <key>PriceDisplay</key>
+      <string>$2.99</string>
+      <key>ProductPrice</key>
+      <string>2.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift1_199</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift1</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer312</string>
+      <key>ProductDescription</key>
+      <string>Purchase vip gift1</string>
+      <key>PriceDisplay</key>
+      <string>$1.99</string>
+      <key>ProductPrice</key>
+      <string>1.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift2_399</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift2</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer313</string>
+      <key>ProductDescription</key>
+      <string>Purchase vip gift2</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift3_399</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift3</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer314</string>
+      <key>ProductDescription</key>
+      <string>Purchase vip gift3</string>
+      <key>PriceDisplay</key>
+      <string>$3.99</string>
+      <key>ProductPrice</key>
+      <string>3.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift4_1199</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift4</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer315</string>
+      <key>ProductDescription</key>
+      <string>Purchase vip gift4</string>
+      <key>PriceDisplay</key>
+      <string>$11.99</string>
+      <key>ProductPrice</key>
+      <string>11.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+    <key>iap_vip_gift5_1199</key>
+    <dict>
+      <key>ProductName</key>
+      <string>vip gift5</string>
+      <key>ChannelProductId</key>
+      <string>com.yodo1.stampede.offer316</string>
+      <key>ProductDescription</key>
+      <string>Purchase vip gift5</string>
+      <key>PriceDisplay</key>
+      <string>$11.99</string>
+      <key>ProductPrice</key>
+      <string>11.99</string>
+      <key>Currency</key>
+      <string />
+      <key>ProductType</key>
+      <string>0</string>
+      <key>PeriodUnit</key>
+      <string />
+    </dict>
+  </dict>
+</plist>
