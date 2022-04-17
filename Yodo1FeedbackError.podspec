@@ -65,6 +65,6 @@ Pod::Spec.new do |s|
 
     s.libraries = ['sqlite3.0','z']
 
-    s.dependency 'Yodo1OnlineParameter','6.0.2'
+    s.dependency 'Yodo1OnlineParameter','6.0.3'
     
 end
