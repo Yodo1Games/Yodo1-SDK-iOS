@@ -50,6 +50,9 @@ typedef NS_OPTIONS(NSUInteger, StepId) {
     StepIdInitVideoAD,            //初始化激励视频广告
     StepIdRequestVideoAD,         //请求激励视频广告
     StepIdShowVideoAD,            //展示激励视频广告
+    StepIdInitSplashAD,           //初始化开屏广告
+    StepIdRequestSplashAD,        //请求开屏广告
+    StepIdShowSplashAD,           //展示开屏广告
 };
 
 NSString *NSStringFromStepId(StepId);

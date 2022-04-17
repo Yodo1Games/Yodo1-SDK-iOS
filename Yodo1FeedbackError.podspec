@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1FeedbackError'
-    s.version          = '6.0.1'
+    s.version          = '6.0.2'
     s.summary          = '反馈上传错误报告'
 
     s.description      = <<-DESC
@@ -65,6 +65,6 @@ Pod::Spec.new do |s|
 
     s.libraries = ['sqlite3.0','z']
 
-    s.dependency 'Yodo1OnlineParameter','6.0.1'
+    s.dependency 'Yodo1OnlineParameter','6.0.2'
     
 end
