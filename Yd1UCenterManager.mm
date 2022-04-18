@@ -244,6 +244,7 @@ static NSString* const __status                 = @"status";
                                    userInfo:@{NSLocalizedDescriptionKey:@"uniformProductId is nil!"}];
         self.paymentCallback(po);
          isBuying = false;
+        
         return;
     }
     
@@ -1076,6 +1077,19 @@ static NSString* const __status                 = @"status";
                                    userInfo:@{NSLocalizedDescriptionKey:notification.rm_storeError.localizedDescription? :@""}];
         self.paymentCallback(po);
         isBuying = false;
+        
+        Yd1UCenter.shared.itemInfo.channelCode = @"AppStore";
+                        Yd1UCenter.shared.itemInfo.channelOrderid = po.channelOrderid;
+                        Yd1UCenter.shared.itemInfo.orderId = po.orderId;
+                        Yd1UCenter.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",po.paymentState];
+        [Yd1UCenter.shared reportOrderStatus:Yd1UCenter.shared.itemInfo
+                                    callbakc:^(BOOL success, NSString * _Nonnull error) {
+            if (success) {
+                YD1LOG(@"report success.");
+            } else {
+                YD1LOG(@"report failed.");
+            }
+        }];
     }
 }
 
@@ -1134,7 +1148,20 @@ static NSString* const __status                 = @"status";
                 self->po.response = response;
                 self->po.paymentState = PaymentSuccess;
                 weakSelf.paymentCallback(self->po);
+                
+                Yd1UCenter.shared.itemInfo.orderId = orderId;
+                Yd1UCenter.shared.itemInfo.extra = @"";
+                [Yd1UCenter.shared clientCallback:Yd1UCenter.shared.itemInfo
+                                         callbakc:^(BOOL success, NSString * _Nonnull error) {
+                    if (success) {
+                        YD1LOG(@"report success.");
+                    } else {
+                        YD1LOG(@"report failed.");
+                    }
+                }];
+                
             }
+            
             [self->persistence consumeProductOfIdentifier:itemCode];
         } else {
             if (error_code == 20) {
@@ -1150,6 +1177,19 @@ static NSString* const __status                 = @"status";
                                                      code:2
                                                  userInfo:@{NSLocalizedDescriptionKey:error.localizedDescription}];
                 weakSelf.paymentCallback(self->po);
+                
+                Yd1UCenter.shared.itemInfo.channelCode = @"AppStore";
+                Yd1UCenter.shared.itemInfo.channelOrderid = Yd1UCenter.shared.itemInfo.channelOrderid;
+                Yd1UCenter.shared.itemInfo.orderId = orderId;
+                Yd1UCenter.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",PaymentFail];
+                [Yd1UCenter.shared reportOrderStatus:Yd1UCenter.shared.itemInfo
+                                            callbakc:^(BOOL success, NSString * _Nonnull error) {
+                    if (success) {
+                        YD1LOG(@"report success.");
+                    } else {
+                        YD1LOG(@"report failed.");
+                    }
+                }];
             }
         }
         self->isBuying = false;
@@ -1773,16 +1813,6 @@ extern "C" {
                                                         extra:_extra
                                                      callback:^(PaymentObject * _Nonnull payemntObject) {
             if (payemntObject.paymentState == PaymentSuccess) {
-                Yd1UCenter.shared.itemInfo.orderId = payemntObject.orderId;
-                Yd1UCenter.shared.itemInfo.extra = _extra? :@"";
-                [Yd1UCenter.shared clientCallback:Yd1UCenter.shared.itemInfo
-                                         callbakc:^(BOOL success, NSString * _Nonnull error) {
-                    if (success) {
-                        YD1LOG(@"上报成功");
-                    } else {
-                        YD1LOG(@"上报失败:%@",error);
-                    }
-                }];
                 ///同步信息
                 [Yd1UCenter.shared clientNotifyForSyncUnityStatus:@[payemntObject.orderId]
                                                          callback:^(BOOL success, NSArray * _Nonnull notExistOrders, NSArray * _Nonnull notPayOrders, NSString * _Nonnull error) {
@@ -1823,21 +1853,6 @@ extern "C" {
                 });
                 }];
             } else {
-                if ([payemntObject.orderId length] > 0) {
-                    Yd1UCenter.shared.itemInfo.channelCode = @"AppStore";
-                    Yd1UCenter.shared.itemInfo.channelOrderid = payemntObject.channelOrderid? :@"";
-                    Yd1UCenter.shared.itemInfo.orderId = payemntObject.orderId;
-                    Yd1UCenter.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",payemntObject.paymentState];
-                    Yd1UCenter.shared.itemInfo.statusMsg = payemntObject.response? :@"";
-                    [Yd1UCenter.shared reportOrderStatus:Yd1UCenter.shared.itemInfo
-                                                callbakc:^(BOOL success, NSString * _Nonnull error) {
-                        if (success) {
-                            YD1LOG(@"上报失败，成功");
-                        } else {
-                            YD1LOG(@"上报失败");
-                        }
-                    }];
-                }
                 //失败神策埋点
                 NSMutableDictionary* properties = [NSMutableDictionary dictionary];
                 [properties setObject:@-1 forKey:@"channelErrorCode"];
