@@ -66,7 +66,7 @@ static NSString* __kAppKey = @"";
     __kAppKey = sdkConfig.appKey;
     isInitialized = true;
     
-#ifdef YODO1_SUIT
+#ifndef YODO1_SUIT
     [Yodo1Suit initWithAppKey:__kAppKey];
 #endif
     

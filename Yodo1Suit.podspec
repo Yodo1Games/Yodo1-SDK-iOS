@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Suit'
-    s.version          = '1.5.1.2'
+    s.version          = '1.5.1.3'
     s.summary          = 'v1.0.0'
 
     s.description      = <<-DESC
@@ -71,7 +71,7 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-        #ss.dependency 'Yodo1AdvertSDK','6.0.6'
+        ss.dependency 'Yodo1AdvertSDK','6.0.7'
         ss.dependency 'Yodo1ThirdsAnalytics','6.1.2'
         ss.dependency 'Bugly','2.5.91'
         ss.dependency 'Yodo1Analytics','6.0.2'
@@ -88,7 +88,7 @@ Pod::Spec.new do |s|
         }
         ss.dependency 'Yodo1iCloud','6.0.2'
         ss.dependency 'Yodo1GameCenter','6.0.9'
-        ss.dependency 'OpenSuitShare','1.0.7'
+        ss.dependency 'OpenSuitShare','1.0.8'
         ss.dependency 'Yodo1iRate','6.0.0'
         ss.dependency 'Yodo1Replay','6.0.2'
         ss.dependency 'Yodo1Notification','6.0.2'
@@ -107,7 +107,7 @@ Pod::Spec.new do |s|
         }
         ss.dependency 'Yodo1iCloud','6.0.2'
         ss.dependency 'Yodo1GameCenter','6.0.9'
-        ss.dependency 'OpenSuitShare','1.0.7'
+        ss.dependency 'OpenSuitShare','1.0.8'
         ss.dependency 'Yodo1iRate','6.0.0'
         ss.dependency 'Yodo1Replay','6.0.2'
         ss.dependency 'Yodo1Notification','6.0.2'
@@ -138,7 +138,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
         #ss.dependency 'OpenSuitPayment','1.1.1'
-        ss.dependency 'Yodo1UCenter','6.1.4'
+        ss.dependency 'Yodo1UCenter','6.1.5'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
 
@@ -151,7 +151,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitShare','1.0.7'
+        ss.dependency 'OpenSuitShare','1.0.8'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
 
