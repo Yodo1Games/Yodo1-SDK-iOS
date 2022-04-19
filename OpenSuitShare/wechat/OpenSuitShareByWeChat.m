@@ -39,7 +39,7 @@
     isInited = false;
     if ([appKey isEqualToString:@""]) {
 #ifdef DEBUG
-        NSLog(@"[Yodo1 WeChat ] WeChat of appKey is nil!");
+//        NSLog(@"[Yodo1 WeChat ] WeChat of appKey is nil!");
 #endif
         return;
     }
@@ -57,7 +57,7 @@
 {
     if (isInited == false) {
 #ifdef DEBUG
-        NSLog(@"[Yodo1 Wechat share] WeChat is not init! ");
+//        NSLog(@"[Yodo1 Wechat share] WeChat is not init! ");
 #endif
         return;
     }

@@ -161,7 +161,7 @@ int wechat_qr_margin = 3;
     desLabel1.adjustsFontSizeToFitWidth = YES;
     desLabel1.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
     
-    NSLog(@"w:%f,%ld",(imageBig.size.width/2 - imageSmall.size.width),(long)count);
+//    NSLog(@"w:%f,%ld",(imageBig.size.width/2 - imageSmall.size.width),(long)count);
     
     [desLabel1 drawTextInRect:CGRectMake(bgSize.width/2 + imageSmall.size.width + 10 + qrTextX,imageBig.size.height + 2*bgOutline,
                                          imageBig.size.width/2 - imageSmall.size.width, imageSmall.size.height)];

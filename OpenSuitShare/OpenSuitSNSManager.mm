@@ -102,7 +102,7 @@ static OpenSuitSNSManager* sDefaultInstance;
         [[OpenSuitShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
     } else {
 #ifdef DEBUG
-        NSLog(@"微信分享没设置");
+//        NSLog(@"微信分享没设置");
 #endif
     }
     if ([[shareAppIds allKeys]containsObject:kOpenSuitQQAppId] &&
@@ -113,7 +113,7 @@ static OpenSuitSNSManager* sDefaultInstance;
                                       universalLink:self.qqUniversalLink];
     } else {
 #ifdef DEBUG
-        NSLog(@"QQ分享没设置");
+//        NSLog(@"QQ分享没设置");
 #endif
     }
     
@@ -125,7 +125,7 @@ static OpenSuitSNSManager* sDefaultInstance;
                                                      universalLink:self.sinaWeiboUniversalLink];
     } else {
 #ifdef DEBUG
-        NSLog(@"新浪微博分享没设置");
+//        NSLog(@"新浪微博分享没设置");
 #endif
     }
 //    if ([[shareAppIds allKeys]containsObject:kOpenSuitTwitterConsumerKey]&&[[shareAppIds allKeys]containsObject:kOpenSuitTwitterConsumerSecret]) {

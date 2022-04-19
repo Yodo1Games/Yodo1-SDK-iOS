@@ -35,7 +35,7 @@
     isInited = false;
     if ([appKey isEqualToString:@""]||[universalLink isEqualToString:@""]) {
 #ifdef DEBUG
-        NSLog(@"[Yodo1 Weibo ] Weibo of appKey of universalLink is nil!");
+//        NSLog(@"[Yodo1 Weibo ] Weibo of appKey of universalLink is nil!");
 #endif
         return;
     }
@@ -53,7 +53,7 @@
 {
     if (isInited == false) {
 #ifdef DEBUG
-        NSLog(@"[Yodo1 weibo share] weibo is not init! ");
+//        NSLog(@"[Yodo1 weibo share] weibo is not init! ");
 #endif
         return;
     }

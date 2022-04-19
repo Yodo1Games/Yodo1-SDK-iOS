@@ -39,7 +39,7 @@
     
     if ([appId isEqualToString:@""]) {
 #ifdef DEBUG
-        NSLog(@"[Yodo1 QQ ] QQ of appId is nil!");
+//        NSLog(@"[Yodo1 QQ ] QQ of appId is nil!");
 #endif
         return;
     }
@@ -49,7 +49,7 @@
                                              andUniversalLink:universalLink
                                                   andDelegate:self];
     #ifdef DEBUG
-    NSLog(@"QQ of appId:%@,universalLink:%@",oAuth.appId,oAuth.universalLink);
+//    NSLog(@"QQ of appId:%@,universalLink:%@",oAuth.appId,oAuth.universalLink);
     #endif
 }
 
@@ -63,7 +63,7 @@
 {
     if (isInited == false) {
 #ifdef DEBUG
-        NSLog(@"[Yodo1 QQ share] QQ is not init! ");
+//        NSLog(@"[Yodo1 QQ share] QQ is not init! ");
 #endif
         return;
     }
@@ -117,7 +117,7 @@
     SendMessageToQQReq *request = [SendMessageToQQReq reqWithContent:qqApiObject];
     QQApiSendResultCode result  = [QQApiInterface sendReq:request];
     if (result != EQQAPISENDSUCESS) {
-        NSLog(@"分享失败");
+//        NSLog(@"分享失败");
         if (completionBlock) {
             NSDictionary *errorDict = @{NSLocalizedDescriptionKey : @"客户端错误",
                                         NSLocalizedFailureReasonErrorKey : @"",
