@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define K_YODO1_SUIT_VERSION  @"1.5.1.1"
+#define K_YODO1_SUIT_VERSION  @"1.5.1.2"
 
 @interface Yodo1Suit : NSObject
 
