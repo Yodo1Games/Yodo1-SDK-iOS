@@ -31,9 +31,9 @@
 {
     self = [super init];
     if (self) {
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Yodo1KeyConfig.bundle/Yodo1KeyInfo" ofType:@"plist"];
-        _keyInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-        // NSAssert(_keyInfo!=nil, @"不存在Yodo1KeyInfo.plist文件");
+        NSDictionary * plistDic = [[NSBundle mainBundle] infoDictionary];
+        _keyInfo = [[NSMutableDictionary alloc] initWithDictionary:plistDic];
+        // NSAssert(_keyInfo!=nil, @"不存在Info.plist文件");
     }
     return self;
 }
