@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'OpenSuitAnalyticsAppsFlyer'
-    s.version          = '1.1.8'
+    s.version          = '1.1.9'
     s.summary          = 'v6.3.2 [库的格式改变],更新到v6.3.4'
 
     s.description      = <<-DESC
@@ -76,7 +76,7 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-    s.dependency 'OpenSuitThirdsAnalytics','1.0.8'
+    s.dependency 'OpenSuitThirdsAnalytics','1.0.9'
     s.dependency 'Yodo1OnlineParameter','6.0.1'
     s.dependency 'AppsFlyerFramework', '6.5.2'
     s.dependency 'ThinkingSDK', '2.7.5'
