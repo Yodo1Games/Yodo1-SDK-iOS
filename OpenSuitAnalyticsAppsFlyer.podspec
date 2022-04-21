@@ -77,7 +77,7 @@ Pod::Spec.new do |s|
         'z']
 
     s.dependency 'OpenSuitThirdsAnalytics','1.0.9'
-    s.dependency 'Yodo1OnlineParameter','6.0.1'
+    s.dependency 'Yodo1OnlineParameter','6.0.5'
     s.dependency 'AppsFlyerFramework', '6.5.2'
     s.dependency 'ThinkingSDK', '2.7.5'
 end
