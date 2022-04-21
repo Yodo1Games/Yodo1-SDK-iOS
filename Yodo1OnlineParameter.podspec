@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1OnlineParameter'
-    s.version          = '6.0.4'
+    s.version          = '6.0.5'
     s.summary          = '修复关闭广告之后崩溃的BUG,修改替换神策统计为数数统计/测试Tag'
 
     s.description      = <<-DESC
