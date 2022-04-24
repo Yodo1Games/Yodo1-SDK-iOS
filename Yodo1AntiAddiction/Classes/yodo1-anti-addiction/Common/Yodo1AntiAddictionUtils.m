@@ -179,7 +179,7 @@
 
 + (void)showVerifyUI {
     if (Yodo1AntiAddictionRulesManager.manager.currentRules.guestModeConfig.guestMode) {
-    [self showVerifyUI:NO];
+        [self showVerifyUI:NO];
     } else {
         [self showVerifyUI:YES];
     }

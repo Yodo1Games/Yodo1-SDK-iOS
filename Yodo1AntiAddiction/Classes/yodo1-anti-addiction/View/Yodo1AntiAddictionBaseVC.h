@@ -6,8 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Masonry/Masonry.h>
-#import <Toast/Toast.h>
+#import "Yodo1Masonry.h"
+#import "Yodo1Toast.h"
 #import "Yodo1AntiAddictionHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN

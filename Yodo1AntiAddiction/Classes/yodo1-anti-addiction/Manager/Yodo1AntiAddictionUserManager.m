@@ -151,7 +151,7 @@
 
 #pragma mark - 数据库操作
 - (Yodo1AntiAddictionUser *)query:(NSString *)accountId {
-    FMResultSet *result = [[Yodo1AntiAddictionDatabase shared] query:TABLE_NAME projects:nil where:@"accountId = ?" args:@[accountId] order:nil];
+    Yodo1FMResultSet *result = [[Yodo1AntiAddictionDatabase shared] query:TABLE_NAME projects:nil where:@"accountId = ?" args:@[accountId] order:nil];
     
     if ([result next]) {
         return [Yodo1AntiAddictionUser yodo1_modelWithDictionary:result.resultDictionary];

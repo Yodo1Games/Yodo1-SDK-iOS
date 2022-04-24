@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1AntiAddiction'
-    s.version          = '6.0.2'
+    s.version          = '6.0.3'
     s.summary          = '防沉迷3.0，修复bug/添加控制游客开关功能/提升版本号
                           修改客户端文案，更新2022年节假日列表'
   s.description      = <<-DESC
@@ -45,9 +45,6 @@ TODO: Add long description of the pod here.
 
   s.dependency 'Yodo1OnlineParameter'
   s.dependency 'Yodo1UCenter'
-  s.dependency 'FMDB'
-  s.dependency 'Masonry'
-  s.dependency 'Toast'
   s.dependency 'TPKeyboardAvoiding'
   
 end

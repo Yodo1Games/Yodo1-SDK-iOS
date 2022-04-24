@@ -12,7 +12,7 @@
 #import "Yodo1AntiAddictionNet.h"
 #import "Yodo1Reachability.h"
 #import "Yodo1Model.h"
-#import <Toast/Toast.h>
+#import "Yodo1Toast.h"
 
 #import "Yodo1AntiAddictionUtils.h"
 #import "Yodo1AntiAddictionDialogVC.h"
@@ -220,7 +220,7 @@ typedef enum: NSInteger {
                     event.content = rules.antiPlayingTimeMsg.beforeMsg;
                     if (delegate && [delegate respondsToSelector:@selector(onTimeLimitNotify:title:message:)]) {
                         if (![delegate onTimeLimitNotify:event title:event.title message:event.content]) {
-                            [[Yodo1AntiAddictionUtils getTopWindow] makeToast:event.content duration:0.2 position:CSToastPositionTop];
+                            [[Yodo1AntiAddictionUtils getTopWindow] makeToast:event.content duration:0.2 position:Yodo1CSToastPositionTop];
                         }
                     }
                     [self->notifyList addObject:event];
@@ -267,7 +267,7 @@ typedef enum: NSInteger {
                         event.content = rules.playingTimeMsg.beforeMsg;
                         if (delegate && [delegate respondsToSelector:@selector(onTimeLimitNotify:title:message:)]) {
                             if (![delegate onTimeLimitNotify:event title:event.title message:event.content]) {
-                                [[Yodo1AntiAddictionUtils getTopWindow] makeToast:event.content duration:0.2 position:CSToastPositionTop];
+                                [[Yodo1AntiAddictionUtils getTopWindow] makeToast:event.content duration:0.2 position:Yodo1CSToastPositionTop];
                             }
                         }
                     } else {
@@ -277,7 +277,7 @@ typedef enum: NSInteger {
                         event.content = rules.guestModeMsg.beforeMsg;
                         if (delegate && [delegate respondsToSelector:@selector(onTimeLimitNotify:title:message:)]) {
                             if (![delegate onTimeLimitNotify:event title:event.title message:event.content]) {
-                                [[Yodo1AntiAddictionUtils getTopWindow] makeToast:event.content duration:0.2 position:CSToastPositionTop];
+                                [[Yodo1AntiAddictionUtils getTopWindow] makeToast:event.content duration:0.2 position:Yodo1CSToastPositionTop];
                             }
                         }
                     }
@@ -595,7 +595,7 @@ typedef enum: NSInteger {
         [args addObject:date];
     }
     
-    FMResultSet *result = [[Yodo1AntiAddictionDatabase shared] query:NSStringFromClass([Yodo1AntiAddictionRecord class]) projects:nil where:where args:args order:nil];
+    Yodo1FMResultSet *result = [[Yodo1AntiAddictionDatabase shared] query:NSStringFromClass([Yodo1AntiAddictionRecord class]) projects:nil where:where args:args order:nil];
     if ([result next]) {
         return [Yodo1AntiAddictionRecord yodo1_modelWithDictionary:result.resultDictionary];
     }
