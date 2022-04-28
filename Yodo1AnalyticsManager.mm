@@ -648,7 +648,12 @@ static BOOL _bInit_ = NO;
     } else {
         [dict setObject:[NSNumber numberWithBool:false] forKey:@"options"];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1OpenUrl object:self userInfo:dict];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1OpenUrl object:self userInfo:dict];
+    });
+    
+    
 }
 
 /**
@@ -664,7 +669,9 @@ static BOOL _bInit_ = NO;
     NSDictionary *dict = [NSDictionary dictionary];
     dict = @{@"userActivity":userActivity};
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1UserActivity object:self userInfo:dict];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1UserActivity object:self userInfo:dict];
+    });
 }
 
 - (void)dealloc
