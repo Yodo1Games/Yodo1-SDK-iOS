@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'OpenSuitAnalyticsUmeng'
-  s.version          = '1.0.8'
+  s.version          = '1.0.9'
   s.summary          = 'v7.2.4+G-->v7.3.5+G'
   
   s.description      = <<-DESC
@@ -71,7 +71,7 @@ Pod::Spec.new do |s|
   'z']
   
 
-  s.dependency 'OpenSuitThirdsAnalytics','1.0.9'
+  s.dependency 'OpenSuitThirdsAnalytics','1.1.0'
   s.dependency 'Yodo1OnlineParameter','6.0.5'
   #由原来的UMCCommon变为UMCommon
   s.dependency 'UMCommon', '7.3.5'
