@@ -648,7 +648,10 @@ static BOOL _bInit_ = NO;
     } else {
         [dict setObject:[NSNumber numberWithBool:false] forKey:@"options"];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitOpenUrl object:self userInfo:dict];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitOpenUrl object:self userInfo:dict];
+    });
 }
 
 /**
@@ -664,7 +667,9 @@ static BOOL _bInit_ = NO;
     NSDictionary *dict = [NSDictionary dictionary];
     dict = @{@"userActivity":userActivity};
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitUserActivity object:self userInfo:dict];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:OpenSuitUserActivity object:self userInfo:dict];
+    });
 }
 
 - (void)dealloc
