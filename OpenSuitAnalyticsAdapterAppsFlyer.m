@@ -11,12 +11,17 @@
 #import "Yodo1Commons.h"
 #import "Yodo1KeyInfo.h"
 #import <AdSupport/AdSupport.h>
-
+#import "Yodo1Tool+Commons.h"
+#import "Yodo1Tool+Storage.h"
+#import "Yodo1AFNetworking.h"
 #import "Yd1OnlineParameter.h"
 #import "ThinkingAnalyticsSDK.h"
 
 #define OpenSuitLoginYID @"YODO1LoginYID"
 #define OpenSuitAppsFlyerDeeplink @"YODO1AppsFlyerDeeplink"
+
+#define kYODO1UcapDomain @"https://uc-ap.yodo1api.com/uc_ap"
+#define kYODO1DeviceLoginURL @"channel/device/login"
 
 NSString* const OPENSUIT_ANALYTICS_APPSFLYER_DEV_KEY       = @"AppsFlyerDevKey";
 NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
@@ -34,6 +39,54 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 + (void)load
 {
     [[Yodo1Registry sharedRegistry] registerClass:self withRegistryType:@"analyticsType"];
+}
+- (void)deviceLogin {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults objectForKey:@"YODO1LoginYID"]) {
+        Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:kYODO1UcapDomain]];
+        manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
+        [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+        
+        NSString* deviceId = Yd1OpsTools.keychainDeviceId;
+        NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1.com%@%@",deviceId,Yd1OParameter.appKey]];
+        NSDictionary* data = @{
+            Yd1OpsTools.gameAppKey:Yd1OParameter.appKey ,Yd1OpsTools.channelCode:Yd1OParameter.channelId,Yd1OpsTools.deviceId:deviceId,Yd1OpsTools.regionCode:@"" };
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:data forKey:Yd1OpsTools.data];
+        [parameters setObject:sign forKey:Yd1OpsTools.sign];
+        [manager POST:kYODO1DeviceLoginURL
+           parameters:parameters
+             progress:nil
+              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
+            int errorCode = -1;
+            NSString* error = @"";
+            if ([[response allKeys]containsObject:Yd1OpsTools.errorCode]) {
+                errorCode = [[response objectForKey:Yd1OpsTools.errorCode]intValue];
+            }
+            if ([[response allKeys]containsObject:Yd1OpsTools.error]) {
+                error = [response objectForKey:Yd1OpsTools.error];
+            }
+            if ([[response allKeys]containsObject:Yd1OpsTools.data]) {
+                NSDictionary* m_data = (NSDictionary*)[response objectForKey:Yd1OpsTools.data];
+                YD1LOG(@"m_data:%@", m_data);
+                NSString *yid = m_data[@"yid"];
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:yid forKey:@"YODO1LoginYID"];
+                
+                if (yid.length > 0) {
+                    [AppsFlyerLib.shared setAdditionalData:@{@"ta_account_id":yid}];
+                    [AppsFlyerLib.shared start];
+                }
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            YD1LOG(@"%@",error.localizedDescription);
+            return;
+        }];
+    } else {
+        [AppsFlyerLib.shared setAdditionalData:@{@"ta_account_id":[[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitLoginYID]}];
+    }
 }
 
 - (id)initWithAnalytics:(OpenSuitAnalyticsInitConfig *)initConfig {
@@ -66,9 +119,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
                 [AppsFlyerLib.shared setAdditionalData:@{@"ta_distinct_id":ThinkingAnalyticsSDK.sharedInstance.getDistinctId}];
             }
             
-            if ([[[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitLoginYID] length] > 0) {
-                [AppsFlyerLib.shared setAdditionalData:@{@"ta_account_id":[[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitLoginYID]}];
-            }
+            [self deviceLogin];
             
             if (@available(iOS 14, *)) {
                 NSString* timeInterval = [Yd1OnlineParameter.shared stringConfigWithKey:@"AF_waitForATT_TimeoutInterval" defaultValue:@"60"];
@@ -89,22 +140,28 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
             if (isGDPR) {
                 AppsFlyerLib.shared.isStopped = true;
             } else {
-                [AppsFlyerLib.shared start];
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                [userDefaults setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": @""} forKey:OpenSuitAppsFlyerDeeplink];
-                [[NSNotificationCenter defaultCenter] addObserver:self
-                    selector:@selector(sendLaunch:)
-                    name:UIApplicationDidBecomeActiveNotification
-                    object:nil];
                 
-                [[NSNotificationCenter defaultCenter] addObserver:self
-                                                         selector:@selector(sendApplicationOfOpenURL:)
-                    name:@"Yodo1OpenUrl"
-                    object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:self
-                                                         selector:@selector(sendApplicationOfContinueUserActivity:)
-                    name:@"Yodo1UserActivity"
-                    object:nil];
+                dispatch_queue_t queue = dispatch_queue_create("serial",DISPATCH_QUEUE_SERIAL);
+                dispatch_sync(queue, ^{
+                    [AppsFlyerLib.shared start];
+                    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                    [userDefaults setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": @""} forKey:OpenSuitAppsFlyerDeeplink];
+                    [[NSNotificationCenter defaultCenter] addObserver:self
+                        selector:@selector(sendLaunch:)
+                        name:UIApplicationDidBecomeActiveNotification
+                        object:nil];
+                });
+                dispatch_sync(queue, ^{
+                    
+                    [[NSNotificationCenter defaultCenter] addObserver:self
+                                                             selector:@selector(sendApplicationOfOpenURL:)
+                        name:@"Yodo1OpenUrl"
+                        object:nil];
+                    [[NSNotificationCenter defaultCenter] addObserver:self
+                                                             selector:@selector(sendApplicationOfContinueUserActivity:)
+                        name:@"Yodo1UserActivity"
+                        object:nil];
+                });
             }
         }
     }
