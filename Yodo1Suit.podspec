@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Suit'
-    s.version          = '0.0.1'
-    s.summary          = 'v1.0.0'
+    s.version          = '6.0.0'
+    s.summary          = 'v6.0.0'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -72,10 +72,10 @@ Pod::Spec.new do |s|
         'z']
 
         ss.dependency 'Yodo1AdvertSDK','6.0.8'
-        ss.dependency 'Yodo1ThirdsAnalytics','6.1.3'
+        ss.dependency 'Yodo1ThirdsAnalytics','6.1.4'
         ss.dependency 'Bugly','2.5.91'
         ss.dependency 'Yodo1Analytics','6.0.3'
-        ss.dependency 'OpenSuitThirdsAnalytics', '1.0.9'
+        ss.dependency 'OpenSuitThirdsAnalytics', '1.1.0'
     end
 
     s.subspec 'Yodo1_ConfigKey' do |ss|
@@ -87,7 +87,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
         ss.dependency 'Yodo1iCloud','6.0.3'
-        ss.dependency 'Yodo1GameCenter','6.1.0'
+        ss.dependency 'Yodo1GameCenter','6.1.1'
         ss.dependency 'OpenSuitShare','1.0.9'
         ss.dependency 'Yodo1iRate','6.0.0'
         ss.dependency 'Yodo1Replay','6.0.3'
@@ -106,7 +106,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
         ss.dependency 'Yodo1iCloud','6.0.3'
-        ss.dependency 'Yodo1GameCenter','6.1.0'
+        ss.dependency 'Yodo1GameCenter','6.1.1'
         ss.dependency 'OpenSuitShare','1.0.9'
         ss.dependency 'Yodo1iRate','6.0.0'
         ss.dependency 'Yodo1Replay','6.0.3'
@@ -138,7 +138,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
         #ss.dependency 'OpenSuitPayment','1.1.1'
-        ss.dependency 'Yodo1UCenter','6.1.6'
+        ss.dependency 'Yodo1UCenter','6.1.7'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
 
@@ -177,7 +177,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'Yodo1GameCenter','6.1.0'
+        ss.dependency 'Yodo1GameCenter','6.1.1'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
      s.subspec 'Yodo1_iCloud' do |ss|
@@ -231,46 +231,7 @@ Pod::Spec.new do |s|
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
 
-#  ################# 统计 ##################
-    s.subspec 'Analytics_AppsFlyer' do |ss|
-        ss.xcconfig = {
-            "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_ANALYTICS',
-                         'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
-            "VALID_ARCHS": "armv7 arm64",
-            "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-            "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-        }
-        ss.dependency 'AnalyticsAppsFlyer','6.1.3'
-        ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
-    end
-    
-    s.subspec 'Analytics_Umeng' do |ss|
-        ss.xcconfig = {
-            "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_ANALYTICS',
-            'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
-            "VALID_ARCHS": "armv7 arm64",
-            "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-            "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-        }
-        ss.dependency 'AnalyticsUmeng','6.0.9'
-        ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
-    end
-
-    s.subspec 'Analytics_Firebase' do |ss|
-        ss.xcconfig = {
-            "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_ANALYTICS',
-            'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
-            "VALID_ARCHS": "armv7 arm64",
-            "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-            "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-        }
-        ss.dependency 'AnalyticsFirebase','6.0.9'
-        ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
-    end
-
+#  ################# 统计 #################
     #================OpenSuit Anaylitic============================
     s.subspec 'OpenSuit_AnalyticsAppsFlyer' do |ss|
         ss.xcconfig = {
@@ -281,7 +242,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.1.9'
+        ss.dependency 'OpenSuitAnalyticsAppsFlyer','1.2.0'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
     s.subspec 'OpenSuit_AnalyticsFirebase' do |ss|
@@ -293,7 +254,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsFirebase','1.0.9'
+        ss.dependency 'OpenSuitAnalyticsFirebase','1.1.0'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
     
@@ -306,7 +267,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'OpenSuitAnalyticsUmeng','1.0.8'
+        ss.dependency 'OpenSuitAnalyticsUmeng','1.0.9'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
 
