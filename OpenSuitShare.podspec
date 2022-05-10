@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'OpenSuitShare'
-  s.version          = '1.0.9'
+  s.version          = '0.0.1'
   s.summary          = 'A short description of Yodo1Share.'
   
   s.description      = <<-DESC
@@ -15,6 +15,8 @@ Pod::Spec.new do |s|
   
   
   s.ios.deployment_target = '9.0'
+
+  s.vendored_libraries = ["OpenSuitShare/*.a"]
   
   s.source_files = ["OpenSuitShare/**/*.{h,m,mm}"]
   
