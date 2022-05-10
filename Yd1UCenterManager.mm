@@ -280,18 +280,7 @@ static NSString* const __status                 = @"status";
     
     __weak typeof(self) weakSelf = self;
     if (!self.isLogined) {
-        if (self.paymentCallback) {
-            po.uniformProductId = uniformProductId;
-            po.channelOrderid = @"";
-            po.orderId = @"";
-            po.response = @"";
-            po.paymentState = PaymentFail;
-            po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                           code:2001
-                                       userInfo:@{NSLocalizedDescriptionKey:@"The device is not login!"}];
-            self.paymentCallback(po);
-            isBuying = false;
-        }
+        
         [Yd1UCenter.shared deviceLoginWithPlayerId:@""
                                           callback:^(YD1User * _Nullable user, NSError * _Nullable error) {
             if (user) {
@@ -311,11 +300,115 @@ static NSString* const __status                 = @"status";
                 Yd1UCenter.shared.itemInfo.uid = self.user.uid;
                 Yd1UCenter.shared.itemInfo.yid = self.user.yid;
                 Yd1UCenter.shared.itemInfo.ucuid = self.user.ucuid? :self.user.uid;
+                
+                [self createOrderIdWithUniformProductId:uniformProductId
+                                                  extra:extra
+                                               callback:^(bool success, NSString * _Nonnull orderid, NSString * _Nonnull error) {
+                    if (success) {
+                        if (product.productType == Auto_Subscription) {
+                            NSString* msg = [weakSelf localizedStringForKey:@"SubscriptionAlertMessage"
+                                                            withDefault:@"确认启用后，您的iTunes账户将支付 %@ %@ 。%@自动续订此服务时您的iTunes账户也会支付相同费用。系统在订阅有效期结束前24小时会自动为您续订并扣费，除非您在有效期结束前取消服务。若需取消订阅，可前往设备设置-iTunes与App Store-查看Apple ID-订阅，管理或取消已经启用的服务。"];
+                            NSString* message = [NSString stringWithFormat:msg,product.productPrice,product.currency,product.periodUnit];
+                            
+                            NSString* title = [weakSelf localizedStringForKey:@"SubscriptionAlertTitle" withDefault:@"确认启用订阅服务"];
+                            NSString* cancelTitle = [weakSelf localizedStringForKey:@"SubscriptionAlertCancel" withDefault:@"取消"];
+                            NSString* okTitle = [weakSelf localizedStringForKey:@"SubscriptionAlertOK" withDefault:@"启用"];
+                            NSString* privateTitle = [weakSelf localizedStringForKey:@"SubscriptionAlertPrivate" withDefault:@"隐私协议"];
+                            NSString* serviceTitle = [weakSelf localizedStringForKey:@"SubscriptionAlertService" withDefault:@"服务条款"];
+                            UIAlertControllerStyle uiStyle = UIAlertControllerStyleActionSheet;
+                            if([Yd1OpsTools isIPad]){
+                                uiStyle = UIAlertControllerStyleAlert;
+                            }
+                            
+                            UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:uiStyle];
+                            
+                            NSString* privacyPolicyUrl = [weakSelf localizedStringForKey:@"SubscriptionPrivacyPolicyURL"
+                                                                         withDefault:@"https://www.yodo1.com/cn/privacy_policy"];
+                            NSString* termsServiceUrl = [weakSelf localizedStringForKey:@"SubscriptionTermsServiceURL"
+                                                                        withDefault:@"https://www.yodo1.com/cn/user_agreement"];
+                            
+                            UIAlertAction *privateAction = [UIAlertAction actionWithTitle:privateTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:privacyPolicyUrl]];
+                                self->po.uniformProductId = uniformProductId;
+                                self->po.channelOrderid = @"";
+                                self->po.orderId = @"";
+                                self->po.response = @"";
+                                self->po.paymentState = PaymentCannel;
+                                self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
+                                                                     code:2001
+                                                                 userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
+                                weakSelf.paymentCallback(self->po);
+                                self->isBuying = false;
+                            }];
+                            UIAlertAction *serviceAction = [UIAlertAction actionWithTitle:serviceTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:termsServiceUrl]];
+                                self->po.uniformProductId = uniformProductId;
+                                self->po.channelOrderid = @"";
+                                self->po.orderId = @"";
+                                self->po.response = @"";
+                                self->po.paymentState = PaymentCannel;
+                                self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
+                                                                     code:2001
+                                                                 userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
+                                weakSelf.paymentCallback(self->po);
+                                self->isBuying = false;
+                            }];
+                            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                                self->po.uniformProductId = uniformProductId;
+                                self->po.channelOrderid = @"";
+                                self->po.orderId = @"";
+                                self->po.response = @"";
+                                self->po.paymentState = PaymentCannel;
+                                self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
+                                                                     code:2001
+                                                                 userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
+                                weakSelf.paymentCallback(self->po);
+                                self->isBuying = false;
+                            }];
+                            UIAlertAction *okAction = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                                [weakSelf paymentProduct:product];
+                            }];
+                            [alertController addAction:okAction];
+                            [alertController addAction:serviceAction];
+                            [alertController addAction:privateAction];
+                            [alertController addAction:cancelAction];
+                            [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alertController animated:YES completion:nil];
+                        } else {
+                            [weakSelf paymentProduct:product];
+                        }
+                    } else {
+                        self->po.uniformProductId = uniformProductId;
+                        self->po.channelOrderid = @"";
+                        self->po.orderId = @"";
+                        self->po.response = @"";
+                        self->po.paymentState = PaymentFail;
+                        self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
+                                                       code:2001
+                                                   userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
+                        weakSelf.paymentCallback(self->po);
+                        self->isBuying = false;
+                    }
+                }];
+                
             }else{
                 weakSelf.isLogined = NO;
                 YD1LOG(@"%@",error.localizedDescription);
+                
+                if (self.paymentCallback) {
+                    self->po.uniformProductId = uniformProductId;
+                    self->po.channelOrderid = @"";
+                    self->po.orderId = @"";
+                    self->po.response = @"";
+                    self->po.paymentState = PaymentFail;
+                    self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
+                                                   code:2001
+                                               userInfo:@{NSLocalizedDescriptionKey:@"The device is not login!"}];
+                    self.paymentCallback(self->po);
+                    self->isBuying = false;
+                }
             }
         }];
+        
         return;
     }
     [self createOrderIdWithUniformProductId:uniformProductId
@@ -1107,6 +1200,7 @@ static NSString* const __status                 = @"status";
         productIdentifier = product.channelProductId;
     }
     NSString* receipt = [[NSData dataWithContentsOfURL:RMStore.receiptURL] base64EncodedStringWithOptions:0];
+    NSLog(@"%@", receipt);
     Yd1UCenter.shared.itemInfo.channelOrderid = channelOrderid;
     Yd1UCenter.shared.itemInfo.trx_receipt = receipt;
     Yd1UCenter.shared.itemInfo.productId = productIdentifier;
