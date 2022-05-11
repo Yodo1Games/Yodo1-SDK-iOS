@@ -213,13 +213,19 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 //Handle Conversion Data (Deferred Deep Link)
 -(void)onConversionDataSuccess:(NSDictionary*) installData {
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink]) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        dict = [[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink];
+    if (installData.count > 0) {
         
-        [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": installData} forKey:OpenSuitAppsFlyerDeeplink];
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink]) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            dict = [[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink];
+            
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:installData options:NSJSONWritingPrettyPrinted error:nil];
+            NSString * deeplinkString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": deeplinkString} forKey:OpenSuitAppsFlyerDeeplink];
+            
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
     }
     
     id status = [installData objectForKey:@"af_status"];
