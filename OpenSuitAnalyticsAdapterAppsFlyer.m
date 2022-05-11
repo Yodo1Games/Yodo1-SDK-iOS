@@ -212,6 +212,16 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 // AppsFlyerTracker implementation
 //Handle Conversion Data (Deferred Deep Link)
 -(void)onConversionDataSuccess:(NSDictionary*) installData {
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink]) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        dict = [[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": installData} forKey:OpenSuitAppsFlyerDeeplink];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     id status = [installData objectForKey:@"af_status"];
     if([status isEqualToString:@"Non-organic"]) {
         id sourceID = [installData objectForKey:@"media_source"];
@@ -267,14 +277,12 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
             NSLog(@"DeepLink data is: %@", result.deepLink.toString);
             
             if ([[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink]) {
-                if ([[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink]) {
-                    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-                    dict = [[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink];
-                    
-                    [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": result.deepLink.toString} forKey:OpenSuitAppsFlyerDeeplink];
-                    
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                }
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict = [[NSUserDefaults standardUserDefaults] objectForKey:OpenSuitAppsFlyerDeeplink];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:@{@"appsflyer_id": AppsFlyerLib.shared.getAppsFlyerUID, @"appsflyer_deeplink": result.deepLink.toString} forKey:OpenSuitAppsFlyerDeeplink];
+                
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
             if (result.deepLink.isDeferred) {
                 NSLog(@"This is a deferred deep link");
