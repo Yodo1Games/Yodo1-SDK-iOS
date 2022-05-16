@@ -188,7 +188,23 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 
 - (void)eventAdAnalyticsWithName:(NSString *)eventName eventData:(NSDictionary *)eventData
 {
-    [AppsFlyerLib.shared logEvent:eventName withValues:eventData];
+    if ([eventName isEqualToString:AFEventPurchase]) {
+           
+        float revenue = [eventData[AFEventParamRevenue] intValue];
+        NSString *currency = eventData[AFEventParamCurrency];
+        int quantity = [eventData[AFEventParamQuantity] intValue];
+        NSString *contentId = eventData[AFEventParamContentId];
+        NSString *receiptId = eventData[AFEventParamReceiptId];
+                
+        [[AppsFlyerLib shared] logEvent:AFEventPurchase
+                withValues: @{AFEventParamRevenue  : [NSNumber numberWithFloat:revenue],
+                              AFEventParamCurrency : currency,
+                              AFEventParamQuantity : [NSNumber numberWithInt:quantity],
+                              AFEventParamContentId: contentId,
+                              AFEventParamReceiptId: receiptId}];
+        return;
+    }
+    [AppsFlyerLib.shared logEvent:eventName withValues:@{}];
 }
 
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
