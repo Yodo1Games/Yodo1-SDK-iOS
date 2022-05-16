@@ -204,7 +204,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
                               AFEventParamReceiptId: receiptId}];
         return;
     }
-    [AppsFlyerLib.shared logEvent:eventName withValues:@{}];
+    [AppsFlyerLib.shared logEvent:eventName withValues:eventData];
 }
 
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
