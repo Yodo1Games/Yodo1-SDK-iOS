@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1CommonsSDK'
-    s.version          = '1.0.2'
+    s.version          = '1.0.3'
     s.summary          = 'Yodo1CommonsSDK重构'
 
     s.description      = <<-DESC
@@ -21,7 +21,6 @@ Pod::Spec.new do |s|
 
     s.source_files = [
         "Yodo1AFNetworking/*.{h,m}",
-        "Yodo1GDCTimer/*.{h,m}",
         "Yodo1KeyInfo/*.{h,m}",
         "Yodo1Core/*.{h,m,mm}",
         "Yodo1Reachability/*.{h,m}",
@@ -31,9 +30,8 @@ Pod::Spec.new do |s|
 
     s.public_header_files = [
         "Yodo1AFNetworking/*.h",
-        "Yodo1GDCTimer/*.h",
         "Yodo1KeyInfo/*.h",
-        "Yodo1OnlineParameter/*.h",
+	"Yodo1Core/*.h",
         "Yodo1Reachability/*.h",
         "Yodo1YYCache/*.h",
         "Yodo1YYModel/*.h",
