@@ -19,13 +19,8 @@
 @end
 
 typedef NS_ENUM(NSInteger, AnalyticsType) {
-    AnalyticsTypeUmeng,         //友盟数据统计
-    AnalyticsTypeTalkingData,   //TalkingData数据统计
-    AnalyticsTypeGameAnalytics, //GameAnalytics数据统计
     AnalyticsTypeAppsFlyer,     //AppsFlyer 数据统计
-    AnalyticsTypeSwrve,          //Swrve统计
     AnalyticsTypeThinking,         //Thinking
-    AnalyticsTypeFirebase,         //Firebase
 };
 
 @interface Yodo1AnalyticsManager : NSObject
@@ -204,11 +199,6 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
                    propertyKey:(NSString *)propertyKey
            propertyDoubleValue:(double)propertyValue;
 
-/** Dplus增加事件:提交之前保存增加事件属性(一次性提交)
- @param eventName 事件名
- */
-- (void)submitTrackWithEventName:(NSString *)eventName;
-
 /**
  * 设置属性 键值对 会覆盖同名的key
  * 将该函数指定的key-value写入dplus专用文件；APP启动时会自动读取该文件的所有key-value，并将key-value自动作为后续所有track事件的属性。
@@ -223,14 +213,6 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
 - (void)unregisterSuperProperty:(NSString *)propertyName;
 
 /**
- *
- * 返回dplus专用文件中key对应的value；如果不存在，则返回空。
- @param propertyName 属性名
- @return NSString
- */
-- (NSString *)getSuperProperty:(NSString *)propertyName;
-
-/**
  * 返回Dplus专用文件中的所有key-value；如果不存在，则返回空。
  */
 - (NSDictionary *)getSuperProperties;
@@ -240,21 +222,6 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  */
 - (void)clearSuperProperties;
 
-#pragma mark- GameAnalytics接口
-/**
- *  GameAnalytics 设置维度01类型
- **/
-- (void)setGACustomDimension01:(NSString*)dimension01;
-/**
- *  GameAnalytics 设置维度02类型
- **/
-- (void)setGACustomDimension02:(NSString*)dimension02;
-
-/**
- *  GameAnalytics 设置维度03类型
- **/
-- (void)setGACustomDimension03:(NSString*)dimension03;
-
 /**
  *  AppsFlyer Apple 内付费验证和事件统计
  */
@@ -262,23 +229,6 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
                                 price:(NSString*)price
                              currency:(NSString*)currency
                         transactionId:(NSString*)transactionId;
-
-/**
- *  Swrve 事件统计
- */
-- (void)swrveEventAnalyticsWithName:(NSString *)eventName
-                          eventData:(NSDictionary *)eventData;
-
-/**
- *  Swrve 更新用户数据事件
- */
-- (void)swrveUserUpdate:(NSDictionary *)eventData;
-
-/**
- *  Swrve 内付费验证和事件统计
- */
-- (void)swrveTransactionProcessed:(SKPaymentTransaction*) transaction
-                    productBought:(SKProduct*) product;
 
 
 /**

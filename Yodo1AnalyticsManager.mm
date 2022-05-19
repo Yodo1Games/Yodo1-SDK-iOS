@@ -12,7 +12,6 @@
 #import "Yodo1Commons.h"
 #import "Yodo1ClassWrapper.h"
 #import "Yodo1UnityTool.h"
-#import "Yd1OnlineParameter.h"
 
 #define Yodo1OpenUrl        @"Yodo1OpenUrl"
 #define Yodo1UserActivity   @"Yodo1UserActivity"
@@ -24,19 +23,12 @@
 
 @interface Yodo1AnalyticsManager ()
 {
-    BOOL bUmengOpen;
-    BOOL bTalkingDataOpen;
-    BOOL bGameAnalyticsOpen;
     BOOL bAppsFlyerOpen;
-    BOOL bSwrveOpen;
     BOOL bThinkingOpen;
-    BOOL bFirebaseOpen;
 }
 
 @property (nonatomic, strong) NSMutableDictionary* analyticsDict;
 @property (nonatomic, strong) NSMutableDictionary* trackPropertys;
-
-- (NSString*)talkingDataDeviceId;
 
 ///获取一个随机整数范围在[from,to]
 - (int)randomNumber:(int)from to:(int)to;
@@ -86,96 +78,23 @@ static BOOL _bInit_ = NO;
         return;
     }
     _bInit_ = YES;
-    NSString* umengEvent = [Yd1OnlineParameter.shared stringConfigWithKey:@"Platform_Analytics_SwitchUmeng" defaultValue:@"on"];
-    if ([umengEvent isEqualToString:@"off"]) {//默认是开着
-        bUmengOpen = NO;
-    }else{
-        bUmengOpen = YES;
-    }
-    
-    NSString* talkingDataEvent = [Yd1OnlineParameter.shared stringConfigWithKey:@"Platform_Analytics_SwitchTalkingData" defaultValue:@"on"];
-    if ([talkingDataEvent isEqualToString:@"off"]) {//默认是开着
-        bTalkingDataOpen = NO;
-    }else{
-        bTalkingDataOpen = YES;
-    }
-    
-    NSString* gameAnalyticsEvent = [Yd1OnlineParameter.shared stringConfigWithKey:@"Platform_Analytics_SwitchGameAnalytics" defaultValue:@"on"];
-    if ([gameAnalyticsEvent isEqualToString:@"off"]) {//默认是开着
-        bGameAnalyticsOpen = NO;
-    }else{
-        bGameAnalyticsOpen = YES;
-    }
-    
-    NSString* appsFlyerEvent = [Yd1OnlineParameter.shared stringConfigWithKey:@"Platform_Analytics_SwitchAppsFlyer" defaultValue:@"on"];
-    if ([appsFlyerEvent isEqualToString:@"off"]) {//默认是开着
-        bAppsFlyerOpen = NO;
-    }else{
-        bAppsFlyerOpen = YES;
-    }
-    
-    NSString* switchEvent = [Yd1OnlineParameter.shared stringConfigWithKey:@"Platform_Analytics_SwitchSwrve" defaultValue:@"on"];
-    if ([switchEvent isEqualToString:@"off"]) {//默认是开着
-        bSwrveOpen = NO;
-    }else{
-        bSwrveOpen = YES;
-    }
-    
-    NSString* thinkingEvent = [Yd1OnlineParameter.shared stringConfigWithKey:@"Platform_Analytics_SwitchThinking" defaultValue:@"on"];
-    if ([thinkingEvent isEqualToString:@"off"]) {//默认是开着
-        bThinkingOpen = NO;
-    }else{
-        bThinkingOpen = YES;
-    }
-    
-    NSString* firebaseEvent = [Yd1OnlineParameter.shared stringConfigWithKey:@"Platform_Analytics_SwitchFirebase" defaultValue:@"on"];
-    if ([firebaseEvent isEqualToString:@"off"]) {//默认是开着
-        bFirebaseOpen= NO;
-    }else{
-        bFirebaseOpen = YES;
-    }
+     
+    bAppsFlyerOpen = YES;
+    bThinkingOpen = YES;
     
     NSDictionary* dic = [[Yodo1Registry sharedRegistry] getClassesStatusType:@"analyticsType"
                                                               replacedString:@"AnalyticsAdapter"
                                                                replaceString:@"AnalyticsType"];
     if (dic) {
         NSArray* keyArr = [dic allKeys];
-        //优先初始化Swrve
-        BOOL isHaveSwrve = false;
-        for (id key1 in keyArr) {
-            if (bSwrveOpen && [key1 integerValue] == AnalyticsTypeSwrve) {
-                Class adapter = [[[Yodo1Registry sharedRegistry] adapterClassFor:[key1 integerValue] classType:@"analyticsType"] theYodo1Class];
-                AnalyticsAdapter* advideoAdapter = [[adapter alloc] initWithAnalytics:initConfig];
-                NSNumber* adVideoOrder = [NSNumber numberWithInt:[key1 intValue]];
-                [self.analyticsDict setObject:advideoAdapter forKey:adVideoOrder];
-                isHaveSwrve = true;
-            }
-        }
         
         for (id key in keyArr) {
-            if (!bTalkingDataOpen && [key integerValue] == AnalyticsTypeTalkingData) {
-                continue;
-            }
-            if (!bGameAnalyticsOpen && [key integerValue] == AnalyticsTypeGameAnalytics) {
-                continue;
-            }
-            if (!bUmengOpen && [key integerValue] == AnalyticsTypeUmeng) {
-                continue;
-            }
+            
             if (!bAppsFlyerOpen && [key integerValue] == AnalyticsTypeAppsFlyer) {
                 continue;
             }
-            if (!bSwrveOpen && [key integerValue] == AnalyticsTypeSwrve) {
-                continue;
-            }
+            
             if (!bThinkingOpen && [key integerValue] == AnalyticsTypeThinking) {
-                continue;
-            }
-            if (!bFirebaseOpen && [key integerValue] == AnalyticsTypeFirebase) {
-                continue;
-            }
-            //跳过Swrve
-            if (isHaveSwrve && [key integerValue] == AnalyticsTypeSwrve) {
                 continue;
             }
             
@@ -356,24 +275,11 @@ static BOOL _bInit_ = NO;
     }
 }
 
-- (NSString*)talkingDataDeviceId
-{
-    NSString* deviceId = nil;
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeTalkingData){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            deviceId = [adapter talkingDataDeviceId];
-            break;
-        }
-    }
-    return deviceId;
-}
-
 - (void)track:(NSString *)eventName
 {
     for (id key in [self.analyticsDict allKeys]) {
         NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeUmeng || _key == AnalyticsTypeThinking){
+        if (_key == AnalyticsTypeThinking){
             AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
             [adapter track:eventName];
             break;
@@ -466,27 +372,11 @@ static BOOL _bInit_ = NO;
     [self.trackPropertys setObject:propertys forKey:eventName];
 }
 
--(void)submitTrackWithEventName:(NSString *)eventName
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeUmeng){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            if ([[self.trackPropertys allKeys]containsObject:eventName]) {
-                NSDictionary* property = [self.trackPropertys objectForKey:eventName];
-                [adapter track:eventName property:property];
-                //remove submit property
-                [self.trackPropertys removeObjectForKey:eventName];
-            }
-            break;
-        }
-    }
-}
-
 - (void)registerSuperProperty:(NSDictionary *)property
 {
     for (id key in [self.analyticsDict allKeys]) {
         NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeUmeng || _key == AnalyticsTypeThinking){
+        if (_key == AnalyticsTypeThinking){
             AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
             [adapter registerSuperProperty:property];
             break;
@@ -498,7 +388,7 @@ static BOOL _bInit_ = NO;
 {
     for (id key in [self.analyticsDict allKeys]) {
         NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeUmeng || _key == AnalyticsTypeThinking){
+        if (_key == AnalyticsTypeThinking){
             AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
             [adapter unregisterSuperProperty:propertyName];
             break;
@@ -506,23 +396,11 @@ static BOOL _bInit_ = NO;
     }
 }
 
-- (NSString *)getSuperProperty:(NSString *)propertyName
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeUmeng){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            return [adapter getSuperProperty:propertyName];
-        }
-    }
-    return nil;
-}
-
-
 - (NSDictionary *)getSuperProperties
 {
     for (id key in [self.analyticsDict allKeys]) {
         NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeUmeng || _key == AnalyticsTypeThinking){
+        if (_key == AnalyticsTypeThinking){
             AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
             return [adapter getSuperProperties];
         }
@@ -534,42 +412,9 @@ static BOOL _bInit_ = NO;
 {
     for (id key in [self.analyticsDict allKeys]) {
         NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeUmeng || _key == AnalyticsTypeThinking){
+        if (_key == AnalyticsTypeThinking){
             AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
             [adapter clearSuperProperties];
-            break;
-        }
-    }
-}
-
-- (void)setGACustomDimension01:(NSString*)dimension01
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeGameAnalytics){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter setGACustomDimension01:dimension01];
-            break;
-        }
-    }
-}
-
-- (void)setGACustomDimension02:(NSString*)dimension02
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeGameAnalytics){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter setGACustomDimension02:dimension02];
-            break;
-        }
-    }
-}
-
-- (void)setGACustomDimension03:(NSString*)dimension03
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeGameAnalytics){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter setGACustomDimension03:dimension03];
             break;
         }
     }
@@ -586,38 +431,6 @@ static BOOL _bInit_ = NO;
                                              price:price
                                           currency:currency
                                      transactionId:transactionId];
-            break;
-        }
-    }
-}
-
-- (void)swrveEventAnalyticsWithName:(NSString *)eventName
-                          eventData:(NSDictionary *)eventData {
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeSwrve){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter swrveEventAnalyticsWithName:eventName eventData:eventData];
-            break;
-        }
-    }
-}
-
-- (void)swrveUserUpdate:(NSDictionary *)eventData {
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeSwrve){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter swrveUserUpdate:eventData];
-            break;
-        }
-    }
-}
-
-- (void)swrveTransactionProcessed:(SKPaymentTransaction*) transaction
-                    productBought:(SKProduct*) product {
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeSwrve){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter swrveTransactionProcessed:transaction productBought:product];
             break;
         }
     }
@@ -686,11 +499,6 @@ static BOOL _bInit_ = NO;
 
 extern "C" {
     
-    char* UnityGetTalkingDataDeviceId()
-    {
-        const char* deviceId = [[Yodo1AnalyticsManager sharedInstance]talkingDataDeviceId].UTF8String;
-        return Yodo1MakeStringCopy(deviceId);
-    }
     /** 自定义事件,数量统计.
      友盟：使用前，请先到友盟App管理后台的设置->编辑自定义事件
      中添加相应的事件ID，然后在工程中传入相应的事件ID

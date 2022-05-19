@@ -18,11 +18,6 @@
 //AppsFlyer Event
 - (void)eventAdAnalyticsWithName:(NSString *)eventName
                        eventData:(NSDictionary *)eventData;
-//Swrve Event
-- (void)swrveEventAnalyticsWithName:(NSString *)eventName
-                          eventData:(NSDictionary *)eventData;
-
-- (void)swrveUserUpdate:(NSDictionary *)eventData;
 
 - (void)startLevelAnalytics:(NSString*)level;
 
@@ -55,8 +50,6 @@
               amount:(int)amount
                price:(double)price;
 
-- (NSString*)talkingDataDeviceId;
-
 - (void)beginEvent:(NSString *)eventId;
 
 - (void)endEvent:(NSString *)eventId;
@@ -70,24 +63,14 @@
 
 - (void)unregisterSuperProperty:(NSString *)propertyName;
 
-- (NSString *)getSuperProperty:(NSString *)propertyName;
-
 - (NSDictionary *)getSuperProperties;
 
 - (void)clearSuperProperties;
-
-- (void)setGACustomDimension01:(NSString*)dimension01;
-
-- (void)setGACustomDimension02:(NSString*)dimension02;
-
-- (void)setGACustomDimension03:(NSString*)dimension03;
 
 //AppsFlyer
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
                                 price:(NSString*)price
                              currency:(NSString*)currency
                         transactionId:(NSString*)transactionId;
-//Swrve
-- (void)swrveTransactionProcessed:(SKPaymentTransaction*)transaction
-                 productBought:(SKProduct*) product;
+
 @end

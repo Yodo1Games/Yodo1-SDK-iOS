@@ -24,11 +24,6 @@
 - (void)eventAdAnalyticsWithName:(NSString *)eventName
                        eventData:(NSDictionary *)eventData{}
 
-- (void)swrveEventAnalyticsWithName:(NSString *)eventName
-                          eventData:(NSDictionary *)eventData{}
-
-- (void)swrveUserUpdate:(NSDictionary *)eventData{}
-
 - (void)startLevelAnalytics:(NSString*)level{}
 
 - (void)finishLevelAnalytics:(NSString*)level{}
@@ -60,8 +55,6 @@
               amount:(int)amount
                price:(double)price{}
 
-- (NSString*)talkingDataDeviceId{return nil;}
-
 - (void)beginEvent:(NSString *)eventId{}
 
 - (void)endEvent:(NSString *)eventId{}
@@ -74,24 +67,14 @@
 
 - (void)unregisterSuperProperty:(NSString *)propertyName{}
 
-- (NSString *)getSuperProperty:(NSString *)propertyName{return nil;}
-
 - (NSDictionary *)getSuperProperties{return nil;}
 
 - (void)clearSuperProperties{}
-
-- (void)setGACustomDimension01:(NSString*)dimension01{}
-
-- (void)setGACustomDimension02:(NSString *)dimension02{}
-
-- (void)setGACustomDimension03:(NSString*)dimension03{}
 
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
                                 price:(NSString*)price
                              currency:(NSString*)currency
                         transactionId:(NSString*)transactionId{}
 
-- (void)swrveTransactionProcessed:(SKPaymentTransaction*) transaction
-                 productBought:(SKProduct*) product{}
 
 @end

@@ -11,7 +11,6 @@
 #import "Yodo1Registry.h"
 #import "Yodo1Commons.h"
 #import "Yodo1KeyInfo.h"
-#import "Yd1OnlineParameter.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 
@@ -55,6 +54,16 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         [ThinkingAnalyticsSDK startWithConfig:config];
         
         isThinkingSwitch = YES;
+        
+        // 自动埋点 关闭
+        [[ThinkingAnalyticsSDK sharedInstance] enableAutoTrack:
+        ThinkingAnalyticsEventTypeAppStart |
+        ThinkingAnalyticsEventTypeAppEnd |
+        ThinkingAnalyticsEventTypeAppViewScreen |
+        ThinkingAnalyticsEventTypeAppClick |
+        ThinkingAnalyticsEventTypeAppInstall |
+        ThinkingAnalyticsEventTypeAppViewCrash
+        ];
 #endif
         
 #ifdef DEBUG
@@ -102,11 +111,6 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
     if (isThinkingSwitch) {
         [ThinkingAnalyticsSDK.sharedInstance unsetSuperProperty:propertyName];
     }
-}
-
-- (NSString *)getSuperProperty:(NSString *)propertyName
-{
-    return @"";
 }
 
 - (NSDictionary *)getSuperProperties
