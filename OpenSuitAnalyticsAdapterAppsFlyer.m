@@ -190,7 +190,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 {
     if ([eventName isEqualToString:AFEventPurchase]) {
            
-        float revenue = [eventData[AFEventParamRevenue] intValue];
+        float revenue = [eventData[AFEventParamRevenue] floatValue];
         NSString *currency = eventData[AFEventParamCurrency];
         int quantity = [eventData[AFEventParamQuantity] intValue];
         NSString *contentId = eventData[AFEventParamContentId];
