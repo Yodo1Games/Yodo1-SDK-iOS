@@ -12,13 +12,11 @@
 #import "GameCenterManager.h"
 #import "Yodo1UnityTool.h"
 #import "Yodo1AFNetworking.h"
-#import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yd1OnlineParameter.h"
-#import "Yodo1Tool+OpsParameters.h"
-#import "Yodo1Model.h"
 #import "Yodo1KeyInfo.h"
+#import "Yodo1Tool+GameCenterLogin.h"
 
 @interface Yodo1GameCenter ()<GameCenterManagerDelegate>
 
@@ -134,7 +132,7 @@ extern "C" {
         NSString *ocMethodName = Yodo1CreateNSString(callbackMethod);
         
         
-        Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.ucapDomain]];
+        Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.gameCenterUcapDomain]];
         manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
         [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
@@ -152,7 +150,7 @@ extern "C" {
         [parameters setObject:data forKey:Yd1OpsTools.data];
         [parameters setObject:sign forKey:Yd1OpsTools.sign];
         YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:parameters error:nil]);
-        [manager POST:Yd1OpsTools.deviceLoginURL
+        [manager POST:Yd1OpsTools.gameCenterdeviceLoginURL
            parameters:parameters
              progress:nil
               success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
