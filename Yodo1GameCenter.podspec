@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1GameCenter'
-    s.version          = '6.1.1'
+    s.version          = '6.1.2'
     s.summary          = 'v'
 
     s.description      = <<-DESC
@@ -77,5 +77,4 @@ Pod::Spec.new do |s|
         'z']
 
     s.dependency 'Yodo1OnlineParameter','6.0.5'
-    s.dependency 'Yodo1UCenter','6.1.7'
 end
