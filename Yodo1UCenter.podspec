@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1UCenter'
-    s.version          = '6.1.5.1'
+    s.version          = '6.1.8'
     s.summary          = 'v 新添加Thinking 统计'
 
     s.description      = <<-DESC
@@ -74,7 +74,9 @@ Pod::Spec.new do |s|
         'sqlite3.0',
         'c++',
         'z']
-
-    s.dependency 'Yodo1ThirdsAnalytics','6.1.2'
+        
+    s.dependency 'Yodo1OnlineParameter','6.0.5'
+    s.dependency 'Yodo1ThirdsAnalytics','6.1.6'
+    s.dependency 'ThinkingSDK','2.7.5'
 
 end

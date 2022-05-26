@@ -206,6 +206,25 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
  */
 - (Product*)promotionProduct;
 
+/**
+ * 通知已发货成功
+ */
+- (void)sendGoodsOver:(NSString *)orderIds
+             callback:(void (^)(BOOL success,NSString* error))callback;
+
+
+/**
+ * 通知已发货失败
+ */
+- (void)sendGoodsOverForFail:(NSString *)orderIds
+                     callback:(void (^)(BOOL success,NSString* error))callback;
+
+/**
+ * 激活码/优惠券
+ */
+- (void)verifyActivationcode:(NSString *)code
+                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSString* _Nullable error))callback;
+
 @end
 
 NS_ASSUME_NONNULL_END

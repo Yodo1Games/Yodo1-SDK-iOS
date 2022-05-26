@@ -17,6 +17,10 @@
 #import "Yodo1AnalyticsManager.h"
 #import "ThinkingAnalyticsSDK.h"
 #import "Yd1OnlineParameter.h"
+#import "Yodo1AFNetworking.h"
+#import "Yodo1Tool+Storage.h"
+#import "Yodo1Tool+OpsParameters.h"
+#import "Yodo1KeyInfo.h"
 
 /// 超级属性
 static NSString* const __gameName               = @"gameName";
@@ -1217,10 +1221,6 @@ static NSString* const __status                 = @"status";
                                                                   price:product.productPrice
                                                                currency:product.currency
                                                           transactionId:channelOrderid];
-    //Swrve 统计
-    SKProduct* skp = [RMStore.defaultStore productForIdentifier:productIdentifier];
-    [Yodo1AnalyticsManager.sharedInstance swrveTransactionProcessed:notification.rm_transaction
-                                                      productBought:skp];
     __weak typeof(self) weakSelf = self;
     [Yd1UCenter.shared verifyAppStoreIAPOrder:Yd1UCenter.shared.itemInfo
                                      callback:^(BOOL verifySuccess, NSString * _Nonnull response, NSError * _Nonnull error) {
@@ -1319,6 +1319,136 @@ static NSString* const __status                 = @"status";
 - (void)storePromotionPaymentFinished:(NSNotification *)notification {
     YD1LOG(@"");
     self.addedStorePayment = notification.rm_payment;
+}
+
+/**
+ * 通知已发货成功
+ */
+- (void)sendGoodsOver:(NSString *)orderIds
+             callback:(void (^)(BOOL success,NSString* error))callback {
+    if (!orderIds || orderIds.length < 1) {
+        callback(false,@"order Ids is empty!");
+        return;
+    }
+    Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
+    manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    
+    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1%@",orderIds]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:orderIds forKey:@"orderids"];
+    [parameters setObject:sign forKey:Yd1OpsTools.sign];
+    
+    YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:parameters error:nil]);
+    [manager GET:Yd1OpsTools.sendGoodsOverURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
+        int errorCode = -1;
+        NSString* error = @"";
+        if ([[response allKeys]containsObject:Yd1OpsTools.errorCode]) {
+            errorCode = [[response objectForKey:Yd1OpsTools.errorCode]intValue];
+        }
+        if ([[response allKeys]containsObject:Yd1OpsTools.error]) {
+            error = [response objectForKey:Yd1OpsTools.error];
+        }
+        if (errorCode == 0) {
+            callback(true,@"");
+        } else {
+            callback(false,error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        YD1LOG(@"%@",error);
+        callback(false,error.localizedDescription);
+    }];
+}
+
+
+/**
+ * 通知已发货失败
+ */
+- (void)sendGoodsOverForFail:(NSString *)orderIds
+                     callback:(void (^)(BOOL success,NSString* error))callback {
+    if (!orderIds || orderIds.length < 1) {
+        callback(false,@"order Ids is empty!");
+        return;
+    }
+    Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
+    manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    
+    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1%@",orderIds]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:orderIds forKey:@"orderids"];
+    [parameters setObject:sign forKey:Yd1OpsTools.sign];
+    
+    YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:parameters error:nil]);
+    [manager GET:Yd1OpsTools.sendGoodsOverFaultURL parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
+        int errorCode = -1;
+        NSString* error = @"";
+        if ([[response allKeys]containsObject:Yd1OpsTools.errorCode]) {
+            errorCode = [[response objectForKey:Yd1OpsTools.errorCode]intValue];
+        }
+        if ([[response allKeys]containsObject:Yd1OpsTools.error]) {
+            error = [response objectForKey:Yd1OpsTools.error];
+        }
+        if (errorCode == 0) {
+            callback(true,@"");
+        } else {
+            callback(false,error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        YD1LOG(@"%@",error);
+        callback(false,error.localizedDescription);
+    }];
+}
+
+/**
+ * 激活码/优惠券
+ */
+- (void)verifyActivationcode:(NSString *)code
+                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSString* _Nullable error))callback {
+    
+    if (!code || code.length < 1) {
+        callback(false,@{}, @"code is empty!");
+        return;
+    }
+    Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
+    manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    
+    NSString *appKey = @"";
+    if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
+        appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
+        NSLog(@"[Yodo1 Ads] plist中设置GameKey");
+        return;
+    }
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://activationcode.yodo1api.com/activationcode/activateWithReward?game_appkey=%@&channel_code=%@&activation_code=%@&dev_id=%@", appKey, @"appstore", code, Yd1OpsTools.keychainDeviceId];
+    
+    
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
+        int errorCode = -1;
+        NSString* error = @"";
+        if ([[response allKeys]containsObject:Yd1OpsTools.errorCode]) {
+            errorCode = [[response objectForKey:Yd1OpsTools.errorCode] intValue];
+        }
+        if ([[response allKeys]containsObject:Yd1OpsTools.error]) {
+            error = [response objectForKey:Yd1OpsTools.error];
+        }
+        if (errorCode == 0) {
+            callback(true,response,NULL);
+        } else {
+            callback(false,@{},error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        YD1LOG(@"%@",error);
+        callback(false,@{},error.localizedDescription);
+    }];
+    
 }
 
 @end
