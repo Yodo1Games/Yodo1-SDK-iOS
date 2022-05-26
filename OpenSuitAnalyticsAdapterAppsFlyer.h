@@ -5,10 +5,11 @@
 //  Copyright (c) 2014年 yodo1. All rights reserved.
 //
 
-#import "OpenSuitAnalyticsAdapter.h"
+#import "AnalyticsAdapter.h"
+#import "Yodo1AnalyticsManager.h"
 
-@interface OpenSuitAnalyticsAdapterAppsFlyer : OpenSuitAnalyticsAdapter
+@interface OpenSuitAnalyticsAdapterAppsFlyer : AnalyticsAdapter
 
-+ (OpenSuitAnalyticsType)analyticsType;
++ (AnalyticsType)analyticsType;
 
 @end
