@@ -16,7 +16,7 @@
                           eventData:(NSDictionary*)eventData;
 
 //AppsFlyer Event
-- (void)eventAdAnalyticsWithName:(NSString *)eventName
+- (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName
                        eventData:(NSDictionary *)eventData;
 
 - (void)startLevelAnalytics:(NSString*)level;
@@ -50,12 +50,6 @@
               amount:(int)amount
                price:(double)price;
 
-- (void)beginEvent:(NSString *)eventId;
-
-- (void)endEvent:(NSString *)eventId;
-
-- (void)track:(NSString *)eventName;
-
 - (void)track:(NSString *)eventName
      property:(NSDictionary *) property;
 
@@ -72,5 +66,14 @@
                                 price:(NSString*)price
                              currency:(NSString*)currency
                         transactionId:(NSString*)transactionId;
+
+/**
+ *  AppsFlyer Apple 内付费使用自定义事件上报
+ */
+- (void)eventAndTrackInAppPurchase:(NSString*)revenue
+                          currency:(NSString*)currency
+                          quantity:(NSString*)quantity
+                         contentId:(NSString*)contentId
+                         receiptId:(NSString*)receiptId;
 
 @end

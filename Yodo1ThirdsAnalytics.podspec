@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1ThirdsAnalytics'
-    s.version          = '6.1.5'
+    s.version          = '6.1.6'
     s.summary          = '添加Thinking 统计测试,test,更新在线参数'
 
     s.description      = <<-DESC
@@ -68,7 +68,7 @@ TODO: Add long description of the pod here.
     
     s.libraries = ['sqlite3', 'z']
 
-    s.dependency 'Yodo1CommonsSDK','1.0.3'
+    s.dependency 'Yodo1OnlineParameter','6.0.5'
     s.dependency 'ThinkingSDK','2.7.5'
 
 end

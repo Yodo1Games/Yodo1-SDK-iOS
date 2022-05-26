@@ -53,6 +53,10 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         
         [ThinkingAnalyticsSDK startWithConfig:config];
         
+        if (initConfig.thinkingDataAccountId && initConfig.thinkingDataAccountId.length > 0) {
+            [ThinkingAnalyticsSDK.sharedInstance login:initConfig.thinkingDataAccountId];
+        }
+        
         isThinkingSwitch = YES;
         
         // 自动埋点 关闭
@@ -84,14 +88,6 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
 }
 
 #pragma mark- DplusMobClick
-
-- (void)track:(NSString *)eventName
-{
-    if (isThinkingSwitch) {
-        [ThinkingAnalyticsSDK.sharedInstance track:eventName];
-    }
-}
-
 - (void)track:(NSString *)eventName property:(NSDictionary *) property
 {
     if (isThinkingSwitch) {

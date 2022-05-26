@@ -10,12 +10,8 @@
 #import <StoreKit/StoreKit.h>
 
 @interface AnalyticsInitConfig : NSObject
-@property (nonatomic,strong) NSMutableArray *gaCustomDimensions01;//GA统计自定义维度
-@property (nonatomic,strong) NSMutableArray *gaCustomDimensions02;
-@property (nonatomic,strong) NSMutableArray *gaCustomDimensions03;
-@property (nonatomic,strong) NSMutableArray *gaResourceCurrencies;
-@property (nonatomic,strong) NSMutableArray *gaResourceItemTypes;
 @property (nonatomic,strong) NSString *appsflyerCustomUserId;//AppsFlyer自定义UserId
+@property (nonatomic,strong) NSString *thinkingDataAccountId;//ThinkingData自定义AccountId
 @end
 
 typedef NS_ENUM(NSInteger, AnalyticsType) {
@@ -39,11 +35,6 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  */
 - (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig;
 
-/*
- * appsFlyer安装判断
- */
-- (BOOL)isAppsFlyerInstalled;
-
 /**
  *  使用之前，先初始化initWithAnalytics
  *
@@ -58,21 +49,21 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  *  @param eventName  事件id(必须)
  *  @param eventData  事件数据(必须)
  */
-- (void)eventAdAnalyticsWithName:(NSString *)eventName 
+- (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName 
                        eventData:(NSDictionary *)eventData;
 /**
  *  进入关卡/任务
  *
  *  @param level 关卡/任务
  */
-- (void)startLevelAnalytics:(NSString*)level;
+- (void)startLevelAnalytics:(NSString*)level DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  *  完成关卡/任务
  *
  *  @param level 关卡/任务
  */
-- (void)finishLevelAnalytics:(NSString*)level;
+- (void)finishLevelAnalytics:(NSString*)level DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  *  未通过关卡
@@ -80,14 +71,14 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  *  @param level 关卡/任务
  *  @param cause 未通过原因
  */
-- (void)failLevelAnalytics:(NSString*)level failedCause:(NSString*)cause;
+- (void)failLevelAnalytics:(NSString*)level failedCause:(NSString*)cause DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  *  设置玩家等级
  *
  *  @param level 等级
  */
-- (void)userLevelIdAnalytics:(int)level;
+- (void)userLevelIdAnalytics:(int)level DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  *  花费人民币去购买虚拟货币请求
@@ -104,7 +95,7 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
                currencyAmount:(double)currencyAmount
                  currencyType:(NSString *)currencyType
         virtualCurrencyAmount:(double)virtualCurrencyAmount
-                  paymentType:(NSString *)paymentType;
+                  paymentType:(NSString *)paymentType DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  *  花费人民币去购买虚拟货币成功
@@ -121,7 +112,7 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  7	电信通信
  8	paypal
  */
-- (void)chargeSuccessAnalytics:(NSString *)orderId source:(int)source;
+- (void)chargeSuccessAnalytics:(NSString *)orderId source:(int)source DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  *  游戏中获得虚拟币
@@ -130,7 +121,7 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  *  @param reason                赠送虚拟币的原因    类型:NSString
  *  @param source                奖励渠道	取值在 1~10 之间。“1”已经被预先定义为“系统奖励”，2~10 需要在网站设置含义          类型：int
  */
-- (void)rewardAnalytics:(double)virtualCurrencyAmount reason:(NSString *)reason source:(int)source;
+- (void)rewardAnalytics:(double)virtualCurrencyAmount reason:(NSString *)reason source:(int)source DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  *  虚拟物品购买/使用虚拟币购买道具
@@ -139,7 +130,7 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  *  @param number 道具个数        类型:int
  *  @param price  道具单价        类型:double
  */
-- (void)purchaseAnalytics:(NSString *)item itemNumber:(int)number priceInVirtualCurrency:(double)price;
+- (void)purchaseAnalytics:(NSString *)item itemNumber:(int)number priceInVirtualCurrency:(double)price DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  *   虚拟物品消耗/玩家使用虚拟币购买道具
@@ -148,56 +139,7 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  *  @param amount 道具数量
  *  @param price  道具单价
  */
-- (void)useAnalytics:(NSString *)item amount:(int)amount price:(double)price;
-
-#pragma mark- 友盟计时事件
-
-- (void)beginEvent:(NSString *)eventId;
-
-- (void)endEvent:(NSString *)eventId;
-
-#pragma mark- DplusMobClick接口
-
-/** Dplus增加事件
- @param eventName 事件名
- */
-- (void)track:(NSString *)eventName;
-
-/** Dplus增加事件
- @param eventName 事件名
- @param propertyKey 自定义属性key
- @param propertyValue 自定义属性Value
- */
-- (void)saveTrackWithEventName:(NSString *)eventName
-                   propertyKey:(NSString *)propertyKey
-                 propertyValue:(NSString *)propertyValue;
-
-/** Dplus增加事件 重载
- @param eventName 事件名
- @param propertyKey 自定义属性key
- @param propertyValue 自定义属性Value
- */
-- (void)saveTrackWithEventName:(NSString *)eventName
-                   propertyKey:(NSString *)propertyKey
-              propertyIntValue:(int)propertyValue;
-
-/** Dplus增加事件 重载
- @param eventName 事件名
- @param propertyKey 自定义属性key
- @param propertyValue 自定义属性Value
- */
-- (void)saveTrackWithEventName:(NSString *)eventName
-                   propertyKey:(NSString *)propertyKey
-            propertyFloatValue:(float)propertyValue;
-
-/** Dplus增加事件 重载
- @param eventName 事件名
- @param propertyKey 自定义属性key
- @param propertyValue 自定义属性Value
- */
-- (void)saveTrackWithEventName:(NSString *)eventName
-                   propertyKey:(NSString *)propertyKey
-           propertyDoubleValue:(double)propertyValue;
+- (void)useAnalytics:(NSString *)item amount:(int)amount price:(double)price DEPRECATED_MSG_ATTRIBUTE("The API has been deprecated.");
 
 /**
  * 设置属性 键值对 会覆盖同名的key
@@ -230,23 +172,29 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
                              currency:(NSString*)currency
                         transactionId:(NSString*)transactionId;
 
+/**
+ *  AppsFlyer Apple 内付费使用自定义事件上报
+ */
+- (void)eventAndTrackInAppPurchase:(NSString*)revenue
+                          currency:(NSString*)currency
+                          quantity:(NSString*)quantity
+                         contentId:(NSString*)contentId
+                         receiptId:(NSString*)receiptId;
+
 
 /**
  *  订阅openURL
  *
- *  @param application  生命周期中的application
  *  @param url                    生命周期中的openurl
  *  @param options           生命周期中的options
  */
-- (void)SubApplication:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options;
+- (void)handleOpenUrl:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options;
 
 /**
  *  订阅continueUserActivity
  *
- *  @param application                      生命周期中的application
  *  @param userActivity                    生命周期中的userActivity
- *  @param restorationHandler       生命周期中的restorationHandler
  */
-- (void)SubApplication:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler;
+- (void)continueUserActivity:(nonnull NSUserActivity *)userActivity;
 
 @end

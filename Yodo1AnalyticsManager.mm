@@ -68,10 +68,6 @@ static BOOL _bInit_ = NO;
     return (int)(from + (arc4random() % (to - from + 1)));
 }
 
-- (BOOL)isAppsFlyerInstalled {
-    return YES;
-}
-
 - (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig
 {
     if (_bInit_) {
@@ -121,7 +117,7 @@ static BOOL _bInit_ = NO;
     }
 }
 
-- (void)eventAdAnalyticsWithName:(NSString *)eventName
+- (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName
                        eventData:(NSDictionary *)eventData
 {
     if (eventName == nil) {
@@ -130,26 +126,7 @@ static BOOL _bInit_ = NO;
     for (id key in [self.analyticsDict allKeys]) {
         if ([key integerValue]==AnalyticsTypeAppsFlyer){
             AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter eventAdAnalyticsWithName:eventName eventData:eventData];
-            break;
-        }
-    }
-}
-- (void)beginEvent:(NSString *)eventId {
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeAppsFlyer){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter beginEvent:eventId];
-            break;
-        }
-    }
-}
-
-- (void)endEvent:(NSString *)eventId {
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeAppsFlyer){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter endEvent:eventId];
+            [adapter eventAppsFlyerAnalyticsWithName:eventName eventData:eventData];
             break;
         }
     }
@@ -275,103 +252,6 @@ static BOOL _bInit_ = NO;
     }
 }
 
-- (void)track:(NSString *)eventName
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeThinking){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter track:eventName];
-            break;
-        }
-    }
-}
-
--(void)saveTrackWithEventName:(NSString *)eventName
-                  propertyKey:(NSString *)propertyKey
-                propertyValue:(NSString *)propertyValue
-{
-    if (eventName == nil || propertyKey == nil || propertyValue == nil) {
-        return;
-    }
-    NSMutableDictionary * propertys = [NSMutableDictionary dictionaryWithCapacity:5];
-    if ([[self.trackPropertys allKeys]containsObject:eventName]) {
-        NSDictionary* property = [self.trackPropertys objectForKey:eventName];
-        [propertys addEntriesFromDictionary:property];
-        if (![[propertys allKeys]containsObject:propertyKey]) {
-            [propertys setObject:propertyValue forKey:propertyKey];
-        }
-    }else{
-        [propertys setObject:propertyValue forKey:propertyKey];
-    }
-    
-    [self.trackPropertys setObject:propertys forKey:eventName];
-}
-
-- (void)saveTrackWithEventName:(NSString *)eventName
-                   propertyKey:(NSString *)propertyKey
-              propertyIntValue:(int)propertyValue
-{
-    if (eventName == nil || propertyKey == nil) {
-        return;
-    }
-    NSMutableDictionary * propertys = [NSMutableDictionary dictionaryWithCapacity:5];
-    if ([[self.trackPropertys allKeys]containsObject:eventName]) {
-        NSDictionary* property = [self.trackPropertys objectForKey:eventName];
-        [propertys addEntriesFromDictionary:property];
-        if (![[propertys allKeys]containsObject:propertyKey]) {
-            [propertys setObject:[NSNumber numberWithInt:propertyValue] forKey:propertyKey];
-        }
-    }else{
-        [propertys setObject:[NSNumber numberWithInt:propertyValue] forKey:propertyKey];
-    }
-    
-    [self.trackPropertys setObject:propertys forKey:eventName];
-}
-
-- (void)saveTrackWithEventName:(NSString *)eventName
-                   propertyKey:(NSString *)propertyKey
-            propertyFloatValue:(float)propertyValue
-{
-    if (eventName == nil || propertyKey == nil) {
-        return;
-    }
-    NSMutableDictionary * propertys = [NSMutableDictionary dictionaryWithCapacity:5];
-    if ([[self.trackPropertys allKeys]containsObject:eventName]) {
-        NSDictionary* property = [self.trackPropertys objectForKey:eventName];
-        [propertys addEntriesFromDictionary:property];
-        if (![[propertys allKeys]containsObject:propertyKey]) {
-            [propertys setObject:[NSNumber numberWithFloat:propertyValue] forKey:propertyKey];
-        }
-    }else{
-        [propertys setObject:[NSNumber numberWithFloat:propertyValue] forKey:propertyKey];
-    }
-    
-    [self.trackPropertys setObject:propertys forKey:eventName];
-}
-
-
-- (void)saveTrackWithEventName:(NSString *)eventName
-                   propertyKey:(NSString *)propertyKey
-           propertyDoubleValue:(double)propertyValue
-{
-    if (eventName == nil || propertyKey == nil) {
-        return;
-    }
-    NSMutableDictionary * propertys = [NSMutableDictionary dictionaryWithCapacity:5];
-    if ([[self.trackPropertys allKeys]containsObject:eventName]) {
-        NSDictionary* property = [self.trackPropertys objectForKey:eventName];
-        [propertys addEntriesFromDictionary:property];
-        if (![[propertys allKeys]containsObject:propertyKey]) {
-            [propertys setObject:[NSNumber numberWithDouble:propertyValue] forKey:propertyKey];
-        }
-    }else{
-        [propertys setObject:[NSNumber numberWithDouble:propertyValue] forKey:propertyKey];
-    }
-    
-    [self.trackPropertys setObject:propertys forKey:eventName];
-}
-
 - (void)registerSuperProperty:(NSDictionary *)property
 {
     for (id key in [self.analyticsDict allKeys]) {
@@ -437,20 +317,36 @@ static BOOL _bInit_ = NO;
 }
 
 /**
+ *  AppsFlyer Apple 内付费使用自定义事件上报
+ */
+- (void)eventAndTrackInAppPurchase:(NSString*)revenue
+                          currency:(NSString*)currency
+                          quantity:(NSString*)quantity
+                         contentId:(NSString*)contentId
+                         receiptId:(NSString*)receiptId {
+    for (id key in [self.analyticsDict allKeys]) {
+        if ([key integerValue]==AnalyticsTypeAppsFlyer){
+            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
+            [adapter eventAndTrackInAppPurchase:revenue
+                                       currency:currency
+                                       quantity:quantity
+                                      contentId:contentId
+                                      receiptId:receiptId];
+            break;
+        }
+    }
+}
+
+/**
  *  订阅openURL
  *
- *  @param application  生命周期中的application
  *  @param url                    生命周期中的openurl
  *  @param options           生命周期中的options
  */
-- (void)SubApplication:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
+- (void)handleOpenUrl:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if (application) {
-        [dict setObject:application forKey:@"application"];
-    } else {
-        [dict setObject:[NSNumber numberWithBool:false] forKey:@"application"];
-    }
+    
     if (url) {
         [dict setObject:url forKey:@"url"];
     } else {
@@ -472,12 +368,9 @@ static BOOL _bInit_ = NO;
 /**
  *  订阅continueUserActivity
  *
- *  @param application                      生命周期中的application
  *  @param userActivity                    生命周期中的userActivity
- *  @param restorationHandler       生命周期中的restorationHandler
  */
-
-- (void)SubApplication:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+- (void)continueUserActivity:(nonnull NSUserActivity *)userActivity {
     
     NSDictionary *dict = [NSDictionary dictionary];
     dict = @{@"userActivity":userActivity};
@@ -577,42 +470,6 @@ extern "C" {
     }
     
 #pragma mark - DplusMobClick
-    void UnityTrack(const char* eventName)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]track:Yodo1CreateNSString(eventName)];
-    }
-    
-    void UnitySaveTrackWithEventName(const char* eventName,const char* propertyKey,const char* propertyValue)
-    {
-        if(eventName == NULL || propertyKey == NULL || propertyValue == NULL)return;
-        [[Yodo1AnalyticsManager sharedInstance]saveTrackWithEventName:Yodo1CreateNSString(eventName)
-                                                          propertyKey:Yodo1CreateNSString(propertyKey)
-                                                        propertyValue:Yodo1CreateNSString(propertyValue)];
-    }
-    
-    void UnitySaveTrackWithEventNameIntValue(const char* eventName,const char* propertyKey,const char* propertyValue)
-    {
-        if(eventName == NULL || propertyKey == NULL)return;
-        [[Yodo1AnalyticsManager sharedInstance]saveTrackWithEventName:Yodo1CreateNSString(eventName)
-                                                          propertyKey:Yodo1CreateNSString(propertyKey)
-                                                     propertyIntValue:[Yodo1CreateNSString(propertyValue) intValue]];
-    }
-    
-    void UnitySaveTrackWithEventNameFloatValue(const char* eventName,const char* propertyKey,const char* propertyValue)
-    {
-        if(eventName == NULL || propertyKey == NULL)return;
-        [[Yodo1AnalyticsManager sharedInstance]saveTrackWithEventName:Yodo1CreateNSString(eventName)
-                                                          propertyKey:Yodo1CreateNSString(propertyKey)
-                                                   propertyFloatValue:[Yodo1CreateNSString(propertyValue) floatValue]];
-    }
-    
-    void UnitySaveTrackWithEventNameDoubleValue(const char* eventName,const char* propertyKey,const char* propertyValue)
-    {
-        if(eventName == NULL || propertyKey == NULL)return;
-        [[Yodo1AnalyticsManager sharedInstance]saveTrackWithEventName:Yodo1CreateNSString(eventName)
-                                                          propertyKey:Yodo1CreateNSString(propertyKey)
-                                                  propertyDoubleValue:[Yodo1CreateNSString(propertyValue) doubleValue]];
-    }
     
      #pragma mark - AppsFlyer
     // AppsFlyer
@@ -625,12 +482,27 @@ extern "C" {
                                                                     currency:Yodo1CreateNSString(currency)
                                                                transactionId:Yodo1CreateNSString(transactionId)];
     }
+    
+    // AppsFlyer
+    void UnityEventAndTrackInAppPurchase(const char*revenue,
+                                            const char*currency,
+                                            const char*quantity,
+                                            const char*contentId,
+                                            const char*receiptId){
+        
+        [[Yodo1AnalyticsManager sharedInstance] eventAndTrackInAppPurchase:Yodo1CreateNSString(revenue)
+                                                                  currency:Yodo1CreateNSString(currency)
+                                                                  quantity:Yodo1CreateNSString(quantity)
+                                                                 contentId:Yodo1CreateNSString(contentId)
+                                                                 receiptId:Yodo1CreateNSString(receiptId)];
+    }
+    
     // AppsFlyer Event
-    void UnityEventAdAnalyticsWithName(const char*eventName, const char* jsonData) {
+    void UnityeventAppsFlyerAnalyticsWithName(const char*eventName, const char* jsonData) {
         NSString* m_EventName = Yodo1CreateNSString(eventName);
         NSString* eventData = Yodo1CreateNSString(jsonData);
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
-        [[Yodo1AnalyticsManager sharedInstance]eventAdAnalyticsWithName:m_EventName eventData:eventDataDic];
+        [[Yodo1AnalyticsManager sharedInstance]eventAppsFlyerAnalyticsWithName:m_EventName eventData:eventDataDic];
     }
     
     // save AppsFlyer deeplink
