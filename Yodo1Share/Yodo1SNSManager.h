@@ -3,32 +3,32 @@
 //  localization_sdk
 //
 //  Created by huafei qu on 13-5-4.
-//  Copyright (c) 2013年 yodo1. All rights reserved.
+//  Copyright (c) 2015年 yodo1. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "SMConstant.h"
+#import "Yodo1SMConstant.h"
 
-FOUNDATION_EXPORT NSString * const kYodo1QQAppId;
-FOUNDATION_EXPORT NSString * const kYodo1QQUniversalLink;
-FOUNDATION_EXPORT NSString * const kYodo1WechatAppId;
-FOUNDATION_EXPORT NSString * const kYodo1WechatUniversalLink;
-FOUNDATION_EXPORT NSString * const kYodo1SinaWeiboAppKey;
-FOUNDATION_EXPORT NSString * const kYodo1SinaWeiboUniversalLink;
-FOUNDATION_EXPORT NSString * const kYodo1TwitterConsumerKey;
-FOUNDATION_EXPORT NSString * const kYodo1TwitterConsumerSecret;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1QQAppId;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1QQUniversalLink;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1WechatAppId;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1WechatUniversalLink;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1SinaWeiboAppKey;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1SinaWeiboUniversalLink;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1TwitterConsumerKey;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1TwitterConsumerSecret;
 
-@interface SNSManager: NSObject
+@interface Yodo1SNSManager: NSObject
 
 @property(nonatomic,assign) BOOL isYodo1Shared;/*当前正在分享的是不是Yodo1的分享，区别于别的平台，比如KTPlay*/
 @property(nonatomic,assign) BOOL isLandscapeOrPortrait;/*支持横竖屏切换，默认NO*/
 
-+ (SNSManager*)sharedInstance;
++ (Yodo1SNSManager*)sharedInstance;
 
 /**
  初始化qq,微信
-
+ 
  @param shareAppIds appId字典
  如：@{kYodo1QQAppId:@"qqAppId",kYodo1WechatAppId:@"wechatAppId"}
  */
