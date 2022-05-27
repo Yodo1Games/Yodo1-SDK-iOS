@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Common'
-    s.version          = '6.0.2'
+    s.version          = '6.0.3'
     s.summary          = 'Yodo1CommonsSDK重构'
 
     s.description      = <<-DESC
