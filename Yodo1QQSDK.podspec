@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1QQSDK'
-    s.version          = '5.0.2'
+    s.version          = '6.1.0'
     s.summary          = 'v3.5.5'
 
     s.description      = <<-DESC
