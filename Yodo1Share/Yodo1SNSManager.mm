@@ -26,6 +26,8 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 
+#import "Yodo1KeyInfo.h"
+
 NSString * const kYodo1QQAppId                  = @"QQAppId";
 NSString * const kYodo1QQUniversalLink          = @"QQUniversalLink";
 NSString * const kYodo1WechatAppId              = @"WechatAppId";
@@ -34,6 +36,8 @@ NSString * const kYodo1SinaWeiboAppKey          = @"SinaAppId";
 NSString * const kYodo1SinaWeiboUniversalLink   = @"SinaUniversalLink";
 NSString * const kYodo1TwitterConsumerKey       = @"TwitterConsumerKey";
 NSString * const kYodo1TwitterConsumerSecret    = @"TwitterConsumerSecret";
+NSString * const kYodo1FacebookAppId            = @"FacebookAppID";
+NSString * const kYodo1FacebookDisplayName      = @"FacebookDisplayName";
 
 @interface Yodo1SMContent : NSObject
 @property (nonatomic,assign) NSInteger snsType;     //对单个平台分享模式有效
@@ -92,53 +96,109 @@ static Yodo1SNSManager* sDefaultInstance;
 }
 
 - (void)initSNSPlugn:(NSDictionary *)shareAppIds {
+    
     if (shareAppIds == nil || [shareAppIds count] < 1) {
-        NSAssert(YES, @"qq or wechat not setAppid");
-    }
-    if ([[shareAppIds allKeys]containsObject:kYodo1WechatAppId] &&
-        [[shareAppIds allKeys]containsObject:kYodo1WechatUniversalLink]) {
-        self.wechatAppKey = [shareAppIds objectForKey:kYodo1WechatAppId];
-        self.wechatUniversalLink = [shareAppIds objectForKey:kYodo1WechatUniversalLink];
-        [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
+        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Yodo1KeyConfig.bundle/Yodo1KeyInfo" ofType:@"plist"];
+        NSMutableDictionary *keyInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+        shareAppIds = [[NSDictionary alloc]initWithDictionary:keyInfo];
+        
+        if (plistPath.length <= 0) {
+            NSDictionary * plistDic = [[NSBundle mainBundle] infoDictionary];
+            shareAppIds = [[NSDictionary alloc]initWithDictionary:plistDic[@"ShareInfo"]];
+            
+            if ([[shareAppIds allKeys]containsObject:kYodo1WechatAppId] &&
+                [[shareAppIds allKeys]containsObject:kYodo1WechatUniversalLink]) {
+                self.wechatAppKey = [shareAppIds objectForKey:kYodo1WechatAppId];
+                self.wechatUniversalLink = [shareAppIds objectForKey:kYodo1WechatUniversalLink];
+                [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
+            } else {
+                
+        #ifdef DEBUG
+                NSLog(@"微信分享没设置");
+        #endif
+            }
+            if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
+                [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
+                self.qqAppId = [shareAppIds objectForKey:kYodo1QQAppId];
+                self.qqUniversalLink = [shareAppIds objectForKey:kYodo1QQUniversalLink];
+                [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
+                                              universalLink:self.qqUniversalLink];
+            } else {
+        #ifdef DEBUG
+                NSLog(@"QQ分享没设置");
+        #endif
+            }
+            
+            if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
+                [[shareAppIds allKeys]containsObject:kYodo1SinaWeiboUniversalLink]) {
+                self.sinaWeiboAppKey = [shareAppIds objectForKey:kYodo1SinaWeiboAppKey];
+                self.sinaWeiboUniversalLink = [shareAppIds objectForKey:kYodo1SinaWeiboUniversalLink];
+                [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
+                                                             universalLink:self.sinaWeiboUniversalLink];
+            } else {
+        #ifdef DEBUG
+                NSLog(@"新浪微博分享没设置");
+        #endif
+            }
+            
+            NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
+            if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId] &&
+                [[infoPlistDic allKeys]containsObject:kYodo1FacebookDisplayName]) {
+                [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
+            } else {
+        #ifdef DEBUG
+                NSLog(@"Facebook分享没设置");
+        #endif
+            }
+        }
     } else {
-#ifdef DEBUG
-        NSLog(@"微信分享没设置");
-#endif
-    }
-    if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
-        [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
-        self.qqAppId = [shareAppIds objectForKey:kYodo1QQAppId];
-        self.qqUniversalLink = [shareAppIds objectForKey:kYodo1QQUniversalLink];
-        [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
-                                      universalLink:self.qqUniversalLink];
-    } else {
-#ifdef DEBUG
-        NSLog(@"QQ分享没设置");
-#endif
+        if ([[shareAppIds allKeys]containsObject:kYodo1WechatAppId] &&
+            [[shareAppIds allKeys]containsObject:kYodo1WechatUniversalLink]) {
+            self.wechatAppKey = [shareAppIds objectForKey:kYodo1WechatAppId];
+            self.wechatUniversalLink = [shareAppIds objectForKey:kYodo1WechatUniversalLink];
+            [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
+        } else {
+            
+    #ifdef DEBUG
+            NSLog(@"微信分享没设置");
+    #endif
+        }
+        if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
+            [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
+            self.qqAppId = [shareAppIds objectForKey:kYodo1QQAppId];
+            self.qqUniversalLink = [shareAppIds objectForKey:kYodo1QQUniversalLink];
+            [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
+                                          universalLink:self.qqUniversalLink];
+        } else {
+    #ifdef DEBUG
+            NSLog(@"QQ分享没设置");
+    #endif
+        }
+        
+        if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
+            [[shareAppIds allKeys]containsObject:kYodo1SinaWeiboUniversalLink]) {
+            self.sinaWeiboAppKey = [shareAppIds objectForKey:kYodo1SinaWeiboAppKey];
+            self.sinaWeiboUniversalLink = [shareAppIds objectForKey:kYodo1SinaWeiboUniversalLink];
+            [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
+                                                         universalLink:self.sinaWeiboUniversalLink];
+        } else {
+    #ifdef DEBUG
+            NSLog(@"新浪微博分享没设置");
+    #endif
+        }
+        
+        NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
+        if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId] &&
+            [[infoPlistDic allKeys]containsObject:kYodo1FacebookDisplayName]) {
+            [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
+        } else {
+    #ifdef DEBUG
+            NSLog(@"Facebook分享没设置");
+    #endif
+        }
     }
     
-    if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
-        [[shareAppIds allKeys]containsObject:kYodo1SinaWeiboUniversalLink]) {
-        self.sinaWeiboAppKey = [shareAppIds objectForKey:kYodo1SinaWeiboAppKey];
-        self.sinaWeiboUniversalLink = [shareAppIds objectForKey:kYodo1SinaWeiboUniversalLink];
-        [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
-                                                     universalLink:self.sinaWeiboUniversalLink];
-    } else {
-#ifdef DEBUG
-        NSLog(@"新浪微博分享没设置");
-#endif
-    }
-//    if ([[shareAppIds allKeys]containsObject:kYodo1TwitterConsumerKey]&&[[shareAppIds allKeys]containsObject:kYodo1TwitterConsumerSecret]) {
-//        self.twitterConsumerKey = [shareAppIds objectForKey:kYodo1TwitterConsumerKey];
-//        self.twitterConsumerSecret = [shareAppIds objectForKey:kYodo1TwitterConsumerSecret];
-//        [[ShareByTwitter sharedInstance] initTwitterWithConsumerKey:self.twitterConsumerKey secret:self.twitterConsumerSecret];
-//    } else {
-//#ifdef DEBUG
-//        NSLog(@"Twitter分享没设置");
-//#endif
-//    }
     
-    [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
 }
 
 - (NSArray*)snsTypesWithContent:(SMContent *)content

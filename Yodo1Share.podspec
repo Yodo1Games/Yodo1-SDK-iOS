@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Share'
-  s.version          = '6.0.3'
+  s.version          = '6.1.0'
   s.summary          = 'A short description of Yodo1Share.'
   
   s.description      = <<-DESC
@@ -54,7 +54,6 @@ Pod::Spec.new do |s|
   'MapKit',
   'Social',
   'StoreKit',
-  'Twitter',
   'WebKit',
   'SystemConfiguration',
   'AudioToolbox',
@@ -72,11 +71,10 @@ Pod::Spec.new do |s|
   'c++',
   'z']
   
-
-  s.dependency 'Yodo1OnlineParameter','6.0.5'
-  s.dependency 'Yodo1Qrencode','5.0.0'
-  s.dependency 'Yodo1QQSDK','5.0.2'
-  s.dependency 'Yodo1FBSDKShareKit','5.0.1'
+  s.dependency 'Yodo1Commons','6.0.4'
+  s.dependency 'Yodo1Qrencode','6.1.0'
+  s.dependency 'Yodo1QQSDK','6.1.0'
+  s.dependency 'Yodo1FBSDKShareKit','6.1.0'
   s.dependency 'Weibo_SDK','3.3.0'#'Yodo1WeiboSDK', '5.0.0'
   s.dependency 'WechatOpenSDK', '1.8.7.1'#'Yodo1WeChatSDK', '5.0.0'
 

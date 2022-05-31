@@ -18,6 +18,8 @@ FOUNDATION_EXPORT NSString * _Nonnull const kYodo1SinaWeiboAppKey;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1SinaWeiboUniversalLink;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1TwitterConsumerKey;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1TwitterConsumerSecret;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1FacebookAppId;
+FOUNDATION_EXPORT NSString * _Nonnull const kYodo1FacebookDisplayName;
 
 @interface Yodo1SNSManager: NSObject
 
