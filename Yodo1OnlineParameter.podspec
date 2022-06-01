@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1OnlineParameter'
-    s.version          = '6.0.0'
-    s.summary          = 'v6.0.0'
+    s.version          = '6.1.0'
+    s.summary          = 'v6.1.0'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -15,7 +15,6 @@ Pod::Spec.new do |s|
     # s.source           = { :http => "https://cocoapods.yodo1api.com/foundation/" + "#{s.name}" + "/"+ "#{s.version}" + ".zip" }
 
     s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
-    # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
     s.ios.deployment_target = '9.0'
 
