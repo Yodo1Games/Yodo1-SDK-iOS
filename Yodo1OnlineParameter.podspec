@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1OnlineParameter'
-    s.version          = '6.0.5'
-    s.summary          = '修复关闭广告之后崩溃的BUG,修改替换神策统计为数数统计/测试Tag'
+    s.version          = '6.0.0'
+    s.summary          = 'v6.0.0'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -19,31 +19,16 @@ Pod::Spec.new do |s|
 
     s.ios.deployment_target = '9.0'
 
-    s.source_files = [
-        "Yodo1AFNetworking/*.{h,m}",
-        "Yodo1GDCTimer/*.{h,m}",
-        "Yodo1KeyInfo/*.{h,m}",
-        "Yodo1OnlineParameter/*.{h,m,mm}",
-        "Yodo1Reachability/*.{h,m}",
-        "Yodo1YYCache/*.{h,m}",
-        "Yodo1YYModel/*.{h,m}",
-        "Yodo1Commons/*.{h,m,mm}"]
+    s.source_files = [ "*.{h,m,mm}" ]
 
-    s.public_header_files = [
-        "Yodo1AFNetworking/*.h",
-        "Yodo1GDCTimer/*.h",
-        "Yodo1KeyInfo/*.h",
-        "Yodo1OnlineParameter/*.h",
-        "Yodo1Reachability/*.h",
-        "Yodo1YYCache/*.h",
-        "Yodo1YYModel/*.h",
-        "Yodo1Commons/*.h"]
-    
-    s.vendored_libraries = ["Yodo1Commons/*.a","Yodo1OnlineParameter/*.a"]
+    s.public_header_files = [ "*.h"]
 
-    # s.vendored_frameworks = ["Yodo1SaAnalytics/*.framework"]
+    # s.vendored_libraries = [ "*.a" ]
 
-    # s.resources = ["Yodo1SaAnalytics/*.bundle"]
+    # s.resources = ["*.bundle"]
+
+    # s.vendored_frameworks = ["*.framework"]
+
 
     s.requires_arc = true
 
@@ -91,6 +76,6 @@ Pod::Spec.new do |s|
         'sqlite3.0',
         'c++',
         'z']
-    # s.dependency 'Yodo1SaAnalytics', '6.0.0'
+    s.dependency 'Yodo1Commons', '6.0.4'
 
 end
