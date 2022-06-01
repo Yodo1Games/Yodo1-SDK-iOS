@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Yd1UCenter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

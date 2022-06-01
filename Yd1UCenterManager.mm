@@ -11,7 +11,6 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 #import "RMStoreUserDefaultsPersistence.h"
-#import "Yd1UCenter.h"
 #import "RMStoreTransaction.h"
 #import "Yodo1UnityTool.h"
 #import "Yodo1AnalyticsManager.h"
@@ -134,13 +133,13 @@ static NSString* const __status                 = @"status";
     [_superProperty setObject:Yd1OpsTools.appName forKey:__gameName];
     [_superProperty setObject:Yd1OpsTools.appVersion forKey:__gameVersion];
     [_superProperty setObject:Yd1OpsTools.appBid forKey:__gameBundleId];
-    [_superProperty setObject:Yd1OParameter.publishType forKey:__sdkType];
-    [_superProperty setObject:Yd1OParameter.publishVersion forKey:__sdkVersion];
+    [_superProperty setObject:Yodo1PublishType forKey:__sdkType];
+    [_superProperty setObject:Yodo1PublishVersion forKey:__sdkVersion];
     [_superProperty setObject:Yd1OParameter.channelId forKey:__publishChannelCode];
-    [_superProperty setObject:Yd1OParameter.publishVersion forKey:__masSdkVersion];
+    [_superProperty setObject:Yodo1PublishVersion forKey:__masSdkVersion];
     // 付费方式属性
     [_superProperty setObject:Yd1OParameter.channelId forKey:__paymentChannelCode];
-    [_superProperty setObject:Yd1OParameter.publishVersion forKey:__paymentChannelVersion];
+    [_superProperty setObject:Yodo1PublishVersion forKey:__paymentChannelVersion];
     
     po = [PaymentObject new];
     

@@ -11,6 +11,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define Yodo1PublishType @"yodo1_global"
+#define Yodo1PublishVersion @"6.1.0"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YD1User : NSObject <NSSecureCoding>
