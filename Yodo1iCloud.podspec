@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1iCloud'
-    s.version          = '6.0.3'
+    s.version          = '6.1.0'
     s.summary          = 'v'
 
     s.description      = <<-DESC
@@ -55,9 +55,7 @@ Pod::Spec.new do |s|
         'MediaPlayer',
         'MessageUI',
         'MapKit',
-        'Social',
         'StoreKit',
-        'Twitter',
         'WebKit',
         'SystemConfiguration',
         'AudioToolbox',
@@ -77,6 +75,6 @@ Pod::Spec.new do |s|
         'z']
 
     
-    s.dependency 'Yodo1OnlineParameter','6.0.5'
+    s.dependency 'Yodo1Commons', '6.0.4'
 
 end
