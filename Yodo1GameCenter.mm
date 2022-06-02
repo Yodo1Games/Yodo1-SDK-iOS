@@ -14,7 +14,6 @@
 #import "Yodo1AFNetworking.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
-#import "Yd1OnlineParameter.h"
 #import "Yodo1KeyInfo.h"
 #import "Yodo1Tool+GameCenterLogin.h"
 
@@ -139,13 +138,13 @@ extern "C" {
         
         NSString* deviceId = Yd1OpsTools.keychainDeviceId;
         
-        NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1.com%@%@",deviceId,Yd1OParameter.appKey]];
+        NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1.com%@%@",deviceId,[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]]];
         NSString *regionCode = @"";
         if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"RegionCode"]) {
             regionCode = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"RegionCode"];
         }
         NSDictionary* data = @{
-            Yd1OpsTools.gameAppKey:Yd1OParameter.appKey ,Yd1OpsTools.channelCode:Yd1OParameter.channelId,Yd1OpsTools.deviceId:deviceId,Yd1OpsTools.regionCode:regionCode};
+            Yd1OpsTools.gameAppKey:[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"] ,Yd1OpsTools.channelCode:@"appstore",Yd1OpsTools.deviceId:deviceId,Yd1OpsTools.regionCode:regionCode};
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:data forKey:Yd1OpsTools.data];
         [parameters setObject:sign forKey:Yd1OpsTools.sign];
