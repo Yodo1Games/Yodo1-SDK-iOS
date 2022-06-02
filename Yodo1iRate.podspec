@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1iRate'
-    s.version          = '6.0.0'
+    s.version          = '6.1.0'
     s.summary          = 'v'
 
     s.description      = <<-DESC
@@ -38,43 +38,7 @@ Pod::Spec.new do |s|
         "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
         "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-
-   s.frameworks = [
-        'Accounts', 
-        'AssetsLibrary',
-        'AVFoundation', 
-        'CoreTelephony',
-        'CoreLocation', 
-        'CoreMotion',
-        'CoreMedia',
-        'EventKit',
-        'EventKitUI', 
-        'iAd', 
-        'ImageIO',
-        'MobileCoreServices',
-        'MediaPlayer',
-        'MessageUI',
-        'MapKit',
-        'Social',
-        'StoreKit',
-        'Twitter',
-        'WebKit',
-        'SystemConfiguration',
-        'AudioToolbox',
-        'Security',
-        'CoreBluetooth']
-
-    s.weak_frameworks = [
-        'AdSupport',
-        'SafariServices',
-        'ReplayKit',
-        'CloudKit',
-        'GameKit']
-
-    s.libraries = [
-        'sqlite3.0',
-        'c++',
-        'z']
-
+    
+    s.frameworks = ['StoreKit']
 
 end
