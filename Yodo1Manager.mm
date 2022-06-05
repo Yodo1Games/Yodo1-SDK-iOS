@@ -16,13 +16,8 @@
 #import "Yodo1Suit.h"
 
 #import "Yodo1AnalyticsManager.h"
-#import "OpenSuitAnalyticsManager.h"
 
-#import "OpenSuitSNSManager.h"
-
-#ifdef YODO1_MORE_GAME
-#import "MoreGameManager.h"
-#endif
+#import "Yodo1SNSManager.h"
 
 #ifdef YODO1_UCCENTER
 #import "Yd1UCenterManager.h"
@@ -35,11 +30,6 @@
 #import "Yodo1Model.h"
 
 #define DEBUG [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] integerValue]
-
-NSString* const kFacebookAppId      = @"FacebookAppId";
-NSString* const kYodo1ChannelId     = @"AppStore";
-
-NSString* const kSoomlaAppKey       = @"SoomlaAppKey";
 
 @implementation SDKConfig
 
@@ -65,63 +55,53 @@ static NSString* __kAppKey = @"";
     __kAppKey = sdkConfig.appKey;
     isInitialized = true;
     
-#ifndef YODO1_SUIT
     [Yodo1Suit initWithAppKey:__kAppKey];
-#endif
-    
-#ifndef YODO1_SUIT
-    [Yd1OnlineParameter.shared initWithAppKey:__kAppKey channelId:@"AppStore"];
-#endif
     
     kYodo1Config = sdkConfig;
 
     //初始化sns
     NSMutableDictionary* snsPlugn = [NSMutableDictionary dictionary];
-    NSString* qqAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitQQAppId];
-    NSString* qqUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitQQUniversalLink];
-    NSString* wechatAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitWechatAppId];
-    NSString* wechatUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitWechatUniversalLink];
-    NSString* sinaAppKey = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitSinaWeiboAppKey];
-    NSString* sinaUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitSinaWeiboUniversalLink];
-    NSString* twitterConsumerKey = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitTwitterConsumerKey];
-    NSString* twitterConsumerSecret = [[Yodo1KeyInfo shareInstance]configInfoForKey:kOpenSuitTwitterConsumerSecret];
+    NSString* qqAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1QQAppId];
+    NSString* qqUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1QQUniversalLink];
+    NSString* wechatAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1WechatAppId];
+    NSString* wechatUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1WechatUniversalLink];
+    NSString* sinaAppKey = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1SinaWeiboAppKey];
+    NSString* sinaUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1SinaWeiboUniversalLink];
+    NSString* twitterConsumerKey = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1TwitterConsumerKey];
+    NSString* twitterConsumerSecret = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1TwitterConsumerSecret];
     if (qqAppId) {
-        [snsPlugn setObject:qqAppId forKey:kOpenSuitQQAppId];
+        [snsPlugn setObject:qqAppId forKey:kYodo1QQAppId];
     }
     if (qqUniversalLink) {
-        [snsPlugn setObject:qqUniversalLink forKey:kOpenSuitQQUniversalLink];
+        [snsPlugn setObject:qqUniversalLink forKey:kYodo1QQUniversalLink];
     }
     if (wechatAppId) {
-        [snsPlugn setObject:wechatAppId forKey:kOpenSuitWechatAppId];
+        [snsPlugn setObject:wechatAppId forKey:kYodo1WechatAppId];
     }
     if (wechatUniversalLink) {
-        [snsPlugn setObject:wechatUniversalLink forKey:kOpenSuitWechatUniversalLink];
+        [snsPlugn setObject:wechatUniversalLink forKey:kYodo1WechatUniversalLink];
     }
     if (sinaAppKey) {
-        [snsPlugn setObject:sinaAppKey forKey:kOpenSuitSinaWeiboAppKey];
+        [snsPlugn setObject:sinaAppKey forKey:kYodo1SinaWeiboAppKey];
     }
     if (sinaUniversalLink) {
-        [snsPlugn setObject:sinaAppKey forKey:kOpenSuitSinaWeiboUniversalLink];
+        [snsPlugn setObject:sinaAppKey forKey:kYodo1SinaWeiboUniversalLink];
     }
     if (twitterConsumerKey && twitterConsumerSecret) {
-        [snsPlugn setObject:twitterConsumerKey forKey:kOpenSuitTwitterConsumerKey];
-        [snsPlugn setObject:twitterConsumerSecret forKey:kOpenSuitTwitterConsumerSecret];
+        [snsPlugn setObject:twitterConsumerKey forKey:kYodo1TwitterConsumerKey];
+        [snsPlugn setObject:twitterConsumerSecret forKey:kYodo1TwitterConsumerSecret];
     }
-    [[OpenSuitSNSManager sharedInstance] initSNSPlugn:snsPlugn];
+    [[Yodo1SNSManager sharedInstance] initSNSPlugn:snsPlugn];
     
     [Yodo1Manager analyticInit];
 }
 
 + (void)analyticInit
 {
-    OpenSuitAnalyticsInitConfig * config = [[OpenSuitAnalyticsInitConfig alloc]init];
-    config.gaCustomDimensions01 = kYodo1Config.gaCustomDimensions01;
-    config.gaCustomDimensions02 = kYodo1Config.gaCustomDimensions02;
-    config.gaCustomDimensions03 = kYodo1Config.gaCustomDimensions03;
-    config.gaResourceCurrencies = kYodo1Config.gaResourceCurrencies;
-    config.gaResourceItemTypes = kYodo1Config.gaResourceItemTypes;
+    AnalyticsInitConfig * config = [[AnalyticsInitConfig alloc]init];
     config.appsflyerCustomUserId = kYodo1Config.appsflyerCustomUserId;
-    [[OpenSuitAnalyticsManager sharedInstance]initializeAnalyticsWithConfig:config];
+    config.thinkingDataAccountId = kYodo1Config.thinkingDataAccountId;
+    [[Yodo1AnalyticsManager sharedInstance]initializeAnalyticsWithConfig:config];
 }
 
 
@@ -164,14 +144,6 @@ static NSString* __kAppKey = @"";
     kYodo1Config = nil;
 }
 
-+ (void)handleOpenURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication {
-    if ([OpenSuitSNSManager sharedInstance].isYodo1Shared) {
-        [[OpenSuitSNSManager sharedInstance] application:nil openURL:url options:nil];
-    }
-
-}
-
-
 #ifdef __cplusplus
 
 extern "C" {
@@ -185,7 +157,7 @@ extern "C" {
 
     char* UnityStringParams(const char* key,const char* defaultValue) {
         NSString* _defaultValue = Yodo1CreateNSString(defaultValue);
-         NSString* _key = Yodo1CreateNSString(key);
+        NSString* _key = Yodo1CreateNSString(key);
         NSString* param = [Yd1OnlineParameter.shared stringConfigWithKey:_key defaultValue:_defaultValue];
         return Yodo1MakeStringCopy([param cStringUsingEncoding:NSUTF8StringEncoding]);
     }
@@ -193,20 +165,6 @@ extern "C" {
     bool UnityBoolParams(const char* key,bool defaultValue) {
         bool param = [Yd1OnlineParameter.shared boolConfigWithKey:Yodo1CreateNSString(key) defaultValue:defaultValue];
         return param;
-    }
-    
-    bool UnitySwitchMoreGame() {
-    #ifdef YODO1_MORE_GAME
-        return [[MoreGameManager sharedInstance]switchYodo1GMG];
-    #else
-        return NO;
-    #endif
-    }
-    
-    void UnityShowMoreGame() {
-    #ifdef YODO1_MORE_GAME
-        [[MoreGameManager sharedInstance] present];
-    #endif
     }
 
     char* UnityGetDeviceId() {

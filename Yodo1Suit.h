@@ -8,11 +8,19 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define K_YODO1_SUIT_VERSION  @"6.0.2.1"
+#define K_YODO1_SUIT_VERSION  @"6.1.0"
 
 @interface Yodo1Suit : NSObject
 
 + (NSString *)sdkVersion;
+
++ (NSString *)getDeviceId;
+
++ (NSString *)GetCountryCode;
+
+// 在线参数功能
++ (NSString *)stringParamsConfigWithKey:(NSString *)key defaultValue:(NSString *)value;
++ (BOOL)boolParamsConfigWithKey:(NSString *)key defaultValue:(bool)value;
 
 //Init Yodo1Suit with appkey.
 + (void)initWithAppKey:(NSString *)appKey;
