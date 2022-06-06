@@ -510,7 +510,7 @@ extern "C" {
     }
     
     // AppsFlyer Event
-    void UnityeventAppsFlyerAnalyticsWithName(const char*eventName, const char* jsonData) {
+    void UnityEventAppsFlyerAnalyticsWithName(const char*eventName, const char* jsonData) {
         NSString* m_EventName = Yodo1CreateNSString(eventName);
         NSString* eventData = Yodo1CreateNSString(jsonData);
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
