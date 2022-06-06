@@ -16,6 +16,9 @@
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1KeyInfo.h"
 #import "Yodo1Tool+GameCenterLogin.h"
+#import "Yodo1YYCache.h"
+
+#define kYodo1GameCenterPlayId @"Yodo1GameCenterPlayId"
 
 @interface Yodo1GameCenter ()<GameCenterManagerDelegate>
 
@@ -79,6 +82,7 @@ static NSString *ocLoginMethodName = @"";
     
     GKLocalPlayer *player = [[GameCenterManager sharedManager] localPlayerData];
     NSLog(@"alias:%@,playerID:%@,displayName:%@",player.alias,player.playerID,player.displayName);
+    [[[Yodo1YYCache alloc]initWithName:kYodo1GameCenterPlayId] setObject:player.playerID forKey:kYodo1GameCenterPlayId];
     [self deviceLogin:player.playerID];
     if (player) {
         if ([player isUnderage] == NO) {
