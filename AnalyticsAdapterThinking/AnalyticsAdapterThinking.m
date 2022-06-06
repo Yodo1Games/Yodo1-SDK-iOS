@@ -16,7 +16,6 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 
-#define Yodo1PublishType @"mas_global"
 #define Yodo1PublishVersion @"6.1.0"
 #define Yodo1ThinkingServerUrl @"https://c1.yodo1.com/"
 
@@ -66,7 +65,6 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         [ThinkingAnalyticsSDK.sharedInstance user_setOnce:@{@"yID":@"",@"game":bundleId,@"channel":@"appstore"}];
         [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{@"gameKey":[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"],
                                                                   @"gameBundleId":bundleId,
-                                                                  @"sdkType":Yodo1PublishType,
                                                                   @"publishChannelCode":@"appstore",
                                                                   @"sdkVersion":Yodo1PublishVersion}];
         
