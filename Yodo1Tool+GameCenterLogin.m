@@ -12,7 +12,7 @@
 
 @implementation Yodo1Tool (GameCenterLogin)
 
-- (NSString *)ucapDomain {
+- (NSString *)gameCenterUcapDomain {
 #if __PRODUCT_EVN__ == 1 //测试环境
     return @"https://api-ucap-test.yodo1.com/uc_ap";
 #elif __PRODUCT_EVN__ == 2 //准生产
@@ -22,7 +22,7 @@
 #endif
 }
 
-- (NSString *)deviceLoginURL {
+- (NSString *)gameCenterdeviceLoginURL {
     return @"channel/device/login";
 }
 
