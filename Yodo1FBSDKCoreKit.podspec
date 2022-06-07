@@ -55,7 +55,6 @@ Pod::Spec.new do |s|
         'MapKit',
         'Social',
         'StoreKit',
-        'Twitter',
         'WebKit',
         'SystemConfiguration',
         'AudioToolbox',
