@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1FBSDKCoreKit'
-    s.version          = '6.1.0'
+    s.version          = '6.1.0.1'
     s.summary          = 'v '
 
     s.description      = <<-DESC
