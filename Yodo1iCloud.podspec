@@ -75,6 +75,6 @@ Pod::Spec.new do |s|
         'z']
 
     
-    s.dependency 'Yodo1Commons', '6.0.4'
+    s.dependency 'Yodo1Commons', '6.1.0'
 
 end
