@@ -20,7 +20,7 @@
 #import "Yodo1SNSManager.h"
 
 #ifdef YODO1_UCCENTER
-#import "Yd1UCenterManager.h"
+#import "Yodo1PurchaseManager.h"
 #endif
 
 #ifdef ANTI_ADDICTION
