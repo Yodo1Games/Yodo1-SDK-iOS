@@ -76,6 +76,6 @@ Pod::Spec.new do |s|
         'stdc++',
         'z']
     
-    s.dependency 'Yodo1FBSDKCoreKit','6.1.1'
+    s.dependency 'Yodo1FBSDKCoreKit','6.1.0'
 
 end
