@@ -20,10 +20,10 @@
 
 #import "RMStoreUserDefaultsPersistence.h"
 #import "RMStoreTransaction.h"
-#import "Yd1UCenter.h"
+#import "Yodo1UCenter.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+Commons.h"
-#import "Yd1UCenterManager.h"
+#import "Yodo1PurchaseManager.h"
 
 NSString* const RMStoreTransactionsUserDefaultsKey = @"RMStoreTransactions";
 
@@ -51,7 +51,7 @@ NSString* const RMStoreTransactionsUserDefaultsKey = @"RMStoreTransactions";
         [newOrderId setArray:oldOrderId];
     }
     for (NSString* oderid in oldOrderId) {
-        if ([oderid isEqualToString:Yd1UCenter.shared.itemInfo.orderId]) {
+        if ([oderid isEqualToString:Yodo1UCenter.shared.itemInfo.orderId]) {
             transaction.orderId = oderid;
             [newOrderId removeObject:oderid];
             break;
@@ -64,8 +64,8 @@ NSString* const RMStoreTransactionsUserDefaultsKey = @"RMStoreTransactions";
     [Yd1OpsTools saveKeychainWithService:productIdentifier str:orderidJson];
     __weak typeof(self) weakSelf = self;
     if (!transaction.orderId) { //杀死进程/重新安装应用
-        NSString* uniformProductId = [Yd1UCenterManager.shared uniformProductIdWithChannelProductId:productIdentifier];
-        [Yd1UCenterManager.shared createOrderIdWithUniformProductId:uniformProductId
+        NSString* uniformProductId = [Yodo1PurchaseManager.shared uniformProductIdWithChannelProductId:productIdentifier];
+        [Yodo1PurchaseManager.shared createOrderIdWithUniformProductId:uniformProductId
                                                             extra:@""
                                                            callback:^(bool success, NSString * _Nonnull orderid, NSString * _Nonnull error) {
             if (success) {

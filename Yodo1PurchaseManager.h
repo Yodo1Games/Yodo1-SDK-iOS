@@ -1,16 +1,16 @@
 //
-//  Yd1UCenterManager.h
+//  Yodo1PurchaseManager.h
 //
 //  Created by yixian huang on 2017/7/24.
 //
 //
 
-#ifndef Yd1UCenterManager_h
-#define Yd1UCenterManager_h
+#ifndef Yodo1PurchaseManager_h
+#define Yodo1PurchaseManager_h
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "Yd1UCenter.h"
+#import "Yodo1UCenter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -110,7 +110,7 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
 
 @class YD1User;
 
-@interface Yd1UCenterManager : NSObject
+@interface Yodo1PurchaseManager : NSObject
 
 + (instancetype)shared;
 
@@ -229,4 +229,4 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
 @end
 
 NS_ASSUME_NONNULL_END
-#endif /* Yd1UCenterManager_h */
+#endif /* Yodo1PurchaseManager_h */

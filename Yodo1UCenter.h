@@ -1,18 +1,19 @@
 //
-//  Yd1UCenter.h
+//  Yodo1UCenter.h
 //
 //  Created by yixian huang on 2017/7/24.
 //
 //
 
-#ifndef Yd1UCenter_h
-#define Yd1UCenter_h
+#ifndef Yodo1UCenter_h
+#define Yodo1UCenter_h
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
 #define Yodo1PublishType @"yodo1_global"
 #define Yodo1PublishVersion @"6.1.0"
+#define kYodo1ChannelCode @"appstore"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -97,7 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
                   purchaseDate:(NSTimeInterval)purchaseDateMs;
 @end
 
-@interface Yd1UCenter:NSObject
+@interface Yodo1UCenter:NSObject
 
 @property(nonatomic,strong)NSString* regionCode;
 @property(nonatomic,strong)YD1ItemInfo* itemInfo;
@@ -178,4 +179,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-#endif /* Yd1UCenter_h */
+#endif /* Yodo1UCenter_h */

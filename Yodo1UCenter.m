@@ -1,16 +1,15 @@
 //
-//  Yd1UCenter.m
-//  Yd1UCenter
+//  Yodo1UCenter.m
+//  Yodo1UCenter
 //
 //  Created by yixian huang on 2017/7/24.
 //
 
-#import "Yd1UCenter.h"
+#import "Yodo1UCenter.h"
 #import "Yodo1AFNetworking.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
-#import "Yd1OnlineParameter.h"
 #import "Yodo1Tool+OpsParameters.h"
 #import "Yodo1Model.h"
 #import "Yodo1KeyInfo.h"
@@ -81,19 +80,19 @@
 }
 @end
 
-@interface Yd1UCenter () {
+@interface Yodo1UCenter () {
     
 }
 
 @end
 
-@implementation Yd1UCenter
+@implementation Yodo1UCenter
 
 + (instancetype)shared {
     return [Yodo1Base.shared cc_registerSharedInstance:self block:^{
         ///初始化
         YD1LOG(@"%s",__PRETTY_FUNCTION__);
-        [Yd1UCenter.shared willInit];
+        [Yodo1UCenter.shared willInit];
     }];
 }
 
@@ -127,13 +126,18 @@
     if (playerId && [playerId length] > 0) {
         deviceId = playerId;
     }
-    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1.com%@%@",deviceId,Yd1OParameter.appKey]];
+    NSString *appKey = @"";
+    if ([[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"] length] > 0) {
+        appKey = [Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"];
+    }
+    
+    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1.com%@%@",deviceId,appKey]];
     NSDictionary* data = @{
-        Yd1OpsTools.gameAppKey:Yd1OParameter.appKey ,Yd1OpsTools.channelCode:Yd1OParameter.channelId,Yd1OpsTools.deviceId:deviceId,Yd1OpsTools.regionCode:self.regionCode };
+        Yd1OpsTools.gameAppKey:appKey ,Yd1OpsTools.channelCode:kYodo1ChannelCode,Yd1OpsTools.deviceId:deviceId,Yd1OpsTools.regionCode:self.regionCode };
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:data forKey:Yd1OpsTools.data];
     [parameters setObject:sign forKey:Yd1OpsTools.sign];
-    YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:parameters error:nil]);
+    YD1LOG(@"%@===%@",[Yd1OpsTools stringWithJSONObject:parameters error:nil], Yd1OpsTools.ucapDomain);
     [manager POST:Yd1OpsTools.deviceLoginURL
        parameters:parameters
          progress:nil
@@ -263,8 +267,8 @@
         @"carrier":Yd1OpsTools.networkOperatorName,
     };
     NSDictionary* data = @{
-        @"game_appkey":Yd1OParameter.appKey,
-        @"channel_code":Yd1OParameter.channelId,
+        @"game_appkey":[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
+        @"channel_code":kYodo1ChannelCode,
         @"region_code":self.regionCode,
         @"sdkType":Yodo1PublishType,
         @"sdkVersion":Yodo1PublishVersion,
@@ -336,8 +340,8 @@
     
     NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",itemInfo.orderId]];
     NSDictionary* data = @{
-        Yd1OpsTools.gameAppKey:Yd1OParameter.appKey? :@"",
-        Yd1OpsTools.channelCode:Yd1OParameter.channelId? :@"",
+        Yd1OpsTools.gameAppKey:[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"]? :@"",
+        Yd1OpsTools.channelCode:kYodo1ChannelCode,
         Yd1OpsTools.regionCode:self.regionCode? :@"",
         Yd1OpsTools.orderId:itemInfo.orderId? :@"",
         @"channelOrderid":itemInfo.channelOrderid? :@"",
@@ -389,8 +393,8 @@
     NSString* eightReceipt = [itemInfo.trx_receipt substringToIndex:8];
     NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",eightReceipt]];
     NSDictionary* data = @{
-        Yd1OpsTools.gameAppKey:Yd1OParameter.appKey,
-        Yd1OpsTools.channelCode:Yd1OParameter.channelId,
+        Yd1OpsTools.gameAppKey:[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
+        Yd1OpsTools.channelCode:kYodo1ChannelCode,
         Yd1OpsTools.regionCode:self.regionCode,
         @"trx_receipt":itemInfo.trx_receipt,
         @"exclude_old_transactions":itemInfo.exclude_old_transactions
@@ -668,9 +672,9 @@
     NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",itemInfo.uid]];
     NSDictionary* data = @{
         @"uid":itemInfo.uid,
-        @"gameAppkey":Yd1OnlineParameter.shared.appKey,
-        @"channelCode":Yd1OnlineParameter.shared.channelId,
-        @"regionCode":Yd1UCenter.shared.regionCode
+        @"gameAppkey":[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
+        @"channelCode":kYodo1ChannelCode,
+        @"regionCode":Yodo1UCenter.shared.regionCode
     };
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:data forKey:Yd1OpsTools.data];
