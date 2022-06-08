@@ -11,8 +11,8 @@
 #import "Yodo1Tool.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
-#import "Yd1UCenter.h"
-#import "Yd1UCenterManager.h"
+#import "Yodo1UCenter.h"
+#import "Yodo1PurchaseManager.h"
 #import "Yodo1AntiAddictionDatabase.h"
 #import "Yodo1AntiAddictionNet.h"
 #import "Yodo1AntiAddictionHelper.h"
@@ -47,8 +47,8 @@
         [self insert:antiUser];
     }
     
-    BOOL isLogined = [Yd1UCenterManager shared].isLogined;
-    YD1User *yd1User = [Yd1UCenterManager shared].user;
+    BOOL isLogined = [Yodo1PurchaseManager shared].isLogined;
+    YD1User *yd1User = [Yodo1PurchaseManager shared].user;
     // 如果UserCenter已登录
     if (isLogined && yd1User && [yd1User.yid isEqualToString:antiUser.yid]) {
         antiUser.yid = yd1User.yid;
@@ -61,10 +61,11 @@
     }
     
     if (antiUser.yid) {
+        NSLog(@"%@", antiUser.yid);
         [self getCertificationInfo:antiUser success:success failure:failure];
     } else {
-        [[Yd1UCenter shared] deviceLoginWithPlayerId:antiUser.accountId callback:^(YD1User *user, NSError *error) {
-#ifdef DEBUG
+        [[Yodo1UCenter shared] deviceLoginWithPlayerId:antiUser.accountId callback:^(YD1User *user, NSError *error) {
+            
             NSLog(@"-------------user of info---------------------");
             NSLog(@"accountId:%@",antiUser.accountId);
             NSLog(@"yid:%@",user.yid);
@@ -72,11 +73,10 @@
             NSLog(@"ucuid:%@",user.ucuid);
             NSLog(@"-------------user of info---------------------");
             
-#endif
             if (!error) {
                 
-                [Yd1UCenterManager shared].user = user;
-                [Yd1UCenterManager shared].isLogined = YES;
+                [Yodo1PurchaseManager shared].user = user;
+                [Yodo1PurchaseManager shared].isLogined = YES;
                 [Yd1OpsTools.cached setObject:user forKey:@"yd1User"];
                 antiUser.yid = user.yid;
                 antiUser.uid = user.uid;

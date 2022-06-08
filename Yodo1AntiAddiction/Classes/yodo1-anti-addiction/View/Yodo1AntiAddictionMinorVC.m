@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHeight;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *titile;
+@property (weak, nonatomic) IBOutlet UILabel *ageLabel;
+
 
 @end
 
@@ -75,9 +77,20 @@
         regularTimeSt = @"0";
     }
     
-    NSString* paymentLimit = [NSString stringWithFormat:@"单笔金额不可超过%.1f元，每月累计不可超过%.1f元。",dayLimit,moneyLimit];
+    self.ageLabel.text = [NSString stringWithFormat:@"恭喜实名成功，您当前实名年龄为%ld岁属于未成年人，将会受到未成年健康规则限制", user.age];
+    
+    NSString* paymentLimit = @"";
+    if (user.age < 8) {
+        paymentLimit = [NSString stringWithFormat:@"未满8周岁用户不提供付费服务。"];
+    } else if (user.age >= 8 && user.age < 16) {
+        paymentLimit = [NSString stringWithFormat:@"8周岁以上未满16周岁的用户充值，单笔金额不可超过%.1f元，每月累计不可超过%.1f元。",dayLimit,moneyLimit];
+    } else if (user.age >= 16 && user.age < 18) {
+        paymentLimit = [NSString stringWithFormat:@"16周岁以上未满18周岁的用户充值，单笔金额不可超过%.1f元，每月累计不可超过%.1f元。",dayLimit,moneyLimit];
+    }
+    
     if (user.certificationStatus == UserCertificationStatusAault) {
         paymentLimit = @"";//成年人不显示
+        self.ageLabel.text = @"";
     }
     NSString *content = [NSString stringWithFormat:@"%@\n%@", rules.ruleCopywriting.describe,paymentLimit];
     _contentLabel.text = content;
@@ -87,7 +100,7 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     CGFloat height = UIScreen.mainScreen.bounds.size.height / 3 * 2;
-    CGFloat max = 321.5;
+    CGFloat max = 375.5;
     if (@available(iOS 11.0, *)) {
         max = max + self.view.safeAreaInsets.bottom;
     }
