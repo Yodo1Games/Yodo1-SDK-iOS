@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   
   #s.vendored_libraries = ["Yodo1Share/*.a"]
   
-  s.source_files = ["Yodo1Share/**/*.{h,m,mm}"]
+  s.source_files = ["Yodo1Share/**/*.{h,m,mm,c}"]
   
   s.public_header_files = ["Yodo1Share/**/*.h"]
   
@@ -30,7 +30,6 @@ Pod::Spec.new do |s|
   
   s.xcconfig = {
     'OTHER_LDFLAGS' => '-ObjC',
-    'ENABLE_BITCODE' => "NO",
     "VALID_ARCHS": "armv7 arm64",
     "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
     "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -72,7 +71,6 @@ Pod::Spec.new do |s|
   'z']
   
   s.dependency 'Yodo1Commons','6.1.0'
-  s.dependency 'Yodo1Qrencode','6.1.0'
   s.dependency 'Yodo1QQSDK','6.1.0'
   s.dependency 'Yodo1FBSDKShareKit','6.1.0'
   s.dependency 'Weibo_SDK','3.3.0'#'Yodo1WeiboSDK', '5.0.0'
