@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1GameCenter'
-    s.version          = '6.1.7'
+    s.version          = '6.1.8'
     s.summary          = 'v'
 
     s.description      = <<-DESC
@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
 
     s.xcconfig = {
         'OTHER_LDFLAGS' => '-ObjC',
-        'ENABLE_BITCODE' => "NO",
         "VALID_ARCHS": "armv7 arm64",
         "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
         "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -57,7 +56,6 @@ Pod::Spec.new do |s|
         'MapKit',
         'Social',
         'StoreKit',
-        'Twitter',
         'WebKit',
         'SystemConfiguration',
         'AudioToolbox',
