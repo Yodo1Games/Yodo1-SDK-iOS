@@ -43,7 +43,6 @@ Pod::Spec.new do |s|
 
     s.xcconfig = {
         "OTHER_LDFLAGS" => "-ObjC",
-        "ENABLE_BITCODE" => "NO",
         "VALID_ARCHS": "armv7 arm64",
         "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
         "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -67,7 +66,6 @@ Pod::Spec.new do |s|
         'MapKit',
         'Social',
         'StoreKit',
-        'Twitter',
         'WebKit',
         'SystemConfiguration',
         'AudioToolbox',
