@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Analytics'
-    s.version          = '6.1.2'
+    s.version          = '6.1.3'
     s.summary          = '重构数据统计'
 
     s.description      = <<-DESC
@@ -33,7 +33,6 @@ TODO: Add long description of the pod here.
 
     s.xcconfig = {
         'OTHER_LDFLAGS' => '-ObjC',
-        'ENABLE_BITCODE' => "NO",
         "VALID_ARCHS": "armv7 arm64",
         "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
         "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"

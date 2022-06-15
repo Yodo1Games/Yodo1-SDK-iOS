@@ -80,8 +80,5 @@
                          contentId:(NSString*)contentId
                          receiptId:(NSString*)receiptId{}
 
-- (void)setThinkingDataAccountId:(NSString *)accountId {}
-- (void)setAppsFlyerCustomUserId:(NSString *)userId {}
-
 
 @end

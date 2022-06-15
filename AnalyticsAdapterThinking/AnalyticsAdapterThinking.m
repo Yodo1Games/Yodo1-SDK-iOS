@@ -16,7 +16,7 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 
-#define Yodo1PublishVersion @"6.1.0"
+#define Yodo1PublishVersion @"6.0.0"
 #define Yodo1ThinkingServerUrl @"https://c1.yodo1.com/"
 
 NSString* const YODO1_ANALYTICS_TA_APPKEY       = @"ThinkingAppId";
@@ -46,6 +46,8 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         
         NSString* appId = [[Yodo1KeyInfo shareInstance] configInfoForKey:YODO1_ANALYTICS_TA_APPKEY];
         
+        NSAssert(appId != nil, @"Thinking AppId is not set.");
+        
         NSString* configURL = Yodo1ThinkingServerUrl;
         
         TDConfig *config = [TDConfig new];
@@ -53,10 +55,6 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         config.configureURL = configURL;
         
         [ThinkingAnalyticsSDK startWithConfig:config];
-        
-        if (initConfig.thinkingDataAccountId && initConfig.thinkingDataAccountId.length > 0) {
-            [ThinkingAnalyticsSDK.sharedInstance login:initConfig.thinkingDataAccountId];
-        }
         
         //设置访客ID
         [ThinkingAnalyticsSDK.sharedInstance identify:Yodo1Tool.shared.keychainDeviceId];
@@ -126,12 +124,6 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
 {
     [ThinkingAnalyticsSDK.sharedInstance clearSuperProperties];
     
-}
-
-- (void)setThinkingDataAccountId:(NSString *)accountId {
-    if (accountId.length > 0) {
-        [ThinkingAnalyticsSDK.sharedInstance login:accountId];
-    }
 }
 
 - (void)dealloc

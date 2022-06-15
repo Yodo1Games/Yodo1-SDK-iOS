@@ -11,7 +11,6 @@
 
 @interface AnalyticsInitConfig : NSObject
 @property (nonatomic,strong) NSString *appsflyerCustomUserId;//AppsFlyer自定义UserId
-@property (nonatomic,strong) NSString *thinkingDataAccountId;//ThinkingData自定义AccountId
 @end
 
 typedef NS_ENUM(NSInteger, AnalyticsType) {
@@ -20,7 +19,6 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
 };
 
 @interface Yodo1AnalyticsManager : NSObject
-@property(nonatomic,class,assign,readonly,getter=isEnable) BOOL enable;
 
 /**
  *  Yodo1AnalyticsManager单例
@@ -196,8 +194,5 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  *  @param userActivity                    生命周期中的userActivity
  */
 - (void)continueUserActivity:(nonnull NSUserActivity *)userActivity;
-
-- (void)setThinkingDataAccountId:(NSString *)accountId;
-- (void)setAppsFlyerCustomUserId:(NSString *)userId;
 
 @end

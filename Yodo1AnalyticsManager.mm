@@ -29,13 +29,6 @@
 
 @implementation Yodo1AnalyticsManager
 
-static BOOL _enable = NO;
-static BOOL _bInit_ = NO;
-
-+(BOOL)isEnable {
-    return _enable;
-}
-
 + (Yodo1AnalyticsManager *)sharedInstance
 {
     static Yodo1AnalyticsManager* _instance = nil;
@@ -57,10 +50,6 @@ static BOOL _bInit_ = NO;
 
 - (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig
 {
-    if (_bInit_) {
-        return;
-    }
-    _bInit_ = YES;
     
     NSDictionary* dic = [[Yodo1Registry sharedRegistry] getClassesStatusType:@"analyticsType"
                                                               replacedString:@"AnalyticsAdapter"
@@ -68,18 +57,10 @@ static BOOL _bInit_ = NO;
     if (dic) {
         NSArray* keyArr = [dic allKeys];
         
-        // 优先初始化ThinkingData
-        for (id key in keyArr) {
-
-            if ([key integerValue] == AnalyticsTypeThinking) {
-                Class adapter = [[[Yodo1Registry sharedRegistry] adapterClassFor:[key integerValue] classType:@"analyticsType"] theYodo1Class];
-                AnalyticsAdapter* advideoAdapter = [[adapter alloc] initWithAnalytics:initConfig];
-                NSNumber* adVideoOrder = [NSNumber numberWithInt:[key intValue]];
-                [self.analyticsDict setObject:advideoAdapter forKey:adVideoOrder];
-            } else {
-                continue;
-            }
-        }
+        Class adapter = [[[Yodo1Registry sharedRegistry] adapterClassFor:AnalyticsTypeThinking classType:@"analyticsType"] theYodo1Class];
+        AnalyticsAdapter* advideoAdapter = [[adapter alloc] initWithAnalytics:initConfig];
+        NSNumber* tdBack = [NSNumber numberWithInt:AnalyticsTypeThinking];
+        [self.analyticsDict setObject:advideoAdapter forKey:tdBack];
         
         for (id key in keyArr) {
             
@@ -89,12 +70,11 @@ static BOOL _bInit_ = NO;
             }
             Class adapter = [[[Yodo1Registry sharedRegistry] adapterClassFor:[key integerValue] classType:@"analyticsType"] theYodo1Class];
             AnalyticsAdapter* advideoAdapter = [[adapter alloc] initWithAnalytics:initConfig];
-            NSNumber* adVideoOrder = [NSNumber numberWithInt:[key intValue]];
-            [self.analyticsDict setObject:advideoAdapter forKey:adVideoOrder];
+            NSNumber* analyticsBack = [NSNumber numberWithInt:[key intValue]];
+            [self.analyticsDict setObject:advideoAdapter forKey:analyticsBack];
             
         }
     }
-    _enable = self.analyticsDict.count;
 }
 
 - (void)eventAnalytics:(NSString *)eventName
@@ -374,27 +354,6 @@ static BOOL _bInit_ = NO;
     });
 }
 
-- (void)setThinkingDataAccountId:(NSString *)accountId {
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeThinking){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter setThinkingDataAccountId:accountId];
-            break;
-        }
-    }
-    
-}
-- (void)setAppsFlyerCustomUserId:(NSString *)userId {
-    for (id key in [self.analyticsDict allKeys]) {
-        if ([key integerValue]==AnalyticsTypeAppsFlyer){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter setAppsFlyerCustomUserId:userId];
-            break;
-        }
-    }
-}
-
-
 - (void)dealloc
 {
     self.analyticsDict = nil;
@@ -568,18 +527,6 @@ extern "C" {
         }
         
         return NULL;
-    }
-    
-    void UnitySetThinkingDataAccountId(const char* accountId) {
-        NSString* m_AccountId = Yodo1CreateNSString(accountId);
-        
-        [[Yodo1AnalyticsManager sharedInstance] setThinkingDataAccountId:m_AccountId];
-    }
-    
-    void UnitySetAppsFlyerUserId(const char* userId) {
-        NSString* m_UserId = Yodo1CreateNSString(userId);
-        
-        [[Yodo1AnalyticsManager sharedInstance] setAppsFlyerCustomUserId:m_UserId];
     }
 }
 #endif

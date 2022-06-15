@@ -39,11 +39,10 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
 - (id)initWithAnalytics:(AnalyticsInitConfig *)initConfig {
     self = [super init];
     if (self) {
-        NSLog(@"idfa:%@",ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString);
         
         NSString* devkey = [[Yodo1KeyInfo shareInstance] configInfoForKey:OPENSUIT_ANALYTICS_APPSFLYER_DEV_KEY];
         NSString* appleAppId = [[Yodo1KeyInfo shareInstance] configInfoForKey:OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID];
-        NSAssert(devkey != nil||appleAppId != nil, @"AppsFlyer devKey 没有设置");
+        NSAssert(devkey != nil||appleAppId != nil, @"AppsFlyer devKey is not set.");
         
         AppsFlyerLib.shared.appsFlyerDevKey = devkey;
         AppsFlyerLib.shared.appleAppID = appleAppId;
@@ -158,12 +157,6 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
     } failure:^(NSError *error, id response) {
         NSLog(@"[ Yodo1 ] response = %@", response);
     }];
-}
-
-- (void)setAppsFlyerCustomUserId:(NSString *)userId {
-    if (userId.length > 0) {
-        AppsFlyerLib.shared.customerUserID = userId;
-    }
 }
 
 // AppsFlyerTracker implementation
