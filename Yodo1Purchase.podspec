@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
 
     s.xcconfig = {
         'OTHER_LDFLAGS' => '-ObjC',
-        'ENABLE_BITCODE' => "NO",
         "VALID_ARCHS": "armv7 arm64",
         "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
         "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -57,7 +56,6 @@ Pod::Spec.new do |s|
         'MapKit',
         'Social',
         'StoreKit',
-        'Twitter',
         'WebKit',
         'SystemConfiguration',
         'AudioToolbox',
@@ -76,7 +74,7 @@ Pod::Spec.new do |s|
         'z']
         
     s.dependency 'Yodo1Commons','6.1.0'
-    s.dependency 'Yodo1Analytics','6.1.2'
+    s.dependency 'Yodo1Analytics','6.1.3'
     s.dependency 'ThinkingSDK','2.7.5'
 
 end
