@@ -17,7 +17,7 @@
 
 @interface Yodo1AntiAddictionDatabase()
 
-@property (nonatomic, strong) Yodo1FMDatabase *database;
+@property (nonatomic, strong) FMDatabase *database;
 
 @end
 
@@ -37,7 +37,7 @@
     if (self) {
         NSString *appKey = [Yd1OnlineParameter shared].appKey;
         NSString *path = [[[Yodo1Tool shared] documents] stringByAppendingFormat:@"/yodo1-anti-Addiction-%@.db", appKey];
-        _database = [Yodo1FMDatabase databaseWithPath:path];
+        _database = [FMDatabase databaseWithPath:path];
         
         if ([_database open]) {
 #ifdef DEBUG
@@ -108,11 +108,11 @@
 }
 
 //query
-- (Yodo1FMResultSet *)query:(NSString *)table projects:(NSArray * _Nullable)projects where:(NSString * _Nullable)where args:(NSArray * _Nullable)args order:(NSString * _Nullable)order {
+- (FMResultSet *)query:(NSString *)table projects:(NSArray * _Nullable)projects where:(NSString * _Nullable)where args:(NSArray * _Nullable)args order:(NSString * _Nullable)order {
     return [self query:table projects:projects where:where args:args order:order limitSize:0 offset:0];
 }
 
-- (Yodo1FMResultSet *)query:(NSString *)table projects:(NSArray * _Nullable)projects where:(NSString * _Nullable)where args:(NSArray * _Nullable)args order:(NSString * _Nullable)order limitSize:(int)size offset:(int)offset {
+- (FMResultSet *)query:(NSString *)table projects:(NSArray * _Nullable)projects where:(NSString * _Nullable)where args:(NSArray * _Nullable)args order:(NSString * _Nullable)order limitSize:(int)size offset:(int)offset {
     
     NSMutableString * sqlQuery = [NSMutableString stringWithFormat:@"SELECT "];
     
@@ -149,7 +149,7 @@
         }
     }
     
-    Yodo1FMResultSet *rs = [_database executeQuery:sqlQuery withArgumentsInArray:args];
+    FMResultSet *rs = [_database executeQuery:sqlQuery withArgumentsInArray:args];
     return rs;
 }
 

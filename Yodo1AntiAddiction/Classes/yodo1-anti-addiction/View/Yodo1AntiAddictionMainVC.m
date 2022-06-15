@@ -35,7 +35,7 @@
     _contentView = [[UIView alloc] init];
     _contentView.backgroundColor = [UIColor colorWithRed:243.0 / 255 green:243.0 / 255 blue:243.0 / 255 alpha:1];
     [_effectView addSubview:_contentView];
-    [_contentView mas_makeConstraints:^(Yodo1MASConstraintMaker *make) {
+    [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(_effectView);
         make.trailing.equalTo(_effectView);
         make.bottom.equalTo(_effectView);
@@ -51,7 +51,7 @@
     _avatarView.layer.masksToBounds = YES;
     _avatarView.backgroundColor = [UIColor whiteColor];
     [_effectView addSubview:_avatarView];
-    [_avatarView mas_makeConstraints:^(Yodo1MASConstraintMaker *make) {
+    [_avatarView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(94);
         make.trailing.equalTo(_contentView).offset(-26);
         make.centerY.equalTo(_contentView.mas_top);
@@ -68,7 +68,7 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     if (@available(iOS 11.0, *)) {
-        [_avatarView mas_updateConstraints:^(Yodo1MASConstraintMaker *make) {
+        [_avatarView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.trailing.equalTo(_contentView).offset(-26 - _contentView.safeAreaInsets.right);
         }];
     }
@@ -93,7 +93,7 @@
     [self addChildViewController:vc];
     [vc.view willMoveToSuperview:_contentView];
     [_contentView addSubview:vc.view];
-    [vc.view mas_remakeConstraints:^(Yodo1MASConstraintMaker *make) {
+    [vc.view mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_contentView);
         make.leading.equalTo(_contentView);
         make.trailing.equalTo(_contentView);

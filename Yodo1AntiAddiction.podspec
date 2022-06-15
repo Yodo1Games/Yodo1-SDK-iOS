@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1AntiAddiction'
-    s.version          = '6.0.5'
+    s.version          = '6.0.6'
     s.summary          = '防沉迷3.0，修复bug/添加控制游客开关功能/提升版本号
                           修改客户端文案，更新2022年节假日列表'
   s.description      = <<-DESC
@@ -32,13 +32,12 @@ TODO: Add long description of the pod here.
   
   s.xcconfig = {
       "OTHER_LDFLAGS" => "-ObjC",
-      "ENABLE_BITCODE" => "NO",
       "VALID_ARCHS": "armv7 arm64",
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
   }
 
-  s.frameworks = 'Accounts', 'AssetsLibrary','AVFoundation', 'CoreTelephony','CoreLocation', 'CoreMotion' ,'CoreMedia', 'EventKit','EventKitUI', 'iAd', 'ImageIO','MobileCoreServices', 'MediaPlayer' ,'MessageUI','MapKit','Social','StoreKit','Twitter','WebKit','SystemConfiguration','AudioToolbox','Security','CoreBluetooth'
+    s.frameworks = 'Accounts', 'AssetsLibrary','AVFoundation', 'CoreTelephony','CoreLocation', 'CoreMotion' ,'CoreMedia', 'EventKit','EventKitUI', 'iAd', 'ImageIO','MobileCoreServices', 'MediaPlayer' ,'MessageUI','MapKit','Social','StoreKit','WebKit','SystemConfiguration','AudioToolbox','Security','CoreBluetooth'
   s.weak_frameworks = 'AdSupport','SafariServices','ReplayKit','CloudKit','GameKit'
   s.libraries = 'sqlite3', 'z'
   s.compiler_flags = '-Dunix'
@@ -47,5 +46,7 @@ TODO: Add long description of the pod here.
   s.dependency 'Yodo1Commons'
   s.dependency 'Yodo1Purchase'
   s.dependency 'TPKeyboardAvoiding'
+  s.dependency 'FMDB'
+  s.dependency 'Masonry'
   
 end

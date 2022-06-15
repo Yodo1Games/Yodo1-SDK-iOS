@@ -595,7 +595,7 @@ typedef enum: NSInteger {
         [args addObject:date];
     }
     
-    Yodo1FMResultSet *result = [[Yodo1AntiAddictionDatabase shared] query:NSStringFromClass([Yodo1AntiAddictionRecord class]) projects:nil where:where args:args order:nil];
+    FMResultSet *result = [[Yodo1AntiAddictionDatabase shared] query:NSStringFromClass([Yodo1AntiAddictionRecord class]) projects:nil where:where args:args order:nil];
     if ([result next]) {
         return [Yodo1AntiAddictionRecord yodo1_modelWithDictionary:result.resultDictionary];
     }

@@ -569,7 +569,7 @@ typedef void (^OnBehaviourCallback)(int code,id response);
 
 #pragma mark - 数据库操作
 - (Yodo1AntiAddictionBehaviour *)query:(NSString *)uid yid:(NSString *)yid {
-    Yodo1FMResultSet *result = [[Yodo1AntiAddictionDatabase shared] query:BEHAVIOUR_TABLE projects:nil where:@"uid = ? AND yid = ?" args:@[uid,yid] order:nil];
+    FMResultSet *result = [[Yodo1AntiAddictionDatabase shared] query:BEHAVIOUR_TABLE projects:nil where:@"uid = ? AND yid = ?" args:@[uid,yid] order:nil];
     
     if ([result next]) {
         return [Yodo1AntiAddictionBehaviour yodo1_modelWithDictionary:result.resultDictionary];

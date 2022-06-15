@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -429,14 +429,14 @@
             <objects>
                 <viewController storyboardIdentifier="Yodo1AntiAddictionMinorVC" id="yrS-Nb-IPN" customClass="Yodo1AntiAddictionMinorVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3gz-eK-uYi">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="321.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKO-pg-pXY">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="321.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a0h-iv-hAh" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="325"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏实名认证" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHe-Md-vwc">
                                                 <rect key="frame" x="20" y="20" width="335" height="30"/>
@@ -499,26 +499,128 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="防沉迷规则" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vp0-Om-M7Y">
-                                                <rect key="frame" x="20" y="170" width="335" height="18"/>
+                                                <rect key="frame" x="20" y="220" width="335" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dzu-X6-Q1A">
-                                                <rect key="frame" x="20" y="198" width="335" height="47"/>
+                                                <rect key="frame" x="20" y="248" width="335" height="47"/>
                                                 <attributedString key="attributedText">
+                                                    <fragment content="工作日：可玩时段">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" {8:00-22:00}">
+                                                        <attributes>
+                                                            <font key="NSFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="，每天最多可玩">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="{n}">
+                                                        <attributes>
+                                                            <font key="NSFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="小时">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
                                                     <fragment>
-                                                        <string key="content">工作日：可玩时段 {8:00-22:00}，每天最多可玩{n}小时
-节假日：可玩时段 {8:00-22:00}，每天最多可玩{n}小时
+                                                        <string key="content" base64-UTF8="YES">
+Cg
 </string>
                                                         <attributes>
                                                             <font key="NSFont" metaFont="system"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content="单笔金额不可超过{n}元，每月累计不可超过{n}元。">
+                                                    <fragment content="节假日：可玩时段">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" {8:00-22:00}">
                                                         <attributes>
                                                             <font key="NSFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="，每天最多可玩">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="{n}">
+                                                        <attributes>
+                                                            <font key="NSFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="小时">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                                        <attributes>
+                                                            <font key="NSFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="单笔金额不可超过">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="8" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="{n}">
+                                                        <attributes>
+                                                            <font key="NSFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="8" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="元，每月累计不可超过">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="8" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="{n}">
+                                                        <attributes>
+                                                            <font key="NSFont" metaFont="system"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="8" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="元。">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="8" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -526,7 +628,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qId-qD-VGl">
-                                                <rect key="frame" x="20" y="265" width="335" height="40"/>
+                                                <rect key="frame" x="20" y="315" width="335" height="40"/>
                                                 <color key="backgroundColor" red="0.24705882352941178" green="0.5607843137254902" blue="0.0039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="QUp-Ch-va9"/>
@@ -545,18 +647,37 @@
                                                     <action selector="onEnterClicked:" destination="yrS-Nb-IPN" eventType="touchUpInside" id="b6T-D1-Mfc"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boU-hb-yRg">
+                                                <rect key="frame" x="20" y="162" width="335" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="44" id="cD3-Of-saV"/>
+                                                </constraints>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="恭喜实名成功，您当前实名年龄为{n}岁属于未成年人，将会受到未成年健康规则限制">
+                                                        <attributes>
+                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <viewLayoutGuide key="safeArea" id="Isp-Wt-8ul"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="fA1-F0-ieu" firstAttribute="leading" secondItem="Isp-Wt-8ul" secondAttribute="leading" constant="54" id="21s-k7-Fpc"/>
+                                            <constraint firstItem="boU-hb-yRg" firstAttribute="leading" secondItem="Isp-Wt-8ul" secondAttribute="leading" constant="20" id="2TE-LV-wSe"/>
                                             <constraint firstItem="qId-qD-VGl" firstAttribute="top" secondItem="Dzu-X6-Q1A" secondAttribute="bottom" constant="20" id="2q4-x4-fFX"/>
+                                            <constraint firstItem="Isp-Wt-8ul" firstAttribute="trailing" secondItem="boU-hb-yRg" secondAttribute="trailing" constant="20" id="3qa-NC-Cci"/>
                                             <constraint firstItem="L90-6d-YPV" firstAttribute="leading" secondItem="Isp-Wt-8ul" secondAttribute="leading" constant="54" id="5Zg-YV-WaQ"/>
                                             <constraint firstItem="vp0-Om-M7Y" firstAttribute="leading" secondItem="Isp-Wt-8ul" secondAttribute="leading" constant="20" id="98l-pS-5f4"/>
+                                            <constraint firstItem="boU-hb-yRg" firstAttribute="top" secondItem="L90-6d-YPV" secondAttribute="bottom" constant="12" id="9SA-BE-BLe"/>
                                             <constraint firstItem="aHe-Md-vwc" firstAttribute="leading" secondItem="Isp-Wt-8ul" secondAttribute="leading" constant="20" id="9lB-2J-OzI"/>
                                             <constraint firstItem="Isp-Wt-8ul" firstAttribute="trailing" secondItem="L90-6d-YPV" secondAttribute="trailing" constant="54" id="BhS-Md-SqO"/>
                                             <constraint firstItem="fA1-F0-ieu" firstAttribute="top" secondItem="aHe-Md-vwc" secondAttribute="bottom" constant="20" id="EVt-wE-F1y"/>
                                             <constraint firstItem="aHe-Md-vwc" firstAttribute="top" secondItem="Isp-Wt-8ul" secondAttribute="top" constant="20" id="FRZ-Ig-IQj"/>
+                                            <constraint firstItem="boU-hb-yRg" firstAttribute="centerX" secondItem="Isp-Wt-8ul" secondAttribute="centerX" id="FiM-B9-e6A"/>
                                             <constraint firstItem="Dzu-X6-Q1A" firstAttribute="top" secondItem="vp0-Om-M7Y" secondAttribute="bottom" constant="10" id="K1A-6N-y8H"/>
                                             <constraint firstItem="Isp-Wt-8ul" firstAttribute="trailing" secondItem="fA1-F0-ieu" secondAttribute="trailing" constant="54" id="K2e-PI-e8v"/>
                                             <constraint firstItem="qId-qD-VGl" firstAttribute="leading" secondItem="Isp-Wt-8ul" secondAttribute="leading" constant="20" id="QPv-hy-bUX"/>
@@ -565,7 +686,7 @@
                                             <constraint firstItem="Isp-Wt-8ul" firstAttribute="bottom" secondItem="qId-qD-VGl" secondAttribute="bottom" constant="20" id="e8K-SN-rhX"/>
                                             <constraint firstItem="Isp-Wt-8ul" firstAttribute="trailing" secondItem="Dzu-X6-Q1A" secondAttribute="trailing" constant="20" id="hJ2-64-Nfq"/>
                                             <constraint firstItem="L90-6d-YPV" firstAttribute="top" secondItem="fA1-F0-ieu" secondAttribute="bottom" constant="20" id="kPd-bt-oyk"/>
-                                            <constraint firstItem="vp0-Om-M7Y" firstAttribute="top" secondItem="L90-6d-YPV" secondAttribute="bottom" constant="20" id="kqH-pc-M17"/>
+                                            <constraint firstItem="vp0-Om-M7Y" firstAttribute="top" secondItem="L90-6d-YPV" secondAttribute="bottom" constant="70" id="kqH-pc-M17"/>
                                             <constraint firstItem="Isp-Wt-8ul" firstAttribute="trailing" secondItem="aHe-Md-vwc" secondAttribute="trailing" constant="20" id="nWH-Hh-rex"/>
                                             <constraint firstItem="Dzu-X6-Q1A" firstAttribute="leading" secondItem="Isp-Wt-8ul" secondAttribute="leading" constant="20" id="z8l-XR-gcT"/>
                                         </constraints>
@@ -573,7 +694,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="321.5" id="2rg-Z6-SDe"/>
+                                    <constraint firstAttribute="height" constant="375" id="2rg-Z6-SDe"/>
                                     <constraint firstAttribute="trailing" secondItem="a0h-iv-hAh" secondAttribute="trailing" id="AEJ-hv-tEs"/>
                                     <constraint firstItem="a0h-iv-hAh" firstAttribute="centerX" secondItem="qKO-pg-pXY" secondAttribute="centerX" id="OPn-kW-qYc"/>
                                     <constraint firstAttribute="bottom" secondItem="a0h-iv-hAh" secondAttribute="bottom" id="SCE-OV-YIj"/>
@@ -591,8 +712,9 @@
                             <constraint firstItem="qKO-pg-pXY" firstAttribute="trailing" secondItem="3gz-eK-uYi" secondAttribute="trailing" id="sXh-Yf-OIC"/>
                         </constraints>
                     </view>
-                    <size key="freeformSize" width="375" height="321.5"/>
+                    <size key="freeformSize" width="375" height="375"/>
                     <connections>
+                        <outlet property="ageLabel" destination="boU-hb-yRg" id="hFU-fk-oa2"/>
                         <outlet property="contentHeight" destination="2rg-Z6-SDe" id="qud-bs-LXG"/>
                         <outlet property="contentLabel" destination="Dzu-X6-Q1A" id="qpb-lb-Efe"/>
                         <outlet property="titile" destination="vp0-Om-M7Y" id="Dcr-gf-tJL"/>
@@ -600,7 +722,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jGV-fm-qR6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1785" y="-112"/>
+            <point key="canvasLocation" x="1784.8" y="-85.007496251874073"/>
         </scene>
         <!--Yodo1 Anti Addiction AdultVC-->
         <scene sceneID="QCL-d1-WdD">
