@@ -75,7 +75,7 @@ TODO: Add long description of the pod here.
         'c++',
         'z']
 
-    s.dependency 'Yodo1Commons','6.1.0'
+    s.dependency 'Yodo1Commons','6.1.1'
     s.dependency 'AppsFlyerFramework', '6.5.4'
     s.dependency 'ThinkingSDK','2.7.5'
 
