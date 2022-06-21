@@ -1434,24 +1434,6 @@ static NSString* const __status                 = @"status";
 #ifdef __cplusplus
 
 extern "C" {
-    
-    void UnitySubmitUser(const char* jsonUser)
-    {
-        NSString* _jsonUser = Yodo1CreateNSString(jsonUser);
-        NSDictionary* user = [Yd1OpsTools JSONObjectWithString:_jsonUser error:nil];
-        if (user) {
-            NSString* playerId = [user objectForKey:@"playerId"];
-            NSString* nickName = [user objectForKey:@"nickName"];
-            Yodo1PurchaseManager.shared.user.playerid = playerId;
-            Yodo1PurchaseManager.shared.user.nickname = nickName;
-            [Yd1OpsTools.cached setObject:Yodo1PurchaseManager.shared.user
-                                   forKey:@"yd1User"];
-            YD1LOG(@"playerId:%@",playerId);
-            YD1LOG(@"nickName:%@",nickName);
-        } else {
-            YD1LOG(@"user is not submit!");
-        }
-    }
 
     /**
      *设置ops 环境
