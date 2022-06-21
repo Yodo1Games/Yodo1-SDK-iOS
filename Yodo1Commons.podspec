@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Commons'
-    s.version          = '6.1.0'
+    s.version          = '6.1.1'
     s.summary          = 'Yodo1Commons重构'
 
     s.description      = <<-DESC
@@ -36,8 +36,6 @@ Pod::Spec.new do |s|
         "Yodo1YYCache/*.h",
         "Yodo1YYModel/*.h",
         "Yodo1Commons/*.h"]
-    
-    s.vendored_libraries = ["Yodo1Core/*.a"]
 
     s.requires_arc = true
 
