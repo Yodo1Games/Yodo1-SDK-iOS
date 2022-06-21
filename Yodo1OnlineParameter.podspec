@@ -73,6 +73,6 @@ Pod::Spec.new do |s|
         'sqlite3.0',
         'c++',
         'z']
-    s.dependency 'Yodo1Commons', '6.1.0'
+    s.dependency 'Yodo1Commons', '6.1.1'
 
 end
