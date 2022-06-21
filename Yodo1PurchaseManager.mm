@@ -156,30 +156,7 @@ static NSString* const __status                 = @"status";
     isBuying = false;
     //设备登录
     __weak typeof(self) weakSelf = self;
-    
-    [Yodo1UCenter.shared deviceLoginWithPlayerId:@""
-                                      callback:^(YD1User * _Nullable user, NSError * _Nullable error) {
-        if (user) {
-            weakSelf.user.yid = user.yid;
-            weakSelf.user.ucuid = user.ucuid? : user.uid;
-            weakSelf.user.uid = user.uid;
-            weakSelf.user.token = user.token;
-            weakSelf.user.isOLRealName = user.isOLRealName;
-            weakSelf.user.isRealName = user.isRealName;
-            weakSelf.user.isnewuser = user.isnewuser;
-            weakSelf.user.isnewyaccount = user.isnewyaccount;
-            weakSelf.user.extra = user.extra;
-            [Yd1OpsTools.cached setObject:weakSelf.user forKey:@"yd1User"];
-        }
-        if (user && !error) {
-            weakSelf.isLogined = YES;
-            Yodo1UCenter.shared.itemInfo.uid = self.user.uid;
-            Yodo1UCenter.shared.itemInfo.yid = self.user.yid;
-        }else{
-            weakSelf.isLogined = NO;
-            YD1LOG(@"%@",error.localizedDescription);
-        }
-    }];
+
     productInfos = [NSMutableDictionary dictionary];
     channelProductIds = [NSMutableArray array];
     NSString* pathName = @"Yodo1KeyConfig.bundle/Yodo1ProductInfo";
