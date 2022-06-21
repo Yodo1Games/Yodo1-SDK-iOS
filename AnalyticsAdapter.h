@@ -19,47 +19,8 @@
 - (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName
                        eventData:(NSDictionary *)eventData;
 
-- (void)startLevelAnalytics:(NSString*)level;
-
-- (void)finishLevelAnalytics:(NSString*)level;
-
-- (void)failLevelAnalytics:(NSString*)level
-               failedCause:(NSString*)cause;
-
-- (void)userLevelIdAnalytics:(int)level;
-
-- (void)chargeRequstAnalytics:(NSString*)orderId
-                        iapId:(NSString*)iapId
-               currencyAmount:(double)currencyAmount
-                 currencyType:(NSString *)currencyType
-        virtualCurrencyAmount:(double)virtualCurrencyAmount
-                  paymentType:(NSString *)paymentType;
-
-- (void)chargeSuccessAnalytics:(NSString *)orderId
-                        source:(int)source;
-
-- (void)rewardAnalytics:(double)virtualCurrencyAmount
-                 reason:(NSString *)reason
-                 source:(int)source;
-
-- (void)purchaseAnalytics:(NSString *)item
-               itemNumber:(int)number
-   priceInVirtualCurrency:(double)price;
-
-- (void)useAnalytics:(NSString *)item
-              amount:(int)amount
-               price:(double)price;
-
 - (void)track:(NSString *)eventName
      property:(NSDictionary *) property;
-
-- (void)registerSuperProperty:(NSDictionary *)property;
-
-- (void)unregisterSuperProperty:(NSString *)propertyName;
-
-- (NSDictionary *)getSuperProperties;
-
-- (void)clearSuperProperties;
 
 //AppsFlyer
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
@@ -75,5 +36,10 @@
                           quantity:(NSString*)quantity
                          contentId:(NSString*)contentId
                          receiptId:(NSString*)receiptId;
+
+/**
+ *  AppsFlyer and ThinkingData set user id
+ */
+- (void)login:(NSString *)userId;
 
 @end

@@ -252,4 +252,11 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_APPLE_APPID   = @"AppleAppId";
     }
 }
 
+/**
+ *  AppsFlyer  set  custom user id
+ */
+- (void)login:(NSString *)userId {
+    AppsFlyerLib.shared.customerUserID = userId;
+}
+
 @end

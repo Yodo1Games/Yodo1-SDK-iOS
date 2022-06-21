@@ -106,174 +106,6 @@
     }
 }
 
-- (void)startLevelAnalytics:(NSString*)level
-{
-    if (!level) {
-        return;
-    }
-    
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter startLevelAnalytics:level];
-    }
-}
-
-- (void)finishLevelAnalytics:(NSString*)level
-{
-    if (!level) {
-        return;
-    }
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter finishLevelAnalytics:level];
-    }
-}
-
-- (void)failLevelAnalytics:(NSString*)level failedCause:(NSString*)cause
-{
-    if (!level) {
-        return;
-    }
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter failLevelAnalytics:level failedCause:cause];
-    }
-}
-
-- (void)userLevelIdAnalytics:(int)level
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter userLevelIdAnalytics:level];
-    }
-}
-
-- (void)chargeRequstAnalytics:(NSString*)orderId
-                        iapId:(NSString*)iapId
-               currencyAmount:(double)currencyAmount
-                 currencyType:(NSString *)currencyType
-        virtualCurrencyAmount:(double)virtualCurrencyAmount
-                  paymentType:(NSString *)paymentType
-{
-    if (currencyAmount < 0 ) {
-        currencyAmount = 0;
-    }
-    
-    if (virtualCurrencyAmount < 0) {
-        virtualCurrencyAmount = 0;
-    }
-    
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter chargeRequstAnalytics:orderId
-                                 iapId:iapId
-                        currencyAmount:currencyAmount
-                          currencyType:currencyType
-                 virtualCurrencyAmount:virtualCurrencyAmount
-                           paymentType:paymentType
-         ];
-    }
-}
-
-- (void)chargeSuccessAnalytics:(NSString *)orderId source:(int)source;
-{
-    
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter chargeSuccessAnalytics:orderId source:source];
-    }
-}
-
-
-- (void)rewardAnalytics:(double)virtualCurrencyAmount reason:(NSString *)reason source:(int)source;
-{
-    if (virtualCurrencyAmount < 0) {
-        virtualCurrencyAmount = 0;
-    }
-    
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter rewardAnalytics:virtualCurrencyAmount reason:reason source:source];
-    }
-}
-
-- (void)purchaseAnalytics:(NSString *)item itemNumber:(int)number priceInVirtualCurrency:(double)price
-{
-    if (number < 0) {
-        number = 0;
-    }
-    if (price < 0) {
-        price = 0;
-    }
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter purchaseAnalytics:item itemNumber:number priceInVirtualCurrency:price];
-    }
-}
-
-
-- (void)useAnalytics:(NSString *)item amount:(int)amount price:(double)price;
-{
-    if (amount < 0) {
-        amount = 0;
-    }
-    if (price < 0) {
-        price = 0;
-    }
-    for (id key in [self.analyticsDict allKeys]) {
-        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter useAnalytics:item amount:amount price:price];
-    }
-}
-
-- (void)registerSuperProperty:(NSDictionary *)property
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeThinking){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter registerSuperProperty:property];
-            break;
-        }
-    }
-}
-
-- (void)unregisterSuperProperty:(NSString *)propertyName
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeThinking){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter unregisterSuperProperty:propertyName];
-            break;
-        }
-    }
-}
-
-- (NSDictionary *)getSuperProperties
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeThinking){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            return [adapter getSuperProperties];
-        }
-    }
-    return nil;
-}
-
-- (void)clearSuperProperties
-{
-    for (id key in [self.analyticsDict allKeys]) {
-        NSInteger _key = [key integerValue];
-        if (_key == AnalyticsTypeThinking){
-            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter clearSuperProperties];
-            break;
-        }
-    }
-}
-
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
                                 price:(NSString*)price
                              currency:(NSString*)currency
@@ -307,6 +139,18 @@
                                       contentId:contentId
                                       receiptId:receiptId];
             break;
+        }
+    }
+}
+
+/**
+ *  AppsFlyer and ThinkingData set user id
+ */
+- (void)login:(NSString *)userId {
+    for (id key in [self.analyticsDict allKeys]) {
+        if ([key integerValue]==AnalyticsTypeAppsFlyer || [key integerValue]==AnalyticsTypeThinking){
+            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
+            [adapter login:userId];
         }
     }
 }
@@ -365,6 +209,22 @@
 
 extern "C" {
     
+    //统计login
+    void UnityLogin(const char* jsonUser)
+    {
+        NSString* _jsonUser = Yodo1CreateNSString(jsonUser);
+        NSDictionary* user = [Yodo1Commons JSONObjectWithString:_jsonUser error:nil];
+        if (user) {
+            
+            NSString* playerId = [user objectForKey:@"playerId"];
+            [[Yodo1AnalyticsManager sharedInstance]login:playerId];
+
+            NSLog(@"playerId:%@",playerId);
+        } else {
+            NSLog(@"user is not playerId!");
+        }
+    }
+    
     /** 自定义事件,数量统计.
      友盟：使用前，请先到友盟App管理后台的设置->编辑自定义事件
      中添加相应的事件ID，然后在工程中传入相应的事件ID
@@ -377,69 +237,6 @@ extern "C" {
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
         [[Yodo1AnalyticsManager sharedInstance]eventAnalytics:Yodo1CreateNSString(eventId)
                                                     eventData:eventDataDic];
-    }
-    
-    void UnityStartLevelAnalytics(const char* level)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]startLevelAnalytics:Yodo1CreateNSString(level)];
-    }
-    
-    void UnityFinishLevelAnalytics(const char* level)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]finishLevelAnalytics:Yodo1CreateNSString(level)];
-    }
-    
-    void UnityFailLevelAnalytics(const char* level,const char* cause)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]failLevelAnalytics:Yodo1CreateNSString(level)
-                                                      failedCause:Yodo1CreateNSString(cause)];
-    }
-    
-    void UnityUserLevelIdAnalytics(int level)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]userLevelIdAnalytics:level];
-    }
-    
-    void UnityChargeRequstAnalytics(const char* orderId,
-                                    const char* iapId,
-                                    double currencyAmount,
-                                    const char* currencyType,
-                                    double virtualCurrencyAmount,
-                                    const char* paymentType)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]chargeRequstAnalytics:Yodo1CreateNSString(orderId)
-                                                               iapId:Yodo1CreateNSString(iapId)
-                                                      currencyAmount:currencyAmount
-                                                        currencyType:Yodo1CreateNSString(currencyType)
-                                               virtualCurrencyAmount:virtualCurrencyAmount
-                                                         paymentType:Yodo1CreateNSString(paymentType)];
-    }
-    
-    void UnityChargeSuccessAnalytics(const char* orderId,int source)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]chargeSuccessAnalytics:Yodo1CreateNSString(orderId) source:source];
-    }
-    
-    void UnityRewardAnalytics(double virtualCurrencyAmount,const char* reason ,int source)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]rewardAnalytics:virtualCurrencyAmount
-                                                        reason:Yodo1CreateNSString(reason)
-                                                        source:source];
-    }
-    
-    void UnityPurchaseAnalytics(const char* item,int number,double price)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]purchaseAnalytics:Yodo1CreateNSString(item)
-                                                      itemNumber:number
-                                          priceInVirtualCurrency:price];
-    }
-    
-    void UnityUseAnalytics(const char* item,int amount,double price)
-    {
-        [[Yodo1AnalyticsManager sharedInstance]useAnalytics:Yodo1CreateNSString(item)
-                                                     amount:amount
-                                                      price:price];
-        
     }
     
      #pragma mark - AppsFlyer

@@ -16,7 +16,7 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 
-#define Yodo1PublishVersion @"6.0.0"
+#define Yodo1PublishVersion @"6.1.1"
 #define Yodo1ThinkingServerUrl @"https://c1.yodo1.com/"
 
 NSString* const YODO1_ANALYTICS_TA_APPKEY       = @"ThinkingAppId";
@@ -105,30 +105,17 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
     [ThinkingAnalyticsSDK.sharedInstance track:eventName properties:property];
 }
 
-- (void)registerSuperProperty:(NSDictionary *)property
-{
-    [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:property];
-}
-
-- (void)unregisterSuperProperty:(NSString *)propertyName
-{
-    [ThinkingAnalyticsSDK.sharedInstance unsetSuperProperty:propertyName];
-}
-
-- (NSDictionary *)getSuperProperties
-{
-    return [ThinkingAnalyticsSDK.sharedInstance currentSuperProperties];
-}
-
-- (void)clearSuperProperties
-{
-    [ThinkingAnalyticsSDK.sharedInstance clearSuperProperties];
-    
-}
 
 - (void)dealloc
 {
     
+}
+
+/**
+ *  ThinkingData  set  account id
+ */
+- (void)login:(NSString *)userId {
+    [ThinkingAnalyticsSDK.sharedInstance login:userId];
 }
 
 @end
