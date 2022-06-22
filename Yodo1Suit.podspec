@@ -80,7 +80,6 @@ Pod::Spec.new do |s|
         ss.xcconfig = {
             "GCC_PREPROCESSOR_DEFINITIONS" => 'UNITY_PROJECT',
             'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
             "VALID_ARCHS": "armv7 arm64",
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -97,7 +96,6 @@ Pod::Spec.new do |s|
         ss.xcconfig = {
             "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_UCCENTER',
             'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
             "VALID_ARCHS": "armv7 arm64",
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -110,7 +108,6 @@ Pod::Spec.new do |s|
         ss.xcconfig = {
             "GCC_PREPROCESSOR_DEFINITIONS" => 'IRATE',
             'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
             "VALID_ARCHS": "armv7 arm64",
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -123,7 +120,6 @@ Pod::Spec.new do |s|
         ss.xcconfig = {
             "GCC_PREPROCESSOR_DEFINITIONS" => 'GAMECENTER',
                          'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
             "VALID_ARCHS": "armv7 arm64",
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -136,7 +132,6 @@ Pod::Spec.new do |s|
         ss.xcconfig = {
             "GCC_PREPROCESSOR_DEFINITIONS" => 'ICLOUD',
                          'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
             "VALID_ARCHS": "armv7 arm64",
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -148,7 +143,6 @@ Pod::Spec.new do |s|
         ss.xcconfig = {
             "GCC_PREPROCESSOR_DEFINITIONS" => 'NOTIFICATION',
                          'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
             "VALID_ARCHS": "armv7 arm64",
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -161,7 +155,6 @@ Pod::Spec.new do |s|
         ss.xcconfig = {
             "GCC_PREPROCESSOR_DEFINITIONS" => 'REPLAY',
                          'OTHER_LDFLAGS' => '-ObjC',
-            'ENABLE_BITCODE' => "NO",
             "VALID_ARCHS": "armv7 arm64",
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
