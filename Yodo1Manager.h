@@ -13,8 +13,8 @@
 
 @property (nonatomic,copy) NSString* appKey;
 @property (nonatomic,copy) NSString* regionCode;//可以传入@"",不能传入nil
-@property (nonatomic,strong) NSString *appsflyerCustomUserId;//AppsFlyer自定义UserId
-@property (nonatomic,strong) NSString *thinkingDataAccountId;//ThinkingData自定义AccountId
+@property (nonatomic,strong) NSString *appsflyerCustomUserId;//AppsFlyer,ThinkingData自定义UserId
+
 @end
 
 @interface Yodo1Manager : NSObject

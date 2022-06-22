@@ -100,7 +100,6 @@ static NSString* __kAppKey = @"";
 {
     AnalyticsInitConfig * config = [[AnalyticsInitConfig alloc]init];
     config.appsflyerCustomUserId = kYodo1Config.appsflyerCustomUserId;
-    config.thinkingDataAccountId = kYodo1Config.thinkingDataAccountId;
     [[Yodo1AnalyticsManager sharedInstance]initializeAnalyticsWithConfig:config];
 }
 
@@ -196,6 +195,28 @@ extern "C" {
         NSString *countrycode = [locale localeIdentifier];
              
         return Yodo1MakeStringCopy([countrycode cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    
+    void UnitySubmitUser(const char* jsonUser)
+    {
+        NSString* _jsonUser = Yodo1CreateNSString(jsonUser);
+        NSDictionary* user = [Yodo1Commons JSONObjectWithString:_jsonUser error:nil];
+        if (user) {
+            
+#ifdef YODO1_UCCENTER
+            NSString* playerId = [user objectForKey:@"playerId"];
+            NSString* nickName = [user objectForKey:@"nickName"];
+
+            Yodo1PurchaseManager.shared.user.playerid = playerId;
+            Yodo1PurchaseManager.shared.user.nickname = nickName;
+            [Yd1OpsTools.cached setObject:Yodo1PurchaseManager.shared.user
+                                   forKey:@"yd1User"];
+            YD1LOG(@"playerId:%@",playerId);
+            YD1LOG(@"nickName:%@",nickName);
+#endif
+        } else {
+            YD1LOG(@"user is not submit!");
+        }
     }
 }
 
