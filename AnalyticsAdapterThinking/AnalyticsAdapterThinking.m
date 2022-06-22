@@ -76,14 +76,6 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         ThinkingAnalyticsEventTypeAppViewCrash
         ];
         
-        //控制ATT是否弹出
-        if (@available(iOS 14, *)) {
-            if (ATTrackingManager.trackingAuthorizationStatus == ATTrackingManagerAuthorizationStatusNotDetermined) {
-                [[Yodo1Tool.shared cached]setObject:[NSNumber numberWithBool:YES] forKey:@"ShenCeShowATTDialogEnabled"];
-                [[Yodo1Tool.shared cached]setObject:[NSNumber numberWithBool:YES] forKey:@"UmengShowATTDialogEnabled"];
-            }
-        }
-        
         NSInteger debug = [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] integerValue];
         if (debug) {
             [ThinkingAnalyticsSDK setLogLevel:TDLoggingLevelDebug];
@@ -99,12 +91,6 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         [ThinkingAnalyticsSDK.sharedInstance track:eventName properties:eventData];
     }
 }
-
-- (void)track:(NSString *)eventName property:(NSDictionary *) property
-{
-    [ThinkingAnalyticsSDK.sharedInstance track:eventName properties:property];
-}
-
 
 - (void)dealloc
 {

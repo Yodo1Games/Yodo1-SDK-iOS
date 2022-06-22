@@ -301,8 +301,6 @@ extern "C" {
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
         }
-        
-        
     }
     // get AppsFlyer deeplink
     char* UnityGetNativeRuntime(const char*key) {

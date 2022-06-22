@@ -24,9 +24,6 @@
 - (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName
                        eventData:(NSDictionary *)eventData{}
 
-- (void)track:(NSString *)eventName
-     property:(NSDictionary *) property{}
-
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
                                 price:(NSString*)price
                              currency:(NSString*)currency

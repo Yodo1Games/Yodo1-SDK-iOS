@@ -19,9 +19,6 @@
 - (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName
                        eventData:(NSDictionary *)eventData;
 
-- (void)track:(NSString *)eventName
-     property:(NSDictionary *) property;
-
 //AppsFlyer
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
                                 price:(NSString*)price
