@@ -74,7 +74,7 @@ Pod::Spec.new do |s|
         'z']
         
     s.dependency 'Yodo1Commons','6.1.1'
-    s.dependency 'Yodo1Analytics','6.1.4'
+    s.dependency 'Yodo1Analytics','6.1.5'
     s.dependency 'ThinkingSDK','2.7.5'
 
 end
