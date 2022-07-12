@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Purchase'
-    s.version          = '6.1.3'
-    s.summary          = 'v'
+    s.version          = '6.1.4'
+    s.summary          = 'v 新添加Thinking 统计'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -74,7 +74,6 @@ Pod::Spec.new do |s|
         'z']
         
     s.dependency 'Yodo1Commons','6.1.1'
-    s.dependency 'Yodo1Analytics','6.1.5'
-    s.dependency 'ThinkingSDK','2.7.5'
+    s.dependency 'Yodo1Analytics','6.1.6'
 
 end

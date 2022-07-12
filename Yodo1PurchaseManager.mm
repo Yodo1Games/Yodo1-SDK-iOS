@@ -14,7 +14,6 @@
 #import "RMStoreTransaction.h"
 #import "Yodo1UnityTool.h"
 #import "Yodo1AnalyticsManager.h"
-#import "ThinkingAnalyticsSDK.h"
 #import "Yodo1AFNetworking.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+OpsParameters.h"
@@ -129,13 +128,9 @@ static NSString* const __status                 = @"status";
     _superProperty = [NSMutableDictionary dictionary];
     _itemProperty = [NSMutableDictionary dictionary];
     //公共属性
-    [_superProperty setObject:Yd1OpsTools.appName forKey:__gameName];
-    [_superProperty setObject:Yd1OpsTools.appVersion forKey:__gameVersion];
-    [_superProperty setObject:Yd1OpsTools.appBid forKey:__gameBundleId];
     [_superProperty setObject:Yodo1PublishType forKey:__sdkType];
     [_superProperty setObject:Yodo1PublishVersion forKey:__sdkVersion];
     [_superProperty setObject:kYodo1ChannelCode forKey:__publishChannelCode];
-    [_superProperty setObject:Yodo1PublishVersion forKey:__masSdkVersion];
     // 付费方式属性
     [_superProperty setObject:kYodo1ChannelCode forKey:__paymentChannelCode];
     [_superProperty setObject:Yodo1PublishVersion forKey:__paymentChannelVersion];
@@ -500,7 +495,8 @@ static NSString* const __status                 = @"status";
             NSMutableDictionary* properties = [NSMutableDictionary dictionary];
             [properties addEntriesFromDictionary:weakSelf.superProperty];
             [properties addEntriesFromDictionary:weakSelf.itemProperty];
-            [ThinkingAnalyticsSDK.sharedInstance track:@"order_Pending" properties:properties];
+            
+            [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Pending" eventData:properties];
             
             return;
         }
@@ -575,14 +571,14 @@ static NSString* const __status                 = @"status";
                 NSMutableDictionary* properties = [NSMutableDictionary dictionary];
                 [properties addEntriesFromDictionary:weakSelf.superProperty];
                 [properties addEntriesFromDictionary:weakSelf.itemProperty];
-                [ThinkingAnalyticsSDK.sharedInstance track:@"order_Pending" properties:properties];
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Pending" eventData:properties];
             }
             NSMutableDictionary* properties = [NSMutableDictionary dictionary];
             [properties setObject:error_code==0?__success:__fail forKey:__result];
             [properties addEntriesFromDictionary:weakSelf.superProperty];
             [properties addEntriesFromDictionary:weakSelf.itemProperty];
             YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-            [ThinkingAnalyticsSDK.sharedInstance track:@"order_Request" properties:properties];
+            [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Request" eventData:properties];
         }];
     }];
 }
@@ -1596,7 +1592,7 @@ extern "C" {
                 }
                 [properties setObject:errorCode forKey:@"yodo1ErrorCode"];
                 YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-                [ThinkingAnalyticsSDK.sharedInstance track:@"order_Error_FromSDK" properties:properties];
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error_FromSDK" eventData:properties];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(ocGameObjName && ocMethodName){
@@ -1956,7 +1952,7 @@ extern "C" {
                 }
                 [properties setObject:errorCode forKey:@"yodo1ErrorCode"];
                 YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-                [ThinkingAnalyticsSDK.sharedInstance track:@"order_Error_FromSDK" properties:properties];
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error_FromSDK" eventData:properties];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(ocGameObjName && ocMethodName){
@@ -2028,7 +2024,8 @@ extern "C" {
                 [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared .superProperty];
                 [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
                 YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-                [ThinkingAnalyticsSDK.sharedInstance track:@"order_Item_Delivered" properties:properties];
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Item_Delivered" eventData:properties];
+                
             });
         }];
     }
