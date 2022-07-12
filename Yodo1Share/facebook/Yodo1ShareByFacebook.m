@@ -39,7 +39,7 @@
 
 - (void)initFacebookWithAppId:(NSString *)appId {
     if (_shareDialog == nil) {
-        _shareDialog = [[FBSDKShareDialog alloc] init];
+        _shareDialog = [[FBSDKShareDialog alloc] initWithViewController:[self getRootViewController] content:nil delegate:self];
     }
 }
 
@@ -69,10 +69,14 @@
 
 
 - (BOOL)isInstallFacebook {
-    if (_shareDialog == nil) {
-        _shareDialog = [[FBSDKShareDialog alloc] init];
+    
+    BOOL isInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]];
+     
+    if (isInstalled) {
+        return YES;
+    } else {
+        return NO;
     }
-    return [_shareDialog canShow];
 }
 
 - (void)shareWithContent:(SMContent *)content
@@ -92,6 +96,7 @@
         completionBlock = nil;
         return;
     }
+    
     
     if (![self isInstallFacebook]) {
         if(completionBlock){
