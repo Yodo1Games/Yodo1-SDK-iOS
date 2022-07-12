@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Analytics'
-    s.version          = '6.1.5'
+    s.version          = '6.1.6'
     s.summary          = '重构数据统计'
 
     s.description      = <<-DESC
@@ -76,7 +76,7 @@ TODO: Add long description of the pod here.
         'z']
 
     s.dependency 'Yodo1Commons','6.1.1'
-    s.dependency 'AppsFlyerFramework', '6.5.4'
-    s.dependency 'ThinkingSDK','2.7.5'
+    s.dependency 'AppsFlyerFramework', '6.7.0'
+    s.dependency 'ThinkingSDK','2.8.1.1'
 
 end

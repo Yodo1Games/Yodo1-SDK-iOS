@@ -16,7 +16,7 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 
-#define Yodo1PublishVersion @"6.1.1"
+#define Yodo1PublishVersion @"6.1.2"
 #define Yodo1ThinkingServerUrl @"https://c1.yodo1.com/"
 
 NSString* const YODO1_ANALYTICS_TA_APPKEY       = @"ThinkingAppId";
@@ -60,11 +60,8 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         [ThinkingAnalyticsSDK.sharedInstance identify:Yodo1Tool.shared.keychainDeviceId];
         
         NSString* bundleId = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
-        [ThinkingAnalyticsSDK.sharedInstance user_setOnce:@{@"yID":@"",@"game":bundleId,@"channel":@"appstore"}];
-        [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{@"gameKey":[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"],
-                                                                  @"gameBundleId":bundleId,
-                                                                  @"publishChannelCode":@"appstore",
-                                                                  @"sdkVersion":Yodo1PublishVersion}];
+        [ThinkingAnalyticsSDK.sharedInstance user_setOnce:@{@"channel":@"appstore"}];
+        [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{@"gameKey":[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"], @"gameBundleId":bundleId, @"publishChannelCode":@"appstore", @"sdkVersion":Yodo1PublishVersion}];
         
         // 自动埋点 关闭
         [[ThinkingAnalyticsSDK sharedInstance] enableAutoTrack:
