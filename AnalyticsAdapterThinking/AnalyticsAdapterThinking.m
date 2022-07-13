@@ -60,7 +60,7 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         [ThinkingAnalyticsSDK.sharedInstance identify:Yodo1Tool.shared.keychainDeviceId];
         
         NSString* bundleId = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleIdentifier"];
-        [ThinkingAnalyticsSDK.sharedInstance user_setOnce:@{@"channel":@"appstore"}];
+        
         [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{@"gameKey":[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"], @"gameBundleId":bundleId, @"publishChannelCode":@"appstore", @"sdkVersion":Yodo1PublishVersion}];
         
         // 自动埋点 关闭
@@ -98,6 +98,7 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
  *  ThinkingData  set  account id
  */
 - (void)login:(NSString *)userId {
+    [ThinkingAnalyticsSDK.sharedInstance user_set:@{@"playerId": userId}];
     [ThinkingAnalyticsSDK.sharedInstance login:userId];
 }
 
