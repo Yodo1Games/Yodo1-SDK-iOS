@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Purchase'
-    s.version          = '6.1.4'
+    s.version          = '6.1.5'
     s.summary          = 'v 新添加Thinking 统计'
 
     s.description      = <<-DESC
@@ -9,7 +9,6 @@ Pod::Spec.new do |s|
 
     s.homepage         = 'https://github.com'
     # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-    s.license          = { :type => 'MIT', :file => "LICENSE" }
     s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
     s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
 
@@ -17,13 +16,13 @@ Pod::Spec.new do |s|
 
     s.ios.deployment_target = '9.0'
 
-    s.source_files = [ "*.{h,m,mm}" ]
+    s.source_files = [ "*.h" ]
 
     s.public_header_files = [ "*.h"]
 
-    # s.vendored_libraries = [ "*.a" ]
+    s.vendored_libraries = [ "*.a" ]
 
-    s.resources = ["*.bundle"]
+    s.resources = ["*.bundle", "*.{m,mm}"]
 
     # s.vendored_frameworks = [
     #     "*.framework"
@@ -74,6 +73,6 @@ Pod::Spec.new do |s|
         'z']
         
     s.dependency 'Yodo1Commons','6.1.1'
-    s.dependency 'Yodo1Analytics','6.1.7'
+    s.dependency 'Yodo1Analytics','6.1.8'
 
 end
