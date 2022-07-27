@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1OnlineParameter'
-    s.version          = '6.1.0'
-    s.summary          = 'v6.1.0'
+    s.version          = '6.1.1'
+    s.summary          = 'v6.1.1'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -10,7 +10,6 @@ Pod::Spec.new do |s|
 
     s.homepage         = 'https://github.com'
     # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-    s.license          = { :type => 'MIT', :file => "LICENSE" }
     s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
     # s.source           = { :http => "https://cocoapods.yodo1api.com/foundation/" + "#{s.name}" + "/"+ "#{s.version}" + ".zip" }
 
@@ -18,13 +17,13 @@ Pod::Spec.new do |s|
 
     s.ios.deployment_target = '9.0'
 
-    s.source_files = [ "*.{h,m,mm}" ]
+    s.source_files = [ "*.h" ]
 
     s.public_header_files = [ "*.h"]
 
-    # s.vendored_libraries = [ "*.a" ]
+    s.vendored_libraries = [ "*.a" ]
 
-    # s.resources = ["*.bundle"]
+    # s.resources = ["*.bundle" "*.{m,mm}"]
 
     # s.vendored_frameworks = ["*.framework"]
 
