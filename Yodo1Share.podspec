@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Share'
-  s.version          = '6.1.2'
+  s.version          = '6.1.3'
   s.summary          = 'A short description of Yodo1Share.'
   
   s.description      = <<-DESC
@@ -9,20 +9,19 @@ Pod::Spec.new do |s|
   
   s.homepage         = 'https://github.com'
   
-  s.license          = { :type => 'MIT', :file => "LICENSE" }
   s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
   
   
   s.ios.deployment_target = '9.0'
   
-  #s.vendored_libraries = ["Yodo1Share/*.a"]
+  s.vendored_libraries = ["*.a"]
   
-  s.source_files = ["Yodo1Share/**/*.{h,m,mm,c}"]
+  s.source_files = ["*.h"]
   
-  s.public_header_files = ["Yodo1Share/**/*.h"]
+  s.public_header_files = ["*.h"]
   
-  s.resources = ["*.bundle"]
+  s.resources = ["*.bundle", "*.{m,mm}"]
   
 #  s.vendored_frameworks = ["Yodo1Share/libs/Tencent/TencentOpenAPI.framework"]
   
