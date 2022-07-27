@@ -214,6 +214,7 @@ extern "C" {
     {
         NSString* _jsonUser = Yodo1CreateNSString(jsonUser);
         NSDictionary* user = [Yodo1Commons JSONObjectWithString:_jsonUser error:nil];
+        
         if (user) {
             
             NSString* playerId = [user objectForKey:@"playerId"];
@@ -257,6 +258,7 @@ extern "C" {
                                             const char*quantity,
                                             const char*contentId,
                                             const char*receiptId){
+        
         
         [[Yodo1AnalyticsManager sharedInstance] eventAndTrackInAppPurchase:Yodo1CreateNSString(revenue)
                                                                   currency:Yodo1CreateNSString(currency)

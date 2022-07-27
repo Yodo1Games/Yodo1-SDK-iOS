@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Analytics'
-    s.version          = '6.1.7'
+    s.version          = '6.1.8'
     s.summary          = '重构数据统计'
 
     s.description      = <<-DESC
@@ -9,7 +9,6 @@ TODO: Add long description of the pod here.
     
     s.homepage         = 'https://github.com'
     # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-    s.license          = { :type => 'MIT', :file => "LICENSE" }
     s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
     s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
     # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
@@ -17,17 +16,13 @@ TODO: Add long description of the pod here.
     s.ios.deployment_target = '9.0'
 
    
-    s.source_files = [
-        "*.{h,m,mm}",
-        "AnalyticsAdapterThinking/*.{h,m}",
-        "AnalyticsAdapterAppsFlyer/*.{h,m}"]
+    s.source_files = ["*.h"]
 
-    s.public_header_files = [
-        "*.h",
-        "AnalyticsAdapterThinking/*.h",
-        "AnalyticsAdapterAppsFlyer/*.h"]
+    s.public_header_files = ["*.h"]
 
-    # s.vendored_libraries = "#{s.version}" + '/*.a'
+    s.vendored_libraries = [ "*.a" ]
+
+    s.resources = ["*.{m,mm}"]
 
     s.requires_arc = true
 
