@@ -39,9 +39,7 @@
 
 - (void)initFacebookWithAppId:(NSString *)appId {
     if (_shareDialog == nil) {
-        _shareDialog = [[FBSDKShareDialog alloc] initWithViewController:[self getRootViewController] content:nil delegate:self];
-//        _shareDialog = [[FBSDKShareDialog alloc] init];
-//        _shareDialog.delegate = self;
+        _shareDialog = [[FBSDKShareDialog alloc] init];
     }
 }
 
