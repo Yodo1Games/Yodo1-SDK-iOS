@@ -1,0 +1,35 @@
+/* A single strings file, whose title is specified in your preferences schema. The strings files provide the localized content to display to the user for each of your preferences. */
+
+
+"sm.weibo" = "新浪微博";
+"sm.qzone" = "QQ空间";
+"sm.weixin.moments" = "微信朋友圈";
+"sm.weixin.contacts" = "微信朋友";
+"sm.facebook" = "Facebook";
+"sm.twitter" = "Twitter";
+"sm.instagram" = "Instagram";
+
+"sm.shareto.facebook.success" = "分享到Facebook成功";
+"sm.shareto.facebook.fail" = "分享到Facebook失败";
+"sm.shareto.twitter.success" = "分享到Twitter成功";
+"sm.shareto.twitter.fail" = "分享到Twitter失败";
+"sm.shareto.weibo.success" = "分享到新浪微博成功";
+"sm.shareto.weibo.fail" = "分享到新浪微博失败";
+"sm.shareto.weixin.success" = "分享到微信成功";
+"sm.shareto.weixin.fail" = "分享到微信失败";
+"sm.shareto.weixin.notinstall" = "您还没有安装微信客户端";
+"sm.shareto.qzone.success" = "分享到QQ空间成功";
+"sm.shareto.qzone.fail" = "分享到QQ空间失败";
+"sm.shareto.qzone.notinstall" = "您还没有安装QQ客户端";
+"sm.shareto.instagram.notinstall" = "您还没有安装Instagram客户端";
+"sm.shareto.instagram.success" = "分享到Instagram成功";
+"sm.shareto.instagram.fail" = "分享到Instagram失败";
+
+"sm.general.hint" = "提示";
+"sm.general.cancel" = "取消";
+"sm.general.ok" = "确定";
+
+"sm.select.platform" = "请选择分享平台";
+
+"sm.select.noplatform" = "没有可分享的平台！";
+
