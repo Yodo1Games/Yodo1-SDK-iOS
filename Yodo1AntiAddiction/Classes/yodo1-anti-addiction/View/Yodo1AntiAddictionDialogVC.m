@@ -50,7 +50,7 @@
             // 超出购买额度
             _iconView.image = [UIImage imageNamed:@"error"];
             _titleLabel.text = @"额度不够";
-            _contentLabel.text = @"根据国家规定：单笔金额不可超过%@元，每月累计不可超过%@元。您今日已消费%@元，本月已消费%@元，无法继续交易";
+            _contentLabel.text = @"根据国家规定：单笔金额不可超过%@元，每月累计不可超过%@元。您今日已消费%@元，本月已消费%@元，无法继续交易。";
             _checkButton.hidden = YES;
             [_exitButton setTitle:@"→ 知道了" forState:UIControlStateNormal];
             break;
@@ -71,7 +71,7 @@
             _iconView.image = [UIImage imageNamed:@"error"];
             _titleLabel.text = @"当前为禁玩时间，无法继续游戏";
 //            _contentLabel.text = [NSString stringWithFormat:@"根据国家规定，未成年人禁玩时间段为%@请合理安排游戏时间", [NSString stringWithFormat:@"%@-%@", ranges[0], ranges[1]]];
-            _contentLabel.text = rules.antiPlayingTimeMsg.message ?:@"根据《国家新闻出版署通知》，非周五、周六、周日和法定节假日20时至21时的时段，未成年人账号，不得进行游戏";
+            _contentLabel.text = rules.antiPlayingTimeMsg.message ?:@"根据《国家新闻出版署通知》，非周五、周六、周日和法定节假日20时至21时的时段，未成年人账号，不得进行游戏。";
             _checkButton.hidden = YES;
             [_exitButton setTitle:@"→ 退出游戏" forState:UIControlStateNormal];
             break;
@@ -99,7 +99,7 @@
             // 禁止购买
             _iconView.image = [UIImage imageNamed:@"error"];
             _titleLabel.text = @"无法购买";
-            _contentLabel.text = @"根据国家规定：游客体验模式无法购买物品";
+            _contentLabel.text = @"根据国家规定：游客体验模式无法购买物品。";
             _checkButton.hidden = YES;
             [_exitButton setTitle:@"→ 知道了" forState:UIControlStateNormal];
             break;
@@ -121,7 +121,7 @@
             _iconView.image = [UIImage imageNamed:@"unlink"];
             _topView.backgroundColor = [UIColor colorWithRed:227 / 255.0 green:116 / 255.0 blue:0 alpha:1];
             _titleLabel.text = @"您当前网络状态不佳，无法完成验证";
-            _contentLabel.text = @"请保证网络畅通后完成重试";
+            _contentLabel.text = @"请保证网络畅通后完成重试。";
             _checkButton.hidden = YES;
             [_exitButton setTitle:@"→ 知道了" forState:UIControlStateNormal];
             break;
@@ -140,7 +140,7 @@
             // 无法通过审核
             _iconView.image = [UIImage imageNamed:@"error"];
             _titleLabel.text = @"无法通过公安部网络身份系统核查";
-            _contentLabel.text = @"请核对您的身份证是否输入正确或姓名和身份证是否匹配，然后重试。\n今日还剩有 3  次核查机会";
+            _contentLabel.text = @"请核对您的身份证是否输入正确或姓名和身份证是否匹配，然后重试。\n今日还剩有 3  次核查机会。";
             _checkButton.hidden = YES;
             [_exitButton setTitle:@"→ 知道了" forState:UIControlStateNormal];
             break;

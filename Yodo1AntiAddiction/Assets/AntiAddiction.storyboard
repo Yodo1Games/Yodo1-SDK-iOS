@@ -454,7 +454,7 @@
                                                             <constraint firstAttribute="width" constant="30" id="oaP-Bs-6mc"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的实名信息成功通过核查" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFN-KN-Ouu">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的实名信息成功通过核查。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xFN-KN-Ouu">
                                                         <rect key="frame" x="40" y="6.5" width="227" height="17"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -481,7 +481,7 @@
                                                             <constraint firstAttribute="width" constant="30" id="xdB-0Y-TLT"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="防沉迷系统已开启，请合理安排游戏时间" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTv-n2-lgt">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="防沉迷系统已开启，请合理安排游戏时间。" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTv-n2-lgt">
                                                         <rect key="frame" x="40" y="-1.5" width="227" height="33.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -533,7 +533,7 @@
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content="小时">
+                                                    <fragment content="小时。">
                                                         <attributes>
                                                             <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
                                                             <font key="NSOriginalFont" metaFont="system"/>
@@ -575,7 +575,7 @@ Cg
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content="小时">
+                                                    <fragment content="小时。">
                                                         <attributes>
                                                             <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
                                                             <font key="NSOriginalFont" metaFont="system"/>
@@ -653,9 +653,9 @@ Cg
                                                     <constraint firstAttribute="height" constant="44" id="cD3-Of-saV"/>
                                                 </constraints>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="恭喜实名成功，您当前实名年龄为{n}岁属于未成年人，将会受到未成年健康规则限制">
+                                                    <fragment content="恭喜实名成功，您当前实名年龄为{n}岁属于未成年人，将会受到未成年健康规则限制。">
                                                         <attributes>
-                                                            <font key="NSFont" size="13" name=".PingFangSC-Regular"/>
+                                                            <font key="NSFont" metaFont="system"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -736,7 +736,7 @@ Cg
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="265"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nHo-0A-Xe9" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="268"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="265"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="游戏实名认证" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXA-yQ-AIm">
                                                 <rect key="frame" x="20" y="20" width="335" height="30"/>
@@ -752,19 +752,34 @@ Cg
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXT-rc-T1u">
-                                                <rect key="frame" x="20" y="150" width="335" height="43"/>
+                                                <rect key="frame" x="20" y="150" width="335" height="40"/>
                                                 <attributedString key="attributedText">
+                                                    <fragment content="感谢您的配合">
+                                                        <attributes>
+                                                            <font key="NSFont" size="18" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
                                                     <fragment>
-                                                        <string key="content">感谢您的配合
+                                                        <string key="content" base64-UTF8="YES">
+Cg
 </string>
                                                         <attributes>
                                                             <font key="NSFont" metaFont="system" size="18"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content="实名信息已成功通过核查">
+                                                    <fragment content="实名信息已成功通过核">
                                                         <attributes>
-                                                            <font key="NSFont" metaFont="system" size="18"/>
+                                                            <font key="NSFont" size="18" name=".PingFangSC-Regular"/>
+                                                            <font key="NSOriginalFont" metaFont="system" size="18"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="8" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="查。">
+                                                        <attributes>
+                                                            <font key="NSFont" size="18" name=".PingFangSC-Regular"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="8" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -772,7 +787,7 @@ Cg
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mef-gD-PRB">
-                                                <rect key="frame" x="20" y="208" width="335" height="40"/>
+                                                <rect key="frame" x="20" y="205" width="335" height="40"/>
                                                 <color key="backgroundColor" red="0.2470588235" green="0.56078431370000004" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="ugz-tm-CeX"/>

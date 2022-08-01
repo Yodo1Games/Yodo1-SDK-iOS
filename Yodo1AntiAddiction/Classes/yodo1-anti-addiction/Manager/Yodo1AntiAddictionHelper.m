@@ -291,7 +291,7 @@ typedef void (^OnBehaviourCallback)(int code,id response);
     
     Yodo1AntiAddictionUser *user = [Yodo1AntiAddictionUserManager manager].currentUser;
     if (user.certificationStatus == UserCertificationStatusNot) {
-        BOOL show = success && success(@{@"hasLimit" : @(true), @"alertMsg": @"根据国家规定：游客体验模式无法购买物品"});
+        BOOL show = success && success(@{@"hasLimit" : @(true), @"alertMsg": @"根据国家规定：游客体验模式无法购买物品。"});
         if (!show) {
             [Yodo1AntiAddictionDialogVC showDialog:Yodo1AntiAddictionDialogStyleBuyDisable error:nil];
         }

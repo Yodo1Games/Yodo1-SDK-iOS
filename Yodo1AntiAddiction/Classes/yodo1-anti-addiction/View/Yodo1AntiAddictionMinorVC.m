@@ -77,7 +77,7 @@
         regularTimeSt = @"0";
     }
     
-    self.ageLabel.text = [NSString stringWithFormat:@"恭喜实名成功，您当前实名年龄为%ld岁属于未成年人，将会受到未成年健康规则限制", user.age];
+    self.ageLabel.text = [NSString stringWithFormat:@"恭喜实名成功，您当前实名年龄为%ld岁属于未成年人，将会受到未成年健康规则限制。", user.age];
     
     NSString* paymentLimit = @"";
     if (user.age < 8) {

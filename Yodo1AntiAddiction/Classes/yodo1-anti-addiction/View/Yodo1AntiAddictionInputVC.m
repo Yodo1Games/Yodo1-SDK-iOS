@@ -175,7 +175,7 @@
                 [self setLoading:NO];
                 NSInteger retryTimes = [data[@"retryTimes"] integerValue];
                 if (status == -1) {
-                    NSString *msg = [NSString stringWithFormat:@"请核对您的身份证是否输入正确或姓名和身份证是否匹配，然后重试。\n今日还剩有 %@  次核查机会", @(retryTimes)];
+                    NSString *msg = [NSString stringWithFormat:@"请核对您的身份证是否输入正确或姓名和身份证是否匹配，然后重试。\n今日还剩有 %@  次核查机会。", @(retryTimes)];
                     [Yodo1AntiAddictionDialogVC showDialog:Yodo1AntiAddictionDialogStyleCheckUnable error:msg];
                 } else {
                     [Yodo1AntiAddictionDialogVC showDialog:Yodo1AntiAddictionDialogStyleCheckDisable error:nil];
