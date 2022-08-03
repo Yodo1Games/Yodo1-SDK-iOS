@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Share'
-  s.version          = '6.1.2.4'
+  s.version          = '6.1.4.2'
   s.summary          = 'A short description of Yodo1Share.'
   
   s.description      = <<-DESC
@@ -13,17 +13,17 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
   
   
-  s.ios.deployment_target = '12.2'
+  s.ios.deployment_target = '10.0'
   
-  #s.vendored_libraries = ["Yodo1Share/*.a"]
+  s.vendored_libraries = ["*.a"]
   
-  s.source_files = ["Yodo1Share/**/*.{h,m,mm,c}"]
+  s.source_files = ["*.h"]
   
-  s.public_header_files = ["Yodo1Share/**/*.h"]
+  s.public_header_files = ["*.h"]
   
-  s.resources = ["Yodo1Share/*.bundle"]
+  s.resources = ["*.bundle", "*.{m,mm}"]
   
-  s.vendored_frameworks = ["*.framework"]
+#  s.vendored_frameworks = ["Yodo1Share/libs/Tencent/TencentOpenAPI.framework"]
   
   s.requires_arc = true
   
@@ -71,8 +71,7 @@ Pod::Spec.new do |s|
   
   s.dependency 'Yodo1Commons','6.1.1'
   s.dependency 'Yodo1QQSDK','6.1.0'
-#  s.dependency 'QQSDK','3.5.11'
-  s.dependency 'FBSDKShareKit','11.0.1'
+  s.dependency 'FBSDKShareKit','12.3.2'
   s.dependency 'Weibo_SDK','3.3.0'#'Yodo1WeiboSDK', '5.0.0'
   s.dependency 'WechatOpenSDK', '1.8.7.1'#'Yodo1WeChatSDK', '5.0.0'
 
