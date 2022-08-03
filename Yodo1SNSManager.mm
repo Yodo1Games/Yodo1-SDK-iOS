@@ -187,8 +187,7 @@ static Yodo1SNSManager* sDefaultInstance;
         }
         
         NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
-        if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId] &&
-            [[infoPlistDic allKeys]containsObject:kYodo1FacebookDisplayName]) {
+        if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId]) {
             [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
         } else {
     #ifdef DEBUG
