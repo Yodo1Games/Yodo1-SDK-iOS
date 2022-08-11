@@ -16,13 +16,10 @@
 
 #import "Yodo1Suit.h"
 
-#ifdef YODO1_ANALYTICS
-#import "Yodo1AnalyticsManager.h"
-#endif
 
-#ifdef YODO1_SNS
+#import "Yodo1AnalyticsManager.h"
+
 #import "Yodo1SNSManager.h"
-#endif
 
 #ifdef YODO1_UCCENTER
 #import "Yodo1PurchaseManager.h"
@@ -64,7 +61,6 @@ static NSString* __kAppKey = @"";
     
     kYodo1Config = sdkConfig;
 
-#ifdef YODO1_SNS
     //初始化sns
     NSMutableDictionary* snsPlugn = [NSMutableDictionary dictionary];
     NSString* qqAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1QQAppId];
@@ -98,18 +94,15 @@ static NSString* __kAppKey = @"";
         [snsPlugn setObject:twitterConsumerSecret forKey:kYodo1TwitterConsumerSecret];
     }
     [[Yodo1SNSManager sharedInstance] initSNSPlugn:snsPlugn];
-#endif
     
     [Yodo1Manager analyticInit];
 }
 
 + (void)analyticInit
 {
-#ifdef YODO1_ANALYTICS
     AnalyticsInitConfig * config = [[AnalyticsInitConfig alloc]init];
     config.appsflyerCustomUserId = kYodo1Config.appsflyerCustomUserId;
     [[Yodo1AnalyticsManager sharedInstance]initializeAnalyticsWithConfig:config];
-#endif
 }
 
 
