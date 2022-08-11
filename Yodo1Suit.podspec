@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Suit'
-    s.version          = '6.1.3.3'
-    s.summary          = 'v6.1.3.3'
+    s.version          = '6.1.3.4'
+    s.summary          = 'v6.1.3.4'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -13,13 +13,13 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '10.0'
 
     s.subspec 'Yodo1_Suit' do |ss|
-        ss.source_files = ["*.h"]
+        ss.source_files = ["*.{h,m,mm}", "YD1Layout/*.{h,m,mm}"]
         
-        ss.public_header_files = ["*.h"]
+        ss.public_header_files = ["*.h", "YD1Layout/*.h"]
 
-        ss.vendored_libraries = ["*.a"]
+        # ss.vendored_libraries = ["*.a"]
 
-        ss.resources = ["*.bundle", "*.{m,mm}"]
+        ss.resources = ["Yodo1Suit.bundle", "*.bundle"]
 
         # ss.vendored_frameworks = ["*.framework"]
         
