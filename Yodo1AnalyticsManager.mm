@@ -12,7 +12,6 @@
 #import "Yodo1Commons.h"
 #import "Yodo1ClassWrapper.h"
 #import "Yodo1UnityTool.h"
-#import "Yodo1Base.h""
 
 #define Yodo1OpenUrl        @"Yodo1OpenUrl"
 #define Yodo1UserActivity   @"Yodo1UserActivity"
@@ -221,9 +220,9 @@ extern "C" {
             NSString* playerId = [user objectForKey:@"playerId"];
             [[Yodo1AnalyticsManager sharedInstance]login:playerId];
 
-            YD1LOG(@"playerId:%@",playerId);
+            NSLog(@"playerId:%@",playerId);
         } else {
-            YD1LOG(@"user is not playerId!");
+            NSLog(@"user is not playerId!");
         }
     }
     
