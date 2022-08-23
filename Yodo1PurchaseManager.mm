@@ -1176,7 +1176,7 @@ static NSString* const __status                 = @"status";
         productIdentifier = product.channelProductId;
     }
     NSString* receipt = [[NSData dataWithContentsOfURL:RMStore.receiptURL] base64EncodedStringWithOptions:0];
-    NSLog(@"%@", receipt);
+    YD1LOG(@"%@", receipt);
     Yodo1UCenter.shared.itemInfo.channelOrderid = channelOrderid;
     Yodo1UCenter.shared.itemInfo.trx_receipt = receipt;
     Yodo1UCenter.shared.itemInfo.productId = productIdentifier;
@@ -1394,11 +1394,15 @@ static NSString* const __status                 = @"status";
     NSString *appKey = @"";
     if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
         appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
-        NSLog(@"[Yodo1 Ads] plist中设置GameKey");
-        return;
+        YD1LOG(@"GameKey = %@", appKey);
     }
     
-    NSString *urlString = [NSString stringWithFormat:@"https://activationcode.yodo1api.com/activationcode/activateWithReward?game_appkey=%@&channel_code=%@&activation_code=%@&dev_id=%@", appKey, @"appstore", code, Yd1OpsTools.keychainDeviceId];
+    //http://activationcode-test.yodo1api.com:8805/activationcode/activateWithReward
+    //https://activationcode.yodo1api.com/activationcode/activateWithReward
+    
+    NSString *string = @"https://activationcode.yodo1api.com/activationcode/activateWithReward";
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@?game_appkey=%@&channel_code=%@&activation_code=%@&dev_id=%@", string, appKey, @"appstore", code, Yd1OpsTools.keychainDeviceId];
     
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -2075,7 +2079,7 @@ extern "C" {
         NSString* code = Yodo1CreateNSString(activationCode);
         
         [Yodo1UCenter.shared verifyActivationcode:code callback:^(BOOL success, NSDictionary * _Nullable response, NSString * _Nullable error) {
-            NSLog(@"response=%@ error=%@", response, error);
+            YD1LOG(@"response=%@ error=%@", response, error);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(ocGameObjName && ocMethodName) {
