@@ -7,7 +7,7 @@
 //
 #import "Yodo1LocalNotification.h"
 #import "Yodo1UnityTool.h"
-
+#import "Yodo1Object.h"
 
 @implementation Yodo1LocalNotification
 
@@ -22,7 +22,7 @@
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     // 设置触发通知的时间
     NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:alertTime];
-    NSLog(@"fireDate=%@", fireDate);
+    YD1LOG(@"fireDate=%@", fireDate);
     
     notification.fireDate = fireDate;
     // 时区
