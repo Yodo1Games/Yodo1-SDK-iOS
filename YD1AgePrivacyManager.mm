@@ -9,6 +9,7 @@
 #import "Yodo1UnityTool.h"
 #import "Yodo1Commons.h"
 #import "Yodo1KeyInfo.h"
+#import "Yodo1Base.h"
 
 
 NSString* const YD1_Default = @"default";
@@ -106,7 +107,7 @@ static YD1AgePrivacyManager* _instance = nil;
         isPrivacySelectLanguage = YES;
         yd1PrivacySpecifiedLanguage = language;
     }else{
-        NSLog(@"no specified language!");
+        YD1LOG(@"no specified language!");
         [PrivacyUtils selectLocalLanguage:yd1PrivacySpecifiedLanguage
                       isSectlocalLanguage:NO];
         
@@ -239,7 +240,7 @@ static YD1AgePrivacyManager* _instance = nil;
                     kPrivacyUpdateView.hidden = NO;
                     [controller.view addSubview:kPrivacyUpdateView];
                 }else{
-                    NSLog(@"[ Yodo1 ] rootViewController is nil");
+                    YD1LOG(@"rootViewController is nil");
                 }
             }
             [kPrivacyUpdateView setAgePrivacyUpdateBlock:^(BOOL accept) {
@@ -276,14 +277,14 @@ static YD1AgePrivacyManager* _instance = nil;
                 kPrivacyView.hidden = NO;
                 [controller.view addSubview:kPrivacyView];
             }else{
-                NSLog(@"[ Yodo1 ] rootViewController is nil");
+                YD1LOG(@"rootViewController is nil");
             }
         }
         [kPrivacyView setAgePrivacyBlock:^(BOOL accept, BOOL child,int age) {
             if (privacyBlock) {
                 privacyBlock(accept,child,age);
             }else{
-                NSLog(@"[ Yodo1 ] privacyBlock is nil");
+                YD1LOG(@"privacyBlock is nil");
             }
             //保存打开过
             NSDictionary* saveInfo = @{@"IsOpen":[NSNumber numberWithBool:YES],
@@ -325,14 +326,14 @@ static YD1AgePrivacyManager* _instance = nil;
         if (controller) {
             [controller presentViewController:privacyView animated:YES completion:nil];
         }else{
-            NSLog(@"[ Yodo1 ] rootViewController is nil");
+            YD1LOG(@"rootViewController is nil");
         }
     }
     [privacyView setPrivacyBlock:^(BOOL accept) {
         if (privacyCallback) {
             privacyCallback(accept);
         }else{
-            NSLog(@"[ Yodo1 ] privacyBlock is nil");
+            YD1LOG(@"privacyBlock is nil");
         }
         //保存打开过
         NSDictionary* saveInfo = @{@"Accept":[NSNumber numberWithBool:accept]};
@@ -382,7 +383,7 @@ static YD1AgePrivacyManager* _instance = nil;
 
 + (NSString *)md5StringWithString:(NSString *)string {
     if (string == nil) {
-        NSLog(@"Input is nil.");
+        YD1LOG(@"Input is nil.");
         return nil;
     }
     const char *ptr = [string UTF8String];
@@ -426,7 +427,7 @@ static YD1AgePrivacyManager* _instance = nil;
     NSMutableDictionary*parameters = [NSMutableDictionary dictionary];
     NSString* game_AppKey = gameAppKey;
     if (gameAppKey == nil) {
-        NSLog(@"[ Yodo1 ] gameAppKey is nil!");
+        YD1LOG(@"[ Yodo1 ] gameAppKey is nil!");
         return;
     }
     NSString* channel_Code = channelCode;
@@ -452,7 +453,7 @@ static YD1AgePrivacyManager* _instance = nil;
     [parameters setObject:currentTimestamp forKey:@"timestamp"];
     [parameters setObject:sign forKey:@"sign"];
     
-    //    NSLog(@"parameters:%@",[YD1AgePrivacyManager stringWithJSONObject:parameters error:nil]);
+    //    YD1LOG(@"parameters:%@",[YD1AgePrivacyManager stringWithJSONObject:parameters error:nil]);
     [manager POST:Sub_URL_Privacy parameters:parameters progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSString* response = [YD1AgePrivacyManager stringWithJSONObject:responseObject error:nil];
@@ -497,7 +498,7 @@ static YD1AgePrivacyManager* _instance = nil;
                             }
                             return;
                         }else{
-                            NSLog(@"[Yodo1] Privacy of data is empty!");
+                            YD1LOG(@"Privacy of data is empty!");
                             if (block) {
                                 NSError* error = [NSError errorWithDomain:@"com.yodo1.privacy" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"Privacy of data is empty"}];
                                 block(YES,error);
@@ -514,7 +515,7 @@ static YD1AgePrivacyManager* _instance = nil;
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (error) {
-            NSLog(@"error:%@",error.localizedDescription);
+            YD1LOG(@"error:%@",error.localizedDescription);
         }
         if (block) {
             block(NO,error);
@@ -531,7 +532,7 @@ static YD1AgePrivacyManager* _instance = nil;
     if (serviceBlock) {
         serviceBlock(info);
     }else{
-        NSLog(@"serviceBlock is nil!");
+        YD1LOG(@"serviceBlock is nil!");
     }
 }
 
@@ -583,7 +584,7 @@ void Unity3dShowUserConsent(const char *SdkObjectName,const char* SdkMethodName)
         m_appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
     }
     
-    NSCAssert(m_appKey != nil, @"AppKey 没有设置!");
+    NSCAssert(m_appKey != nil, @"AppKey is not set!");
     NSString* m_gameObject = Yodo1CreateNSString(SdkObjectName);
     NSCAssert(m_gameObject != nil, @"Unity3d gameObject isn't set!");
     NSString* m_methodName = Yodo1CreateNSString(SdkMethodName);

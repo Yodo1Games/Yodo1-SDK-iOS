@@ -16,7 +16,6 @@
 
 #import "Yodo1Suit.h"
 
-
 #import "Yodo1AnalyticsManager.h"
 
 #import "Yodo1SNSManager.h"
@@ -31,7 +30,7 @@
 
 #import "Yodo1Model.h"
 
-#define DEBUG [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] integerValue]
+#define Yodo1Debug [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] integerValue]
 
 @implementation SDKConfig
 
@@ -51,7 +50,7 @@ static NSString* __kAppKey = @"";
     
     NSAssert(sdkConfig.appKey != nil, @"appKey is not set!");
     if (isInitialized) {
-        NSLog(@"[Yodo1 SDK] has already been initialized!");
+        YD1LOG(@"[Yodo1 SDK] has already been initialized! && Appkey = %@", sdkConfig.appKey);
         return;
     }
     __kAppKey = sdkConfig.appKey;
@@ -160,32 +159,39 @@ extern "C" {
         NSString* _defaultValue = Yodo1CreateNSString(defaultValue);
         NSString* _key = Yodo1CreateNSString(key);
         NSString* param = [Yd1OnlineParameter.shared stringConfigWithKey:_key defaultValue:_defaultValue];
+        YD1LOG(@"defaultValue = %@, key = %@, param = %@", _defaultValue, _key, param);
         return Yodo1MakeStringCopy([param cStringUsingEncoding:NSUTF8StringEncoding]);
     }
     
     bool UnityBoolParams(const char* key,bool defaultValue) {
         bool param = [Yd1OnlineParameter.shared boolConfigWithKey:Yodo1CreateNSString(key) defaultValue:defaultValue];
+        YD1LOG(@"defaultValue = %d, key = %@, param = %d", defaultValue, Yodo1CreateNSString(key), param);
         return param;
     }
 
     char* UnityGetDeviceId() {
         const char* deviceId = Yd1OpsTools.keychainDeviceId.UTF8String;
+        YD1LOG(@"deviceId = %@", Yd1OpsTools.keychainDeviceId);
         return Yodo1MakeStringCopy(deviceId);
     }
     
     char* UnityGetSDKVersion() {
         const char* sdkVersion = K_YODO1_SUIT_VERSION.UTF8String;
+        YD1LOG(@"sdkVersion = %@", K_YODO1_SUIT_VERSION);
         return Yodo1MakeStringCopy(sdkVersion);
     }
 
     char* UnityUserId(){
         const char* userId = Yd1OpsTools.keychainUUID.UTF8String;
+        YD1LOG(@"userId = %@", Yd1OpsTools.keychainUUID);
         return Yodo1MakeStringCopy(userId);
     }
     
     void UnityOpenWebPage(const char* url, const char* jsonparam) {
         NSString *_url = Yodo1CreateNSString(url);
         NSString *_jsonparam = Yodo1CreateNSString(jsonparam);
+        
+        YD1LOG(@"url = %@, jsonparam = %@", _url, _jsonparam);
         
         if ([_jsonparam isEqualToString:@"1"]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_url]];
@@ -207,6 +213,8 @@ extern "C" {
         
         NSLocale *locale = [NSLocale currentLocale];
         NSString *countrycode = [locale localeIdentifier];
+        
+        YD1LOG(@"countryCode = %@", countrycode);
              
         return Yodo1MakeStringCopy([countrycode cStringUsingEncoding:NSUTF8StringEncoding]);
     }

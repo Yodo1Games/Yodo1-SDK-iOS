@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "YD1AgePrivacyView.h"
 #import "YD1Layout.h"
+#import "Yodo1Base.h"
 
 #define RGBACOLOR(R, G, B, A) [UIColor colorWithRed:((R) / 255.0f) green:((G) / 255.0f) blue:((B) / 255.0f) alpha:A]
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -227,7 +228,7 @@ static NSBundle *yd1Bundle = nil;
     if (self.superview) {
         [self removeFromSuperview];
     }else{
-        NSLog(@"Error: [ YD1 age privacy is add to view ]");
+        YD1LOG(@"Error: [ YD1 age privacy is add to view ]");
     }
 }
 
@@ -427,7 +428,7 @@ static NSBundle *yd1Bundle = nil;
     if (self.superview) {
         [self removeFromSuperview];
     }else{
-        NSLog(@"Error: [ YD1 age privacy is add to view ]");
+        YD1LOG(@"Error: [ YD1 age privacy is add to view ]");
     }
 }
 
@@ -674,10 +675,10 @@ static NSBundle *yd1Bundle = nil;
 - (void)acceptButton:(id)sender {
     UIButton* bt = (UIButton*)sender;
     if (bt.tag == 1020) {
-        NSLog(@"同意");
+        YD1LOG(@"agree.");
         self.isAccept = true;
     }else if (bt.tag == 1021){
-        NSLog(@"不同意");
+        YD1LOG(@"disagree.");
         self.isAccept = false;
     }
     [self dismissViewControllerAnimated:YES completion:nil];

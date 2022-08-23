@@ -19,7 +19,7 @@ reason:[NSString stringWithFormat:@"This is a empty %@ method.", NSStringFromSel
 userInfo:nil]
 
 #if DEBUG && OPENLOG
-# define YD1_Log(fmt,...) NSLog((@"[file:%s]\n" "[method:%s]\n" "[line:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
+# define YD1_Log(fmt,...) NSLog((@"[Yodo1 SDK] [file:%s]\n" "[method:%s]\n" "[line:%d] \n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else
 # define YD1_Log(...);
 #endif

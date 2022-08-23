@@ -149,7 +149,7 @@ static NSString* yd1AppKey = @"";
 
 + (void)initWithAppKey:(NSString *)appKey {
     if (bYodo1SuitInited) {
-        NSLog(@"[Yodo1 Ads] has already been initialized");
+        YD1LOG(@"[Yodo1 SDK] has already been initialized");
         return;
     }
     bYodo1SuitInited = true;
