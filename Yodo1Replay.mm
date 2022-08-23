@@ -9,7 +9,7 @@
 #import <ReplayKit/ReplayKit.h>
 #import "Yodo1Commons.h"
 #import "Yodo1Replay.h"
-
+#import "Yodo1Object.h"
 
 @interface Yodo1Replay ()<RPPreviewViewControllerDelegate, RPScreenRecorderDelegate>
 {
@@ -51,10 +51,10 @@ static Yodo1Replay* _instance = nil;
     [RPScreenRecorder sharedRecorder].delegate = self;
     [[RPScreenRecorder sharedRecorder] startRecordingWithMicrophoneEnabled:YES
                                                                     handler:^(NSError* _Nullable error) {
-                                                                        NSLog(@"recorder error:%@", error);
+        YD1LOG(@"recorder error:%@", error);
                                                                     }];
     [[RPScreenRecorder sharedRecorder]discardRecordingWithHandler:^{
-        NSLog(@"recorder 中断");
+        YD1LOG(@"recorder interrupt");
     }];
 }
 
@@ -115,7 +115,7 @@ static Yodo1Replay* _instance = nil;
 - (void)screenRecorderDidChangeAvailability:(RPScreenRecorder *)screenRecorder
 {
     if (screenRecorder.isRecording) {
-        NSLog(@"正在录制");
+        YD1LOG(@"recording");
     }
     
 }
