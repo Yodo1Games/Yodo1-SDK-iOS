@@ -10,6 +10,7 @@
 #import "DocumentsStroge.h"
 #import "CloudDocument.h"
 #import "ImageCloudDocument.h"
+#import "Yodo1Object.h"
 
 @interface DocumentsStroge ()
 {
@@ -74,7 +75,7 @@
             }
         }
         else {
-            NSLog(@"url error : please check Capabilities -> iCloud -> iCloud Documents item whether or not to choose !!! OR Whether the device is open iCloud function !!!");
+            YD1LOG(@"url error : please check Capabilities -> iCloud -> iCloud Documents item whether or not to choose !!! OR Whether the device is open iCloud function !!!");
         }
     }
     return ret;
@@ -100,7 +101,7 @@
         [doc setData:data];
         [doc saveToURL:doc.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             if (success){
-                NSLog(@"createCloudFile Successed !");
+                YD1LOG(@"createCloudFile Successed !");
             }
         }];
     }
@@ -115,7 +116,7 @@
             [coordinator coordinateWritingItemAtURL:doc.fileURL options:NSFileCoordinatorWritingForDeleting error:NULL byAccessor:^(NSURL *newURL) {
                 NSFileManager *fileManager = [[NSFileManager alloc] init];
                 [fileManager removeItemAtURL:newURL error:NULL];
-                NSLog(@"deleteFileToCloud name : %@ successed !", fileName);
+                YD1LOG(@"deleteFileToCloud name : %@ successed !", fileName);
             }];
         });
     }

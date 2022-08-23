@@ -11,7 +11,7 @@
 #import "Yodo1iCloud.h"
 #import "Yodo1Commons.h"
 #import "Yodo1UnityTool.h"
-
+#import "Yodo1Object.h"
 #import "KeyValueStroge.h"
 #import "DocumentsStroge.h"
 
@@ -124,7 +124,7 @@ extern "C" {
         NSString* name = Yodo1CreateNSString(saveName);
         [[Yodo1iCloud sharedInstance] loadToCloud:name completionHandler:^(NSString *results, NSError *error) {
             if (error != nil){
-                NSLog(@"LoadToCloud error : %@", error.description);
+                YD1LOG(@"LoadToCloud error : %@", error.description);
             }
             
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIDevice.h>
 #import <CloudKit/CloudKit.h>
-
+#import "Yodo1Object.h"
 #import "KeyValueStroge.h"
 
 static NSString* DATA_KEY = @"Yodo1Game";
@@ -62,30 +62,30 @@ static NSString* DATA_KEY = @"Yodo1Game";
 
 - (void)saveToCloud:(NSString * __nullable)saveName saveValue:(NSString * __nullable)saveValue
 {
-    NSLog(@"saveName : %@, saveValue length : %lu", saveName, [saveValue length]);
+    YD1LOG(@"saveName : %@, saveValue length : %lu", saveName, [saveValue length]);
     CKDatabase* cloudDataBase = [self privateCloudDatabase];
     if (cloudDataBase != nil && [cloudDataBase respondsToSelector:@selector(fetchRecordWithID:completionHandler:)]){
         NSString* key = [self getKeyByStr:saveName];
         CKRecordID *recordID = [[CKRecordID alloc] initWithRecordName:key];
         [cloudDataBase fetchRecordWithID:recordID completionHandler:^(CKRecord *record, NSError *error) {
             if (error) {
-                NSLog(@"Create New CKRecord !");
+                YD1LOG(@"Create New CKRecord !");
                 record = [[CKRecord alloc] initWithRecordType:key recordID:[[CKRecordID alloc] initWithRecordName:key]];
             }
             record[DATA_KEY] = saveValue;
-            NSLog(@"saveToCloud recordName : %@", record.recordID.recordName);
+            YD1LOG(@"saveToCloud recordName : %@", record.recordID.recordName);
             [cloudDataBase saveRecord:record completionHandler:^(CKRecord *record, NSError *error) {
                 if (error == nil){
-                    NSLog(@"saveToCloud Successed recordID is : %@ ", key);
+                    YD1LOG(@"saveToCloud Successed recordID is : %@ ", key);
                 }
                 else {
-                    NSLog(@"saveToCloud error : %@", error.description);
+                    YD1LOG(@"saveToCloud error : %@", error.description);
                 }
             }];
         }];
     }
     else {
-        NSLog(@"iCloud Server Error !" );
+        YD1LOG(@"iCloud Server Error !" );
     }
 }
 
@@ -98,14 +98,14 @@ static NSString* DATA_KEY = @"Yodo1Game";
         [cloudDataBase fetchRecordWithID:recordID completionHandler:^(CKRecord *record, NSError *error) {
             NSString* ret = @"";
             if (error) {
-                NSLog(@"fetchRecordWithID error : %@", error.description);
+                YD1LOG(@"fetchRecordWithID error : %@", error.description);
             }
             else {
                 if (record != nil) {
                     ret = [record valueForKey:DATA_KEY];
-                    NSLog(@"fetchRecordWithID Successed recordID is : %@", record.recordID.recordName);
+                    YD1LOG(@"fetchRecordWithID Successed recordID is : %@", record.recordID.recordName);
                 } else {
-                    NSLog(@"fetchRecordWithID Successed, but record is nil");
+                    YD1LOG(@"fetchRecordWithID Successed, but record is nil");
                 }
             }
             if (completionHandler) {
@@ -129,10 +129,10 @@ static NSString* DATA_KEY = @"Yodo1Game";
             CKRecordID *pRecordID = [[CKRecordID alloc] initWithRecordName:key];
             [cloudDataBase deleteRecordWithID:pRecordID completionHandler:^(CKRecordID *recordID, NSError *error) {
                 if (error) {
-                    NSLog(@"deleteRecordWithID error : %@", error.description);
+                    YD1LOG(@"deleteRecordWithID error : %@", error.description);
                 }
                 else {
-                    NSLog(@"deleteRecordWithID  Successed ! recordId : %@", recordID.recordName);
+                    YD1LOG(@"deleteRecordWithID  Successed ! recordId : %@", recordID.recordName);
                 }
             }];
         });
