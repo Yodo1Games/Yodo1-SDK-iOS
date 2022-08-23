@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #ifdef DEBUG
-#   define YD1LOG(fmt, ...) NSLog((@"[ YD1 ] %s [Line %d] \n" fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#   define YD1LOG(fmt, ...) NSLog((@"[Yodo1 SDK] %s [Line %d] \n" fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else
 #   define YD1LOG(...)
 #endif

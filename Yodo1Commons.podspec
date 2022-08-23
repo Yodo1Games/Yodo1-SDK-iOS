@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Commons'
-    s.version          = '6.1.1'
+    s.version          = '6.1.2'
     s.summary          = 'Yodo1Commons重构'
 
     s.description      = <<-DESC
@@ -10,7 +10,6 @@ Pod::Spec.new do |s|
 
     s.homepage         = 'https://github.com'
     # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-    s.license          = { :type => 'MIT', :file => "LICENSE" }
     s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
     # s.source           = { :http => "https://cocoapods.yodo1api.com/foundation/" + "#{s.name}" + "/"+ "#{s.version}" + ".zip" }
 
