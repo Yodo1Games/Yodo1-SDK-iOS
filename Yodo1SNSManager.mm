@@ -14,7 +14,7 @@
 #import "Yodo1ShareByQQ.h"
 #import "Yodo1ShareBySinaWeibo.h"
 #import "Yodo1ShareByFacebook.h"
-//#import "ShareByTwitter.h"
+#import "Yodo1Base.h"
 #import "Yodo1ShareByInstagram.h"
 
 #import "Yodo1Commons.h"
@@ -113,9 +113,7 @@ static Yodo1SNSManager* sDefaultInstance;
                 [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
             } else {
                 
-        #ifdef DEBUG
-                NSLog(@"微信分享没设置");
-        #endif
+                YD1LOG(@"wechat-share is not set.");
             }
             if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
                 [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
@@ -124,9 +122,8 @@ static Yodo1SNSManager* sDefaultInstance;
                 [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
                                               universalLink:self.qqUniversalLink];
             } else {
-        #ifdef DEBUG
-                NSLog(@"QQ分享没设置");
-        #endif
+        
+                YD1LOG(@"QQ-share is not set.");
             }
             
             if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
@@ -136,18 +133,14 @@ static Yodo1SNSManager* sDefaultInstance;
                 [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
                                                              universalLink:self.sinaWeiboUniversalLink];
             } else {
-        #ifdef DEBUG
-                NSLog(@"新浪微博分享没设置");
-        #endif
+                YD1LOG(@"sina-share is not set.");
             }
             
             NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
             if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId]) {
                 [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
             } else {
-        #ifdef DEBUG
-                NSLog(@"Facebook分享没设置");
-        #endif
+                YD1LOG(@"Facebook-share is not set.");
             }
         }
     } else {
@@ -158,9 +151,7 @@ static Yodo1SNSManager* sDefaultInstance;
             [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
         } else {
             
-    #ifdef DEBUG
-            NSLog(@"微信分享没设置");
-    #endif
+            YD1LOG(@"wechat-share is not set.");
         }
         if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
             [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
@@ -169,9 +160,8 @@ static Yodo1SNSManager* sDefaultInstance;
             [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
                                           universalLink:self.qqUniversalLink];
         } else {
-    #ifdef DEBUG
-            NSLog(@"QQ分享没设置");
-    #endif
+    
+            YD1LOG(@"QQ-share is not set.");
         }
         
         if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
@@ -181,18 +171,16 @@ static Yodo1SNSManager* sDefaultInstance;
             [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
                                                          universalLink:self.sinaWeiboUniversalLink];
         } else {
-    #ifdef DEBUG
-            NSLog(@"新浪微博分享没设置");
-    #endif
+    
+            YD1LOG(@"sina-share is not set.");
         }
         
         NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
         if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId]) {
             [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
         } else {
-    #ifdef DEBUG
-            NSLog(@"Facebook分享没设置");
-    #endif
+    
+            YD1LOG(@"Facebook-share is not set.");
         }
     }
     
