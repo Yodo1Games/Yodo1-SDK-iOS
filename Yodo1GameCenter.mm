@@ -16,6 +16,8 @@
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1KeyInfo.h"
 #import "Yodo1Tool+GameCenterLogin.h"
+#import "Yodo1Base.h"
+#import "Yodo1AnalyticsManager.h"
 
 @interface Yodo1GameCenter ()<GameCenterManagerDelegate>
 
@@ -61,63 +63,66 @@ static Yodo1GameCenter* _instance = nil;
 - (void)gameCenterManager:(GameCenterManager *)manager authenticateUser:(UIViewController *)gameCenterLoginController
 {
     [[Yodo1Commons getRootViewController] presentViewController:gameCenterLoginController animated:YES completion:^{
-        NSLog(@"Finished Presenting Authentication Controller");
+        YD1LOG(@"Finished Presenting Authentication Controller");
     }];
 }
 
 - (void)gameCenterManager:(GameCenterManager *)manager availabilityChanged:(NSDictionary *)availabilityInformation {
-    NSLog(@"GC Availabilty: %@", availabilityInformation);
+    YD1LOG(@"GC Availabilty: %@", availabilityInformation);
     BOOL bGameCenterAvailable = false;
     if ([[availabilityInformation objectForKey:@"status"] isEqualToString:@"GameCenter Available"]) {
-        NSLog(@"Game Center is online, the current player is logged in, and this app is setup.");
+        YD1LOG(@"Game Center is online, the current player is logged in, and this app is setup.");
         bGameCenterAvailable = true;
     } else {
-        NSLog(@"GameCenter Unavailable");
+        YD1LOG(@"GameCenter Unavailable");
     }
     
     GKLocalPlayer *player = [[GameCenterManager sharedManager] localPlayerData];
-    NSLog(@"alias:%@,playerID:%@,displayName:%@",player.alias,player.playerID,player.displayName);
+    YD1LOG(@"alias:%@,playerID:%@,displayName:%@",player.alias,player.playerID,player.displayName);
     if (player) {
         if ([player isUnderage] == NO) {
-            NSLog(@"Player is not underage and is signed-in");
+            YD1LOG(@"Player is not underage and is signed-in");
             [[GameCenterManager sharedManager] localPlayerPhoto:^(UIImage *playerPhoto) {
                 
             }];
         } else {
-             NSLog(@"Underage player, %@, signed in.", player.displayName);
+            YD1LOG(@"Underage player, %@, signed in.", player.displayName);
         }
+        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
+        
     } else {
-        NSLog(@"No GameCenter player found.");
+        YD1LOG(@"No GameCenter player found.");
+        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":@"1", @"usercenter_error_message":@"No GameCenter player found."}];
     }
 }
 
 - (void)gameCenterManager:(GameCenterManager *)manager error:(NSError *)error {
-    NSLog(@"GCM Error: %@", error);
+    YD1LOG(@"GCM Error: %@", error);
 }
 
 - (void)gameCenterManager:(GameCenterManager *)manager reportedAchievement:(GKAchievement *)achievement withError:(NSError *)error {
     if (!error) {
-        NSLog(@"GCM Reported Achievement: %@", achievement);
-        NSLog(@"Reported achievement with %.1f percent completed", achievement.percentComplete);
+        YD1LOG(@"GCM Reported Achievement: %@", achievement);
+        YD1LOG(@"Reported achievement with %.1f percent completed", achievement.percentComplete);
     } else {
-        NSLog(@"GCM Error while reporting achievement: %@", error);
+        YD1LOG(@"GCM Error while reporting achievement: %@", error);
     }
 }
 
 - (void)gameCenterManager:(GameCenterManager *)manager reportedScore:(GKScore *)score withError:(NSError *)error {
     if (!error) {
-        NSLog(@"GCM Reported Score: %@", score);
+        YD1LOG(@"GCM Reported Score: %@", score);
     } else {
-        NSLog(@"GCM Error while reporting score: %@", error);
+        YD1LOG(@"GCM Error while reporting score: %@", error);
     }
 }
 
 - (void)gameCenterManager:(GameCenterManager *)manager didSaveScore:(GKScore *)score {
-    NSLog(@"Saved GCM Score with value: %lld", score.value);
+    YD1LOG(@"Saved GCM Score with value: %lld", score.value);
 }
 
 - (void)gameCenterManager:(GameCenterManager *)manager didSaveAchievement:(GKAchievement *)achievement {
-    NSLog(@"Saved GCM Achievement: %@", achievement);
+    YD1LOG(@"Saved GCM Achievement: %@", achievement);
 }
 
 // 判断是否登录
@@ -127,12 +132,14 @@ static Yodo1GameCenter* _instance = nil;
 
 // 解锁成就
 - (void)achievementsUnlock:(NSString *)identifier {
+    YD1LOG(@"identifier = %@", identifier);
     [[GameCenterManager sharedManager]saveAndReportAchievement:identifier
                                                percentComplete:100.0f shouldDisplayNotification:YES];
 }
 
 // 提交分数
 - (void)UpdateScore:(int)score leaderboard:(NSString *)identifier {
+    YD1LOG(@"score = %d, identifier = %@", score, identifier);
     [[GameCenterManager sharedManager]saveAndReportScore:score
                                              leaderboard:identifier
                                                sortOrder:GameCenterSortOrderHighToLow];
@@ -140,26 +147,31 @@ static Yodo1GameCenter* _instance = nil;
 
 // 打开挑战榜
 - (void)ShowGameCenter {
+    YD1LOG(@"Open the challenge list.");
     [[GameCenterManager sharedManager]presentChallengesOnViewController:[Yodo1Commons getRootViewController]];
 }
 
 // 打开排行榜
 - (void)LeaderboardsOpen {
+    YD1LOG(@"Open leaderboard.");
     [[GameCenterManager sharedManager]presentLeaderboardsOnViewController:[Yodo1Commons getRootViewController]];
 }
 
 // 打开成就榜
 - (void)AchievementsOpen {
+    YD1LOG(@"Open the achievement list");
     [[GameCenterManager sharedManager]presentAchievementsOnViewController:[Yodo1Commons getRootViewController]];
 }
 
 // 获取指定identifier的成就完成百分比
 - (double)ProgressForAchievement:(NSString *)identifier {
+    YD1LOG(@"identifier = %@", identifier);
     return [[GameCenterManager sharedManager]progressForAchievement:identifier];
 }
 
 // 获取指定identifier排行榜的最高分
 - (int)highScoreForLeaderboard:(NSString *)identifier {
+    YD1LOG(@"identifier = %@", identifier);
     return [[GameCenterManager sharedManager]highScoreForLeaderboard:identifier];
 }
 
