@@ -12,7 +12,7 @@
 #import "Yodo1Commons.h"
 #import "Yodo1ClassWrapper.h"
 #import "Yodo1UnityTool.h"
-#import "Yodo1Base.h""
+#import "Yodo1Base.h"
 
 #define Yodo1OpenUrl        @"Yodo1OpenUrl"
 #define Yodo1UserActivity   @"Yodo1UserActivity"
