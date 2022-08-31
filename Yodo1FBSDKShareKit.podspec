@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1FBSDKShareKit'
-    s.version          = '6.1.0'
-    s.summary          = 'v 测试'
+    s.version          = '6.1.1'
+    s.summary          = '12.3.2'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -9,7 +9,6 @@ Pod::Spec.new do |s|
 
     s.homepage         = 'https://github.com'
     # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-    s.license          = { :type => 'MIT', :file => "LICENSE" }
     s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
     s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
 
@@ -73,7 +72,5 @@ Pod::Spec.new do |s|
         'c++',
         'stdc++',
         'z']
-    
-    s.dependency 'Yodo1FBSDKCoreKit','6.1.0'
 
 end
