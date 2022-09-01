@@ -161,10 +161,10 @@ NSString* const Y_UA_APPLE_APPID             = @"AppleAppId";
     }
 }
 
-- (void)logLevel:(int)level {
+- (void)setDebugLog:(BOOL)debugLog {
     for (id key in [self.uaDict allKeys]) {
         Yodo1UAAdapterBase* adapter = [self.uaDict objectForKey:key];
-        [adapter logLevel:level];
+        [adapter setDebugLog:debugLog];
     }
 }
 
@@ -243,7 +243,16 @@ extern "C" {
         [Yodo1UA.sharedInstance initWithInfoPlist];
     }
     
-    void UnityUAInitWithConfig(const char* sdkConfigJson) {
+    void UnityUAInitWithConfig(const char* sdkConfigJson, const char *SdkObjectName,const char* SdkMethodName) {
+        
+        NSString* m_gameObject = Yodo1CreateNSString(SdkObjectName);
+        NSCAssert(m_gameObject != nil, @"Unity3d gameObject isn't set!");
+        NSString* m_methodName = Yodo1CreateNSString(SdkMethodName);
+        NSCAssert(m_methodName != nil, @"Unity3d methodName isn't set!");
+        
+        [Yd1OpsTools.cached setObject:m_gameObject forKey:Y_UA_DEEPLINK_OBJECTNAME];
+        [Yd1OpsTools.cached setObject:m_methodName forKey:Y_UA_DEEPLINK_METHODNAME];
+        
         NSString* _configJson = Yodo1CreateNSString(sdkConfigJson);
         UAInitConfig* config = [UAInitConfig yodo1_modelWithJSON:_configJson];
         [Yodo1UA.sharedInstance initWithConfig:config];
@@ -313,24 +322,12 @@ extern "C" {
         [[Yodo1UA sharedInstance] trackEvent:m_EventName withValues:eventDataDic];
     }
     
-    // get AppsFlyer deeplink
-    void UnityUACallbackResult(const char *SdkObjectName,const char* SdkMethodName) {
-        
-        NSString* m_gameObject = Yodo1CreateNSString(SdkObjectName);
-        NSCAssert(m_gameObject != nil, @"Unity3d gameObject isn't set!");
-        NSString* m_methodName = Yodo1CreateNSString(SdkMethodName);
-        NSCAssert(m_methodName != nil, @"Unity3d methodName isn't set!");
-        
-        [Yd1OpsTools.cached setObject:m_gameObject forKey:Y_UA_DEEPLINK_OBJECTNAME];
-        [Yd1OpsTools.cached setObject:m_methodName forKey:Y_UA_DEEPLINK_METHODNAME];
-    }
-    
     void UnityUAUseReceiptValidationSandbox(bool isConsent) {
         [Yodo1UA.sharedInstance useReceiptValidationSandbox:isConsent];
     }
     
-    void UnityUALogLevel(int level) {
-        [Yodo1UA.sharedInstance logLevel:level];
+    void UnityUASetDebugLog(bool debugLog) {
+        [Yodo1UA.sharedInstance setDebugLog:debugLog];
         
     }
 }

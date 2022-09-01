@@ -99,6 +99,6 @@ typedef NS_ENUM(NSInteger, UAType) {
 
 - (void)useReceiptValidationSandbox:(BOOL)isConsent;
 
-- (void)logLevel:(int)level;
+- (void)setDebugLog:(BOOL)debugLog;
 
 @end

@@ -179,11 +179,9 @@
     AppsFlyerLib.shared.useReceiptValidationSandbox = isConsent;
 }
 
-- (void)logLevel:(int)level {
+- (void)setDebugLog:(BOOL)debugLog {
     
-    if (level != 0) {
-        AppsFlyerLib.shared.isDebug = YES;
-    }
+    AppsFlyerLib.shared.isDebug = debugLog;
 }
 
 //Deeplink
