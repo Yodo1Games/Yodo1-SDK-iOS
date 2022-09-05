@@ -17,6 +17,8 @@
 
 #define UA_CLASS_TYPE                   @"UA_Type"
 
+#define Y_UA_DEBUG_LOG                  @"y_ua_debug_log"
+
 #define Y_UA_INAPP_EVENT_PURCHASE       @"y_ua_purchase"
 
 #define Y_UA_INAPP_EVENT_CONTENT_ID     @"y_ua_content_id"
@@ -58,7 +60,5 @@
 - (void)setDeeplink;
 
 - (void)useReceiptValidationSandbox:(BOOL)isConsent;
-
-- (void)setDebugLog:(BOOL)debugLog;
 
 @end

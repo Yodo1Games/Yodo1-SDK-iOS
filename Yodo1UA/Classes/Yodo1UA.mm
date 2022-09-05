@@ -162,10 +162,7 @@ NSString* const Y_UA_APPLE_APPID             = @"AppleAppId";
 }
 
 - (void)setDebugLog:(BOOL)debugLog {
-    for (id key in [self.uaDict allKeys]) {
-        Yodo1UAAdapterBase* adapter = [self.uaDict objectForKey:key];
-        [adapter setDebugLog:debugLog];
-    }
+    [Yd1OpsTools.cached setObject:[NSNumber numberWithBool:debugLog] forKey:Y_UA_DEBUG_LOG];
 }
 
 - (void)setDeeplink {

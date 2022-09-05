@@ -47,6 +47,12 @@
         AppsFlyerLib.shared.delegate = self;
         AppsFlyerLib.shared.deepLinkDelegate = self;
         
+        BOOL isDebugLog = (BOOL)[Yd1OpsTools.cached objectForKey:Y_UA_DEBUG_LOG];
+        if (isDebugLog) {
+            AppsFlyerLib.shared.isDebug = YES;
+//            [Yd1OpsTools.cached removeObjectForKey:Y_UA_DEBUG_LOG];
+        }
+        
         if (@available(iOS 14, *)) {
             NSString* timeInterval = @"60";
             [AppsFlyerLib.shared waitForATTUserAuthorizationWithTimeoutInterval:timeInterval.floatValue];
@@ -177,11 +183,6 @@
 
 - (void)useReceiptValidationSandbox:(BOOL)isConsent {
     AppsFlyerLib.shared.useReceiptValidationSandbox = isConsent;
-}
-
-- (void)setDebugLog:(BOOL)debugLog {
-    
-    AppsFlyerLib.shared.isDebug = debugLog;
 }
 
 //Deeplink

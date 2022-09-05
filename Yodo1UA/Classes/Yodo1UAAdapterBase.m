@@ -33,6 +33,4 @@
 
 - (void)useReceiptValidationSandbox:(BOOL)isConsent{}
 
-- (void)setDebugLog:(BOOL)debugLog{}
-
 @end
