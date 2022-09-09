@@ -600,16 +600,7 @@ extern "C" {
             if (success) {
                 if (ocGameObjName && ocMethodName) {
                     
-                    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:response];
-                    
-                    [dict setObject:[NSNumber numberWithBool:success] forKey:@"resulType"];
-                    
-                    NSError* parseJSONError = nil;
-                    NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
-                    if(parseJSONError){
-                        [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
-                        msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
-                    }
+                    NSString* msg = [Yd1OpsTools stringWithJSONObject:response[@"reward"] error:nil];
                     
                     UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                      [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
@@ -617,15 +608,13 @@ extern "C" {
                 }
             } else {
                 
-                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:error];
-                [dict setObject:[NSNumber numberWithBool:success] forKey:@"resulType"];
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+                int code = [error[@"error_code"] intValue];
                 
-                NSError* parseJSONError = nil;
-                NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
-                if(parseJSONError){
-                    [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
-                    msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
-                }
+                [dict setObject:[NSNumber numberWithInt:code] forKey:@"errorCode"];
+                [dict setObject:error[@"error"] forKey:@"errorMessage"];
+                
+                NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:nil];
                 
                 UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],

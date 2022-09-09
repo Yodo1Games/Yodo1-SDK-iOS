@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1LiveOps'
     s.version          = '1.0.0'
-    s.summary          = '重构LiveOps'
+    s.summary          = 'LiveOps 1.0.0'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
