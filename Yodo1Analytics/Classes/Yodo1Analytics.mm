@@ -52,22 +52,22 @@ NSString* const Y_ANALYTICS_GAME_KEY       = @"GameKey";
 {
     AnalyticsInitConfig *_config = [[AnalyticsInitConfig alloc]init];
     
-    if (config.tdAppId.length <= 0) {
-        _config.tdAppId = [[Yodo1KeyInfo shareInstance] configInfoForKey:Y_ANALYTICS_TD_APPID];
+    if (config.td_app_id.length <= 0) {
+        _config.td_app_id = [[Yodo1KeyInfo shareInstance] configInfoForKey:Y_ANALYTICS_TD_APPID];
     } else {
-        _config.tdAppId = config.tdAppId;
+        _config.td_app_id = config.td_app_id;
     }
-    NSAssert(_config.tdAppId != nil, @"Thinking AppId is not set.");
+    NSAssert(_config.td_app_id != nil, @"Thinking AppId is not set.");
     
-    if (config.gameKey.length <= 0) {
-        _config.gameKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:Y_ANALYTICS_GAME_KEY];
+    if (config.game_key.length <= 0) {
+        _config.game_key = [[Yodo1KeyInfo shareInstance] configInfoForKey:Y_ANALYTICS_GAME_KEY];
     } else {
-        _config.gameKey = config.gameKey;
+        _config.game_key = config.game_key;
     }
-    NSAssert(_config.gameKey != nil, @"GameKey is not set.");
+    NSAssert(_config.game_key != nil, @"GameKey is not set.");
     
     TDConfig *tdConfig = [TDConfig new];
-    tdConfig.appid = _config.tdAppId;
+    tdConfig.appid = _config.td_app_id;
     tdConfig.configureURL = Y_ANALYTICS_TD_SERVER_URL;
     
     [ThinkingAnalyticsSDK startWithConfig:tdConfig];
@@ -78,7 +78,7 @@ NSString* const Y_ANALYTICS_GAME_KEY       = @"GameKey";
         [ThinkingAnalyticsSDK.sharedInstance identify:identify];
     }
     
-    [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{@"gameKey":_config.gameKey, @"device_id":Yodo1Tool.shared.keychainDeviceId, @"publishChannelCode":@"appstore", @"sdkVersion":Y_ANALYTICS_VERSION, @"channel_code":@"appstore"}];
+    [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{@"gameKey":_config.game_key, @"device_id":Yodo1Tool.shared.keychainDeviceId, @"publishChannelCode":@"appstore", @"sdkVersion":Y_ANALYTICS_VERSION, @"channel_code":@"appstore"}];
     
     // 自动埋点 关闭
     [[ThinkingAnalyticsSDK sharedInstance] enableAutoTrack:

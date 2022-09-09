@@ -11,8 +11,8 @@
 
 @interface AnalyticsInitConfig : NSObject
 
-@property (nonatomic,strong) NSString* gameKey;
-@property (nonatomic,strong) NSString* tdAppId;
+@property (nonatomic,strong) NSString* game_key;
+@property (nonatomic,strong) NSString* td_app_id;
 
 @end
 
