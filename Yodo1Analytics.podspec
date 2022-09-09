@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Analytics'
-    s.version          = '6.2.1'
-    s.summary          = '重构数据统计'
+    s.version          = '1.0.0'
+    s.summary          = 'Core Analytics'
 
     s.description      = <<-DESC
 TODO: Add long description of the pod here.
@@ -16,13 +16,10 @@ TODO: Add long description of the pod here.
     s.ios.deployment_target = '9.0'
 
    
-    s.source_files = ["*.h"]
+   s.source_files = s.name + '/Classes/**/*'
+   s.public_header_files = s.name + '/Classes/**/*.h'
 
-    s.public_header_files = ["*.h"]
-
-    s.vendored_libraries = [ "*.a" ]
-
-    s.resources = ["*.{m,mm}"]
+    # s.vendored_libraries = "#{s.version}" + '/*.a'
 
     s.requires_arc = true
 
@@ -34,44 +31,17 @@ TODO: Add long description of the pod here.
     }
 
     s.frameworks = [
-        'Accounts', 
-        'AssetsLibrary',
-        'AVFoundation', 
-        'CoreTelephony',
-        'CoreLocation', 
-        'CoreMotion' ,
-        'CoreMedia', 
-        'EventKit',
-        'EventKitUI', 
-        'iAd', 
-        'ImageIO',
-        'MobileCoreServices', 
-        'MediaPlayer',
-        'MessageUI',
-        'MapKit',
-        'StoreKit',
-        'WebKit',
         'SystemConfiguration',
-        'AudioToolbox',
         'Security',
-        'CoreBluetooth'
     ]
 
-    s.weak_frameworks = [
-        'AdSupport',
-        'SafariServices',
-        'ReplayKit',
-        'CloudKit',
-        'GameKit'
-    ]
+    s.weak_frameworks = []
     
     s.libraries = [
         'sqlite3.0',
-        'c++',
         'z']
 
-    s.dependency 'Yodo1Commons','6.1.2'
-    s.dependency 'AppsFlyerFramework', '6.7.0'
+    s.dependency 'Yodo1Commons','6.1.1'
     s.dependency 'ThinkingSDK','2.8.1.1'
 
 end
