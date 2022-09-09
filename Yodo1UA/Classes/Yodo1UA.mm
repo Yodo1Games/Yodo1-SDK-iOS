@@ -78,8 +78,8 @@ NSString* const Y_UA_APPLE_APPID             = @"AppleAppId";
 - (void)initWithInfoPlist
 {
     UAInitConfig *config = [[UAInitConfig alloc] init];
-    config.appsflyerDevKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:Y_UA_APPSFLYER_DEV_KEY];
-    config.appleId = [[Yodo1KeyInfo shareInstance] configInfoForKey:Y_UA_APPLE_APPID];
+    config.appsflyer_dev_key = [[Yodo1KeyInfo shareInstance] configInfoForKey:Y_UA_APPSFLYER_DEV_KEY];
+    config.apple_id = [[Yodo1KeyInfo shareInstance] configInfoForKey:Y_UA_APPLE_APPID];
     [self initWithConfig:config];
 }
 

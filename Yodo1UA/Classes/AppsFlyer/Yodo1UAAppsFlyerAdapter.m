@@ -34,11 +34,11 @@
     self = [super init];
     if (self) {
         
-        NSString* devkey = initConfig.appsflyerDevKey;
+        NSString* devkey = initConfig.appsflyer_dev_key;
         if (devkey.length <= 0) {
             devkey = Y_UA_APPSFLYER_DEV_KEY_DEFAULT;
         }
-        NSString* appleAppId = initConfig.appleId;
+        NSString* appleAppId = initConfig.apple_id;
         NSAssert(appleAppId != nil, @"appleAppId devKey is not set.");
         
         AppsFlyerLib.shared.appsFlyerDevKey = devkey;

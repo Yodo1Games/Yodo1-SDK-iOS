@@ -15,8 +15,8 @@
 
 @interface UAInitConfig : NSObject
 
-@property (nonatomic,strong) NSString *appsflyerDevKey;
-@property (nonatomic,strong) NSString *appleId;
+@property (nonatomic,strong) NSString *appsflyer_dev_key;
+@property (nonatomic,strong) NSString *apple_id;
 
 @end
 
