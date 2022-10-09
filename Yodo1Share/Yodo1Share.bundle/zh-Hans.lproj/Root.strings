@@ -6,13 +6,10 @@
 "sm.weixin.moments" = "微信朋友圈";
 "sm.weixin.contacts" = "微信朋友";
 "sm.facebook" = "Facebook";
-"sm.twitter" = "Twitter";
 "sm.instagram" = "Instagram";
 
 "sm.shareto.facebook.success" = "分享到Facebook成功";
 "sm.shareto.facebook.fail" = "分享到Facebook失败";
-"sm.shareto.twitter.success" = "分享到Twitter成功";
-"sm.shareto.twitter.fail" = "分享到Twitter失败";
 "sm.shareto.weibo.success" = "分享到新浪微博成功";
 "sm.shareto.weibo.fail" = "分享到新浪微博失败";
 "sm.shareto.weixin.success" = "分享到微信成功";

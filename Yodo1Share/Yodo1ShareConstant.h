@@ -21,22 +21,20 @@ typedef enum{
     Yodo1ShareContentStateNotSupport = 5          /**< 设备不支持 */
 }Yodo1ShareContentState;
 
-typedef NS_ENUM(NSInteger, Yodo1SNSType) {
-    Yodo1SNSTypeNone = -1,
-    Yodo1SNSTypeTencentQQ       = 1 << 0,/**< QQ分享 >*/
-    Yodo1SNSTypeWeixinMoments   = 1 << 1,/**< 朋友圈 >*/
-    Yodo1SNSTypeWeixinContacts  = 1 << 2,/**< 聊天界面 >*/
-    Yodo1SNSTypeSinaWeibo       = 1 << 3,/**< 新浪微博 >*/
-    Yodo1SNSTypeFacebook        = 1 << 4,/**< Facebook >*/
-    Yodo1SNSTypeTwitter         = 1 << 5,/**< Twitter >移除*/
-    Yodo1SNSTypeInstagram       = 1 << 6,/**< Instagram >*/
-    Yodo1SNSTypeAll             = 1 << 7
+typedef NS_ENUM(NSInteger, Yodo1ShareType) {
+    Yodo1ShareTypeNone = -1,
+    Yodo1ShareTypeTencentQQ       = 1 << 0,/**< QQ分享 >*/
+    Yodo1ShareTypeWeixinMoments   = 1 << 1,/**< 朋友圈 >*/
+    Yodo1ShareTypeWeixinContacts  = 1 << 2,/**< 聊天界面 >*/
+    Yodo1ShareTypeSinaWeibo       = 1 << 3,/**< 新浪微博 >*/
+    Yodo1ShareTypeFacebook        = 1 << 4,/**< Facebook >*/
+    Yodo1ShareTypeAll             = 1 << 5
 };
 
-typedef void (^SNSShareCompletionBlock) (Yodo1SNSType snsType,Yodo1ShareContentState state,NSError *error);
+typedef void (^ShareCompletionBlock) (Yodo1ShareType shareType,Yodo1ShareContentState state,NSError *error);
 
-@interface SMContent : NSObject
-@property (nonatomic,assign) Yodo1SNSType snsType;  //平台分享类型
+@interface ShareContent : NSObject
+@property (nonatomic,assign) Yodo1ShareType shareType;  //平台分享类型
 @property (nonatomic,strong) NSString *title;       //仅对qq和微信有效
 @property (nonatomic,strong) NSString *desc;        //分享描述
 @property (nonatomic,strong) UIImage *image;        //分享图片

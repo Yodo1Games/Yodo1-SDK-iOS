@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 yodo1. All rights reserved.
 //
 
-#import "Yodo1SNSManager.h"
+#import "Yodo1Share.h"
 #import "Yodo1ShareUI.h"
 
 #import <Social/Social.h>
@@ -16,6 +16,8 @@
 #import "Yodo1ShareByFacebook.h"
 #import "Yodo1Base.h"
 #import "Yodo1ShareByInstagram.h"
+#import "Yodo1Tool+Storage.h"
+#import "Yodo1Tool+Commons.h"
 
 #import "Yodo1Commons.h"
 #import "Yodo1UnityTool.h"
@@ -28,19 +30,23 @@
 
 #import "Yodo1KeyInfo.h"
 
+#define Yodo1SHARELOG(fmt, ...) NSLog((@"[Yodo1 Share] %s [Line %d] \n" fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+#define Y_SHARE_VERSION                  @"1.0.0"
+
+#define Y_SHARE_DEBUG_LOG                  @"y_share_debug_log"
+
 NSString * const kYodo1QQAppId                  = @"QQAppId";
 NSString * const kYodo1QQUniversalLink          = @"QQUniversalLink";
 NSString * const kYodo1WechatAppId              = @"WechatAppId";
 NSString * const kYodo1WechatUniversalLink      = @"WechatUniversalLink";
 NSString * const kYodo1SinaWeiboAppKey          = @"SinaAppId";
 NSString * const kYodo1SinaWeiboUniversalLink   = @"SinaUniversalLink";
-NSString * const kYodo1TwitterConsumerKey       = @"TwitterConsumerKey";
-NSString * const kYodo1TwitterConsumerSecret    = @"TwitterConsumerSecret";
 NSString * const kYodo1FacebookAppId            = @"FacebookAppID";
 NSString * const kYodo1FacebookDisplayName      = @"FacebookDisplayName";
 
 @interface Yodo1SMContent : NSObject
-@property (nonatomic,assign) NSInteger snsType;     //对单个平台分享模式有效
+@property (nonatomic,assign) NSInteger shareType;     //对单个平台分享模式有效
 @property (nonatomic,strong) NSString *title;       //仅对qq和微信有效
 @property (nonatomic,strong) NSString *desc;        //分享描述
 @property (nonatomic,strong) NSString *image;       //分享图片
@@ -56,37 +62,35 @@ NSString * const kYodo1FacebookDisplayName      = @"FacebookDisplayName";
 @implementation Yodo1SMContent
 @end
 
-@interface Yodo1SNSManager()
+@interface Yodo1Share()
 {
     BOOL isShow;
 }
 
-@property (nonatomic, copy) SNSShareCompletionBlock completionBlock;
+@property (nonatomic, copy) ShareCompletionBlock completionBlock;
 @property (nonatomic, strong) NSString *wechatAppKey;
 @property (nonatomic, strong) NSString *wechatUniversalLink;
 @property (nonatomic, strong) NSString *qqAppId;
 @property (nonatomic, strong) NSString *qqUniversalLink;
 @property (nonatomic, strong) NSString *sinaWeiboAppKey;
 @property (nonatomic, strong) NSString *sinaWeiboUniversalLink;
-@property (nonatomic, strong) NSString *twitterConsumerKey;
-@property (nonatomic, strong) NSString *twitterConsumerSecret;
 
-- (void)showSocial:(SMContent *)content
-           snsType:(Yodo1SNSType)snsType;
+- (void)showSocial:(ShareContent *)content
+           shareType:(Yodo1ShareType)shareType;
 
-- (NSArray*)snsTypesWithContent:(SMContent *)content;
+- (NSArray*)shareTypesWithContent:(ShareContent *)content;
 
 @end
 
-@implementation Yodo1SNSManager
+@implementation Yodo1Share
 @synthesize isYodo1Shared;
 @synthesize isLandscapeOrPortrait;
 
-static Yodo1SNSManager* sDefaultInstance;
+static Yodo1Share* sDefaultInstance;
 
-+ (Yodo1SNSManager*)sharedInstance {
++ (Yodo1Share*)sharedInstance {
     if(sDefaultInstance == nil){
-        sDefaultInstance = [[Yodo1SNSManager alloc] init];
+        sDefaultInstance = [[Yodo1Share alloc] init];
     }
     return sDefaultInstance;
 }
@@ -95,7 +99,9 @@ static Yodo1SNSManager* sDefaultInstance;
     
 }
 
-- (void)initSNSPlugn:(NSDictionary *)shareAppIds {
+- (void)initWithConfig:(NSDictionary *)shareAppIds {
+    
+    BOOL isDebugLog = (BOOL)[Yd1OpsTools.cached objectForKey:Y_SHARE_DEBUG_LOG];
     
     if (shareAppIds == nil || [shareAppIds count] < 1) {
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Yodo1KeyConfig.bundle/Yodo1KeyInfo" ofType:@"plist"];
@@ -113,7 +119,9 @@ static Yodo1SNSManager* sDefaultInstance;
                 [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
             } else {
                 
-                YD1LOG(@"wechat-share is not set.");
+                if (isDebugLog) {
+                    Yodo1SHARELOG(@"wechat-share is not set.");
+                }
             }
             if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
                 [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
@@ -123,7 +131,9 @@ static Yodo1SNSManager* sDefaultInstance;
                                               universalLink:self.qqUniversalLink];
             } else {
         
-                YD1LOG(@"QQ-share is not set.");
+                if (isDebugLog) {
+                    Yodo1SHARELOG(@"QQ-share is not set.");
+                }
             }
             
             if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
@@ -133,14 +143,18 @@ static Yodo1SNSManager* sDefaultInstance;
                 [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
                                                              universalLink:self.sinaWeiboUniversalLink];
             } else {
-                YD1LOG(@"sina-share is not set.");
+                if (isDebugLog) {
+                    Yodo1SHARELOG(@"sina-share is not set.");
+                }
             }
             
             NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
             if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId]) {
                 [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
             } else {
-                YD1LOG(@"Facebook-share is not set.");
+                if (isDebugLog) {
+                    Yodo1SHARELOG(@"Facebook-share is not set.");
+                }
             }
         }
     } else {
@@ -150,8 +164,9 @@ static Yodo1SNSManager* sDefaultInstance;
             self.wechatUniversalLink = [shareAppIds objectForKey:kYodo1WechatUniversalLink];
             [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
         } else {
-            
-            YD1LOG(@"wechat-share is not set.");
+            if (isDebugLog) {
+                Yodo1SHARELOG(@"wechat-share is not set.");
+            }
         }
         if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
             [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
@@ -160,8 +175,9 @@ static Yodo1SNSManager* sDefaultInstance;
             [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
                                           universalLink:self.qqUniversalLink];
         } else {
-    
-            YD1LOG(@"QQ-share is not set.");
+            if (isDebugLog) {
+                Yodo1SHARELOG(@"QQ-share is not set.");
+            }
         }
         
         if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
@@ -171,77 +187,65 @@ static Yodo1SNSManager* sDefaultInstance;
             [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
                                                          universalLink:self.sinaWeiboUniversalLink];
         } else {
-    
-            YD1LOG(@"sina-share is not set.");
+            if (isDebugLog) {
+                Yodo1SHARELOG(@"sina-share is not set.");
+            }
         }
         
         NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
         if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId]) {
             [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
         } else {
-    
-            YD1LOG(@"Facebook-share is not set.");
+            if (isDebugLog) {
+                Yodo1SHARELOG(@"Facebook-share is not set.");
+            }
         }
     }
-    
-    
 }
 
-- (NSArray*)snsTypesWithContent:(SMContent *)content
+- (NSArray*)shareTypesWithContent:(ShareContent *)content
 {
-    NSMutableArray* snsTypes = [NSMutableArray array];
-    Yodo1SNSType snsType = content.snsType;
-    if ((snsType & Yodo1SNSTypeTencentQQ) && [self isInstalledWithType:Yodo1SNSTypeTencentQQ]) {
-        [snsTypes addObject:@(Yodo1SNSTypeTencentQQ)];
+    NSMutableArray* shareTypes = [NSMutableArray array];
+    Yodo1ShareType shareType = content.shareType;
+    if ((shareType & Yodo1ShareTypeTencentQQ) && [self isInstalledWithType:Yodo1ShareTypeTencentQQ]) {
+        [shareTypes addObject:@(Yodo1ShareTypeTencentQQ)];
     }
     
-    if ((snsType & Yodo1SNSTypeWeixinMoments) && [self isInstalledWithType:Yodo1SNSTypeWeixinMoments]) {
-        [snsTypes addObject:@(Yodo1SNSTypeWeixinMoments)];
+    if ((shareType & Yodo1ShareTypeWeixinMoments) && [self isInstalledWithType:Yodo1ShareTypeWeixinMoments]) {
+        [shareTypes addObject:@(Yodo1ShareTypeWeixinMoments)];
     }
-    if ((snsType & Yodo1SNSTypeWeixinContacts) && [self isInstalledWithType:Yodo1SNSTypeWeixinContacts]) {
-        [snsTypes addObject:@(Yodo1SNSTypeWeixinContacts)];
+    if ((shareType & Yodo1ShareTypeWeixinContacts) && [self isInstalledWithType:Yodo1ShareTypeWeixinContacts]) {
+        [shareTypes addObject:@(Yodo1ShareTypeWeixinContacts)];
     }
-    if ((snsType & Yodo1SNSTypeSinaWeibo) && [self isInstalledWithType:Yodo1SNSTypeSinaWeibo]) {
-        [snsTypes addObject:@(Yodo1SNSTypeSinaWeibo)];
+    if ((shareType & Yodo1ShareTypeSinaWeibo) && [self isInstalledWithType:Yodo1ShareTypeSinaWeibo]) {
+        [shareTypes addObject:@(Yodo1ShareTypeSinaWeibo)];
     }
-    if ((snsType & Yodo1SNSTypeFacebook) && [self isInstalledWithType:Yodo1SNSTypeFacebook]) {
-        [snsTypes addObject:@(Yodo1SNSTypeFacebook)];
-    }
-    if ((snsType & Yodo1SNSTypeTwitter) && [self isInstalledWithType:Yodo1SNSTypeTwitter]) {
-        [snsTypes addObject:@(Yodo1SNSTypeTwitter)];
-    }
-    if ((snsType & Yodo1SNSTypeInstagram) && [self isInstalledWithType:Yodo1SNSTypeInstagram]) {
-        [snsTypes addObject:@(Yodo1SNSTypeInstagram)];
+    if ((shareType & Yodo1ShareTypeFacebook) && [self isInstalledWithType:Yodo1ShareTypeFacebook]) {
+        [shareTypes addObject:@(Yodo1ShareTypeFacebook)];
     }
     
-    if (snsType & Yodo1SNSTypeAll) {
-        if ([self isInstalledWithType:Yodo1SNSTypeTencentQQ]) {
-            [snsTypes addObject:@(Yodo1SNSTypeTencentQQ)];
+    if (shareType & Yodo1ShareTypeAll) {
+        if ([self isInstalledWithType:Yodo1ShareTypeTencentQQ]) {
+            [shareTypes addObject:@(Yodo1ShareTypeTencentQQ)];
         }
-        if ([self isInstalledWithType:Yodo1SNSTypeWeixinMoments]) {
-            [snsTypes addObject:@(Yodo1SNSTypeWeixinMoments)];
+        if ([self isInstalledWithType:Yodo1ShareTypeWeixinMoments]) {
+            [shareTypes addObject:@(Yodo1ShareTypeWeixinMoments)];
         }
-        if ([self isInstalledWithType:Yodo1SNSTypeWeixinContacts]) {
-            [snsTypes addObject:@(Yodo1SNSTypeWeixinContacts)];
+        if ([self isInstalledWithType:Yodo1ShareTypeWeixinContacts]) {
+            [shareTypes addObject:@(Yodo1ShareTypeWeixinContacts)];
         }
-        if ([self isInstalledWithType:Yodo1SNSTypeSinaWeibo]) {
-            [snsTypes addObject:@(Yodo1SNSTypeSinaWeibo)];
+        if ([self isInstalledWithType:Yodo1ShareTypeSinaWeibo]) {
+            [shareTypes addObject:@(Yodo1ShareTypeSinaWeibo)];
         }
-        if ([self isInstalledWithType:Yodo1SNSTypeFacebook]) {
-            [snsTypes addObject:@(Yodo1SNSTypeFacebook)];
-        }
-        if ([self isInstalledWithType:Yodo1SNSTypeTwitter]) {
-            [snsTypes addObject:@(Yodo1SNSTypeTwitter)];
-        }
-        if ([self isInstalledWithType:Yodo1SNSTypeInstagram]) {
-            [snsTypes addObject:@(Yodo1SNSTypeInstagram)];
+        if ([self isInstalledWithType:Yodo1ShareTypeFacebook]) {
+            [shareTypes addObject:@(Yodo1ShareTypeFacebook)];
         }
     }
-    return snsTypes;
+    return shareTypes;
 }
 
-- (void)showSocial:(SMContent *)content
-             block:(SNSShareCompletionBlock)completionBlock
+- (void)showSocial:(ShareContent *)content
+             block:(ShareCompletionBlock)completionBlock
 {
     [Yodo1ShareUI sharedInstance].isLandscapeOrPortrait = self.isLandscapeOrPortrait;
     
@@ -250,65 +254,65 @@ static Yodo1SNSManager* sDefaultInstance;
     if(![Yodo1Reachability reachability].reachable){
         if (self.completionBlock) {
             NSError *error = [NSError errorWithDomain:@"com.yodo1.SNSShare" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"网络连接错误或无网络"}];
-            self.completionBlock(Yodo1SNSTypeNone,Yodo1ShareContentStateFail,error);
+            self.completionBlock(Yodo1ShareTypeNone,Yodo1ShareContentStateFail,error);
         }
         return;
     }
     
-    NSArray* snsTypes = [self snsTypesWithContent:content];
+    NSArray* shareTypes = [self shareTypesWithContent:content];
     
-    if ([snsTypes count] == 1){
+    if ([shareTypes count] == 1){
         self.isYodo1Shared = YES;
-        Yodo1SNSType type = (Yodo1SNSType)[[snsTypes firstObject]integerValue];
-        [self showSocial:content snsType:type];
+        Yodo1ShareType type = (Yodo1ShareType)[[shareTypes firstObject]integerValue];
+        [self showSocial:content shareType:type];
     }else {
         self.isYodo1Shared = YES;
-        [[Yodo1ShareUI sharedInstance]showShareWithTypes:snsTypes
-                                                   block:^(Yodo1SNSType snsType) {
-                                                       [self showSocial:content snsType:snsType];
+        [[Yodo1ShareUI sharedInstance]showShareWithTypes:shareTypes
+                                                   block:^(Yodo1ShareType shareType) {
+                                                       [self showSocial:content shareType:shareType];
                                                    }];
     }
     
 }
 
-- (void)showSocial:(SMContent *)content
-           snsType:(Yodo1SNSType)snsType
+- (void)showSocial:(ShareContent *)content
+           shareType:(Yodo1ShareType)shareType
 {
-    switch (snsType) {
-        case Yodo1SNSTypeTencentQQ:
+    switch (shareType) {
+        case Yodo1ShareTypeTencentQQ:
         {
-            if (![self isInstalledWithType:Yodo1SNSTypeTencentQQ]) {
+            if (![self isInstalledWithType:Yodo1ShareTypeTencentQQ]) {
                 if (self.completionBlock) {
                     NSError *error = [NSError errorWithDomain:@"com.yodo1.SNSShare" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"客户端没有安装或登录"}];
-                    self.completionBlock(Yodo1SNSTypeTencentQQ,Yodo1ShareContentStateUnInstalled,error);
+                    self.completionBlock(Yodo1ShareTypeTencentQQ,Yodo1ShareContentStateUnInstalled,error);
                     self.isYodo1Shared = NO;
                 }
                 return;
             }
             [[Yodo1ShareByQQ sharedInstance]shareWithContent:content
-                                                  scene:Yodo1SNSTypeTencentQQ                                                                                           completionBlock:^(Yodo1SNSType snsType, Yodo1ShareContentState resultCode, NSError *error) {
+                                                  scene:Yodo1ShareTypeTencentQQ                                                                                           completionBlock:^(Yodo1ShareType shareType, Yodo1ShareContentState resultCode, NSError *error) {
                                                       if (self.completionBlock) {
-                                                          self.completionBlock(Yodo1SNSTypeTencentQQ,resultCode,error);
+                                                          self.completionBlock(Yodo1ShareTypeTencentQQ,resultCode,error);
                                                           self.isYodo1Shared = NO;
                                                       }
                                                   }];
         }
             break;
-        case Yodo1SNSTypeWeixinMoments:
+        case Yodo1ShareTypeWeixinMoments:
         {
-            if (![self isInstalledWithType:Yodo1SNSTypeWeixinMoments]) {
+            if (![self isInstalledWithType:Yodo1ShareTypeWeixinMoments]) {
                 if (self.completionBlock) {
                     NSError *error = [NSError errorWithDomain:@"com.yodo1.SNSShare" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"客户端没有安装或登录"}];
-                    self.completionBlock(Yodo1SNSTypeWeixinMoments,Yodo1ShareContentStateUnInstalled,error);
+                    self.completionBlock(Yodo1ShareTypeWeixinMoments,Yodo1ShareContentStateUnInstalled,error);
                     self.isYodo1Shared = NO;
                 }
                 return;
             }
             [[Yodo1ShareByWeChat sharedInstance]shareWithContent:content
-                                                      scene:Yodo1SNSTypeWeixinMoments
-                                            completionBlock:^(Yodo1SNSType snsType, Yodo1ShareContentState resultCode, NSError *error) {
+                                                      scene:Yodo1ShareTypeWeixinMoments
+                                            completionBlock:^(Yodo1ShareType shareType, Yodo1ShareContentState resultCode, NSError *error) {
                                                 if (self.completionBlock) {
-                                                    self.completionBlock(Yodo1SNSTypeWeixinMoments,resultCode,error);
+                                                    self.completionBlock(Yodo1ShareTypeWeixinMoments,resultCode,error);
                                                     self.isYodo1Shared = NO;
                                                 }
                                             }];
@@ -316,64 +320,64 @@ static Yodo1SNSManager* sDefaultInstance;
         }
             break;
             
-        case Yodo1SNSTypeWeixinContacts:
+        case Yodo1ShareTypeWeixinContacts:
         {
-            if (![self isInstalledWithType:Yodo1SNSTypeWeixinContacts]) {
+            if (![self isInstalledWithType:Yodo1ShareTypeWeixinContacts]) {
                 if (self.completionBlock) {
                     NSError *error = [NSError errorWithDomain:@"com.yodo1.SNSShare" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"客户端没有安装或登录"}];
-                    self.completionBlock(Yodo1SNSTypeWeixinContacts,Yodo1ShareContentStateUnInstalled,error);
+                    self.completionBlock(Yodo1ShareTypeWeixinContacts,Yodo1ShareContentStateUnInstalled,error);
                     self.isYodo1Shared = NO;
                 }
                 return;
             }
             [[Yodo1ShareByWeChat sharedInstance]shareWithContent:content
-                                                      scene:Yodo1SNSTypeWeixinContacts
-                                            completionBlock:^(Yodo1SNSType snsType, Yodo1ShareContentState resultCode, NSError *error) {
+                                                      scene:Yodo1ShareTypeWeixinContacts
+                                            completionBlock:^(Yodo1ShareType shareType, Yodo1ShareContentState resultCode, NSError *error) {
                                                 if (self.completionBlock) {
-                                                    self.completionBlock(Yodo1SNSTypeWeixinContacts,resultCode,error);
+                                                    self.completionBlock(Yodo1ShareTypeWeixinContacts,resultCode,error);
                                                     self.isYodo1Shared = NO;
                                                 }
                                             }];
         }
             break;
             
-        case Yodo1SNSTypeSinaWeibo:
+        case Yodo1ShareTypeSinaWeibo:
         {
-            if (![self isInstalledWithType:Yodo1SNSTypeSinaWeibo]) {
+            if (![self isInstalledWithType:Yodo1ShareTypeSinaWeibo]) {
                 if (self.completionBlock) {
                     NSError *error = [NSError errorWithDomain:@"com.yodo1.SNSShare" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"客户端没有安装或登录"}];
-                    self.completionBlock(Yodo1SNSTypeSinaWeibo,Yodo1ShareContentStateUnInstalled,error);
+                    self.completionBlock(Yodo1ShareTypeSinaWeibo,Yodo1ShareContentStateUnInstalled,error);
                     self.isYodo1Shared = NO;
                 }
                 return;
             }
             [[Yodo1ShareBySinaWeibo sharedInstance]shareWithContent:content
-                                                      scene:Yodo1SNSTypeSinaWeibo
-                                            completionBlock:^(Yodo1SNSType snsType, Yodo1ShareContentState resultCode, NSError *error) {
+                                                      scene:Yodo1ShareTypeSinaWeibo
+                                            completionBlock:^(Yodo1ShareType shareType, Yodo1ShareContentState resultCode, NSError *error) {
                                                 if (self.completionBlock) {
-                                                    self.completionBlock(Yodo1SNSTypeSinaWeibo,resultCode,error);
+                                                    self.completionBlock(Yodo1ShareTypeSinaWeibo,resultCode,error);
                                                     self.isYodo1Shared = NO;
                                                 }
                                             }];
         }
             break;
             
-        case Yodo1SNSTypeFacebook:
+        case Yodo1ShareTypeFacebook:
         {
-            if (![self isInstalledWithType:Yodo1SNSTypeFacebook]) {
+            if (![self isInstalledWithType:Yodo1ShareTypeFacebook]) {
                 if (self.completionBlock) {
                     NSError *error = [NSError errorWithDomain:@"com.yodo1.SNSShare" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"客户端没有安装或登录"}];
-                    self.completionBlock(Yodo1SNSTypeFacebook,Yodo1ShareContentStateUnInstalled,error);
+                    self.completionBlock(Yodo1ShareTypeFacebook,Yodo1ShareContentStateUnInstalled,error);
                     self.isYodo1Shared = NO;
                 }
                 return;
             }
             if (@available(iOS 11.0,*)) {
                 [[Yodo1ShareByFacebook sharedInstance]shareWithContent:content
-                                                            scene:Yodo1SNSTypeFacebook
-                                                  completionBlock:^(Yodo1SNSType snsType, Yodo1ShareContentState resultCode, NSError *error) {
+                                                            scene:Yodo1ShareTypeFacebook
+                                                  completionBlock:^(Yodo1ShareType shareType, Yodo1ShareContentState resultCode, NSError *error) {
                                                       if (self.completionBlock) {
-                                                          self.completionBlock(Yodo1SNSTypeFacebook,resultCode,error);
+                                                          self.completionBlock(Yodo1ShareTypeFacebook,resultCode,error);
                                                           self.isYodo1Shared = NO;
                                                       }
                                                   }];
@@ -394,13 +398,13 @@ static Yodo1SNSManager* sDefaultInstance;
                     switch (result) {
                         case SLComposeViewControllerResultDone:
                             if (self.completionBlock) {
-                                self.completionBlock(Yodo1SNSTypeFacebook,Yodo1ShareContentStateSuccess,nil);
+                                self.completionBlock(Yodo1ShareTypeFacebook,Yodo1ShareContentStateSuccess,nil);
                                 self.isYodo1Shared = NO;
                             }
                             break;
                         case SLComposeViewControllerResultCancelled:
                             if (self.completionBlock) {
-                                self.completionBlock(Yodo1SNSTypeFacebook,Yodo1ShareContentStateCancel,nil);
+                                self.completionBlock(Yodo1ShareTypeFacebook,Yodo1ShareContentStateCancel,nil);
                                 self.isYodo1Shared = NO;
                             }
                             break;
@@ -410,78 +414,7 @@ static Yodo1SNSManager* sDefaultInstance;
             }
         }
             break;
-        case Yodo1SNSTypeTwitter:
-        {
-//            if (![self isInstalledWithType:Yodo1SNSTypeTwitter]) {
-//                if (self.completionBlock) {
-//                    NSError *error = [NSError errorWithDomain:@"com.yodo1.SNSShare" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"客户端没有安装或登录"}];
-//                    self.completionBlock(Yodo1SNSTypeTwitter,Yodo1ShareContentStateUnInstalled,error);
-//                    self.isYodo1Shared = NO;
-//                }
-//                return;
-//            }
-//            if (@available(iOS 11.0,*)) {
-//                [[ShareByTwitter sharedInstance]shareWithContent:content
-//                                                           scene:Yodo1SNSTypeTwitter
-//                                                 completionBlock:^(Yodo1SNSType snsType, Yodo1ShareContentState resultCode, NSError *error) {
-//                                                     if (self.completionBlock) {
-//                                                         self.completionBlock(Yodo1SNSTypeTwitter,resultCode,error);
-//                                                         self.isYodo1Shared = NO;
-//                                                     }
-//                                                 }];
-//            } else {
-//                SLComposeViewController *slVc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-//                if (content.desc) {
-//                    [slVc setInitialText:content.desc];
-//                }
-//                if (content.image) {
-//                    [slVc addImage:content.image];
-//                }
-//                if (content.url) {
-//                    [slVc addURL:[NSURL URLWithString:content.url]];
-//                }
-//
-//                slVc.completionHandler = ^(SLComposeViewControllerResult result){
-//                    switch (result) {
-//                        case SLComposeViewControllerResultDone:
-//                            if (self.completionBlock) {
-//                                self.completionBlock(Yodo1SNSTypeTwitter,Yodo1ShareContentStateSuccess,nil);
-//                                self.isYodo1Shared = NO;
-//                            }
-//                            break;
-//                        case SLComposeViewControllerResultCancelled:
-//                            if (self.completionBlock) {
-//                                self.completionBlock(Yodo1SNSTypeTwitter,Yodo1ShareContentStateCancel,nil);
-//                                self.isYodo1Shared = NO;
-//                            }
-//                            break;
-//                    }
-//                };
-//                [[Yodo1Commons getRootViewController] presentViewController:slVc animated:YES completion:nil];
-//            }
-        }
-            break;
-        case Yodo1SNSTypeInstagram:
-        {
-            if (![self isInstalledWithType:Yodo1SNSTypeInstagram]) {
-                if (self.completionBlock) {
-                    NSError *error = [NSError errorWithDomain:@"com.yodo1.SNSShare" code:-1 userInfo:@{NSLocalizedDescriptionKey:@"客户端没有安装或登录"}];
-                    self.completionBlock(Yodo1SNSTypeTwitter,Yodo1ShareContentStateUnInstalled,error);
-                    self.isYodo1Shared = NO;
-                }
-                return;
-            }
-            [[Yodo1ShareByInstagram sharedInstance]shareWithContent:content
-                                                         scene:Yodo1SNSTypeInstagram
-                                               completionBlock:^(Yodo1SNSType snsType, Yodo1ShareContentState resultCode, NSError *error) {
-                                                   if (self.completionBlock) {
-                                                       self.completionBlock(Yodo1SNSTypeInstagram,resultCode,error);
-                                                       self.isYodo1Shared = NO;
-                                                   }
-            }];
-        }
-            break;
-        case Yodo1SNSTypeNone:
+        case Yodo1ShareTypeNone:
         {
             if (self.completionBlock) {
                 NSDictionary *errorDict = @{NSLocalizedDescriptionKey : @"未选择平台分享",
@@ -489,13 +422,13 @@ static Yodo1SNSManager* sDefaultInstance;
                                             NSLocalizedRecoverySuggestionErrorKey : @""};
                 
                 NSError *error = [NSError errorWithDomain:@"SNSShare" code:-1 userInfo:errorDict];
-                self.completionBlock(Yodo1SNSTypeNone,Yodo1ShareContentStateCancel,error);
+                self.completionBlock(Yodo1ShareTypeNone,Yodo1ShareContentStateCancel,error);
                 self.isYodo1Shared = NO;
             }
             
         }
             break;
-        case Yodo1SNSTypeAll:
+        case Yodo1ShareTypeAll:
         {
         }
             break;
@@ -523,11 +456,6 @@ static Yodo1SNSManager* sDefaultInstance;
         return [[Yodo1ShareBySinaWeibo sharedInstance] application:application openURL:url options:options];
     }
     
-    //Twitter
-//    r = [url.absoluteString rangeOfString:self.twitterConsumerKey];
-//    if (r.location != NSNotFound) {
-//        return [[ShareByTwitter sharedInstance] application:application openURL:url options:options];
-//    }
     //Facebook
     r = [url.absoluteString rangeOfString:@"fb"];
     if (r.location != NSNotFound) {
@@ -549,7 +477,7 @@ static Yodo1SNSManager* sDefaultInstance;
     return NO;
 }
 
-- (BOOL)isInstalledWithType:(Yodo1SNSType)snsType
+- (BOOL)isInstalledWithType:(Yodo1ShareType)shareType
 {
     BOOL isQQInstalled = [QQApiInterface isQQInstalled];
     
@@ -563,45 +491,48 @@ static Yodo1SNSManager* sDefaultInstance;
         isFacebookAvailable = YES;
     }
     
-    BOOL isTwitterAvailable = NO;
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]
-        && (([SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter]) != nil)) {
-        isTwitterAvailable = YES;
-    }
-    
-    if (snsType == Yodo1SNSTypeSinaWeibo) {
+    if (shareType == Yodo1ShareTypeSinaWeibo) {
         return isSinaWeiboInstalled;
     }
-    else if (snsType == Yodo1SNSTypeTencentQQ) {
+    else if (shareType == Yodo1ShareTypeTencentQQ) {
         return isQQInstalled;
     }
-    else if (snsType == Yodo1SNSTypeWeixinMoments||snsType == Yodo1SNSTypeWeixinContacts) {
+    else if (shareType == Yodo1ShareTypeWeixinMoments||shareType == Yodo1ShareTypeWeixinContacts) {
         return isWeChatInstalled;
     }
-    else if (snsType == Yodo1SNSTypeFacebook) {
+    else if (shareType == Yodo1ShareTypeFacebook) {
         if (@available(iOS 11.0,*)) {
             return [[Yodo1ShareByFacebook sharedInstance] isInstallFacebook];
         } else {
             return isFacebookAvailable;
         }
     }
-//    else if (snsType == Yodo1SNSTypeTwitter) {
-//        if (@available(iOS 11.0,*)) {
-//            return [[ShareByTwitter sharedInstance] isInstalledTwitter];
-//        } else {
-//            return isTwitterAvailable;
-//        }
-//    }else if (snsType == Yodo1SNSTypeInstagram) {
-//        return [[Yodo1ShareByInstagram sharedInstance] isInstalledIntagram];
-//    }
+    
     return NO;
+}
+
+- (NSString *)getSdkVersion {
+    return Y_SHARE_VERSION;
+}
+
+- (void)setDebugLog:(BOOL)debugLog {
+    [Yd1OpsTools.cached setObject:[NSNumber numberWithBool:debugLog] forKey:Y_SHARE_DEBUG_LOG];
 }
 
 #ifdef __cplusplus
 
 extern "C" {
 
-    void UnityPostStatus(char* paramJson,char* gameObjectName, char* methodName)
+    void UnityShareInitWithConfig(char* configJson) {
+        
+        NSString * jsonString = Yodo1CreateNSString(configJson);
+        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+        
+        [Yodo1Share.sharedInstance initWithConfig:dic];
+    }
+    
+    void UnityShare(char* paramJson, char* gameObjectName, char* methodName)
     {
         NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
         NSString* ocMethodName = Yodo1CreateNSString(methodName);
@@ -624,7 +555,7 @@ extern "C" {
             gameLogo = [UIImage imageWithContentsOfFile:smContent.gameLogo];
         }
         
-        SMContent* content = [[SMContent alloc]init];
+        ShareContent* content = [[ShareContent alloc]init];
         content.image = image;
         content.title = smContent.title;
         content.desc = smContent.desc;
@@ -635,26 +566,17 @@ extern "C" {
         content.qrTextX = smContent.qrTextX;
         content.qrImageX = smContent.qrImageX;
         content.gameLogoX = smContent.gameLogoX;
-        Yodo1SNSType snsType = (Yodo1SNSType)smContent.snsType;
-        content.snsType = snsType;
+        Yodo1ShareType shareType = (Yodo1ShareType)smContent.shareType;
+        content.shareType = shareType;
         
-        [[Yodo1SNSManager sharedInstance]showSocial:content
-                                         block:^(Yodo1SNSType snsType, Yodo1ShareContentState state, NSError *error) {
+        [[Yodo1Share sharedInstance]showSocial:content
+                                         block:^(Yodo1ShareType shareType, Yodo1ShareContentState state, NSError *error) {
                                              if(ocGameObjName && ocMethodName){
                                                  NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-                                                 NSString* msg = @"";
-                                                 [dict setObject:[NSNumber numberWithInt:4001] forKey:@"resulType"];
-                                                 [dict setObject:[NSNumber numberWithInt:(state == Yodo1ShareContentStateSuccess?1:0)] forKey:@"code"];
-                                                 [dict setObject:[NSNumber numberWithInteger:snsType] forKey:@"snsType"];
-                                                 if(error){
-                                                     msg = [NSString stringWithFormat:@"%@",error];
-                                                 }
-                                                 [dict setObject:msg forKey:@"msg"];
-                                                 NSError* parseJSONError = nil;
-                                                 msg = [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
-                                                 if(parseJSONError){
-                                                     msg =  [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
-                                                 }
+                                                 [dict setObject:[NSNumber numberWithInt:(state == Yodo1ShareContentStateSuccess?1:0)] forKey:@"status"];
+                                                 [dict setObject:[NSNumber numberWithInteger:shareType] forKey:@"shareType"];
+                                                 
+                                                 NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:nil];
                                                  
                                                  UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                                                   [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
@@ -664,13 +586,23 @@ extern "C" {
                                          }];
     }
     
-    bool UnityCheckSNSInstalledWithType(int type)
+    char* UnityShareGetSdkVersion() {
+        const char* sdkVersion = Y_SHARE_VERSION.UTF8String;
+        Yodo1SHARELOG(@"sdkVersion = %@", Y_SHARE_VERSION);
+        return Yodo1MakeStringCopy(sdkVersion);
+    }
+    
+    bool UnityShareCheckSNSInstalledWithType(int type)
     {
-        Yodo1SNSType kType = (Yodo1SNSType)type;
-        if([[Yodo1SNSManager sharedInstance] isInstalledWithType:kType]){
+        Yodo1ShareType kType = (Yodo1ShareType)type;
+        if([[Yodo1Share sharedInstance] isInstalledWithType:kType]){
             return true;
         }
         return false;
+    }
+    
+    void UnityShareSetDebugLog(bool debugLog) {
+        [Yodo1Share.sharedInstance setDebugLog:debugLog];
     }
 }
 #endif
