@@ -110,7 +110,7 @@ static Yodo1Share* sDefaultInstance;
         
         if (plistPath.length <= 0) {
             NSDictionary * plistDic = [[NSBundle mainBundle] infoDictionary];
-            shareAppIds = [[NSDictionary alloc]initWithDictionary:plistDic[@"ShareInfo"]];
+            shareAppIds = [[NSDictionary alloc]initWithDictionary:plistDic];
             
             if ([[shareAppIds allKeys]containsObject:kYodo1WechatAppId] &&
                 [[shareAppIds allKeys]containsObject:kYodo1WechatUniversalLink]) {
@@ -523,13 +523,8 @@ static Yodo1Share* sDefaultInstance;
 
 extern "C" {
 
-    void UnityShareInitWithConfig(char* configJson) {
-        
-        NSString * jsonString = Yodo1CreateNSString(configJson);
-        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-        
-        [Yodo1Share.sharedInstance initWithConfig:dic];
+    void UnityShareInit() {
+        [Yodo1Share.sharedInstance initWithConfig:nil];
     }
     
     void UnityShare(char* paramJson, char* gameObjectName, char* methodName)
