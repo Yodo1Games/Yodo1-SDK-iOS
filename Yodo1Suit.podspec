@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Suit'
-    s.version          = '6.1.4'
+    s.version          = '6.1.4.1'
     s.summary          = 'v6.1.4'
 
     s.description      = <<-DESC
@@ -99,7 +99,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'Yodo1Purchase','6.1.6'
+        ss.dependency 'Yodo1Purchase','6.1.7'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
 
