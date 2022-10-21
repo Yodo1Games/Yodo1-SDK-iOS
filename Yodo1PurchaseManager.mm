@@ -215,7 +215,7 @@ static NSString* const __status                 = @"status";
         po.response = @"";
         po.paymentState = PaymentFail;
         po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                       code:2001
+                                       code:PaymentErrorCodeLossOrderId
                                    userInfo:@{NSLocalizedDescriptionKey:@"uniformProductId is nil!"}];
         self.paymentCallback(po);
          isBuying = false;
@@ -232,7 +232,7 @@ static NSString* const __status                 = @"status";
         po.response = @"";
         po.paymentState = PaymentFail;
         po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                       code:2002
+                                       code:PaymentErrorCodeUserFail
                                    userInfo:@{NSLocalizedDescriptionKey:@"This device is not able or allowed to make payments!"}];
         self.paymentCallback(po);
         isBuying = false;
@@ -246,7 +246,7 @@ static NSString* const __status                 = @"status";
         po.response = @"";
         po.paymentState = PaymentFail;
         po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                       code:2003
+                                       code:PaymentErrorCodeNotNetwork
                                    userInfo:@{NSLocalizedDescriptionKey:@"The Network is noReachable!"}];
         self.paymentCallback(po);
         isBuying = false;
@@ -310,7 +310,7 @@ static NSString* const __status                 = @"status";
                                 self->po.response = @"";
                                 self->po.paymentState = PaymentCannel;
                                 self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                                     code:2001
+                                                                     code:PaymentErrorCodeCannel
                                                                  userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
                                 weakSelf.paymentCallback(self->po);
                                 self->isBuying = false;
@@ -323,7 +323,7 @@ static NSString* const __status                 = @"status";
                                 self->po.response = @"";
                                 self->po.paymentState = PaymentCannel;
                                 self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                                     code:2001
+                                                                     code:PaymentErrorCodeCannel
                                                                  userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
                                 weakSelf.paymentCallback(self->po);
                                 self->isBuying = false;
@@ -335,7 +335,7 @@ static NSString* const __status                 = @"status";
                                 self->po.response = @"";
                                 self->po.paymentState = PaymentCannel;
                                 self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                                     code:2001
+                                                                     code:PaymentErrorCodeCannel
                                                                  userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
                                 weakSelf.paymentCallback(self->po);
                                 self->isBuying = false;
@@ -358,7 +358,7 @@ static NSString* const __status                 = @"status";
                         self->po.response = @"";
                         self->po.paymentState = PaymentFail;
                         self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                       code:2001
+                                                       code:PaymentErrorCodeFail
                                                    userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
                         weakSelf.paymentCallback(self->po);
                         self->isBuying = false;
@@ -376,7 +376,7 @@ static NSString* const __status                 = @"status";
                     self->po.response = @"";
                     self->po.paymentState = PaymentFail;
                     self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                   code:2001
+                                                   code:PaymentErrorCodeUserFail
                                                userInfo:@{NSLocalizedDescriptionKey:@"The device is not login!"}];
                     self.paymentCallback(self->po);
                     self->isBuying = false;
@@ -420,7 +420,7 @@ static NSString* const __status                 = @"status";
                     self->po.response = @"";
                     self->po.paymentState = PaymentCannel;
                     self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                         code:2001
+                                                         code:PaymentErrorCodeCannel
                                                      userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
                     weakSelf.paymentCallback(self->po);
                     self->isBuying = false;
@@ -433,7 +433,7 @@ static NSString* const __status                 = @"status";
                     self->po.response = @"";
                     self->po.paymentState = PaymentCannel;
                     self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                         code:2001
+                                                         code:PaymentErrorCodeCannel
                                                      userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
                     weakSelf.paymentCallback(self->po);
                     self->isBuying = false;
@@ -445,7 +445,7 @@ static NSString* const __status                 = @"status";
                     self->po.response = @"";
                     self->po.paymentState = PaymentCannel;
                     self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                         code:2001
+                                                         code:PaymentErrorCodeCannel
                                                      userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
                     weakSelf.paymentCallback(self->po);
                     self->isBuying = false;
@@ -468,7 +468,7 @@ static NSString* const __status                 = @"status";
             self->po.response = @"";
             self->po.paymentState = PaymentFail;
             self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                           code:2001
+                                           code:PaymentErrorCodeFail
                                        userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
             weakSelf.paymentCallback(self->po);
             self->isBuying = false;
@@ -661,6 +661,14 @@ static NSString* const __status                 = @"status";
     if ([restoreProduct count] < 1) {
         callback(@[],@"no have loss order");
         return;
+    } else {
+        //失败神策埋点
+        NSMutableDictionary* properties = [NSMutableDictionary dictionary];
+        [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared .superProperty];
+        [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
+        
+        YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
+        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"replace_Order" eventData:properties];
     }
     /// 去掉订单一样的对象
     NSMutableArray *rp = [NSMutableArray array];
@@ -969,7 +977,7 @@ static NSString* const __status                 = @"status";
             po.response = @"";
             po.paymentState = PaymentCannel;
             po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                 code:2004
+                                                 code:PaymentErrorCodeCannel
                                              userInfo:@{NSLocalizedDescriptionKey:@"promot is nil!"}];
             callback(po);
         }
@@ -1142,7 +1150,7 @@ static NSString* const __status                 = @"status";
         po.response = @"";
         po.paymentState = PaymentFail;
         po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                       code:2001
+                                       code:PaymentErrorCodeFail
                                    userInfo:@{NSLocalizedDescriptionKey:notification.rm_storeError.localizedDescription? :@""}];
         self.paymentCallback(po);
         isBuying = false;
@@ -1240,7 +1248,7 @@ static NSString* const __status                 = @"status";
                 self->po.response = response;
                 self->po.paymentState = PaymentFail;
                 self->po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                     code:2
+                                                     code:PaymentErrorCodeValidationFail
                                                  userInfo:@{NSLocalizedDescriptionKey:error.localizedDescription}];
                 weakSelf.paymentCallback(self->po);
                 
@@ -1379,14 +1387,14 @@ static NSString* const __status                 = @"status";
 /**
  * 激活码/优惠券
  */
-- (void)verifyActivationcode:(NSString *)code
-                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSString* _Nullable error))callback {
+- (void)verifyWithActivationCode:(NSString *)activationCode
+                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSDictionary* _Nullable error))callback {
     
-    if (!code || code.length < 1) {
-        callback(false,@{}, @"code is empty!");
+    if (!activationCode || activationCode.length < 1) {
+        callback(false,@{}, @{@"error":@"code is empty!"});
         return;
     }
-    Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
+    Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]init];
     manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
@@ -1394,16 +1402,9 @@ static NSString* const __status                 = @"status";
     NSString *appKey = @"";
     if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
         appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
-        YD1LOG(@"GameKey = %@", appKey);
     }
     
-    //http://activationcode-test.yodo1api.com:8805/activationcode/activateWithReward
-    //https://activationcode.yodo1api.com/activationcode/activateWithReward
-    
-    NSString *string = @"https://activationcode.yodo1api.com/activationcode/activateWithReward";
-    
-    NSString *urlString = [NSString stringWithFormat:@"%@?game_appkey=%@&channel_code=%@&activation_code=%@&dev_id=%@", string, appKey, @"appstore", code, Yd1OpsTools.keychainDeviceId];
-    
+    NSString *urlString = [NSString stringWithFormat:@"https://activationcode.yodo1api.com/activationcode/activateWithReward?game_appkey=%@&channel_code=%@&activation_code=%@&dev_id=%@", appKey, @"appstore", activationCode, Yd1OpsTools.keychainDeviceId];
     
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
@@ -1418,11 +1419,10 @@ static NSString* const __status                 = @"status";
         if (errorCode == 0) {
             callback(true,response,NULL);
         } else {
-            callback(false,@{},error);
+            callback(false,@{},response);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        YD1LOG(@"%@",error);
-        callback(false,@{},error.localizedDescription);
+        callback(false,@{},@{@"error": error.localizedDescription});
     }];
     
 }
@@ -1586,17 +1586,17 @@ extern "C" {
                 }
                 //失败神策埋点
                 NSMutableDictionary* properties = [NSMutableDictionary dictionary];
-                [properties setObject:@-1 forKey:@"channelErrorCode"];
+                [properties setObject:@"" forKey:@"channelErrorCode"];
                 [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared .superProperty];
                 [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
                 
-                NSNumber* errorCode = [NSNumber numberWithInt:2004];//默认是未知失败
+                NSNumber* errorCode = [NSNumber numberWithInt:PaymentErrorCodeUnKnow];//默认是未知失败
                 if (payemntObject.error) {
                     errorCode  = [NSNumber numberWithInteger:payemntObject.error.code];
                 }
                 [properties setObject:errorCode forKey:@"yodo1ErrorCode"];
                 YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error_FromSDK" eventData:properties];
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error" eventData:properties];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(ocGameObjName && ocMethodName){
@@ -1946,17 +1946,18 @@ extern "C" {
             } else {
                 //失败神策埋点
                 NSMutableDictionary* properties = [NSMutableDictionary dictionary];
-                [properties setObject:@-1 forKey:@"channelErrorCode"];
+                [properties setObject:@"" forKey:@"channelErrorCode"];
                 [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared .superProperty];
                 [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
                 
-                NSNumber* errorCode = [NSNumber numberWithInt:2004];//默认是未知失败
+                NSNumber* errorCode = [NSNumber numberWithInt:PaymentErrorCodeUnKnow];//默认是未知失败
                 if (payemntObject.error) {
                     errorCode  = [NSNumber numberWithInteger:payemntObject.error.code];
                 }
                 [properties setObject:errorCode forKey:@"yodo1ErrorCode"];
                 YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error_FromSDK" eventData:properties];
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error" eventData:properties];
+//                Yodo1AnalyticsManager.sharedInstance setPro...
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if(ocGameObjName && ocMethodName){
@@ -2028,7 +2029,7 @@ extern "C" {
                 [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared .superProperty];
                 [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
                 YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Item_Delivered" eventData:properties];
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Item_Received" eventData:properties];
                 
             });
         }];
@@ -2078,7 +2079,7 @@ extern "C" {
         NSString* ocMethodName = Yodo1CreateNSString(methodName);
         NSString* code = Yodo1CreateNSString(activationCode);
         
-        [Yodo1UCenter.shared verifyActivationcode:code callback:^(BOOL success, NSDictionary * _Nullable response, NSString * _Nullable error) {
+        [Yodo1PurchaseManager.shared verifyWithActivationCode:code callback:^(BOOL success, NSDictionary * _Nullable response, NSDictionary * _Nullable error) {
             YD1LOG(@"response=%@ error=%@", response, error);
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -2088,7 +2089,7 @@ extern "C" {
                         
                         [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_VerifyActivationcode] forKey:@"resulType"];
                         [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
-                        [dict setObject:[NSNumber numberWithInt:0] forKey:@"error"];
+                        [dict setObject:[NSNumber numberWithInt:0] forKey:@"errorCode"];
                         [dict setObject:@"success" forKey:@"errorMsg"];
                         
                         if (response[@"reward"]) {
@@ -2118,8 +2119,9 @@ extern "C" {
                         
                         [dict setObject:[NSNumber numberWithInt:Yodo1U3dSDK_ResulType_VerifyActivationcode] forKey:@"resulType"];
                         [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
-                        [dict setObject:[NSNumber numberWithInt:1] forKey:@"error"];
-                        [dict setObject:error forKey:@"errorMsg"];
+                        int errorCode = [error[@"error_code"] intValue];
+                        [dict setObject:[NSNumber numberWithInt:errorCode] forKey:@"errorCode"];
+                        [dict setObject:error[@"error"] forKey:@"errorMsg"];
                         [dict setObject:@"" forKey:@"reward"];
                         [dict setObject:@"" forKey:@"rewardDes"];
                         

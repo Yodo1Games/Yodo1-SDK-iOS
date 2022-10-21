@@ -39,6 +39,17 @@ typedef enum {
 }PaymentState;
 
 typedef enum {
+    PaymentErrorCodeUnKnow = -2,    //未知错误
+    PaymentErrorCodeNotNetwork = -1,    //没有网络
+    PaymentErrorCodeFail = 0,           //支付失败
+    PaymentErrorCodeSuccess = 1,        //支付成功
+    PaymentErrorCodeCannel = 2,         //取消支付
+    PaymentErrorCodeValidationFail = 3,  //ops 验证失败
+    PaymentErrorCodeLossOrderId = 203,  //丢失订单
+    PaymentErrorCodeUserFail = 205  //设备不允许支付
+}PaymentErrorCode;
+
+typedef enum {
     Default = 0,
     Visible,
     Hide
@@ -223,8 +234,8 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
 /**
  * 激活码/优惠券
  */
-- (void)verifyActivationcode:(NSString *)code
-                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSString* _Nullable error))callback;
+- (void)verifyWithActivationCode:(NSString *)activationCode
+                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSDictionary* _Nullable error))callback;
 
 @end
 
