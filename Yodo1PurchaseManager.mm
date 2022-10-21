@@ -117,6 +117,8 @@ static NSString* const __status                 = @"status";
 + (instancetype)shared {
     return [Yodo1Base.shared cc_registerSharedInstance:self block:^{
         [Yodo1PurchaseManager.shared willInit];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appleRequestFailed:) name:@"RMSKProductsRequestFailed" object:nil];
     }];
 }
 
@@ -1425,6 +1427,19 @@ static NSString* const __status                 = @"status";
         callback(false,@{},@{@"error": error.localizedDescription});
     }];
     
+}
+
+- (void)appleRequestFailed:(NSNotification *)notification {
+    //失败神策埋点
+    NSMutableDictionary* properties = [NSMutableDictionary dictionary];
+    [properties setObject:notification.userInfo forKey:@"channelErrorCode"];
+    [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared .superProperty];
+    [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
+    
+    NSNumber* errorCode = [NSNumber numberWithInt:PaymentErrorCodeUnKnow];
+    [properties setObject:errorCode forKey:@"yodo1ErrorCode"];
+    YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
+    [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error" eventData:properties];
 }
 
 @end

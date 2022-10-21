@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 
 #define Yodo1PublishType @"yodo1_global"
-#define Yodo1PublishVersion @"6.1.2"
+#define Yodo1PublishVersion @"6.1.4"
 #define kYodo1ChannelCode @"appstore"
 
 NS_ASSUME_NONNULL_BEGIN

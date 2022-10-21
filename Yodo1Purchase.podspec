@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Purchase'
-    s.version          = '6.1.8'
+    s.version          = '6.1.9'
     s.summary          = 'v 新添加Thinking 统计'
 
     s.description      = <<-DESC
