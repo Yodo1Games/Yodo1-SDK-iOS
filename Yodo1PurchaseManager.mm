@@ -1148,9 +1148,9 @@ static NSString* const __status                 = @"status";
         po.channelOrderid = channelOrderid;
         po.orderId = Yodo1UCenter.shared.itemInfo.orderId;
         po.response = @"";
-        po.paymentState = PaymentFail;
+        po.paymentState = PaymentCannel;
         po.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                       code:PaymentErrorCodeFail
+                                       code:PaymentErrorCodeCannel
                                    userInfo:@{NSLocalizedDescriptionKey:notification.rm_storeError.localizedDescription? :@""}];
         self.paymentCallback(po);
         isBuying = false;
