@@ -68,7 +68,7 @@ Pod::Spec.new do |s|
   'c++',
   'z']
   
-  s.dependency 'Yodo1Commons','6.1.1'
+  s.dependency 'Yodo1Commons','6.1.2'
   s.dependency 'Yodo1QQSDK','6.1.0'
 #  s.dependency 'QQSDK','3.5.11'
   s.dependency 'FBSDKShareKit','12.3.2'

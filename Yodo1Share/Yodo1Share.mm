@@ -15,7 +15,6 @@
 #import "Yodo1ShareBySinaWeibo.h"
 #import "Yodo1ShareByFacebook.h"
 #import "Yodo1Base.h"
-#import "Yodo1ShareByInstagram.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+Commons.h"
 
@@ -47,6 +46,7 @@ NSString * const kYodo1FacebookDisplayName      = @"FacebookDisplayName";
 
 @interface Yodo1SMContent : NSObject
 @property (nonatomic,assign) NSInteger shareType;     //对单个平台分享模式有效
+@property (nonatomic,assign) NSInteger contentType;   //分享样式<link,image>
 @property (nonatomic,strong) NSString *title;       //仅对qq和微信有效
 @property (nonatomic,strong) NSString *desc;        //分享描述
 @property (nonatomic,strong) NSString *image;       //分享图片
@@ -101,7 +101,7 @@ static Yodo1Share* sDefaultInstance;
 
 - (void)initWithConfig:(NSDictionary *)shareAppIds {
     
-    BOOL isDebugLog = (BOOL)[Yd1OpsTools.cached objectForKey:Y_SHARE_DEBUG_LOG];
+    BOOL isDebugLog = YES;
     
     if (shareAppIds == nil || [shareAppIds count] < 1) {
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Yodo1KeyConfig.bundle/Yodo1KeyInfo" ofType:@"plist"];
@@ -384,14 +384,14 @@ static Yodo1Share* sDefaultInstance;
             }else{
                 SLComposeViewController *slVc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
                 
-                if (content.desc) {
-                    [slVc setInitialText:content.desc];
+                if (content.contentText) {
+                    [slVc setInitialText:content.contentText];
                 }
-                if (content.image) {
-                    [slVc addImage:content.image];
+                if (content.contentImage) {
+                    [slVc addImage:content.contentImage];
                 }
-                if (content.url) {
-                    [slVc addURL:[NSURL URLWithString:content.url]];
+                if (content.contentUrl) {
+                    [slVc addURL:[NSURL URLWithString:content.contentUrl]];
                 }
                 
                 slVc.completionHandler = ^(SLComposeViewControllerResult result){
@@ -551,10 +551,10 @@ extern "C" {
         }
         
         ShareContent* content = [[ShareContent alloc]init];
-        content.image = image;
-        content.title = smContent.title;
-        content.desc = smContent.desc;
-        content.url = smContent.url;
+        content.contentImage = image;
+        content.contentTitle = smContent.title;
+        content.contentText = smContent.desc;
+        content.contentUrl = smContent.url;
         content.gameLogo = gameLogo;
         content.qrLogo = qrLogo;
         content.qrText = smContent.qrText;
@@ -563,6 +563,8 @@ extern "C" {
         content.gameLogoX = smContent.gameLogoX;
         Yodo1ShareType shareType = (Yodo1ShareType)smContent.shareType;
         content.shareType = shareType;
+        ShareContentType contentType = (ShareContentType)smContent.contentType;
+        content.contentType = contentType;
         
         [[Yodo1Share sharedInstance]showSocial:content
                                          block:^(Yodo1ShareType shareType, Yodo1ShareContentState state, NSError *error) {

@@ -76,10 +76,10 @@
         return;
     }
     
-    NSString *status = content.desc;
-    NSString *title = content.title;
-    NSString *url = content.url;
-    UIImage *image = content.image;
+    NSString *status = content.contentText;
+    NSString *title = content.contentTitle;
+    NSString *url = content.contentUrl;
+    UIImage *image = content.contentImage;
     
    
     if (status && status.length>512) {

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "Yodo1ShareConstant.h"
+#import "Yodo1ShareContent.h"
 
 /**
  分享界面关闭回调

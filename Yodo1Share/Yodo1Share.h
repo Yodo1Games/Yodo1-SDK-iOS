@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "Yodo1ShareConstant.h"
+#import "Yodo1ShareContent.h"
 
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1QQAppId;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1QQUniversalLink;

@@ -1,5 +1,5 @@
 //
-//  Yodo1ShareConstant.m
+//  Yodo1ShareContent.m
 //  ShareUI
 //
 //  Created by yixian huang on 2016/11/7.
@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Yodo1ShareConstant.h"
+#import "Yodo1ShareContent.h"
 
 @implementation ShareContent
 

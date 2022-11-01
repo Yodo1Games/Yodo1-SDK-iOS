@@ -10,6 +10,7 @@
 #import "Yodo1Share.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
+#import <FBSDKShareKit/FBSDKSharePhoto.h>
 
 @interface Yodo1ShareByFacebook ()<FBSDKSharingDelegate>
 {
@@ -79,6 +80,17 @@
     }
 }
 
+- (BOOL)isInstallMessenger {
+
+    BOOL isInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]];
+
+    if (!isInstalled) {
+        return NO;
+    }else{
+        return YES;
+    }
+}
+
 - (void)shareWithContent:(ShareContent *)content
                    scene:(Yodo1ShareType)shareType
          completionBlock:(ShareCompletionBlock)aCompletionBlock
@@ -110,17 +122,32 @@
         return;
     }
     
-    NSString *status = content.desc;
-    NSString *url = content.url;
+    NSString *status = content.contentText;
+    NSString *url = content.contentUrl;
     NSURL* contentUrl = [NSURL URLWithString:url];
-
-    FBSDKShareLinkContent *shareLinkContent = [[FBSDKShareLinkContent alloc] init];
-    shareLinkContent.contentURL = contentUrl;
-    shareLinkContent.quote = status;
     
-    [FBSDKShareDialog showFromViewController:[self getRootViewController]
-                                 withContent:shareLinkContent
-                                    delegate:self];
+    if (content.contentType == LINK) {
+        
+        FBSDKShareLinkContent *shareLinkContent = [[FBSDKShareLinkContent alloc] init];
+        shareLinkContent.contentURL = contentUrl;
+        shareLinkContent.quote = status;
+        
+        [FBSDKShareDialog showFromViewController:[self getRootViewController]
+                                     withContent:shareLinkContent
+                                        delegate:self];
+    }
+    
+    if (content.contentType == IMAGE) {
+        FBSDKSharePhoto *sharePhoto = [[FBSDKSharePhoto alloc]init];
+        sharePhoto.image = content.contentImage;
+
+        FBSDKSharePhotoContent *photoContent = [[FBSDKSharePhotoContent alloc]init];
+        photoContent.photos = @[sharePhoto];
+        
+        [FBSDKShareDialog showFromViewController:[self getRootViewController]
+                                     withContent:photoContent
+                                        delegate:self];
+    }
 }
 
 #pragma mark - FBSDKSharingDelegate

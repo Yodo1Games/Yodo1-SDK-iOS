@@ -70,9 +70,9 @@
         return;
     }
     
-    NSString *status = content.desc;
-    NSString *url = content.url;
-    UIImage *image = content.image;
+    NSString *status = content.contentText;
+    NSString *url = content.contentUrl;
+    UIImage *image = content.contentImage;
     
     if (url && url.length>0) {
         status = [NSString stringWithFormat:@"%@ %@",url,status];

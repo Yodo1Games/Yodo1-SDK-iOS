@@ -73,12 +73,12 @@
     }
     
     WXMediaMessage *message = [WXMediaMessage message];
-    UIImage *image = content.image;
+    UIImage *image = content.contentImage;
     
     if (image) {
         WXImageObject *ext = [WXImageObject object];
         //根据url和logo生成二维码
-        UIImage *qrImage = [Yodo1ShareWeChatHelper qrImageForString:content.url
+        UIImage *qrImage = [Yodo1ShareWeChatHelper qrImageForString:content.contentUrl
                                                 imageSize:200.0f
                                                    Topimg:content.qrLogo];
         UIImage *postImage = nil;
@@ -109,13 +109,13 @@
         }
         message.mediaObject = ext;
     }else{
-        message.description = content.desc;
-        message.title = content.title;
+        message.description = content.contentText;
+        message.title = content.contentTitle;
         if (content.qrLogo) {
             [message setThumbImage:content.qrLogo];
         }
         WXWebpageObject *ext = [WXWebpageObject object];
-        ext.webpageUrl = content.url;
+        ext.webpageUrl = content.contentUrl;
         message.mediaObject = ext;
     }
    
@@ -128,7 +128,7 @@
 
     }else if (shareType == Yodo1ShareTypeWeixinMoments){
         request.scene = WXSceneTimeline;
-        request.message.title = content.title;
+        request.message.title = content.contentTitle;
     }
     [WXApi sendReq:request completion:^(BOOL success) {
             if (!success) {

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Yodo1ShareConstant.h"
+#import "Yodo1ShareContent.h"
 
 @interface Yodo1ShareByQQ : NSObject
 
