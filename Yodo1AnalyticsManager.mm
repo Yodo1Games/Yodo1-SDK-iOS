@@ -13,6 +13,7 @@
 #import "Yodo1ClassWrapper.h"
 #import "Yodo1UnityTool.h"
 #import "Yodo1Base.h"
+#import "Yodo1Tool+Storage.h"
 
 #define Yodo1OpenUrl        @"Yodo1OpenUrl"
 #define Yodo1UserActivity   @"Yodo1UserActivity"
@@ -22,7 +23,7 @@
 
 @end
 
-@interface Yodo1AnalyticsManager ()
+@interface Yodo1AnalyticsManager ()<Yodo1AdapterBaseDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary* analyticsDict;
 
@@ -74,6 +75,19 @@
             NSNumber* analyticsBack = [NSNumber numberWithInt:[key intValue]];
             [self.analyticsDict setObject:advideoAdapter forKey:analyticsBack];
             
+        }
+    }
+    
+    [self setDeeplink];
+}
+
+- (void)setDeeplink {
+    for (id key in [self.analyticsDict allKeys]) {
+        if ([key integerValue]==AnalyticsTypeAppsFlyer){
+            AnalyticsAdapter* adapter = [self.self.analyticsDict objectForKey:key];
+            [adapter setDeeplink];
+            adapter.delegate = self;
+            break;
         }
     }
 }
@@ -145,6 +159,32 @@
 }
 
 /**
+ *  AppsFlyer User invite attribution
+ */
+- (void)generateInviteUrlWithLinkGenerator:(NSDictionary *)linkDic CallBack:(Yodo1InviteUrlCallBack)callBack {
+    for (id key in [self.analyticsDict allKeys]) {
+        if ([key integerValue]==AnalyticsTypeAppsFlyer){
+            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
+            [adapter generateInviteUrlWithLinkGenerator:linkDic CallBack:^(NSString *url, int code, NSString *errorMsg) {
+                callBack(url, code, errorMsg);
+            }];
+        }
+    }
+}
+
+/**
+ *  AppsFlyer logInvite AFEventInvite
+ */
+- (void)logInviteAppsFlyerWithEventData:(NSDictionary *)eventData {
+    for (id key in [self.analyticsDict allKeys]) {
+        if ([key integerValue]==AnalyticsTypeAppsFlyer){
+            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
+            [adapter logInviteAppsFlyerWithEventData:eventData];
+        }
+    }
+}
+
+/**
  *  AppsFlyer and ThinkingData set user id
  */
 - (void)login:(NSString *)userId {
@@ -154,6 +194,13 @@
             [adapter login:userId];
         }
     }
+}
+
+- (void)getDeeplinkResult:(NSDictionary *)result {
+    
+    [self.delegate getDeeplinkResult:result];
+    
+    [Yd1OpsTools.cached setObject:result forKey:Y_DEEPLINK_RESULT];
 }
 
 /**
@@ -177,11 +224,7 @@
         [dict setObject:[NSNumber numberWithBool:false] forKey:@"options"];
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1OpenUrl object:self userInfo:dict];
-    });
-    
-    
+    [Yd1OpsTools.cached setObject:dict forKey:Y_DEEPLINK_OPEN_URL];
 }
 
 /**
@@ -194,9 +237,7 @@
     NSDictionary *dict = [NSDictionary dictionary];
     dict = @{@"userActivity":userActivity};
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:Yodo1UserActivity object:self userInfo:dict];
-    });
+    [Yd1OpsTools.cached setObject:dict forKey:Y_DEEPLINK_USER_ACTIVITY];
 }
 
 - (void)dealloc
@@ -282,49 +323,71 @@ extern "C" {
         NSString *keyString = Yodo1CreateNSString(key);
         NSString *valuepairsString = Yodo1CreateNSString(valuepairs);
         
-        if ([keyString isEqualToString:@"appsflyer_id"] || [keyString isEqualToString:@"appsflyer_deeplink"]) {
-            NSMutableDictionary *msg = [NSMutableDictionary dictionary];
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            if ([userDefaults objectForKey:@"YODO1AppsFlyerDeeplink"]) {
-                msg = [userDefaults objectForKey:@"YODO1AppsFlyerDeeplink"];
-                if ([keyString isEqualToString:@"appsflyer_id"]) {
-                    [userDefaults setObject:@{keyString: valuepairsString, @"appsflyer_deeplink": msg[@"appsflyer_deeplink"]} forKey:@"YODO1AppsFlyerDeeplink"];
-                }
-                
-                if ([keyString isEqualToString:@"appsflyer_deeplink"]) {
-                    [userDefaults setObject:@{keyString: valuepairsString, @"appsflyer_id": msg[@"appsflyer_id"]} forKey:@"YODO1AppsFlyerDeeplink"];
-                }
-                
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
+        NSDictionary *openUrlDic = [[NSDictionary alloc] initWithDictionary:(NSDictionary *)[Yd1OpsTools.cached objectForKey:Y_DEEPLINK_RESULT]];
+        
+        if ([[openUrlDic allKeys] containsObject:keyString]) {
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:openUrlDic];
+            dict[keyString] = valuepairsString;
+            
+            [Yd1OpsTools.cached setObject:@{valuepairsString: keyString} forKey:Y_DEEPLINK_RESULT];
         } else {
-            if (keyString.length > 0 && valuepairsString.length > 0) {
-                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-                [userDefaults setObject:@{keyString: valuepairsString} forKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
+            NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithDictionary:openUrlDic];
+            [dict setObject:valuepairsString forKey:keyString];
+            
+            [Yd1OpsTools.cached setObject:@{valuepairsString: keyString} forKey:Y_DEEPLINK_RESULT];
         }
+        
+        
     }
     // get AppsFlyer deeplink
     char* UnityGetNativeRuntime(const char*key) {
         NSString *keyString = Yodo1CreateNSString(key);
-        if ([keyString isEqualToString:@"appsflyer_id"] || [keyString isEqualToString:@"appsflyer_deeplink"]) {
-            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"]) {
-                NSMutableDictionary *deeplinkUrl = [NSMutableDictionary dictionary];
-                deeplinkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"YODO1AppsFlyerDeeplink"];
-                NSString *msg = deeplinkUrl[keyString];
-                return Yodo1MakeStringCopy(msg.UTF8String);
-            } else {
-                if (keyString.length > 0 && [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]]) {
-                    NSMutableDictionary *deeplinkUrl = [NSMutableDictionary dictionary];
-                    deeplinkUrl = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"Yodo1-%@", keyString]];
-                    NSString *msg = deeplinkUrl[keyString];
-                    return Yodo1MakeStringCopy(msg.UTF8String);
-                }
-            }
+        
+        NSDictionary *openUrlDic = [[NSDictionary alloc] initWithDictionary:(NSDictionary *)[Yd1OpsTools.cached objectForKey:Y_DEEPLINK_RESULT]];
+        
+        if ([[openUrlDic allKeys] containsObject:keyString]) {
+            NSString *msg = openUrlDic[keyString];
+            return Yodo1MakeStringCopy(msg.UTF8String);
         }
         
         return NULL;
+    }
+    
+    void UnityGenerateInviteUrlWithLinkGenerator(const char* dicJson, char* gameObjectName, char* methodName) {
+        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
+        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        NSString* _dicJson = Yodo1CreateNSString(dicJson);
+        
+        NSDictionary *dic = [Yodo1Commons JSONObjectWithString:_dicJson error:nil];
+        
+        [[Yodo1AnalyticsManager sharedInstance] generateInviteUrlWithLinkGenerator:dic CallBack:^(NSString *url, int code, NSString *errorMsg) {
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString* msg = @"";
+                NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+                [dict setObject:url forKey:@"link"];
+                [dict setObject:[NSNumber numberWithInt:code] forKey:@"code"];
+                [dict setObject:[NSNumber numberWithInt:4002] forKey:@"resultType"];
+                
+                NSError* parseJSONError = nil;
+                msg = [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
+                if(parseJSONError){
+                    msg =  [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
+                }
+                
+                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                                 [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
+                                 [msg cStringUsingEncoding:NSUTF8StringEncoding] );
+            });
+        }];
+    }
+    
+    void UnityLogInviteAppsFlyerWithEventData(const char *eventData) {
+        NSString* _eventData = Yodo1CreateNSString(eventData);
+        
+        NSDictionary *dicData = [Yodo1Commons JSONObjectWithString:_eventData error:nil];
+        
+        [[Yodo1AnalyticsManager sharedInstance] logInviteAppsFlyerWithEventData:dicData];
     }
 }
 #endif

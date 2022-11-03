@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <StoreKit/StoreKit.h>
 
+@protocol Yodo1DeeplinkDelegate <NSObject>
+//get deeplink result
+- (void)getDeeplinkResult:(NSDictionary *)result;
+@end
+
 @interface AnalyticsInitConfig : NSObject
 @property (nonatomic,strong) NSString *appsflyerCustomUserId;//AppsFlyer自定义UserId
 @end
@@ -18,7 +23,11 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
     AnalyticsTypeThinking,         //Thinking
 };
 
+typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *errorMsg);
+
 @interface Yodo1AnalyticsManager : NSObject
+
+@property (nonatomic, weak) id<Yodo1DeeplinkDelegate> delegate;
 
 /**
  *  Yodo1AnalyticsManager单例
@@ -31,6 +40,7 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  *  根据统计分析类型，初始化。
  *
  */
+
 - (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig;
 
 /**
@@ -66,6 +76,16 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
                           quantity:(NSString*)quantity
                          contentId:(NSString*)contentId
                          receiptId:(NSString*)receiptId;
+
+/**
+ *  AppsFlyer User invite attribution
+ */
+- (void)generateInviteUrlWithLinkGenerator:(NSDictionary *)linkDic CallBack:(Yodo1InviteUrlCallBack)callBack;
+
+/**
+ *  AppsFlyer logInvite AFEventInvite
+ */
+- (void)logInviteAppsFlyerWithEventData:(NSDictionary *)eventData;
 
 /**
  *  AppsFlyer and ThinkingData set user id
