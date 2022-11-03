@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Suit'
     s.version          = '6.1.9'
-    s.summary          = 'v6.1.9.x'
+    s.summary          = 'v6.1.9 --- 删除share模块'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
