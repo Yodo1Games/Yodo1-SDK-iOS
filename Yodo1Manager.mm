@@ -16,7 +16,7 @@
 
 #import "Yodo1Suit.h"
 
-#import "Yodo1AnalyticsManager.h"
+//#import "Yodo1AnalyticsManager.h"
 
 #import "Yodo1SNSManager.h"
 
@@ -60,6 +60,7 @@ static NSString* __kAppKey = @"";
     
     kYodo1Config = sdkConfig;
 
+    /*
     //初始化sns
     NSMutableDictionary* snsPlugn = [NSMutableDictionary dictionary];
     NSString* qqAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1QQAppId];
@@ -93,6 +94,7 @@ static NSString* __kAppKey = @"";
         [snsPlugn setObject:twitterConsumerSecret forKey:kYodo1TwitterConsumerSecret];
     }
     [[Yodo1SNSManager sharedInstance] initSNSPlugn:snsPlugn];
+     */
     
     [Yodo1Manager analyticInit];
 }
