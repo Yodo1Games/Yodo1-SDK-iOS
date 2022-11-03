@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Suit'
-    s.version          = '6.1.4.1'
-    s.summary          = 'v6.1.4'
+    s.version          = '6.1.9'
+    s.summary          = 'v6.1.9'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -68,9 +68,8 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-        ss.dependency 'Yodo1Analytics','6.2.0'
+        ss.dependency 'Yodo1Analytics','6.2.3'
         ss.dependency 'Yodo1OnlineParameter','6.1.2'
-	ss.dependency 'Yodo1Share','6.1.6'
         ss.dependency 'Yodo1Commons','6.1.2'
        
     end
@@ -99,21 +98,21 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'Yodo1Purchase','6.1.7'
+        ss.dependency 'Yodo1Purchase','6.2.0'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
 
-    s.subspec 'Yodo1_Share' do |ss|
-        ss.xcconfig = {
-            "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_SHARE',
-            'OTHER_LDFLAGS' => '-ObjC',
-            "VALID_ARCHS": "armv7 arm64",
-            "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-            "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-        }
-        ss.dependency 'Yodo1Share','6.1.6'
-        ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
-    end
+    #s.subspec 'Yodo1_Share' do |ss|
+    #    ss.xcconfig = {
+    #        "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_SHARE',
+    #        'OTHER_LDFLAGS' => '-ObjC',
+    #        "VALID_ARCHS": "armv7 arm64",
+    #        "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
+    #        "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+    #    }
+    #    ss.dependency 'Yodo1Share','6.1.6'
+    #    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+    #end
 
     s.subspec 'Yodo1_iRate' do |ss|
         ss.xcconfig = {
@@ -135,7 +134,7 @@ Pod::Spec.new do |s|
             "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
             "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
         }
-        ss.dependency 'Yodo1GameCenter','6.2.0'
+        ss.dependency 'Yodo1GameCenter','6.2.1'
         ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
     end
 
