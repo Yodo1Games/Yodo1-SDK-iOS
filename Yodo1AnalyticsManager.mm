@@ -15,9 +15,6 @@
 #import "Yodo1Base.h"
 #import "Yodo1Tool+Storage.h"
 
-#define Yodo1OpenUrl        @"Yodo1OpenUrl"
-#define Yodo1UserActivity   @"Yodo1UserActivity"
-
 @implementation AnalyticsInitConfig
 
 
@@ -225,6 +222,12 @@
     }
     
     [Yd1OpsTools.cached setObject:dict forKey:Y_DEEPLINK_OPEN_URL];
+    for (id key in [self.analyticsDict allKeys]) {
+        if ([key integerValue]==AnalyticsTypeAppsFlyer){
+            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
+            [adapter setDeeplink];
+        }
+    }
 }
 
 /**
@@ -238,6 +241,13 @@
     dict = @{@"userActivity":userActivity};
     
     [Yd1OpsTools.cached setObject:dict forKey:Y_DEEPLINK_USER_ACTIVITY];
+    
+    for (id key in [self.analyticsDict allKeys]) {
+        if ([key integerValue]==AnalyticsTypeAppsFlyer){
+            AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
+            [adapter setDeeplink];
+        }
+    }
 }
 
 - (void)dealloc

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Analytics'
-    s.version          = '6.2.3'
+    s.version          = '6.2.4'
     s.summary          = '重构数据统计'
 
     s.description      = <<-DESC
