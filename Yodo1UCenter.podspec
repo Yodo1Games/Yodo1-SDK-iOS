@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1UCenter'
-    s.version          = '6.2.0'
-    s.summary          = 'v 新添加Thinking 统计'
+    s.version          = '1.0.0'
+    s.summary          = 'Yodo1UCenter'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
@@ -9,7 +9,6 @@ Pod::Spec.new do |s|
 
     s.homepage         = 'https://github.com'
     # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-    s.license          = { :type => 'MIT', :file => "LICENSE" }
     s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
     s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
 
@@ -33,7 +32,6 @@ Pod::Spec.new do |s|
 
     s.xcconfig = {
         'OTHER_LDFLAGS' => '-ObjC',
-        'ENABLE_BITCODE' => "NO",
         "VALID_ARCHS": "armv7 arm64",
         "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
         "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
@@ -57,7 +55,6 @@ Pod::Spec.new do |s|
         'MapKit',
         'Social',
         'StoreKit',
-        'Twitter',
         'WebKit',
         'SystemConfiguration',
         'AudioToolbox',
@@ -75,9 +72,6 @@ Pod::Spec.new do |s|
         'c++',
         'z']
         
-    s.dependency 'Yodo1Commons','6.0.4'
-    s.dependency 'Yodo1OnlineParameter', '6.1.0'
-    s.dependency 'Yodo1Analytics','6.1.0'
-    s.dependency 'ThinkingSDK','2.7.5'
+    s.dependency 'Yodo1Commons','6.1.2'
 
 end
