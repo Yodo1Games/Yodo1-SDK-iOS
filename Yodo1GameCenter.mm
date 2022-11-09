@@ -88,11 +88,11 @@ static Yodo1GameCenter* _instance = nil;
         } else {
             YD1LOG(@"Underage player, %@, signed in.", player.displayName);
         }
-        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
+        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_channel" eventData:@{@"channel_login_status":@"success", @"channel_error_code":@"0", @"channel_error_message":@"", @"channel_sdk_version":@"GameCenter"}];
         
     } else {
         YD1LOG(@"No GameCenter player found.");
-        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":@"1", @"usercenter_error_message":@"No GameCenter player found."}];
+        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_channel" eventData:@{@"channel_login_status":@"fail", @"channel_error_code":@"1", @"channel_error_message":@"No GameCenter player found.", @"channel_sdk_version":@"GameCenter"}];
     }
 }
 
