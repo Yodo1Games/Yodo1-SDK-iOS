@@ -273,6 +273,7 @@ static NSString* const __status                 = @"status";
                 [Yd1OpsTools.cached setObject:weakSelf.user forKey:@"yd1User"];
             }
             if (user && !error) {
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
                 weakSelf.isLogined = YES;
                 Yodo1UCenter.shared.itemInfo.uid = self.user.uid;
                 Yodo1UCenter.shared.itemInfo.yid = self.user.yid;
@@ -368,6 +369,7 @@ static NSString* const __status                 = @"status";
                 }];
                 
             }else{
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":@"1", @"usercenter_error_message":error.localizedDescription}];
                 weakSelf.isLogined = NO;
                 YD1LOG(@"%@",error.localizedDescription);
                 
