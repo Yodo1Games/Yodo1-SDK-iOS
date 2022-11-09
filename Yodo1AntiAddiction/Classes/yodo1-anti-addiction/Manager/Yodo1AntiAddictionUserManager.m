@@ -17,6 +17,7 @@
 #import "Yodo1AntiAddictionNet.h"
 #import "Yodo1AntiAddictionHelper.h"
 #import "Yodo1AntiAddictionUtils.h"
+#import "Yodo1AnalyticsManager.h"
 
 #define TABLE_NAME NSStringFromClass([Yodo1AntiAddictionUser class])
 
@@ -75,6 +76,8 @@
             
             if (!error) {
                 
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
+                
                 [Yodo1PurchaseManager shared].user = user;
                 [Yodo1PurchaseManager shared].isLogined = YES;
                 [Yd1OpsTools.cached setObject:user forKey:@"yd1User"];
@@ -82,6 +85,7 @@
                 antiUser.uid = user.uid;
                 [self getCertificationInfo:antiUser success:success failure:failure];
             } else {
+                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":@"1", @"usercenter_error_message":error.localizedDescription}];
                 if (failure) {
                     failure(error);
                 }

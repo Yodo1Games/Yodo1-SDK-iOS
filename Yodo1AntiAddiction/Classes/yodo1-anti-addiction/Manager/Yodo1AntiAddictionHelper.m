@@ -26,6 +26,7 @@
 /// code:成功:200, 失败:-1,用户登录错误:-2,网络错误:-100
 /// response: 服务器返回内容
 typedef void (^OnBehaviourCallback)(int code,id response);
+typedef void (^isChinaCallBack)(BOOL isChina);
 
 @interface Yodo1AntiAddictionHelper() {
     
@@ -133,14 +134,12 @@ typedef void (^OnBehaviourCallback)(int code,id response);
     [[Yd1OnlineParameter shared] initWithAppKey:appKey channelId:channel];
     [Yodo1AntiAddictionDatabase shared];
     [Yodo1AntiAddictionNet manager];
-    [self checkIP:appKey];
     __weak __typeof(self)weakSelf = self;
     // 获取防沉迷规则 获取失败则使用本地默认
     [[Yodo1AntiAddictionRulesManager manager] requestRules:^(id data) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onInitFinish:message:)]) {
             [self.delegate onInitFinish:YES message:@"初始化方沉迷系统成功"];
         }
-        [weakSelf checkIP:appKey];
         weakSelf.systemSwitch = [Yodo1AntiAddictionRulesManager manager].currentRules.switchStatus;
         [Yodo1AntiAddictionTimeManager.manager didNeedGetAppTime];
     } failure:^(NSError * error) {
@@ -165,17 +164,14 @@ typedef void (^OnBehaviourCallback)(int code,id response);
     return _version;
 }
 
-- (void)checkIP:(NSString *)gameKey {
-    if (self.isChina) {
-        return;
-    }
+- (void)checkIP:(isChinaCallBack)callBack {
+    
     NSURL* url = [NSURL URLWithString:@"https://ais.yodo1api.com/ais/config/checkIp"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"POST";
     NSString* timestamp = Yodo1Tool.shared.nowTimeTimestamp;
     NSString* sign = [Yodo1Tool.shared signMd5String:[NSString stringWithFormat:@"%@yodo1",timestamp]];
-    NSDictionary* param = @{@"game_key":gameKey,
-                            @"timestamp":timestamp,
+    NSDictionary* param = @{@"timestamp":timestamp,
                             @"sign":sign};
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:param
                                                        options:NSJSONWritingPrettyPrinted
@@ -192,11 +188,13 @@ typedef void (^OnBehaviourCallback)(int code,id response);
                     if (self->_isChina) {
                         NSLog(@"It's China!");
                     }
+                    callBack(self->_isChina);
                 }
             }
             NSLog(@"responseObject:%@",responseObject);
         } else {
             self->_isChina = NO;
+            callBack(self->_isChina);
         }
     }];
     [dataTask resume];
@@ -236,13 +234,6 @@ typedef void (^OnBehaviourCallback)(int code,id response);
 
 - (void)verifyCertificationInfo:(NSString *)accountId success:(Yodo1AntiAddictionSuccessful)success failure:(Yodo1AntiAddictionFailure)failure {
     if (!self.systemSwitch) {
-        Yodo1AntiAddictionEvent *event = [[Yodo1AntiAddictionEvent alloc] init];
-        event.eventCode = Yodo1AntiAddictionEventCodeNone;
-        event.action = Yodo1AntiAddictionActionResumeGame;
-        success(event);
-        return;
-    }
-    if (!self.isChineseMainland) {
         Yodo1AntiAddictionEvent *event = [[Yodo1AntiAddictionEvent alloc] init];
         event.eventCode = Yodo1AntiAddictionEventCodeNone;
         event.action = Yodo1AntiAddictionActionResumeGame;
@@ -557,10 +548,37 @@ typedef void (^OnBehaviourCallback)(int code,id response);
     }];
 }
 
+//- (void)getIsIpChina {
+//    __weak typeof(self) weakSelf = self;
+//    [self checkIP:^(BOOL isChina) {
+//        [weakSelf isChineseMainland:isChina];
+//    }];
+//}
+
+
 - (BOOL)isChineseMainland {
+    
+    dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+    dispatch_group_t group = dispatch_group_create();
+
+    dispatch_group_enter(group);
+    
     if (!self.isChina) {//大陆IP
-        return NO;
+    
+        __block BOOL ip = NO;
+        dispatch_group_async(group, globalQueue, ^{
+            [self checkIP:^(BOOL isChina) {
+                ip = isChina;
+                dispatch_group_leave(group);
+            }];
+        });
+        
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+        
+        return ip;
     }
+    
     if (![Yodo1Tool.shared.language isEqualToString:@"zh-Hans"]) {//简体中文
         return NO;
     }
