@@ -65,6 +65,7 @@ NSString * const kYodo1FacebookDisplayName      = @"FacebookDisplayName";
 @interface Yodo1Share()
 {
     BOOL isShow;
+    BOOL isDebug;
 }
 
 @property (nonatomic, copy) ShareCompletionBlock completionBlock;
@@ -99,106 +100,60 @@ static Yodo1Share* sDefaultInstance;
     
 }
 
+- (void)initWithPlist {
+    NSDictionary * plistDic = [[NSBundle mainBundle] infoDictionary];
+    NSDictionary * shareAppIds = [[NSDictionary alloc]initWithDictionary:plistDic];
+    
+    [self initWithConfig:shareAppIds];
+}
+
 - (void)initWithConfig:(NSDictionary *)shareAppIds {
     
-    BOOL isDebugLog = YES;
-    
     if (shareAppIds == nil || [shareAppIds count] < 1) {
-        NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Yodo1KeyConfig.bundle/Yodo1KeyInfo" ofType:@"plist"];
-        NSMutableDictionary *keyInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-        shareAppIds = [[NSDictionary alloc]initWithDictionary:keyInfo];
-        
-        if (plistPath.length <= 0) {
-            NSDictionary * plistDic = [[NSBundle mainBundle] infoDictionary];
-            shareAppIds = [[NSDictionary alloc]initWithDictionary:plistDic];
-            
-            if ([[shareAppIds allKeys]containsObject:kYodo1WechatAppId] &&
-                [[shareAppIds allKeys]containsObject:kYodo1WechatUniversalLink]) {
-                self.wechatAppKey = [shareAppIds objectForKey:kYodo1WechatAppId];
-                self.wechatUniversalLink = [shareAppIds objectForKey:kYodo1WechatUniversalLink];
-                [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
-            } else {
-                
-                if (isDebugLog) {
-                    Yodo1SHARELOG(@"wechat-share is not set.");
-                }
-            }
-            if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
-                [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
-                self.qqAppId = [shareAppIds objectForKey:kYodo1QQAppId];
-                self.qqUniversalLink = [shareAppIds objectForKey:kYodo1QQUniversalLink];
-                [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
-                                              universalLink:self.qqUniversalLink];
-            } else {
-        
-                if (isDebugLog) {
-                    Yodo1SHARELOG(@"QQ-share is not set.");
-                }
-            }
-            
-            if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
-                [[shareAppIds allKeys]containsObject:kYodo1SinaWeiboUniversalLink]) {
-                self.sinaWeiboAppKey = [shareAppIds objectForKey:kYodo1SinaWeiboAppKey];
-                self.sinaWeiboUniversalLink = [shareAppIds objectForKey:kYodo1SinaWeiboUniversalLink];
-                [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
-                                                             universalLink:self.sinaWeiboUniversalLink];
-            } else {
-                if (isDebugLog) {
-                    Yodo1SHARELOG(@"sina-share is not set.");
-                }
-            }
-            
-            NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
-            if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId]) {
-                [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
-            } else {
-                if (isDebugLog) {
-                    Yodo1SHARELOG(@"Facebook-share is not set.");
-                }
-            }
-        }
+        Yodo1SHARELOG(@"Not found share config. Please check your config.");
+        return;
+    }
+    
+    if ([[shareAppIds allKeys]containsObject:kYodo1WechatAppId] &&
+        [[shareAppIds allKeys]containsObject:kYodo1WechatUniversalLink]) {
+        self.wechatAppKey = [shareAppIds objectForKey:kYodo1WechatAppId];
+        self.wechatUniversalLink = [shareAppIds objectForKey:kYodo1WechatUniversalLink];
+        [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
     } else {
-        if ([[shareAppIds allKeys]containsObject:kYodo1WechatAppId] &&
-            [[shareAppIds allKeys]containsObject:kYodo1WechatUniversalLink]) {
-            self.wechatAppKey = [shareAppIds objectForKey:kYodo1WechatAppId];
-            self.wechatUniversalLink = [shareAppIds objectForKey:kYodo1WechatUniversalLink];
-            [[Yodo1ShareByWeChat sharedInstance] initWeixinWithAppKey:self.wechatAppKey universalLink:self.wechatUniversalLink];
-        } else {
-            if (isDebugLog) {
-                Yodo1SHARELOG(@"wechat-share is not set.");
-            }
+        if (isDebug) {
+            Yodo1SHARELOG(@"wechat-share is not set.");
         }
-        if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
-            [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
-            self.qqAppId = [shareAppIds objectForKey:kYodo1QQAppId];
-            self.qqUniversalLink = [shareAppIds objectForKey:kYodo1QQUniversalLink];
-            [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
-                                          universalLink:self.qqUniversalLink];
-        } else {
-            if (isDebugLog) {
-                Yodo1SHARELOG(@"QQ-share is not set.");
-            }
+    }
+    if ([[shareAppIds allKeys]containsObject:kYodo1QQAppId] &&
+        [[shareAppIds allKeys]containsObject:kYodo1QQUniversalLink]) {
+        self.qqAppId = [shareAppIds objectForKey:kYodo1QQAppId];
+        self.qqUniversalLink = [shareAppIds objectForKey:kYodo1QQUniversalLink];
+        [[Yodo1ShareByQQ sharedInstance] initQQWithAppId:self.qqAppId
+                                      universalLink:self.qqUniversalLink];
+    } else {
+        if (isDebug) {
+            Yodo1SHARELOG(@"QQ-share is not set.");
         }
-        
-        if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
-            [[shareAppIds allKeys]containsObject:kYodo1SinaWeiboUniversalLink]) {
-            self.sinaWeiboAppKey = [shareAppIds objectForKey:kYodo1SinaWeiboAppKey];
-            self.sinaWeiboUniversalLink = [shareAppIds objectForKey:kYodo1SinaWeiboUniversalLink];
-            [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
-                                                         universalLink:self.sinaWeiboUniversalLink];
-        } else {
-            if (isDebugLog) {
-                Yodo1SHARELOG(@"sina-share is not set.");
-            }
+    }
+    
+    if ([[shareAppIds allKeys]containsObject:kYodo1SinaWeiboAppKey] &&
+        [[shareAppIds allKeys]containsObject:kYodo1SinaWeiboUniversalLink]) {
+        self.sinaWeiboAppKey = [shareAppIds objectForKey:kYodo1SinaWeiboAppKey];
+        self.sinaWeiboUniversalLink = [shareAppIds objectForKey:kYodo1SinaWeiboUniversalLink];
+        [[Yodo1ShareBySinaWeibo sharedInstance] initSinaWeiboWithAppKey:self.sinaWeiboAppKey
+                                                     universalLink:self.sinaWeiboUniversalLink];
+    } else {
+        if (isDebug) {
+            Yodo1SHARELOG(@"sina-share is not set.");
         }
-        
-        NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
-        if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId]) {
-            [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
-        } else {
-            if (isDebugLog) {
-                Yodo1SHARELOG(@"Facebook-share is not set.");
-            }
+    }
+    
+    NSDictionary * infoPlistDic = [[NSBundle mainBundle] infoDictionary];
+    if ([[infoPlistDic allKeys]containsObject:kYodo1FacebookAppId]) {
+        [[Yodo1ShareByFacebook sharedInstance] initFacebookWithAppId:nil];
+    } else {
+        if (isDebug) {
+            Yodo1SHARELOG(@"Facebook-share is not set.");
         }
     }
 }
@@ -517,6 +472,7 @@ static Yodo1Share* sDefaultInstance;
 
 - (void)setDebugLog:(BOOL)debugLog {
     [Yd1OpsTools.cached setObject:[NSNumber numberWithBool:debugLog] forKey:Y_SHARE_DEBUG_LOG];
+    isDebug = debugLog;
 }
 
 #ifdef __cplusplus
@@ -524,7 +480,7 @@ static Yodo1Share* sDefaultInstance;
 extern "C" {
 
     void UnityShareInit() {
-        [Yodo1Share.sharedInstance initWithConfig:nil];
+        [Yodo1Share.sharedInstance initWithPlist];
     }
     
     void UnityShare(char* paramJson, char* gameObjectName, char* methodName)

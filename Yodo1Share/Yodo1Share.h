@@ -27,6 +27,10 @@ FOUNDATION_EXPORT NSString * _Nonnull const kYodo1FacebookDisplayName;
 + (nonnull Yodo1Share*)sharedInstance;
 
 /**
+ read all config from Info.plist
+ */
+- (void)initWithPlist;
+/**
  初始化qq,微信
  
  @param shareAppIds appId字典
