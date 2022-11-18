@@ -44,13 +44,16 @@ NSString * const kYodo1SinaWeiboUniversalLink   = @"SinaUniversalLink";
 NSString * const kYodo1FacebookAppId            = @"FacebookAppID";
 NSString * const kYodo1FacebookDisplayName      = @"FacebookDisplayName";
 
+NSString *jsonString = @"{\"shareType\":1,\"contentType\":0,\"contentTitle\":\"\u5206\u4eab\",\"contentText\":\"\u8fdb\u5ea6\uff01\u75af\u72c2\u52a8\u7269\u56ed\",\"contentImage\":\"/var/mobile/Containers/Data/Application/051BE637-136F-4AA8-ADC2-1E1DD4905FB9/Documents/Selfies/progress_share.png\",\"contentUrl\":\"http://hyperurl.co/rodeostampede\",\"qrLogo\":\"qrLogo.png\",\"qrText\":\"\u957f\u6309\u8bc6\u522b\u4e8c\u7ef4\u7801\n\u53e6\u7c7b\u8dd1\u9177\u8650\u5fc3\u6218\",\"qrTextX\":0,\"qrImageX\":20,\"gameLogo\":\"gameLogo.png\",\"gameLogoX\":0,\"composite\":false}";
+
+
 @interface Yodo1SMContent : NSObject
 @property (nonatomic,assign) NSInteger shareType;     //对单个平台分享模式有效
 @property (nonatomic,assign) NSInteger contentType;   //分享样式<link,image>
-@property (nonatomic,strong) NSString *title;       //仅对qq和微信有效
-@property (nonatomic,strong) NSString *desc;        //分享描述
-@property (nonatomic,strong) NSString *image;       //分享图片
-@property (nonatomic,strong) NSString *url;         //分享URL
+@property (nonatomic,strong) NSString *contentTitle;       //仅对qq和微信有效
+@property (nonatomic,strong) NSString *contentText;        //分享描述
+@property (nonatomic,strong) NSString *contentImage;       //分享图片
+@property (nonatomic,strong) NSString *contentUrl;         //分享URL
 @property (nonatomic,strong) NSString *gameLogo;   //game of Logo
 @property (nonatomic,assign) float gameLogoX;      //game of logo X偏移量
 @property (nonatomic,strong) NSString *qrLogo;      //二维码logo
@@ -535,9 +538,9 @@ extern "C" {
         
         Yodo1SMContent* smContent = [Yodo1SMContent yodo1_modelWithJSON:_paramJson];
         
-        UIImage* image = [UIImage imageNamed:smContent.image];
+        UIImage* image = [UIImage imageNamed:smContent.contentImage];
         if(image==nil){
-            image = [UIImage imageWithContentsOfFile:smContent.image];
+            image = [UIImage imageWithContentsOfFile:smContent.contentImage];
         }
         
         UIImage* qrLogo = [UIImage imageNamed:smContent.qrLogo];
@@ -552,9 +555,9 @@ extern "C" {
         
         ShareContent* content = [[ShareContent alloc]init];
         content.contentImage = image;
-        content.contentTitle = smContent.title;
-        content.contentText = smContent.desc;
-        content.contentUrl = smContent.url;
+        content.contentTitle = smContent.contentTitle;
+        content.contentText = smContent.contentText;
+        content.contentUrl = smContent.contentUrl;
         content.gameLogo = gameLogo;
         content.qrLogo = qrLogo;
         content.qrText = smContent.qrText;
