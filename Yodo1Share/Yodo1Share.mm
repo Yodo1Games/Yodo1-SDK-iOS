@@ -44,9 +44,6 @@ NSString * const kYodo1SinaWeiboUniversalLink   = @"SinaUniversalLink";
 NSString * const kYodo1FacebookAppId            = @"FacebookAppID";
 NSString * const kYodo1FacebookDisplayName      = @"FacebookDisplayName";
 
-NSString *jsonString = @"{\"shareType\":1,\"contentType\":0,\"contentTitle\":\"\u5206\u4eab\",\"contentText\":\"\u8fdb\u5ea6\uff01\u75af\u72c2\u52a8\u7269\u56ed\",\"contentImage\":\"/var/mobile/Containers/Data/Application/051BE637-136F-4AA8-ADC2-1E1DD4905FB9/Documents/Selfies/progress_share.png\",\"contentUrl\":\"http://hyperurl.co/rodeostampede\",\"qrLogo\":\"qrLogo.png\",\"qrText\":\"\u957f\u6309\u8bc6\u522b\u4e8c\u7ef4\u7801\n\u53e6\u7c7b\u8dd1\u9177\u8650\u5fc3\u6218\",\"qrTextX\":0,\"qrImageX\":20,\"gameLogo\":\"gameLogo.png\",\"gameLogoX\":0,\"composite\":false}";
-
-
 @interface Yodo1SMContent : NSObject
 @property (nonatomic,assign) NSInteger shareType;     //对单个平台分享模式有效
 @property (nonatomic,assign) NSInteger contentType;   //分享样式<link,image>
