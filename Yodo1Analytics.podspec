@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Analytics'
-    s.version          = '6.2.4'
+    s.version          = '6.2.5'
     s.summary          = '重构数据统计'
 
     s.description      = <<-DESC
@@ -20,7 +20,7 @@ TODO: Add long description of the pod here.
 
     s.public_header_files = ["*.h"]
 
-    s.vendored_libraries = [ "*.a" ]
+    #s.vendored_libraries = [ "*.a" ]
 
     s.resources = ["*.{m,mm}"]
 
