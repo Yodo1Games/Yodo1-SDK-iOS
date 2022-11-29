@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Analytics'
     s.version          = '6.2.5'
-    s.summary          = '重构数据统计'
+    s.summary          = '重构数据统计123'
 
     s.description      = <<-DESC
 TODO: Add long description of the pod here.
@@ -16,13 +16,17 @@ TODO: Add long description of the pod here.
     s.ios.deployment_target = '9.0'
 
    
-    s.source_files = ["*.h"]
+    s.source_files = [
+        "*.{h,m,mm}",
+        "AnalyticsAdapterThinking/*.{h,m}",
+        "AnalyticsAdapterAppsFlyer/*.{h,m}"]
 
-    s.public_header_files = ["*.h"]
+    s.public_header_files = [
+        "*.h",
+        "AnalyticsAdapterThinking/*.h",
+        "AnalyticsAdapterAppsFlyer/*.h"]
 
-    #s.vendored_libraries = [ "*.a" ]
-
-    s.resources = ["*.{m,mm}"]
+    # s.vendored_libraries = "#{s.version}" + '/*.a'
 
     s.requires_arc = true
 
@@ -34,6 +38,7 @@ TODO: Add long description of the pod here.
     }
 
     s.frameworks = [
+        #'AdsServices',
         'Accounts', 
         'AssetsLibrary',
         'AVFoundation', 
