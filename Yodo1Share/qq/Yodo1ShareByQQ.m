@@ -77,7 +77,10 @@
     }
     
     NSString *status = content.contentText;
-    NSString *title = content.contentTitle;
+    NSString *title = nil;
+    if (content.contentTitle.length > 0) {
+        title = content.contentTitle;
+    }
     NSString *url = content.contentUrl;
     UIImage *image = content.contentImage;
     
