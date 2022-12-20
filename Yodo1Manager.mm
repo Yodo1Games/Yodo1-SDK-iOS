@@ -61,7 +61,7 @@ static NSString* __kAppKey = @"";
     [Yodo1Manager analyticInit];
     
 #ifdef YODO1_UCCENTER
-    [Yodo1PurchaseManager willInit];
+    [Yodo1PurchaseManager.shared willInit];
 #endif
 }
 
