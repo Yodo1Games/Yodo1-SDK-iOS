@@ -18,8 +18,6 @@
 
 #import "Yodo1AnalyticsManager.h"
 
-//#import "Yodo1SNSManager.h"
-
 #ifdef YODO1_UCCENTER
 #import "Yodo1PurchaseManager.h"
 #endif
@@ -59,44 +57,12 @@ static NSString* __kAppKey = @"";
     [Yodo1Suit initWithAppKey:__kAppKey];
     
     kYodo1Config = sdkConfig;
-
-    /*
-    //初始化sns
-    NSMutableDictionary* snsPlugn = [NSMutableDictionary dictionary];
-    NSString* qqAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1QQAppId];
-    NSString* qqUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1QQUniversalLink];
-    NSString* wechatAppId = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1WechatAppId];
-    NSString* wechatUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1WechatUniversalLink];
-    NSString* sinaAppKey = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1SinaWeiboAppKey];
-    NSString* sinaUniversalLink = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1SinaWeiboUniversalLink];
-    NSString* twitterConsumerKey = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1TwitterConsumerKey];
-    NSString* twitterConsumerSecret = [[Yodo1KeyInfo shareInstance]configInfoForKey:kYodo1TwitterConsumerSecret];
-    if (qqAppId) {
-        [snsPlugn setObject:qqAppId forKey:kYodo1QQAppId];
-    }
-    if (qqUniversalLink) {
-        [snsPlugn setObject:qqUniversalLink forKey:kYodo1QQUniversalLink];
-    }
-    if (wechatAppId) {
-        [snsPlugn setObject:wechatAppId forKey:kYodo1WechatAppId];
-    }
-    if (wechatUniversalLink) {
-        [snsPlugn setObject:wechatUniversalLink forKey:kYodo1WechatUniversalLink];
-    }
-    if (sinaAppKey) {
-        [snsPlugn setObject:sinaAppKey forKey:kYodo1SinaWeiboAppKey];
-    }
-    if (sinaUniversalLink) {
-        [snsPlugn setObject:sinaAppKey forKey:kYodo1SinaWeiboUniversalLink];
-    }
-    if (twitterConsumerKey && twitterConsumerSecret) {
-        [snsPlugn setObject:twitterConsumerKey forKey:kYodo1TwitterConsumerKey];
-        [snsPlugn setObject:twitterConsumerSecret forKey:kYodo1TwitterConsumerSecret];
-    }
-    [[Yodo1SNSManager sharedInstance] initSNSPlugn:snsPlugn];
-     */
     
     [Yodo1Manager analyticInit];
+    
+#ifdef YODO1_UCCENTER
+    [Yodo1PurchaseManager willInit];
+#endif
 }
 
 + (void)analyticInit
