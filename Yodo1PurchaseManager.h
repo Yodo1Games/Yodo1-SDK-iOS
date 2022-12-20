@@ -125,6 +125,8 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
 
 + (instancetype)shared;
 
+- (void)willInit;
+
 @property (nonatomic,assign)__block BOOL isLogined;
 @property (nonatomic,strong)__block YD1User* user;
 @property (nonatomic,strong)NSMutableDictionary* superProperty;

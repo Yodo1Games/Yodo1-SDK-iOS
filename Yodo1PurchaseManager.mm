@@ -114,12 +114,14 @@ static NSString* const __status                 = @"status";
 
 @implementation Yodo1PurchaseManager
 
-+ (instancetype)shared {
-    return [Yodo1Base.shared cc_registerSharedInstance:self block:^{
-        [Yodo1PurchaseManager.shared willInit];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appleRequestFailed:) name:@"RMSKProductsRequestFailed" object:nil];
-    }];
++ (instancetype)shared
+{
+    static dispatch_once_t onceToken;
+    static id instance = nil;
+    dispatch_once(&onceToken, ^{
+        instance = [[Yodo1PurchaseManager alloc] init];
+    });
+    return instance;
 }
 
 - (void)dealloc {
@@ -668,7 +670,7 @@ static NSString* const __status                 = @"status";
     } else {
         //失败神策埋点
         NSMutableDictionary* properties = [NSMutableDictionary dictionary];
-        [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared .superProperty];
+        [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.superProperty];
         [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
         
         YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
@@ -1118,7 +1120,18 @@ static NSString* const __status                 = @"status";
 }
 
 - (void)storePaymentTransactionFailed:(NSNotification*)notification {
-    YD1LOG(@"");
+    
+    //失败神策埋点
+    NSMutableDictionary* properties = [NSMutableDictionary dictionary];
+    [properties setObject:notification.userInfo forKey:@"channelErrorCode"];
+    [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.superProperty];
+    [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
+    
+    NSNumber* errorCode = [NSNumber numberWithInt:PaymentErrorCodeUnKnow];
+    [properties setObject:errorCode forKey:@"yodo1ErrorCode"];
+    YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
+    [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error" eventData:properties];
+    
     NSString* productIdentifier = notification.rm_productIdentifier;
     if (!productIdentifier) {
         Product* pr = [productInfos objectForKey:self.currentUniformProductId];
@@ -1160,9 +1173,9 @@ static NSString* const __status                 = @"status";
         isBuying = false;
         
         Yodo1UCenter.shared.itemInfo.channelCode = @"AppStore";
-                        Yodo1UCenter.shared.itemInfo.channelOrderid = po.channelOrderid;
-                        Yodo1UCenter.shared.itemInfo.orderId = po.orderId;
-                        Yodo1UCenter.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",po.paymentState];
+        Yodo1UCenter.shared.itemInfo.channelOrderid = po.channelOrderid;
+        Yodo1UCenter.shared.itemInfo.orderId = po.orderId;
+        Yodo1UCenter.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",po.paymentState];
         [Yodo1UCenter.shared reportOrderStatus:Yodo1UCenter.shared.itemInfo
                                     callbakc:^(BOOL success, NSString * _Nonnull error) {
             if (success) {
@@ -1429,19 +1442,6 @@ static NSString* const __status                 = @"status";
         callback(false,@{},@{@"error": error.localizedDescription});
     }];
     
-}
-
-- (void)appleRequestFailed:(NSNotification *)notification {
-    //失败神策埋点
-    NSMutableDictionary* properties = [NSMutableDictionary dictionary];
-    [properties setObject:notification.userInfo forKey:@"channelErrorCode"];
-    [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared .superProperty];
-    [properties addEntriesFromDictionary:Yodo1PurchaseManager.shared.itemProperty];
-    
-    NSNumber* errorCode = [NSNumber numberWithInt:PaymentErrorCodeUnKnow];
-    [properties setObject:errorCode forKey:@"yodo1ErrorCode"];
-    YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-    [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error" eventData:properties];
 }
 
 @end
