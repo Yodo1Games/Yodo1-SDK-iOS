@@ -16,7 +16,6 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 
-#define Yodo1PublishVersion @"6.1.4"
 #define Yodo1ThinkingServerUrl @"https://c1.yodo1.com/"
 
 NSString* const YODO1_ANALYTICS_TA_APPKEY       = @"ThinkingAppId";
@@ -59,7 +58,13 @@ NSString* const YODO1_ANALYTICS_TA_SERVERURL    = @"ThinkingServerUrl";
         //设置访客ID
         [ThinkingAnalyticsSDK.sharedInstance identify:Yodo1Tool.shared.keychainDeviceId];
         
-        [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{@"gameKey":[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"], @"device_id":Yodo1Tool.shared.keychainDeviceId, @"publishChannelCode":@"appstore", @"sdkVersion":Yodo1PublishVersion, @"channel_code":@"appstore"}];
+        [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{
+            @"gameKey":[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"],
+            @"device_id":Yodo1Tool.shared.keychainDeviceId,
+            @"publishChannelCode":Yodo1Tool.shared.publishChannelCodeValue,
+            @"sdkVersion":Yodo1Tool.shared.sdkVersionValue,
+            @"channel_code":Yodo1Tool.shared.paymentChannelCodeValue
+        }];
         
         // 自动埋点 关闭
         [[ThinkingAnalyticsSDK sharedInstance] enableAutoTrack:
