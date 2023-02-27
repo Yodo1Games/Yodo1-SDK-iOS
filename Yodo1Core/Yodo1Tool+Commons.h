@@ -60,6 +60,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)sign;
 - (NSString *)orderId;
 
+- (NSString *)paymentChannelCodeValue;
+- (NSString *)publishChannelCodeValue;
+
+- (NSString*)sdkTypeValue;
+- (NSString*)sdkVersionValue;
+
 - (BOOL)archiveObject:(id)object path:(NSString *)path;
 
 - (id)unarchiveClass:(NSSet*)classes path:(NSString *)path;

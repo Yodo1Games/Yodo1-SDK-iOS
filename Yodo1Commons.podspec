@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Commons'
-    s.version          = '6.1.2'
-    s.summary          = 'Yodo1Commons重构'
+    s.version          = '6.1.3'
+    s.summary          = 'The Core Kit of the Yodo1 iOS SDK'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.

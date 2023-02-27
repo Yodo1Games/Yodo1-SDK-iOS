@@ -306,6 +306,34 @@
 - (NSString *)sign { return @"sign"; }
 - (NSString *)orderId { return @"orderid"; }
 
+- (NSString *)paymentChannelCodeValue { return @"appstore"; }
+- (NSString *)publishChannelCodeValue { return @"AppStore"; }
+
+- (NSString *)sdkTypeValue {
+    NSDictionary* _config = [Yd1OpsTools bundlePlistWithPath:@"Yodo1Suit.bundle/config"];
+    NSString* _sdkType = @"yodo1_global";
+    if (_config && [[_config allKeys]containsObject:@"PublishType"]) {
+        _sdkType = (NSString*)[_config objectForKey:@"PublishType"];
+    }
+    if (_config && [[_config allKeys]containsObject:@"SdkType"]) {
+        _sdkType = (NSString*)[_config objectForKey:@"SdkType"];
+    }
+    return _sdkType;
+}
+
+- (NSString *)sdkVersionValue {
+    NSDictionary* _config = [Yd1OpsTools bundlePlistWithPath:@"Yodo1Suit.bundle/config"];
+    NSString* _sdkVersion = @"6.1.9";
+    if (_config && [[_config allKeys]containsObject:@"PublishVersion"]) {
+        _sdkVersion = (NSString*)[_config objectForKey:@"PublishVersion"];
+    }
+    if (_config && [[_config allKeys]containsObject:@"SdkVersion"]) {
+        _sdkVersion = (NSString*)[_config objectForKey:@"SdkVersion"];
+    }
+    return _sdkVersion;
+}
+
+
 - (BOOL)archiveObject:(id)object path:(NSString *)path {
     if (!object){
         return NO;
