@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Replay'
-    s.version          = '6.1.1'
+    s.version          = '6.1.2'
     s.summary          = 'v'
 
     s.description      = <<-DESC
@@ -72,5 +72,5 @@ Pod::Spec.new do |s|
         'c++',
         'z']
 
-    s.dependency 'Yodo1Commons','6.1.2'
+    s.dependency 'Yodo1Commons','6.1.3'
 end
