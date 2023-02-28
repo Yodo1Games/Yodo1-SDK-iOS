@@ -20,6 +20,7 @@
 #import "Yodo1KeyInfo.h"
 #import "Yodo1PurchaseDataAnalytics.h"
 #import "Yodo1PurchaseAPI.h"
+#import "Yodo1Commons.h"
 
 @implementation PaymentObject
 
@@ -101,8 +102,6 @@
         }
     }];
 }
-
-
 
 - (void)invokePaymentCallback:(PaymentObject*)paymentObject {
     if (paymentObject == nil) {
@@ -220,7 +219,7 @@
                     if (success) {
                         if (product.productType == Auto_Subscription) {
                             product.orderId = orderid;
-                            [weakSelf paymentAutoSubscriptionProduct:product Error:error];
+                            [weakSelf paymentAutoSubscriptionProduct:product];
                         } else {
                             [weakSelf paymentProduct:product];
                         }
@@ -235,7 +234,6 @@
                         self->isBuying = NO;
                     }
                 }];
-                
             }else{
                 [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":@"1", @"usercenter_error_message":error.localizedDescription}];
                 weakSelf.isLogined = NO;
@@ -257,7 +255,7 @@
             if (success) {
                 if (product.productType == Auto_Subscription) {
                     product.orderId = orderid;
-                    [weakSelf paymentAutoSubscriptionProduct:product Error:error];
+                    [weakSelf paymentAutoSubscriptionProduct:product];
                 } else {
                     [weakSelf paymentProduct:product];
                 }
@@ -276,10 +274,9 @@
     }
 }
 
-- (void)paymentAutoSubscriptionProduct:(Yodo1Product *)product Error:(NSError *)error {
+- (void)paymentAutoSubscriptionProduct:(Yodo1Product *)product {
     self->paymentObject.uniformProductId = product.uniformProductId;
     self->paymentObject.orderId = product.orderId;
-    
     Yodo1PurchaseAPI.shared.itemInfo.orderId = product.orderId;
     
     NSString* msg = [self localizedStringForKey:@"SubscriptionAlertMessage"
@@ -291,87 +288,62 @@
     NSString* okTitle = [self localizedStringForKey:@"SubscriptionAlertOK" withDefault:@"启用"];
     NSString* privateTitle = [self localizedStringForKey:@"SubscriptionAlertPrivate" withDefault:@"隐私协议"];
     NSString* serviceTitle = [self localizedStringForKey:@"SubscriptionAlertService" withDefault:@"服务条款"];
-    UIAlertControllerStyle uiStyle = UIAlertControllerStyleActionSheet;
-    if([Yd1OpsTools isIPad]){
-        uiStyle = UIAlertControllerStyleAlert;
-    }
-    
-    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:uiStyle];
     
     NSString* privacyPolicyUrl = [self localizedStringForKey:@"SubscriptionPrivacyPolicyURL"
                                                  withDefault:@"https://www.yodo1.com/cn/privacy_policy"];
     NSString* termsServiceUrl = [self localizedStringForKey:@"SubscriptionTermsServiceURL"
                                                 withDefault:@"https://www.yodo1.com/cn/user_agreement"];
     
-    UIAlertAction *privateAction = [UIAlertAction actionWithTitle:privateTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self updateOrderId:product.orderId withProductId:product.uniformProductId];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:privacyPolicyUrl]];
-        self->paymentObject.paymentState = PaymentCancel;
-        self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                        code:PaymentErrorCodeCannelForPrivacy
-                                                    userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
-        [self invokePaymentCallback:self->paymentObject];
-        self->isBuying = NO;
-        Yodo1PurchaseAPI.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",self->paymentObject.paymentState];
-        Yodo1PurchaseAPI.shared.itemInfo.statusMsg = @"";
-        [Yodo1PurchaseAPI.shared reportOrderFail:Yodo1PurchaseAPI.shared.itemInfo
-                                        callback:^(BOOL success, NSString * _Nonnull error) {
-            if (success) {
-                YD1LOG(@"report success.");
-            } else {
-                YD1LOG(@"report failed.");
-            }
-        }];
-    }];
-    
-    UIAlertAction *serviceAction = [UIAlertAction actionWithTitle:serviceTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self updateOrderId:product.orderId withProductId:product.uniformProductId];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:termsServiceUrl]];
-        self->paymentObject.paymentState = PaymentCancel;
-        self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                        code:PaymentErrorCodeCannelForPrivacy
-                                                    userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
-        [self invokePaymentCallback:self->paymentObject];
-        self->isBuying = NO;
-        Yodo1PurchaseAPI.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",self->paymentObject.paymentState];
-        [Yodo1PurchaseAPI.shared reportOrderFail:Yodo1PurchaseAPI.shared.itemInfo
-                                        callback:^(BOOL success, NSString * _Nonnull error) {
-            if (success) {
-                YD1LOG(@"report success.");
-            } else {
-                YD1LOG(@"report failed.");
-            }
-        }];
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [self updateOrderId:product.orderId withProductId:product.uniformProductId];
-        self->paymentObject.paymentState = PaymentCancel;
-        self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
-                                                        code:PaymentErrorCodeCancelled
-                                                    userInfo:@{NSLocalizedDescriptionKey:error? :@""}];
-        [self invokePaymentCallback:self->paymentObject];
-        self->isBuying = NO;
-        Yodo1PurchaseAPI.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",self->paymentObject.paymentState];
-        [Yodo1PurchaseAPI.shared reportOrderFail:Yodo1PurchaseAPI.shared.itemInfo
-                                        callback:^(BOOL success, NSString * _Nonnull error) {
-            if (success) {
-                YD1LOG(@"report success.");
-            } else {
-                YD1LOG(@"report failed.");
-            }
-        }];
-    }];
-    
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
+    // Ok Action
+    [alertController addAction:[UIAlertAction actionWithTitle:okTitle style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self paymentProduct:product];
-    }];
+    }]];
+    // Service Action
+    [alertController addAction:[UIAlertAction actionWithTitle:serviceTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:termsServiceUrl]];
+        [self invokeSubscriptionActions:product paymentState:PaymentCancel paymentError:PaymentErrorCodeCannelForPrivacy];
+    }]];
+    // Privacy Action
+    [alertController addAction:[UIAlertAction actionWithTitle:privateTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:privacyPolicyUrl]];
+        [self invokeSubscriptionActions:product paymentState:PaymentCancel paymentError:PaymentErrorCodeCannelForPrivacy];
+    }]];
+    // Cancel Action
+    [alertController addAction:[UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self invokeSubscriptionActions:product paymentState:PaymentCancel paymentError:PaymentErrorCodeCancelled];
+    }]];
     
-    [alertController addAction:okAction];
-    [alertController addAction:serviceAction];
-    [alertController addAction:privateAction];
-    [alertController addAction:cancelAction];
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController] presentViewController:alertController animated:YES completion:nil];
+    UIViewController* viewController = [Yodo1Commons getRootViewController];
+    if([Yd1OpsTools isIPad]){
+        [alertController addAction:[UIAlertAction actionWithTitle:cancelTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self invokeSubscriptionActions:product paymentState:PaymentCancel paymentError:PaymentErrorCodeCancelled];
+        }]];
+        
+        if (alertController.popoverPresentationController) {
+//            [alertController.popoverPresentationController setPermittedArrowDirections:UIPopoverArrowDirectionUp];//去掉arrow箭头
+            alertController.popoverPresentationController.sourceView = viewController.view;
+            alertController.popoverPresentationController.sourceRect = CGRectMake(0, viewController.view.frame.size.height, viewController.view.frame.size.width, viewController.view.frame.size.height);
+        }
+    }
+    [viewController presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)invokeSubscriptionActions:(Yodo1Product*)product paymentState:(PaymentState)paymentState paymentError:(PaymentErrorCode)paymentErrorCode {
+    if (product == nil) {
+        return;
+    }
+    [self updateOrderId:product.orderId withProductId:product.uniformProductId];
+    self->paymentObject.paymentState = paymentState;
+    self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
+                                                    code:paymentErrorCode
+                                                userInfo:@{NSLocalizedDescriptionKey:@""}];
+    [self invokePaymentCallback:self->paymentObject];
+    self->isBuying = NO;
+    Yodo1PurchaseAPI.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",self->paymentObject.paymentState];
+    [Yodo1PurchaseAPI.shared reportOrderFail:Yodo1PurchaseAPI.shared.itemInfo callback:^(BOOL success, NSString * _Nonnull error) {
+        YD1LOG(@"report %@.", success ? @"success" : @"failed");
+    }];
 }
 
 - (void)paymentProduct:(Yodo1Product*)product {
@@ -400,10 +372,11 @@
     __block Yodo1Product* product = [productInfos objectForKey:uniformProductId];
     __weak typeof(self) weakSelf = self;
     [Yodo1PurchaseAPI.shared generateOrderId:^(NSString * _Nullable orderId, NSError * _Nullable error) {
-        if ((!orderId || [orderId isEqualToString:@""])) {
-            YD1LOG(@"%@",error.localizedDescription);
-            callback(false,orderId,error);
+        if ((orderId == nil || [orderId isEqualToString:@""])) {
+            YD1LOG(@"Failed to generat order, error %ld-%@", error.code, error.localizedDescription);
+            [[Yodo1PurchaseDataAnalytics shared] trackOrderRequest:NO];
             [[Yodo1PurchaseDataAnalytics shared] trackOrderPending];
+            callback(NO,orderId,error);
             return;
         }
         
@@ -463,15 +436,14 @@
         [parameters setObject:Yd1OpsTools.appVersion? :@"" forKey:@"channelVersion"];
         
         [Yodo1PurchaseAPI.shared createOrder:parameters callback:^(BOOL success, NSError * _Nonnull error) {
+            [[Yodo1PurchaseDataAnalytics shared] trackOrderRequest:success];
             if (success) {
-                YD1LOG(@"%@:下单成功",orderId);
+                YD1LOG(@"Create order successfully, %@: ", orderId);
             } else {
-                YD1LOG(@"%ld, %@", error.code, error.localizedDescription);
+                YD1LOG(@"Failed to create order, error %ld-%@", error.code, error.localizedDescription);
                 [[Yodo1PurchaseDataAnalytics shared] trackOrderPending];
             }
-            
             callback(success,orderId,error);
-            [[Yodo1PurchaseDataAnalytics shared] trackOrderRequest:success];
         }];
     }];
 }
