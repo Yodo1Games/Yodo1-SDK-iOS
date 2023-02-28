@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Share'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = '---A short description of Yodo1 Share-----'
   
   s.description      = <<-DESC
@@ -68,7 +68,7 @@ Pod::Spec.new do |s|
   'c++',
   'z']
   
-  s.dependency 'Yodo1Commons','6.1.2'
+  s.dependency 'Yodo1Commons','6.1.3'
   s.dependency 'Yodo1QQSDK','6.1.0'
 #  s.dependency 'QQSDK','3.5.11'
   s.dependency 'FBSDKShareKit','12.3.2'
