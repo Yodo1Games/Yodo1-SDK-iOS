@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Yodo1UCenter.h"
+#import "Yodo1Product.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,21 +33,27 @@ typedef enum {
 }Yodo1U3dSDKResulType;
 
 typedef enum {
-    PaymentCannel = 0,      //取消支付
-    PaymentSuccess,         //支付成功
-    PaymentFail,            //支付失败
-    PaymentValidationFail   //ops 验证失败
+    PaymentFail = 0,
+    PaymentSuccess = 1,
+    PaymentCancel = 2,
+    PaymentVerifyOrderFail = 3
 }PaymentState;
 
 typedef enum {
-    PaymentErrorCodeUnKnow = -2,    //未知错误
-    PaymentErrorCodeNotNetwork = -1,    //没有网络
-    PaymentErrorCodeFail = 0,           //支付失败
-    PaymentErrorCodeSuccess = 1,        //支付成功
-    PaymentErrorCodeCannel = 2,         //取消支付
-    PaymentErrorCodeValidationFail = 3,  //ops 验证失败
-    PaymentErrorCodeLossOrderId = 203,  //丢失订单
-    PaymentErrorCodeUserFail = 205  //设备不允许支付
+    PaymentErrorCodeUnKnow = -2,            //Error code indicating that an unknown or unexpected error occurred.
+    PaymentErrorCodeNotNetwork = -1,        //Error code indicating that no network
+    PaymentErrorCodeFail = 0,               //
+    PaymentErrorCodeSuccess = 1,            //
+    PaymentErrorCodeCancelled = 2,          //Error code indicating that the user canceled a payment request.
+    PaymentErrorCodeVerifyOrderFail = 3,    //Error code indicating that failed to verify order by IAP payment.
+    PaymentErrorCodeCannelForPrivacy = 4,   //Error code indicating that purchase cancelled when the user click the Terms of Service and Privacy Agreement buttons.
+    PaymentErrorCodeUserLoginFail = 103,    //Error code indicating that the user is not logged in Yodo1 ucenter
+    PaymentErrorCodeLossOrderId = 203,      //丢失订单
+    PaymentErrorCodeUserFail = 205,         //设备不允许支付
+    PaymentErrorCodeCreateOrder = 206,      //Failed to create the order from IAP payment
+    PaymentErrorCodeOwn = 208,              //用户已经拥有该商品
+    PaymentErrorCodeInvalidProductId = 209, //Error code indicating that the product identifier is invalid.
+    PaymentErrorCodeAppleFail = 210,
 }PaymentErrorCode;
 
 typedef enum {
@@ -55,14 +62,7 @@ typedef enum {
     Hide
 }PromotionVisibility;
 
-typedef enum {
-    NonConsumables = 0,//不可消耗
-    Consumables,//可消耗
-    Auto_Subscription,//自动订阅
-    None_Auto_Subscription//非自动订阅
-}ProductType;
-
-@class Product;
+@class Yodo1Product;
 @class PaymentObject;
 
 typedef void (^PaymentCallback) (PaymentObject* payemntObject);
@@ -72,7 +72,7 @@ typedef void (^FetchStorePromotionOrderCallback) (NSArray<NSString *> *  storePr
 typedef void (^FetchStorePromotionVisibilityCallback) (PromotionVisibility storePromotionVisibility, BOOL success, NSString*  error);
 typedef void (^UpdateStorePromotionOrderCallback) (BOOL success, NSString*  error);
 typedef void (^UpdateStorePromotionVisibilityCallback)(BOOL success, NSString*  error);
-typedef void (^ProductsInfoCallback) (NSArray<Product*> *productInfo);
+typedef void (^ProductsInfoCallback) (NSArray<Yodo1Product*> *productInfo);
 
 /**
  *@brief
@@ -102,23 +102,6 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
 @property (nonatomic, strong) NSError* error;
 @end
 
-@interface Product : NSObject
-@property (nonatomic, strong) NSString* uniformProductId;
-@property (nonatomic, strong) NSString* channelProductId;
-@property (nonatomic, strong) NSString* productName;
-@property (nonatomic, strong) NSString* productPrice;
-@property (nonatomic, strong) NSString* priceDisplay;
-@property (nonatomic, strong) NSString* productDescription;
-@property (nonatomic, strong) NSString* currency;
-@property (nonatomic, strong) NSString* orderId;
-@property (nonatomic, assign) ProductType productType;
-///订阅时间: 每周，每月，每年,每2个月...
-@property (nonatomic, strong) NSString* periodUnit;
-- (instancetype)initWithDict:(NSDictionary*)dictProduct
-                   productId:(NSString*)uniformProductId;
-- (instancetype)initWithProduct:(Product*)product;
-@end
-
 @class YD1User;
 
 @interface Yodo1PurchaseManager : NSObject
@@ -129,8 +112,6 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
 
 @property (nonatomic,assign)__block BOOL isLogined;
 @property (nonatomic,strong)__block YD1User* user;
-@property (nonatomic,strong)NSMutableDictionary* superProperty;
-@property (nonatomic,strong)NSMutableDictionary* itemProperty;
 
 /// 苹果支付票据回调
 @property (nonatomic,copy)ValidatePaymentBlock  validatePaymentBlock;
@@ -145,7 +126,7 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
  */
 - (void)createOrderIdWithUniformProductId:(NSString *)uniformProductId
                                     extra:(NSString*)extra
-                                 callback:(void (^)(bool success,NSString * orderid,NSString* error))callback;
+                                 callback:(void (^)(bool success, NSString * orderid, NSError* error))callback;
 
 /**
  * 购买产品
@@ -218,20 +199,20 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
 /**
  *  获取促销产品
  */
-- (Product*)promotionProduct;
+- (Yodo1Product*)promotionProduct;
 
 /**
  * 通知已发货成功
  */
-- (void)sendGoodsOver:(NSString *)orderIds
-             callback:(void (^)(BOOL success,NSString* error))callback;
+- (void)sendGoodsSuccess:(NSString *)orderIds
+                callback:(void (^)(BOOL success,NSString* error))callback;
 
 
 /**
  * 通知已发货失败
  */
-- (void)sendGoodsOverForFail:(NSString *)orderIds
-                     callback:(void (^)(BOOL success,NSString* error))callback;
+- (void)sendGoodsFail:(NSString *)orderIds
+             callback:(void (^)(BOOL success,NSString* error))callback;
 
 /**
  * 激活码/优惠券

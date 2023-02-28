@@ -1,32 +1,21 @@
 Pod::Spec.new do |s|
     s.name             = 'Yodo1Purchase'
-    s.version          = '6.2.2'
-    s.summary          = 'v 新添加Thinking 统计'
+    s.version          = '6.2.3'
+    s.summary          = 'In-App purchase SDK for iOS'
 
     s.description      = <<-DESC
     TODO: Add long description of the pod here.
                        DESC
 
     s.homepage         = 'https://github.com'
-    # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
     s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
     s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
 
-    # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
     s.ios.deployment_target = '9.0'
 
-    s.source_files = [ "*.h" ]
-
-    s.public_header_files = [ "*.h"]
-
-    s.vendored_libraries = [ "*.a" ]
-
-    s.resources = ["*.bundle", "*.{m,mm}"]
-
-    # s.vendored_frameworks = [
-    #     "*.framework"
-    # ]
+    s.source_files = s.name + '/Classes/**/*'
+    s.public_header_files = s.name + '/Classes/**/*.h'
+    s.resource = s.name + '/Assets/**/*.bundle'
     
     s.requires_arc = true
 
@@ -72,8 +61,8 @@ Pod::Spec.new do |s|
         'c++',
         'z']
         
-    s.dependency 'Yodo1Commons','6.1.2'
-    s.dependency 'Yodo1Analytics','6.2.4'
-    s.dependency 'Yodo1UCenter','1.0.0'
+    s.dependency 'Yodo1Commons','6.1.3'
+    s.dependency 'Yodo1Analytics','6.2.6'
+    s.dependency 'Yodo1UCenter','1.0.2'
 
 end
