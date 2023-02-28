@@ -144,8 +144,7 @@ extern "C" {
     }
     
     char* UnityGetSDKVersion() {
-        const char* sdkVersion = K_YODO1_SUIT_VERSION.UTF8String;
-        YD1LOG(@"sdkVersion = %@", K_YODO1_SUIT_VERSION);
+        const char* sdkVersion = [Yodo1Suit sdkVersion].UTF8String;
         return Yodo1MakeStringCopy(sdkVersion);
     }
 

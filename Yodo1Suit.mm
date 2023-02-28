@@ -159,9 +159,8 @@ static NSString* yd1AppKey = @"";
     }
     
     //初始化在线参数
-    [Yd1OnlineParameter.shared initWithAppKey:appKey channelId:@"AppStore"];
+    [Yd1OnlineParameter.shared initWithAppKey:appKey channelId:Yodo1Tool.shared.publishChannelCodeValue];
     yd1AppKey = appKey;
-    
 }
 
 + (NSDictionary*)config {
@@ -313,7 +312,10 @@ void UnityShowUserConsent(const char *SdkObjectName,const char* SdkMethodName)
     if (rootViewController == nil) {
         rootViewController = [Yodo1Commons getRootViewController];
     }
-    [YD1AgePrivacyManager dialogShowUserConsentWithGameAppKey:m_appKey channelCode:@"appstore" viewController:rootViewController block:^(BOOL accept, BOOL child, int age) {
+    [YD1AgePrivacyManager dialogShowUserConsentWithGameAppKey:m_appKey
+                                                  channelCode:Yodo1Tool.shared.paymentChannelCodeValue
+                                               viewController:rootViewController
+                                                        block:^(BOOL accept, BOOL child, int age) {
         if (m_gameObject && m_methodName) {
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
             [dict setObject:[NSNumber numberWithInt:8001] forKey:@"resulType"];

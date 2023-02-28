@@ -10,6 +10,7 @@
 #import "Yodo1Commons.h"
 #import "Yodo1KeyInfo.h"
 #import "Yodo1Base.h"
+#import "Yodo1Tool+Commons.h"
 
 
 NSString* const YD1_Default = @"default";
@@ -432,7 +433,7 @@ static YD1AgePrivacyManager* _instance = nil;
     }
     NSString* channel_Code = channelCode;
     if (channelCode == nil) {
-        channelCode = @"appstore";
+        channelCode = Yodo1Tool.shared.paymentChannelCodeValue;
     }
     NSString* sdkVersion = [YD1AgePrivacyManager publishVersion];
     NSString* sdkType = [YD1AgePrivacyManager publishType];
@@ -593,7 +594,10 @@ void Unity3dShowUserConsent(const char *SdkObjectName,const char* SdkMethodName)
     if (rootViewController == nil) {
         rootViewController = [Yodo1Commons getRootViewController];
     }
-    [YD1AgePrivacyManager dialogShowUserConsentWithGameAppKey:m_appKey channelCode:@"appstore" viewController:rootViewController block:^(BOOL accept, BOOL child, int age) {
+    [YD1AgePrivacyManager dialogShowUserConsentWithGameAppKey:m_appKey
+                                                  channelCode:Yodo1Tool.shared.paymentChannelCodeValue
+                                               viewController:rootViewController
+                                                        block:^(BOOL accept, BOOL child, int age) {
         if (m_gameObject && m_methodName) {
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
             [dict setObject:[NSNumber numberWithInt:8001] forKey:@"resulType"];
