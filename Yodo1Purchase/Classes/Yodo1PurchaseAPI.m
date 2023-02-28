@@ -378,8 +378,8 @@
             callback(false,error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        YD1LOG(@"%@",error);
-        callback(false,error.description);
+        YD1LOG(@"%@",error.description);
+        callback(false,error.localizedDescription);
     }];
 }
 
@@ -416,8 +416,8 @@
             callback(false,error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        YD1LOG(@"%@",error);
-        callback(false,error.description);
+        YD1LOG(@"%@",error.description);
+        callback(false,error.localizedDescription);
     }];
 }
 
@@ -458,8 +458,8 @@
             callback(false,error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        YD1LOG(@"%@",error);
-        callback(false,error.description);
+        YD1LOG(@"%@",error.description);
+        callback(false,error.localizedDescription);
     }];
 }
 
@@ -506,8 +506,8 @@
             callback(false,error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        YD1LOG(@"%@",error);
-        callback(false,error.description);
+        YD1LOG(@"%@",error.description);
+        callback(false,error.localizedDescription);
     }];
 }
 
@@ -564,8 +564,8 @@
             callback(false,notExistOrders,notPayOrders,error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        YD1LOG(@"%@",error);
-        callback(false,@[],@[],error.description);
+        YD1LOG(@"%@",error.description);
+        callback(false,@[],@[],error.localizedDescription);
     }];
 }
 
@@ -621,8 +621,8 @@
             callback(false,orders,error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        YD1LOG(@"%@",error);
-        callback(false,@[],error.description);
+        YD1LOG(@"%@",error.description);
+        callback(false,@[],error.localizedDescription);
     }];
 }
 
@@ -683,8 +683,8 @@
             callback(false,status,error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        YD1LOG(@"%@",error);
-        callback(false,@"",error.description);
+        YD1LOG(@"%@",error.description);
+        callback(false,@"",error.localizedDescription);
     }];
 }
 
