@@ -110,7 +110,7 @@
     
     if (paymentObject.paymentState != PaymentSuccess) {
         NSNumber* errorCode = [NSNumber numberWithInteger:paymentObject.error.code];
-        NSString* errorMsg = paymentObject.error.localizedDescription;
+        NSString* errorMsg = paymentObject.error.description;
         [[Yodo1PurchaseDataAnalytics shared] trackOrderError:errorCode errorMessage:errorMsg];
     }
     
@@ -225,7 +225,7 @@
                         }
                     } else {
                         self->paymentObject.paymentState = PaymentFail;
-                        NSString* message = [NSString stringWithFormat:@"%ld-%@", error.code, error.localizedDescription];
+                        NSString* message = [NSString stringWithFormat:@"%ld-%@", error.code, error.description];
                         YD1LOG(@"Failed to create order with error: %@", message);
                         self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
                                                                         code:PaymentErrorCodeCreateOrder
@@ -238,7 +238,7 @@
                 [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":@"1", @"usercenter_error_message":error.localizedDescription}];
                 weakSelf.isLogined = NO;
                 
-                NSString* message = [NSString stringWithFormat:@"The user is not logged in Yodo1 ucenter with %ld-%@", error.code, error.localizedDescription];
+                NSString* message = [NSString stringWithFormat:@"The user is not logged in Yodo1 ucenter with %ld-%@", error.code, error.description];
                 YD1LOG(@"%@", message);
                 self->paymentObject.paymentState = PaymentFail;
                 self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
@@ -263,7 +263,7 @@
                 self->isBuying = NO;
                 self->paymentObject.uniformProductId = uniformProductId;
                 self->paymentObject.paymentState = PaymentFail;
-                NSString* message = [NSString stringWithFormat:@"%ld-%@", error.code, error.localizedDescription];
+                NSString* message = [NSString stringWithFormat:@"%ld-%@", error.code, error.description];
                 YD1LOG(@"Failed to create order with error: %@", message);
                 self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
                                                                 code:PaymentErrorCodeCreateOrder
@@ -373,7 +373,7 @@
     __weak typeof(self) weakSelf = self;
     [Yodo1PurchaseAPI.shared generateOrderId:^(NSString * _Nullable orderId, NSError * _Nullable error) {
         if ((orderId == nil || [orderId isEqualToString:@""])) {
-            YD1LOG(@"Failed to generat order, error %ld-%@", error.code, error.localizedDescription);
+            YD1LOG(@"Failed to generat order, error %ld-%@", error.code, error.description);
             [[Yodo1PurchaseDataAnalytics shared] trackOrderRequest:NO];
             [[Yodo1PurchaseDataAnalytics shared] trackOrderPending];
             callback(NO,orderId,error);
@@ -440,7 +440,7 @@
             if (success) {
                 YD1LOG(@"Create order successfully, %@: ", orderId);
             } else {
-                YD1LOG(@"Failed to create order, error %ld-%@", error.code, error.localizedDescription);
+                YD1LOG(@"Failed to create order, error %ld-%@", error.code, error.description);
                 [[Yodo1PurchaseDataAnalytics shared] trackOrderPending];
             }
             callback(success,orderId,error);
@@ -470,7 +470,7 @@
         NSArray* restoreProduct = [weakSelf productInfoWithProducts:restore];
         callback(restoreProduct,@"Restore purchased successfully");
     } failure:^(NSError *error) {
-        callback(@[],error.localizedDescription);
+        callback(@[],error.description);
     }];
 }
 
@@ -1032,7 +1032,7 @@
     
     NSString* message = @"";
     if (notification.rm_storeError != nil) {
-        message = [NSString stringWithFormat:@"%ld-%@", notification.rm_storeError.code, notification.rm_storeError.localizedDescription];
+        message = [NSString stringWithFormat:@"%ld-%@", notification.rm_storeError.code, notification.rm_storeError.description];
     }
     YD1LOG(@"%@", message);
     
@@ -1150,7 +1150,7 @@
             
             NSString* message = @"";
             if (error != nil) {
-                message = [NSString stringWithFormat:@"%ld-%@", error.code, error.localizedDescription];
+                message = [NSString stringWithFormat:@"%ld-%@", error.code, error.description];
             }
             YD1LOG(@"%@", message);
             
