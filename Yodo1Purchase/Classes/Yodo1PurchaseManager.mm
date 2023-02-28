@@ -337,7 +337,7 @@
     self->paymentObject.paymentState = paymentState;
     self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
                                                     code:paymentErrorCode
-                                                userInfo:@{NSLocalizedDescriptionKey:@""}];
+                                                userInfo:@{NSLocalizedDescriptionKey:@"The user canceled a payment request from Subscription action."}];
     [self invokePaymentCallback:self->paymentObject];
     self->isBuying = NO;
     Yodo1PurchaseAPI.shared.itemInfo.statusCode = [NSString stringWithFormat:@"%d",self->paymentObject.paymentState];
