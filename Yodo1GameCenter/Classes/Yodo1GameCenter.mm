@@ -125,6 +125,8 @@ static Yodo1GameCenter* _instance = nil;
     YD1LOG(@"Saved GCM Achievement: %@", achievement);
 }
 
+#pragma mark- API
+
 // 判断是否登录
 - (BOOL)gameCenterIsLogin {
     return [[GameCenterManager sharedManager]isGameCenterAvailable];
@@ -201,7 +203,11 @@ extern "C" {
             regionCode = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"RegionCode"];
         }
         NSDictionary* data = @{
-            Yd1OpsTools.gameAppKey:[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"] ,Yd1OpsTools.channelCode:@"appstore",Yd1OpsTools.deviceId:deviceId,Yd1OpsTools.regionCode:regionCode};
+            Yd1OpsTools.gameAppKey:[[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"],
+            Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
+            Yd1OpsTools.deviceId:deviceId,
+            Yd1OpsTools.regionCode:regionCode
+        };
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         [parameters setObject:data forKey:Yd1OpsTools.data];
         [parameters setObject:sign forKey:Yd1OpsTools.sign];
