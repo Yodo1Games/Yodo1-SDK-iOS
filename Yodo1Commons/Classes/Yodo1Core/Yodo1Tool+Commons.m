@@ -306,8 +306,8 @@
 - (NSString *)sign { return @"sign"; }
 - (NSString *)orderId { return @"orderid"; }
 
-- (NSString *)paymentChannelCodeValue { return @"appstore"; }
-- (NSString *)publishChannelCodeValue { return @"AppStore"; }
+- (NSString *)paymentChannelCodeValue { return @"AppStore"; }
+- (NSString *)publishChannelCodeValue { return @"appstore"; }
 
 - (NSString *)sdkTypeValue {
     NSDictionary* _config = [Yd1OpsTools bundlePlistWithPath:@"Yodo1Suit.bundle/config"];
