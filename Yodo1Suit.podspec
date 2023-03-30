@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com'
   s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
   
   s.subspec 'Yodo1_Suit' do |ss|
     ss.source_files = ["*.{h,m,mm}", "YD1Layout/*.{h,m,mm}"]
