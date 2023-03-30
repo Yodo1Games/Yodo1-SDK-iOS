@@ -428,7 +428,7 @@ static YD1AgePrivacyManager* _instance = nil;
     NSMutableDictionary*parameters = [NSMutableDictionary dictionary];
     NSString* game_AppKey = gameAppKey;
     if (gameAppKey == nil) {
-        YD1LOG(@"[ Yodo1 ] gameAppKey is nil!");
+        YD1LOG(@"gameAppKey is nil!");
         return;
     }
     NSString* channel_Code = channelCode;
