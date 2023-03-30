@@ -1,14 +1,14 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Purchase'
-  s.version          = '6.2.6'
+  s.version          = '6.2.7'
   s.summary          = 'In-App purchase SDK for iOS'
   
   s.description      = <<-DESC
   TODO: Add long description of the pod here.
   DESC
   
-  s.homepage         = 'https://github.com'
-  s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
+  s.homepage         = 'https://www.yodo1.com/'
+  s.author           = { 'Yodo1Games' => 'devadmin@yodo1.com' }
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
   
   s.ios.deployment_target = '10.0'

@@ -20,10 +20,10 @@
 
 #import "RMStoreUserDefaultsPersistence.h"
 #import "RMStoreTransaction.h"
-#import "Yodo1UCenter.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1PurchaseManager.h"
+#import "Yodo1PurchaseAPI.h"
 #import "Yodo1Base.h"
 
 NSString* const RMStoreTransactionsUserDefaultsKey = @"RMStoreTransactions";
@@ -52,7 +52,7 @@ NSString* const RMStoreTransactionsUserDefaultsKey = @"RMStoreTransactions";
         [newOrderId setArray:oldOrderId];
     }
     for (NSString* oderid in oldOrderId) {
-        if ([oderid isEqualToString:Yodo1UCenter.shared.itemInfo.orderId]) {
+        if ([oderid isEqualToString:Yodo1PurchaseAPI.shared.transaction.orderId]) {
             transaction.orderId = oderid;
             [newOrderId removeObject:oderid];
             break;
