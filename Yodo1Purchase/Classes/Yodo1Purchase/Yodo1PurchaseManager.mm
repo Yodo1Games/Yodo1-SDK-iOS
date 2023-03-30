@@ -115,8 +115,11 @@
         return;
     }
     
+    Yodo1Product* product = [productInfos objectForKey:uniformProductId];
     NSMutableArray* productArray = [NSMutableArray array];
-    [productArray addObject:[productInfos objectForKey:uniformProductId]];
+    if (product != nil) {
+        [productArray addObject:product];
+    }
     if (callback) {
         callback([self productInfoWithProducts:productArray]);
     }
