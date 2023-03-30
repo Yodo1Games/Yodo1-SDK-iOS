@@ -50,9 +50,9 @@ static Yodo1Replay* _instance = nil;
     }
     [RPScreenRecorder sharedRecorder].delegate = self;
     [[RPScreenRecorder sharedRecorder] startRecordingWithMicrophoneEnabled:YES
-                                                                    handler:^(NSError* _Nullable error) {
+                                                                   handler:^(NSError* _Nullable error) {
         YD1LOG(@"recorder error:%@", error);
-                                                                    }];
+    }];
     [[RPScreenRecorder sharedRecorder]discardRecordingWithHandler:^{
         YD1LOG(@"recorder interrupt");
     }];
@@ -61,9 +61,8 @@ static Yodo1Replay* _instance = nil;
 - (void)stopScreenRecorder
 {
     [[RPScreenRecorder sharedRecorder] stopRecordingWithHandler:^(RPPreviewViewController* _Nullable previewViewController, NSError* _Nullable error) {
-         
-         _previewViewController = previewViewController;
-     }];
+        _previewViewController = previewViewController;
+    }];
 }
 
 - (void)showRecorder:(UIViewController *)viewcontroller
@@ -74,20 +73,18 @@ static Yodo1Replay* _instance = nil;
     }
     
     if (_previewViewController) {
-        
         _previewViewController.previewControllerDelegate = self;
-        
         if ([_previewViewController respondsToSelector:@selector(popoverPresentationController)])  // iPad(特性)
         {
             _previewViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
         }
         
         [self.viewController presentViewController:_previewViewController
-                                                           animated:YES
-                                                         completion:^{
-                                                             [UIApplication sharedApplication].statusBarHidden = YES;
-                                                             _previewViewController = nil;
-                                                         }];
+                                          animated:YES
+                                        completion:^{
+            [UIApplication sharedApplication].statusBarHidden = YES;
+            _previewViewController = nil;
+        }];
     }
 }
 
@@ -102,14 +99,14 @@ static Yodo1Replay* _instance = nil;
 
 - (void)previewController:(RPPreviewViewController *)previewController didFinishWithActivityTypes:(NSSet <NSString *> *)activityTypes
 {
-
+    
 }
 
 #pragma mark- RPScreenRecorderDelegate
 
 - (void)screenRecorder:(RPScreenRecorder *)screenRecorder didStopRecordingWithError:(NSError *)error previewViewController:(nullable RPPreviewViewController *)previewViewController
 {
-
+    
 }
 
 - (void)screenRecorderDidChangeAvailability:(RPScreenRecorder *)screenRecorder
@@ -117,7 +114,6 @@ static Yodo1Replay* _instance = nil;
     if (screenRecorder.isRecording) {
         YD1LOG(@"recording");
     }
-    
 }
 
 #pragma mark- Unity 接口
