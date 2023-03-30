@@ -11,11 +11,9 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+PayParameters.h"
-#import "Yodo1Model.h"
 #import "Yodo1KeyInfo.h"
-#import "Yodo1PurchaseDataAnalytics.h"
 
-@implementation Yodo1PurchaseItemInfo
+@implementation Yodo1Transaction
 @end
 
 @implementation SubscriptionProductInfo
@@ -35,7 +33,7 @@
 }
 @end
 
-@interface Yodo1PurchaseAPI () {
+@interface Yodo1PurchaseAPI() {
     
 }
 
@@ -51,15 +49,16 @@
 }
 
 - (void)willInit {
-    if (_itemInfo == nil) {
-        _itemInfo = [[Yodo1PurchaseItemInfo alloc]init];
-        _itemInfo.deviceid = Yd1OpsTools.keychainDeviceId;
-        _itemInfo.extra = @"";
-        _itemInfo.is_sandbox = @"false";
-        _itemInfo.statusCode = @"1";
-        _itemInfo.statusMsg = @"";
-        _itemInfo.exclude_old_transactions = @"false";
+    if (_transaction == nil) {
+        _transaction = [[Yodo1Transaction alloc]init];
+        _transaction.deviceid = Yd1OpsTools.keychainDeviceId;
+        _transaction.extra = @"";
+        _transaction.is_sandbox = @"false";
+        _transaction.statusCode = @"1";
+        _transaction.statusMsg = @"";
+        _transaction.exclude_old_transactions = @"false";
     }
+    _gameAppKey = [Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"]? :@"";
 }
 
 - (NSString *)regionCode {
@@ -69,6 +68,10 @@
     return _regionCode;
 }
 
+
+/// Generate an order id from IAP payment, please check here(https://confluence.yodo1.com/display/OPP/generateOrderId) for the details
+///
+/// - Parameter callback: NSString *orderId - An order id that generate by IAP payment, NSError *error - An error when failed to generate an order id from IAP payment
 - (void)generateOrderId:(void (^)(NSString * _Nullable, NSError * _Nullable))callback {
     Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
     manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
@@ -138,6 +141,7 @@
 /**
  *  假如error_code:0 error值代表剩余可
  *  花费金额不为0，则是具体返回信息
+ *  Create an order id in IAP payment, please check here(https://confluence.yodo1.com/pages/viewpage.action?pageId=24061090) for the details
  */
 - (void)createOrder:(NSDictionary*) parameter callback:(void (^)(BOOL success, NSError *))callback {
     Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
@@ -179,28 +183,28 @@
         @"carrier":Yd1OpsTools.networkOperatorName,
     };
     NSDictionary* data = @{
-        @"game_appkey":[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
-        @"channel_code":Yodo1Tool.shared.paymentChannelCodeValue,
+        @"game_appkey":self.gameAppKey,
         @"region_code":self.regionCode,
+        @"channel_code":Yodo1Tool.shared.paymentChannelCodeValue,
+        @"pr_channel_code":Yodo1Tool.shared.publishChannelCodeValue,
+        @"channel_version":channelVersion,
+        @"paymentChannelVersion":Yodo1Tool.shared.sdkVersionValue,
         @"sdkType":Yodo1Tool.shared.sdkTypeValue,
         @"sdkVersion":Yodo1Tool.shared.sdkVersionValue,
-        @"pr_channel_code":Yodo1Tool.shared.publishChannelCodeValue,
         @"orderid":orderId,
+        @"order_money":orderMoney,
         @"item_code":itemCode,
         @"uid":uid,
         @"ucuid":ucuid,
         @"yid":yid,
         @"playerId":playerId,
-        @"channel_version":channelVersion,
-        @"order_money":orderMoney,
         @"gameName":gameName,
+        @"gameBundleId":Yd1OpsTools.appBid,
         @"game_version":gameVersion,
         @"game_type":gameType,
         @"game_extra":gameExtra,
         @"extra":extra,
         @"deviceid":Yd1OpsTools.keychainDeviceId,
-        @"gameBundleId":Yd1OpsTools.appBid,
-        @"paymentChannelVersion":Yodo1Tool.shared.sdkVersionValue,
         @"deviceInfo":deviceInfo,
         @"productInfo":productInfo,
         @"channelUserid":channelUserid
@@ -242,10 +246,18 @@
                            userInfo:@{NSLocalizedDescriptionKey:msg? :@""}];
 }
 
-- (void)verifyOrder:(Yodo1PurchaseItemInfo *)itemInfo
+
+/// Verify an order by IAP payment, please check here(https://confluence.yodo1.com/pages/viewpage.action?pageId=24071455) for the details
+/// Validating receipts with the App Store: https://developer.apple.com/documentation/storekit/in-app_purchase/original_api_for_in-app_purchase/validating_receipts_with_the_app_store?language=objc
+///
+/// - Parameters:
+///   - transaction: Yodo1Transaction
+///   - user: YD1User
+///   - callback: <#callback description#>
+- (void)verifyOrder:(Yodo1Transaction *)transaction
                user:(YD1User *) user
            callback:(nonnull void (^)(BOOL, NSString * _Nonnull, NSError * _Nonnull))callback {
-    if (!itemInfo) {
+    if (!transaction) {
         callback(false,@"",[self errorWithMsg:@"order Ids is empty!" errorCode:-1]);
         return;
     }
@@ -254,22 +266,22 @@
     [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     
-    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",itemInfo.orderId]];
+    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",transaction.orderId]];
     NSDictionary* data = @{
-        Yd1OpsTools.gameAppKey:[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"]? :@"",
-        Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
+        Yd1OpsTools.gameAppKey:self.gameAppKey,
         Yd1OpsTools.regionCode:self.regionCode? :@"",
-        Yd1OpsTools.orderId:itemInfo.orderId? :@"",
-        @"channelOrderid":itemInfo.channelOrderid? :@"",
-        @"exclude_old_transactions":itemInfo.exclude_old_transactions? :@"false",
-        @"product_type":[NSNumber numberWithInt:itemInfo.product_type],
-        @"item_code":itemInfo.item_code? :@"",
+        Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
+        Yd1OpsTools.orderId:transaction.orderId? :@"",
+        @"channelOrderid":transaction.channelOrderid? :@"",
+        @"item_code":transaction.item_code? :@"",
+        @"product_type":[NSNumber numberWithInt:transaction.product_type],
+        @"exclude_old_transactions":transaction.exclude_old_transactions? :@"false",
         @"uid":user.uid? :@"",
         @"ucuid":user.ucuid? :@"",
-        @"deviceid":itemInfo.deviceid? :@"",
-        @"trx_receipt":itemInfo.trx_receipt? :@"",
-        @"is_sandbox":itemInfo.is_sandbox? :@"",
-        @"extra":itemInfo.extra? :@"",
+        @"deviceid":transaction.deviceid? :@"",
+        @"trx_receipt":transaction.trx_receipt? :@"",
+        @"is_sandbox":transaction.is_sandbox? :@"",
+        @"extra":transaction.extra? :@"",
     };
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:data forKey:Yd1OpsTools.data];
@@ -294,26 +306,31 @@
     }];
 }
 
-- (void)querySubscriptions:(Yodo1PurchaseItemInfo *)itemInfo callback:(nonnull void (^)(BOOL, NSString * _Nullable, NSError * _Nullable))callback {
+
+/// Get the subscription products, please check here(https://confluence.yodo1.com/display/OPP/appStore+querySubscriptions) for the details
+/// - Parameters:
+///   - transaction: Yodo1Transaction
+///   - callback: <#callback description#>
+- (void)querySubscriptions:(Yodo1Transaction *)transaction callback:(nonnull void (^)(BOOL, NSString * _Nullable, NSError * _Nullable))callback {
     Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
     manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
-    if (!itemInfo.trx_receipt) {
+    if (!transaction.trx_receipt) {
         NSError* error = [NSError errorWithDomain:@"com.yodo1.querySubscriptions"
                                              code:-1
                                          userInfo:@{NSLocalizedDescriptionKey:@"receipt is nil!"}];
-        callback(false,itemInfo.orderId,error);
+        callback(false,transaction.orderId,error);
         return;
     }
-    NSString* eightReceipt = [itemInfo.trx_receipt substringToIndex:8];
+    NSString* eightReceipt = [transaction.trx_receipt substringToIndex:8];
     NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",eightReceipt]];
     NSDictionary* data = @{
-        Yd1OpsTools.gameAppKey:[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
-        Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
+        Yd1OpsTools.gameAppKey:self.gameAppKey,
         Yd1OpsTools.regionCode:self.regionCode,
-        @"trx_receipt":itemInfo.trx_receipt,
-        @"exclude_old_transactions":itemInfo.exclude_old_transactions
+        Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
+        @"trx_receipt":transaction.trx_receipt,
+        @"exclude_old_transactions":transaction.exclude_old_transactions
     };
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:data forKey:Yd1OpsTools.data];
@@ -338,7 +355,7 @@
             NSError* error = [NSError errorWithDomain:@"com.yodo1.querySubscriptions"
                                                  code:errorCode
                                              userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
-            callback(false,itemInfo.orderId,error);
+            callback(false,transaction.orderId,error);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         YD1LOG(@"%@",error);
@@ -421,8 +438,8 @@
     }];
 }
 
-- (void)reportOrderSuccess:(Yodo1PurchaseItemInfo *)itemInfo callback:(void (^)(BOOL, NSString * _Nonnull))callback {
-    if (!itemInfo) {
+- (void)reportOrderSuccess:(Yodo1Transaction *)transaction callback:(void (^)(BOOL, NSString * _Nonnull))callback {
+    if (!transaction) {
         callback(false,@"item info is empty!");
         return;
     }
@@ -432,10 +449,10 @@
     [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     
-    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1%@",itemInfo.orderId]];
+    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1%@",transaction.orderId]];
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:itemInfo.orderId forKey:@"orderid"];
-    [parameters setObject:itemInfo.extra forKey:@"extra"];
+    [parameters setObject:transaction.orderId forKey:@"orderid"];
+    [parameters setObject:transaction.extra forKey:@"extra"];
     [parameters setObject:sign forKey:Yd1OpsTools.sign];
     
     YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:parameters error:nil]);
@@ -463,8 +480,13 @@
     }];
 }
 
-- (void)reportOrderFail:(Yodo1PurchaseItemInfo *)itemInfo callback:(void (^)(BOOL, NSString * _Nonnull))callback {
-    if (!itemInfo) {
+
+/// Report the order's status to IAP payment, please see here(https://confluence.yodo1.com/pages/viewpage.action?pageId=24064396) for the details
+/// - Parameters:
+///   - transaction: Yodo1Transaction
+///   - callback: <#callback description#>
+- (void)reportOrderFail:(Yodo1Transaction *)transaction callback:(void (^)(BOOL, NSString * _Nonnull))callback {
+    if (!transaction) {
         callback(false,@"item info is empty!");
         return;
     }
@@ -474,13 +496,13 @@
     [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     
-    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",itemInfo.orderId]];
+    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",transaction.orderId]];
     NSDictionary* data = @{
-        @"orderId":itemInfo.orderId,
-        @"channelCode":Yodo1Tool.shared.publishChannelCodeValue,
-        @"channelOrderid":itemInfo.channelOrderid? :@"",
-        @"statusCode":itemInfo.statusCode,
-        @"statusMsg":itemInfo.statusMsg? :@""
+        @"orderId":transaction.orderId? :@"",
+        @"channelCode":Yodo1Tool.shared.paymentChannelCodeValue,
+        @"channelOrderid":transaction.channelOrderid? :@"",
+        @"statusCode":transaction.statusCode,
+        @"statusMsg":transaction.statusMsg? :@""
     };
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:data forKey:Yd1OpsTools.data];
@@ -569,7 +591,7 @@
     }];
 }
 
-- (void)queryLossOrders:(Yodo1PurchaseItemInfo *)itemInfo
+- (void)queryLossOrders:(Yodo1Transaction *)transaction
                    user:(YD1User *)user
                callback:(nonnull void (^)(BOOL success, NSArray * _Nonnull missorders,NSString* _Nonnull error))callback {
     if (!user.uid) {
@@ -585,7 +607,7 @@
     NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@", user.uid]];
     NSDictionary* data = @{
         @"uid":user.uid,
-        @"gameAppkey":[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
+        @"gameAppkey":self.gameAppKey,
         @"channelCode":Yodo1Tool.shared.paymentChannelCodeValue,
         @"regionCode":Yodo1PurchaseAPI.shared.regionCode
     };

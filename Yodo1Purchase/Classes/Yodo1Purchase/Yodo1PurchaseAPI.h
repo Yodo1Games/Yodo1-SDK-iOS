@@ -11,22 +11,24 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Yodo1UCenter.h"
+#import "Yodo1Product.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Yodo1PurchaseItemInfo : NSObject
+@interface Yodo1Transaction : NSObject
 
 @property (nonatomic,strong)NSString *productId;                // 产品ID
+@property (nonatomic,strong)NSString *item_code;                // 道具代码(同IAP代码)
+@property (nonatomic,assign)int product_type;                   // 默认0 商品类型,0-非消耗品;1-消耗品;2-自动订阅;3-非自动订阅
+
 @property (nonatomic,strong)NSString *orderId;                  // IAP Payment订单号
 @property (nonatomic,strong)NSString *channelOrderid;           // 订单号(苹果transaction_id)
-@property (nonatomic,assign)int product_type;                   // 默认0 商品类型,0-非消耗品;1-消耗品;2-自动订阅;3-非自动订阅
 @property (nonatomic,strong)NSString *exclude_old_transactions; // 是否获得所有数据
-@property (nonatomic,strong)NSString *item_code;                // 道具代码(同IAP代码)
 @property (nonatomic,strong)NSString *deviceid;                 // 例如idfa等设备id
 @property (nonatomic,strong)NSString *trx_receipt;              // 苹果验证收据
 @property (nonatomic,strong)NSString *is_sandbox;               // true为连接沙盒环境，不传或其他为正式环境
 @property (nonatomic,strong)NSString *extra;                    // 附加信息
-//@property (nonatomic,strong)NSString *channelCode;              // 渠道号 - AppStore
+//@property (nonatomic,strong)NSString *channelCode;            // 渠道号 - AppStore
 @property (nonatomic,strong)NSString *statusCode;               // 失败订单的三方返回code
 @property (nonatomic,strong)NSString *statusMsg;                // 三方返回的msg，可空
 
@@ -47,14 +49,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Yodo1PurchaseAPI : NSObject
 
+@property(nonatomic,strong)NSString* gameAppKey;
 @property(nonatomic,strong)NSString* regionCode;
-@property(nonatomic,strong)Yodo1PurchaseItemInfo* itemInfo;
+@property(nonatomic,strong)Yodo1Transaction* transaction;
 
 + (instancetype)shared;
 
-/**
- *  生成订单号
- */
+/// Generate an order id from IAP payment
+///
+/// - Parameter callback: NSString *orderId - An order id that generate by IAP payment, NSError *error - An error when failed to generate an order id from IAP payment
 - (void)generateOrderId:(void (^)(NSString* _Nullable orderId, NSError* _Nullable error))callback;
 
 /**
@@ -71,20 +74,20 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  App Store verify IAP
  */
-- (void)verifyOrder:(Yodo1PurchaseItemInfo *)itemInfo
+- (void)verifyOrder:(Yodo1Transaction *)transaction
                user:(YD1User *)user
            callback:(void (^)(BOOL verifySuccess,NSString* response,NSError* error))callback;
 
 /**
  *  上报订单已支付成功接口
  */
-- (void)reportOrderSuccess:(Yodo1PurchaseItemInfo *)itemInfo
+- (void)reportOrderSuccess:(Yodo1Transaction *)transaction
                   callback:(void (^)(BOOL success,NSString* error))callback;
 
 /**
  *  上报支付失败接口
  */
-- (void)reportOrderFail:(Yodo1PurchaseItemInfo *)itemInfo
+- (void)reportOrderFail:(Yodo1Transaction *)transaction
                callback:(void (^)(BOOL success,NSString* error))callback;
 
 /**
@@ -97,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 查询订阅
  */
-- (void)querySubscriptions:(Yodo1PurchaseItemInfo *)itemInfo
+- (void)querySubscriptions:(Yodo1Transaction *)transaction
                   callback:(void (^)(BOOL success,NSString* _Nullable response,NSError* _Nullable error))callback;
 
 /**
@@ -116,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  查询漏单接口（单机版，支持SDK V4.0）
  */
-- (void)queryLossOrders:(Yodo1PurchaseItemInfo *)itemInfo
+- (void)queryLossOrders:(Yodo1Transaction *)transaction
                    user:(YD1User *)user
                callback:(nonnull void (^)(BOOL success, NSArray * _Nonnull missorders, NSString* _Nonnull error))callback;
 

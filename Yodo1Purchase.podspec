@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Purchase'
-  s.version          = '6.2.4'
+  s.version          = '6.2.5'
   s.summary          = 'In-App purchase SDK for iOS'
   
   s.description      = <<-DESC
@@ -61,8 +61,8 @@ Pod::Spec.new do |s|
   'c++',
   'z']
   
-  s.dependency 'Yodo1Commons','6.1.3'
-  s.dependency 'Yodo1Analytics','6.2.6'
-  s.dependency 'Yodo1UCenter','1.0.2'
+  s.dependency 'Yodo1Commons','~>6.1.4'
+  s.dependency 'Yodo1Analytics','6.2.7'
+  s.dependency 'Yodo1UCenter','1.0.3'
   
 end

@@ -204,7 +204,7 @@ NSString* const RMStoreTransactionsUserDefaultsKey = @"RMStoreTransactions";
     if (@available(iOS 11.0, *)) {
         data = [NSKeyedArchiver archivedDataWithRootObject:transaction requiringSecureCoding:YES error:&error];
         if (error){
-            YD1LOG(@"[ Yodo1 ] save data. error:%@",error);
+            YD1LOG(@"save data. error:%@",error);
         }
     } else {
         data = [NSKeyedArchiver archivedDataWithRootObject:transaction];
@@ -223,7 +223,7 @@ NSString* const RMStoreTransactionsUserDefaultsKey = @"RMStoreTransactions";
     if (@available(iOS 11.0, *)) {
         transaction = [NSKeyedUnarchiver unarchivedObjectOfClasses:sets fromData:data error:&error];
         if (error) {
-            YD1LOG(@"[ Yodo1 ] loading data. error:%@",error);
+            YD1LOG(@"loading data. error:%@",error);
         }
     } else {
         transaction = [NSKeyedUnarchiver unarchiveObjectWithData:data];

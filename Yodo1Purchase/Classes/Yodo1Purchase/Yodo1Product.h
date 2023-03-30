@@ -26,7 +26,7 @@ typedef enum {
 @property (nonatomic, strong) NSString* productDescription;
 @property (nonatomic, strong) NSString* currency;
 @property (nonatomic, strong) NSString* orderId;
-@property (nonatomic, assign) ProductType productType;
+@property (nonatomic, assign) ProductType productType;      // 默认0 商品类型,0-非消耗品;1-消耗品;2-自动订阅;3-非自动订阅
 @property (nonatomic, strong) NSString* periodUnit;         //订阅时间: 每周，每月，每年,每2个月...
 
 - (instancetype)initWithDict:(NSDictionary*)dictProduct
