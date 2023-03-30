@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.1.14'
-  s.summary          = 'v6.1.14'
+  s.version          = '6.1.15'
+  s.summary          = 'v6.1.15'
   
   s.description      = <<-DESC
   TODO: Add long description of the pod here.
