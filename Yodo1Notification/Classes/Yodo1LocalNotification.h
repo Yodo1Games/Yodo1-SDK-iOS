@@ -14,10 +14,10 @@
  *  注册本地推送通知
  *
  *  @param notificationKey 通知的Key
- *  @param notificationId  通知的Id
- *  @param alertTime       通知时间
- *  @param title           通知对话框标题
- *  @param msg             通知描述
+ *  @param notificationId   通知的Id
+ *  @param alertTime              通知时间(单位：秒)
+ *  @param title                       通知对话框标题
+ *  @param msg                           通知描述
  */
 + (void)registerLocalNotification:(NSString* __nullable)notificationKey
                    notificationId:(NSInteger)notificationId
@@ -27,10 +27,10 @@
 /**
  *  取消本地推送通知
  *
- *  @param key            通知的Key
- *  @param notificationId 通知的Id
+ *  @param notificationKey 通知的Key
+ *  @param notificationId   通知的Id
  */
-+ (void)cancelLocalNotificationWithKey:(NSString* __nullable)key
++ (void)cancelLocalNotificationWithKey:(NSString* __nullable)notificationKey
                         notificationId:(NSInteger)notificationId;
 
 @end

@@ -57,7 +57,7 @@
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
-+ (void)cancelLocalNotificationWithKey:(NSString *)key
++ (void)cancelLocalNotificationWithKey:(NSString *)notificationKey
                         notificationId:(NSInteger)notificationId
 {
     // 获取所有本地通知数组
@@ -67,7 +67,7 @@
         NSDictionary *userInfo = notification.userInfo;
         if (userInfo) {
             // 根据设置通知参数时指定的key来获取通知参数
-            NSString *info = userInfo[key];
+            NSString *info = userInfo[notificationKey];
             // 如果找到需要取消的通知，则取消
             if (info != nil) {
                 [[UIApplication sharedApplication]
