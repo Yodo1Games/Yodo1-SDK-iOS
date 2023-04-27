@@ -7,7 +7,6 @@
 
 #import "Yodo1AntiAddictionHelper.h"
 
-#import "Yd1OnlineParameter.h"
 #import "Yodo1Model.h"
 
 #import "Yodo1AntiAddictionDatabase.h"
@@ -131,9 +130,8 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     _regionCode = regionCode ? regionCode : @"00000000";
     _systemSwitch = NO;
     
-    [[Yd1OnlineParameter shared] initWithAppKey:appKey channelId:channel];
-    [Yodo1AntiAddictionDatabase shared];
-    [Yodo1AntiAddictionNet manager];
+    [[Yodo1AntiAddictionDatabase shared] initWithAppKey:appKey];
+    [[Yodo1AntiAddictionNet manager] initWithAppKey:appKey];
     __weak __typeof(self)weakSelf = self;
     // 获取防沉迷规则 获取失败则使用本地默认
     [[Yodo1AntiAddictionRulesManager manager] requestRules:^(id data) {

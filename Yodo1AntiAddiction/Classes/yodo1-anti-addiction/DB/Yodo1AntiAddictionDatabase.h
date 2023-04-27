@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (Yodo1AntiAddictionDatabase *)shared;
 
+- (void)initWithAppKey:(NSString*)appKey;
+
 //insert
 - (long long)insertInto:(NSString *)table content:(NSDictionary *)content;
 

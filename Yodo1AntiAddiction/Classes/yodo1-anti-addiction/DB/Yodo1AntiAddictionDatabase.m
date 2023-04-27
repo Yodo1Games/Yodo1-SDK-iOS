@@ -6,11 +6,9 @@
 //
 
 #import "Yodo1AntiAddictionDatabase.h"
-#import "Yd1OnlineParameter.h"
 #import "Yodo1Tool.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
-
 #import "Yodo1AntiAddictionUser.h"
 #import "Yodo1AntiAddictionRecord.h"
 #import "Yodo1AntiAddictionBehaviour.h"
@@ -35,23 +33,31 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        NSString *appKey = [Yd1OnlineParameter shared].appKey;
-        NSString *path = [[[Yodo1Tool shared] documents] stringByAppendingFormat:@"/yodo1-anti-Addiction-%@.db", appKey];
-        _database = [FMDatabase databaseWithPath:path];
         
-        if ([_database open]) {
-#ifdef DEBUG
-            _database.traceExecution = YES;
-#endif
-            // 创建表
-            NSMutableString *statements = [NSMutableString string];
-            [statements appendFormat:@"%@\n", [Yodo1AntiAddictionUser createSql]];
-            [statements appendFormat:@"%@\n", [Yodo1AntiAddictionRecord createSql]];
-            [statements appendFormat:@"%@\n", [Yodo1AntiAddictionBehaviour createSql]];
-            [_database executeStatements:statements];
-        }
     }
     return self;
+}
+
+- (void)initWithAppKey:(NSString*)appKey {
+    if (appKey == nil || appKey.length <= 0) {
+        NSLog(@"Anti do not set AppKey!");
+        return;
+    }
+    
+    NSString *path = [[[Yodo1Tool shared] documents] stringByAppendingFormat:@"/yodo1-anti-Addiction-%@.db", appKey];
+    _database = [FMDatabase databaseWithPath:path];
+    
+    if ([_database open]) {
+#ifdef DEBUG
+        _database.traceExecution = YES;
+#endif
+        // 创建表
+        NSMutableString *statements = [NSMutableString string];
+        [statements appendFormat:@"%@\n", [Yodo1AntiAddictionUser createSql]];
+        [statements appendFormat:@"%@\n", [Yodo1AntiAddictionRecord createSql]];
+        [statements appendFormat:@"%@\n", [Yodo1AntiAddictionBehaviour createSql]];
+        [_database executeStatements:statements];
+    }
 }
 
 //insert

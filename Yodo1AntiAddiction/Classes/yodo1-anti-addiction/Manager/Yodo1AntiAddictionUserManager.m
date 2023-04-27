@@ -12,12 +12,10 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1UCenter.h"
-#import "Yodo1PurchaseManager.h"
 #import "Yodo1AntiAddictionDatabase.h"
 #import "Yodo1AntiAddictionNet.h"
 #import "Yodo1AntiAddictionHelper.h"
 #import "Yodo1AntiAddictionUtils.h"
-#import "Yodo1AnalyticsManager.h"
 
 #define TABLE_NAME NSStringFromClass([Yodo1AntiAddictionUser class])
 
@@ -48,10 +46,9 @@
         [self insert:antiUser];
     }
     
-    BOOL isLogined = [Yodo1PurchaseManager shared].isLogined;
-    YD1User *yd1User = [Yodo1PurchaseManager shared].user;
+    YD1User *yd1User = Yodo1UCenter.shared.getUserInfo;
     // 如果UserCenter已登录
-    if (isLogined && yd1User && [yd1User.yid isEqualToString:antiUser.yid]) {
+    if (yd1User && [yd1User.yid isEqualToString:antiUser.yid]) {
         antiUser.yid = yd1User.yid;
         antiUser.uid = yd1User.uid;
         [self update:antiUser];
@@ -62,30 +59,29 @@
     }
     
     if (antiUser.yid) {
-        NSLog(@"%@", antiUser.yid);
+        NSLog(@"-------------user of info---------------------");
+        NSLog(@"accountId:%@", antiUser.accountId);
+        NSLog(@"yid:%@", antiUser.yid);
+        NSLog(@"uid:%@", antiUser.uid);
+        NSLog(@"-------------user of info---------------------");
+        
         [self getCertificationInfo:antiUser success:success failure:failure];
     } else {
-        [[Yodo1UCenter shared] deviceLoginWithPlayerId:antiUser.accountId callback:^(YD1User *user, NSError *error) {
+        [[Yodo1UCenter shared] loginWithPlayerId:antiUser.accountId callback:^(YD1User *user, NSError *error) {
             
             NSLog(@"-------------user of info---------------------");
-            NSLog(@"accountId:%@",antiUser.accountId);
-            NSLog(@"yid:%@",user.yid);
-            NSLog(@"uid:%@",user.uid);
-            NSLog(@"ucuid:%@",user.ucuid);
+            NSLog(@"accountId:%@", antiUser.accountId);
+            NSLog(@"yid:%@", user.yid);
+            NSLog(@"uid:%@", user.uid);
+            NSLog(@"ucuid:%@", user.ucuid);
             NSLog(@"-------------user of info---------------------");
             
             if (!error) {
                 
-                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
-                
-                [Yodo1PurchaseManager shared].user = user;
-                [Yodo1PurchaseManager shared].isLogined = YES;
-                [Yd1OpsTools.cached setObject:user forKey:@"yd1User"];
                 antiUser.yid = user.yid;
                 antiUser.uid = user.uid;
                 [self getCertificationInfo:antiUser success:success failure:failure];
             } else {
-                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":@"1", @"usercenter_error_message":error.localizedDescription}];
                 if (failure) {
                     failure(error);
                 }

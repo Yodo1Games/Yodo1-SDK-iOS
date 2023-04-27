@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (Yodo1AntiAddictionNet *)manager;
 
+- (void)initWithAppKey:(NSString*)appKey;
+
 - (NSURLSessionDataTask *)GET:(NSString *)path parameters:parameters success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure;
 
 - (NSURLSessionDataTask *)POST:(NSString *)path parameters:parameters success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure;
