@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1UCenter'
-  s.version          = '1.0.3'
+  s.version          = '1.0.4'
   s.summary          = 'Yodo1UCenter'
   
   s.description      = <<-DESC
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author           = { 'Yodo1Games' => 'devadmin@yodo1.com' }
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
   
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
   
   s.source_files = s.name + '/Classes/**/*'
   s.public_header_files = s.name + '/Classes/**/*.h'
@@ -26,40 +26,23 @@ Pod::Spec.new do |s|
   }
   
   s.frameworks = [
-  'Accounts', 
-  'AssetsLibrary',
-  'AVFoundation', 
+  'Foundation',
+  'UIKit',
   'CoreTelephony',
-  'CoreLocation', 
-  'CoreMotion',
-  'CoreMedia',
-  'EventKit',
-  'EventKitUI', 
-  'iAd', 
-  'ImageIO',
-  'MobileCoreServices',
-  'MediaPlayer',
-  'MessageUI',
-  'MapKit',
-  'Social',
-  'StoreKit',
-  'WebKit',
-  'SystemConfiguration',
-  'AudioToolbox',
-  'Security']
+  'Security',
+  ]
   
   s.weak_frameworks = [
   'AdSupport',
   'SafariServices',
-  'ReplayKit',
-  'CloudKit',
-  'GameKit']
+  ]
   
   s.libraries = [
   'sqlite3.0',
   'c++',
   'z']
   
-  s.dependency 'Yodo1Commons','~>6.1.4'
-  
+  s.dependency 'Yodo1Commons','~>6.1.5'
+  s.dependency 'Yodo1Analytics','6.2.9'
+
 end

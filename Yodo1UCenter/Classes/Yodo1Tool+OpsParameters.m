@@ -36,6 +36,7 @@
 #endif
 }
 
+#pragma mark -【可弃用】
 - (NSString *)generateOrderIdURL {
     return @"payment/order/generateOrderId";
 }

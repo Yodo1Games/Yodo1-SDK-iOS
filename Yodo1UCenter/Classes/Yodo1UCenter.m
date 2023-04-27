@@ -13,6 +13,7 @@
 #import "Yodo1Tool+OpsParameters.h"
 #import "Yodo1Model.h"
 #import "Yodo1KeyInfo.h"
+#import "Yodo1AnalyticsManager.h"
 
 @implementation YD1User
 
@@ -60,9 +61,11 @@
 }
 @end
 
+#pragma mark -【可弃用】
 @implementation YD1ItemInfo
 @end
 
+#pragma mark -【可弃用】
 @implementation SubscriptionInfo
 
 - (id)initWithUniformProductId:(NSString*)m_uniformProductId
@@ -90,7 +93,6 @@
 
 + (instancetype)shared {
     return [Yodo1Base.shared cc_registerSharedInstance:self block:^{
-        ///初始化
         YD1LOG(@"%s",__PRETTY_FUNCTION__);
         [Yodo1UCenter.shared willInit];
     }];
@@ -106,17 +108,16 @@
         _itemInfo.statusMsg = @"";
         _itemInfo.exclude_old_transactions = @"false";
     }
+    _gameAppKey = [Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"]? :@"";
+    _regionCode = [Yodo1KeyInfo.shareInstance configInfoForKey:@"RegionCode"]? :@"";
 }
 
-- (NSString *)regionCode {
-    if (_regionCode == nil) {
-        _regionCode = @"";
-    }
-    return _regionCode;
+- (void)loginWitheDeviceId:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback {
+    [self loginWithPlayerId:Yd1OpsTools.keychainDeviceId callback:callback];
 }
 
-- (void)deviceLoginWithPlayerId:(NSString *)playerId
-                       callback:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback {
+- (void)loginWithPlayerId:(NSString *)playerId
+                 callback:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback {
     Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.ucapDomain]];
     manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
     [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
@@ -126,54 +127,66 @@
     if (playerId && [playerId length] > 0) {
         deviceId = playerId;
     }
-    NSString *appKey = @"";
-    if ([[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"] length] > 0) {
-        appKey = [Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"];
-    }
-    
-    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1.com%@%@",deviceId,appKey]];
+
+    NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"yodo1.com%@%@",deviceId,self.gameAppKey]];
     NSDictionary* data = @{
-        Yd1OpsTools.gameAppKey:appKey,
+        Yd1OpsTools.gameAppKey:self.gameAppKey,
+        Yd1OpsTools.regionCode:self.regionCode,
         Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
-        Yd1OpsTools.deviceId:deviceId,
-        Yd1OpsTools.regionCode:self.regionCode
+        Yd1OpsTools.deviceId:deviceId
     };
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:data forKey:Yd1OpsTools.data];
     [parameters setObject:sign forKey:Yd1OpsTools.sign];
-    YD1LOG(@"%@===%@",[Yd1OpsTools stringWithJSONObject:parameters error:nil], Yd1OpsTools.ucapDomain);
+    YD1LOG(@"Post request to %@ with %@", Yd1OpsTools.ucapDomain, [Yd1OpsTools stringWithJSONObject:parameters error:nil]);
     [manager POST:Yd1OpsTools.deviceLoginURL
        parameters:parameters
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
         int errorCode = -1;
-        NSString* error = @"";
+        NSString* errorString = @"";
         if ([[response allKeys]containsObject:Yd1OpsTools.errorCode]) {
             errorCode = [[response objectForKey:Yd1OpsTools.errorCode]intValue];
         }
         if ([[response allKeys]containsObject:Yd1OpsTools.error]) {
-            error = [response objectForKey:Yd1OpsTools.error];
+            errorString = [response objectForKey:Yd1OpsTools.error];
         }
         if ([[response allKeys]containsObject:Yd1OpsTools.data]) {
             NSDictionary* m_data = (NSDictionary*)[response objectForKey:Yd1OpsTools.data];
             YD1User* user = [YD1User yodo1_modelWithDictionary:m_data];
             [Yd1OpsTools.cached setObject:user forKey:@"yd1User"];
+
+            [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter"
+                                                       eventData:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
+
             if (callback) {
                 callback(user,nil);
             }
         }else{
             [Yd1OpsTools.cached removeObjectForKey:@"yd1User"];
+            
+            NSError* error = [NSError errorWithDomain:@"com.yodo1.ucenter" code:errorCode userInfo:@{NSLocalizedDescriptionKey:errorString}];
+            [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter"
+                                                       eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":[NSString stringWithFormat:@"%ld", error.code], @"usercenter_error_message":error.localizedDescription}];
+            
             if (callback) {
-                callback(nil,[NSError errorWithDomain:@"com.yodo1.ucenter" code:errorCode userInfo:@{NSLocalizedDescriptionKey:error}]);
+                callback(nil, error);
             }
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         YD1LOG(@"%@",error.localizedDescription);
+        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter"
+                                                   eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":[NSString stringWithFormat:@"%ld", error.code], @"usercenter_error_message":error.localizedDescription}];
         if (callback) {
-            callback(nil,error);
+            callback(nil, error);
         }
     }];
+}
+
+- (void)deviceLoginWithPlayerId:(NSString *)playerId
+                       callback:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback {
+    [self loginWithPlayerId:playerId callback:callback];
 }
 
 /**
@@ -184,7 +197,7 @@
     return user;
 }
 
-
+#pragma mark -【可弃用】
 - (void)generateOrderId:(void (^)(NSString * _Nullable, NSError * _Nullable))callback {
     Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]initWithBaseURL:[NSURL URLWithString:Yd1OpsTools.paymentDomain]];
     manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
@@ -282,9 +295,9 @@
         @"carrier":Yd1OpsTools.networkOperatorName,
     };
     NSDictionary* data = @{
-        @"game_appkey":[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
-        @"channel_code":Yodo1Tool.shared.paymentChannelCodeValue,
+        @"game_appkey":self.gameAppKey,
         @"region_code":self.regionCode,
+        @"channel_code":Yodo1Tool.shared.paymentChannelCodeValue,
         @"sdkType":Yodo1Tool.shared.sdkTypeValue,
         @"sdkVersion":Yodo1Tool.shared.sdkVersionValue,
         @"pr_channel_code":Yodo1Tool.shared.publishChannelCodeValue,
@@ -355,9 +368,9 @@
     
     NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",itemInfo.orderId]];
     NSDictionary* data = @{
-        Yd1OpsTools.gameAppKey:[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"]? :@"",
-        Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
+        Yd1OpsTools.gameAppKey:self.gameAppKey,
         Yd1OpsTools.regionCode:self.regionCode? :@"",
+        Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
         Yd1OpsTools.orderId:itemInfo.orderId? :@"",
         @"channelOrderid":itemInfo.channelOrderid? :@"",
         @"exclude_old_transactions":itemInfo.exclude_old_transactions? :@"false",
@@ -408,9 +421,9 @@
     NSString* eightReceipt = [itemInfo.trx_receipt substringToIndex:8];
     NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",eightReceipt]];
     NSDictionary* data = @{
-        Yd1OpsTools.gameAppKey:[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
-        Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
+        Yd1OpsTools.gameAppKey:self.gameAppKey,
         Yd1OpsTools.regionCode:self.regionCode,
+        Yd1OpsTools.channelCode:Yodo1Tool.shared.paymentChannelCodeValue,
         @"trx_receipt":itemInfo.trx_receipt,
         @"exclude_old_transactions":itemInfo.exclude_old_transactions
     };
@@ -635,9 +648,9 @@
     
     YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:parameters error:nil]);
     [manager POST:Yd1OpsTools.clientNotifyForSyncUnityStatusURL
-      parameters:parameters
-        progress:nil
-         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+       parameters:parameters
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
         int errorCode = -1;
         NSString* error = @"";
@@ -687,9 +700,9 @@
     NSString* sign = [Yd1OpsTools signMd5String:[NSString stringWithFormat:@"payment%@",itemInfo.uid]];
     NSDictionary* data = @{
         @"uid":itemInfo.uid,
-        @"gameAppkey":[Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"],
-        @"channelCode":Yodo1Tool.shared.paymentChannelCodeValue,
-        @"regionCode":Yodo1UCenter.shared.regionCode
+        @"gameAppkey":self.gameAppKey,
+        @"regionCode":self.regionCode,
+        @"channelCode":Yodo1Tool.shared.paymentChannelCodeValue
     };
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:data forKey:Yd1OpsTools.data];

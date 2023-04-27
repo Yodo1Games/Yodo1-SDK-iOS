@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)ucapDomain;
 - (NSString *)deviceLoginURL;
 
+#pragma mark -【可弃用】
 - (NSString *)paymentDomain;
 - (NSString *)generateOrderIdURL;
 - (NSString *)verifyAppStoreIAPURL;

@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark -【可弃用】
 @interface YD1ItemInfo : NSObject
 /// 产品ID
 @property (nonatomic,strong)NSString *productId;
@@ -78,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark -【可弃用】
 @interface SubscriptionInfo : NSObject
 ///通用产品id
 @property (nonatomic, retain) NSString* uniformProductId;
@@ -96,19 +98,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Yodo1UCenter:NSObject
 
+@property(nonatomic,strong)NSString* gameAppKey;
 @property(nonatomic,strong)NSString* regionCode;
+#pragma mark -【可弃用】
 @property(nonatomic,strong)YD1ItemInfo* itemInfo;
 
 + (instancetype)shared;
+
+/// Log in to the Yodo1 user center with device ID
+///
+/// - Parameter callback: YD1User. NSError
+- (void)loginWitheDeviceId:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback;
+
+
+/// Log in to the Yodo1 user center with player ID
+///
+/// @param playerId Your player ID
+/// @param callback YD1User, NSError
+- (void)loginWithPlayerId:(NSString *)playerId
+                 callback:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback;
 
 /**
  *  设备登录
  *  @param playerId 是玩家id
  */
 - (void)deviceLoginWithPlayerId:(NSString *)playerId
-                       callback:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback;
+                       callback:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback DEPRECATED_MSG_ATTRIBUTE("Please use [Yodo1UCenter shared] loginWithPlayerId: callback:]");
 
 - (YD1User *)getUserInfo;
+
+#pragma mark -【可弃用】
 /**
  *  创建订单号
  */
