@@ -384,24 +384,6 @@ typedef enum {
 
 #pragma mark- data
 
-- (NSString*)publishType {
-    NSDictionary* _config = [Yd1OpsTools bundlePlistWithPath:@"Yodo1Suit.bundle/config"];
-    NSString* _publishType = @"";
-    if (_config && [[_config allKeys]containsObject:@"PublishType"]) {
-        _publishType = (NSString*)[_config objectForKey:@"PublishType"];
-    }
-    return _publishType;
-}
-
-- (NSString*)publishVersion {
-    NSDictionary* _config = [Yd1OpsTools bundlePlistWithPath:@"Yodo1Suit.bundle/config"];
-    NSString* _publishVersion = @"";
-    if (_config && [[_config allKeys]containsObject:@"PublishVersion"]) {
-        _publishVersion = (NSString*)[_config objectForKey:@"PublishVersion"];
-    }
-    return _publishVersion;
-}
-
 - (NSDictionary*)parameterDic {
     NSString* dataIdentifer = @"0";
     NSString* identifer = (NSString*)[Yd1OpsTools.cached objectForKey:kYodo1OPCacheIdentiferKey];
@@ -456,8 +438,8 @@ typedef enum {
                                  Yd1OpsTools.channelId:_channel,
                                  Yd1OpsTools.deviceId:Yd1OpsTools.keychainDeviceId,
                                  Yd1OpsTools.gameVersion:Yd1OpsTools.appVersion,
-                                 Yd1OpsTools.sdkType:[self publishType],
-                                 Yd1OpsTools.sdkVersion:[self publishVersion],
+                                 Yd1OpsTools.sdkType:Yd1OpsTools.sdkTypeValue,
+                                 Yd1OpsTools.sdkVersion:Yd1OpsTools.sdkVersionValue,
                                  kYodo1DataIdentifer:dataIdentifer,
                                  kYodo1LocationIdentifer:locationIdentifer,
                                  kYodo1LocationLNG:location_lng,
