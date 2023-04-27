@@ -85,9 +85,7 @@
     NSArray *keys = [Yodo1CoreBase.shared.sharedAppDelegate allKeys];
     for (NSString *name in keys) {
         
-        NSString *method = NSStringFromSelector(selector);
-//        [Yodo1Monitor.shared watchStart:name method:method];
-        
+        NSString *method = NSStringFromSelector(selector);        
         id target = Yodo1CoreBase.shared.sharedAppDelegate[name];
         NSMethodSignature *signature = [target methodSignatureForSelector:selector];
         NSInteger paramsCount = signature.numberOfArguments - 2;
@@ -108,8 +106,6 @@
         }
         va_end(params);
         [cc_message cc_target:target method:selector paramList:paramsList];
-        
-//        [Yodo1Monitor.shared watchEnd:name method:method];
     }
 }
 

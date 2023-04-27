@@ -133,8 +133,11 @@ static Yodo1Alert* _instance = nil;
 
 @end
 
-extern "C"
-{
+#pragma mark- Unity 接口
+
+#ifdef __cplusplus
+extern "C" {
+#endif 
     void UnityShowAlert(const char* title,
                            const char* message,
                            const char* confirmButtonStr,
@@ -159,4 +162,6 @@ extern "C"
                                       methodName:ocCallbackMethod];
     }
 
+#ifdef __cplusplus
 }
+#endif

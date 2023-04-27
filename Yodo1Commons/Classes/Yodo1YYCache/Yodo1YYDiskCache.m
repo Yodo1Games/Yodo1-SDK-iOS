@@ -22,7 +22,7 @@
 static const int yodo1extended_data_key;
 
 /// Free disk space in bytes.
-static int64_t _Yodo1YYDiskSpaceFree() {
+static int64_t _Yodo1YYDiskSpaceFree(void) {
     NSError *error = nil;
     NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:&error];
     if (error) return -1;
@@ -50,7 +50,7 @@ static NSString *_Yodo1YYNSStringMD5(NSString *string) {
 static NSMapTable *_yodo1opGlobalInstances;
 static dispatch_semaphore_t _yodo1opGlobalInstancesLock;
 
-static void _Yodo1YYDiskCacheInitGlobal() {
+static void _Yodo1YYDiskCacheInitGlobal(void) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _yodo1opGlobalInstancesLock = dispatch_semaphore_create(1);
@@ -343,7 +343,7 @@ static void _Yodo1YYDiskCacheSetGlobal(Yodo1YYDiskCache *cache) {
             return;
         }
         Yodo1OPLock();
-        [_kv removeAllItemsWithProgressBlock:progress endBlock:end];
+        [self->_kv removeAllItemsWithProgressBlock:progress endBlock:end];
         Yodo1OPUnlock();
     });
 }
