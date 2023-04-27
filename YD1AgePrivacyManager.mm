@@ -3,7 +3,6 @@
 #import "Yodo1AFNetworking.h"
 #import "Yodo1Model.h"
 #import "Yodo1YYCache.h"
-#import <AdSupport/AdSupport.h>
 #include <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import "Yodo1UnityTool.h"
@@ -364,24 +363,6 @@ static YD1AgePrivacyManager* _instance = nil;
     return nil;
 }
 
-+ (NSString*)publishType {
-    NSDictionary* _config = [YD1AgePrivacyManager config];
-    NSString* _publishType = @"";
-    if (_config && [[_config allKeys]containsObject:@"PublishType"]) {
-        _publishType = (NSString*)[_config objectForKey:@"PublishType"];
-    }
-    return _publishType;
-}
-
-+ (NSString*)publishVersion {
-    NSDictionary* _config = [YD1AgePrivacyManager config];
-    NSString* _publishVersion = @"";
-    if (_config && [[_config allKeys]containsObject:@"PublishVersion"]) {
-        _publishVersion = (NSString*)[_config objectForKey:@"PublishVersion"];
-    }
-    return _publishVersion;
-}
-
 + (NSString *)md5StringWithString:(NSString *)string {
     if (string == nil) {
         YD1LOG(@"Input is nil.");
@@ -435,9 +416,10 @@ static YD1AgePrivacyManager* _instance = nil;
     if (channelCode == nil) {
         channelCode = Yodo1Tool.shared.paymentChannelCodeValue;
     }
-    NSString* sdkVersion = [YD1AgePrivacyManager publishVersion];
-    NSString* sdkType = [YD1AgePrivacyManager publishType];
-    NSString* gameVersion = [YD1AgePrivacyManager appVersion];
+    
+    NSString* sdkVersion = Yodo1Tool.shared.sdkVersionValue;
+    NSString* sdkType = Yodo1Tool.shared.sdkTypeValue;
+    NSString* gameVersion = Yodo1Tool.shared.appVersion;
     if (gameAppKey == nil) {
         gameVersion = @"";
     }

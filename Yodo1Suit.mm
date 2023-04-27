@@ -19,8 +19,7 @@
 
 #import "Yodo1KeyInfo.h"
 
-
-#import <AppTrackingTransparency/AppTrackingTransparency.h>
+#import "Yodo1Manager.h"
 
 //Unity3d
 const char* UNITY3D_YODO1SUIT_METHOD     = "Yodo1U3dSDKCallBackResult";
@@ -133,64 +132,22 @@ static NSString* kYodo1SuitGameObject    = @"Yodo1Suit";//默认
 
 @interface Yodo1Suit ()
 
-+ (NSDictionary*)config;
-
-+ (NSString*)publishType;
-
-+ (NSString*)publishVersion;
-
 @end
 
 @implementation Yodo1Suit
 
-static BOOL bYodo1SuitInited = NO;
-static NSString* yd1AppKey = @"";
-
-
 + (void)initWithAppKey:(NSString *)appKey {
-    if (bYodo1SuitInited) {
-        YD1LOG(@"[Yodo1 SDK] has already been initialized");
-        return;
-    }
-    bYodo1SuitInited = true;
-    
     if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
         appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
     }
     
-    //初始化在线参数
-    [Yd1OnlineParameter.shared initWithAppKey:appKey channelId:Yodo1Tool.shared.publishChannelCodeValue];
-    yd1AppKey = appKey;
-}
-
-+ (NSDictionary*)config {
-    NSBundle *bundle = [[NSBundle alloc] initWithPath:[[NSBundle mainBundle]pathForResource:@"Yodo1Suit" ofType:@"bundle"]];
-    if (!bundle) {return nil;}
-    NSString *configPath = [bundle pathForResource:@"config" ofType:@"plist"];
-    if (!configPath.length) {return nil;}
-    return [NSDictionary dictionaryWithContentsOfFile:configPath];
-}
-
-+ (NSString*)publishType {
-    NSDictionary* _config = [Yodo1Suit config];
-    NSString* _publishType = @"";
-    if (_config && [[_config allKeys]containsObject:@"PublishType"]) {
-        _publishType = (NSString*)[_config objectForKey:@"PublishType"];
-    }
-    return _publishType;
-}
-
-+ (NSString*)publishVersion {
-    NSDictionary* _config = [Yodo1Suit config];
-    NSString* _publishVersion = @"";
-    if (_config && [[_config allKeys]containsObject:@"PublishVersion"]) {
-        _publishVersion = (NSString*)[_config objectForKey:@"PublishVersion"];
-    }
-    return _publishVersion;
+    SDKConfig* config = [[SDKConfig alloc] init];
+    config.appKey = appKey;
+    [Yodo1Manager initSDKWithConfig:config];
 }
 
 + (NSString *)sdkVersion {
-    return [self publishVersion];
+    return Yodo1Tool.shared.sdkVersionValue;
 }
 
 + (NSString *)getDeviceId {

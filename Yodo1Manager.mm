@@ -12,6 +12,7 @@
 #import "Yodo1UnityTool.h"
 #import "Yd1OnlineParameter.h"
 #import "Yodo1Tool+Storage.h"
+#import "Yodo1Tool+Commons.h"
 #import <SafariServices/SafariServices.h>
 
 #import "Yodo1Suit.h"
@@ -34,9 +35,7 @@
 
 @end
 
-static SDKConfig* kYodo1Config = nil;
 static BOOL isInitialized = false;
-static NSString* __kAppKey = @"";
 
 @interface Yodo1Manager ()
 
@@ -51,65 +50,28 @@ static NSString* __kAppKey = @"";
         YD1LOG(@"[Yodo1 SDK] has already been initialized! && Appkey = %@", sdkConfig.appKey);
         return;
     }
-    __kAppKey = sdkConfig.appKey;
     isInitialized = true;
+        
+    //初始化在线参数
+    [Yd1OnlineParameter.shared initWithAppKey:sdkConfig.appKey channelId:Yodo1Tool.shared.publishChannelCodeValue];
     
-    [Yodo1Suit initWithAppKey:__kAppKey];
-    
-    kYodo1Config = sdkConfig;
-    
-    [Yodo1Manager analyticInit];
+    //初始化统计SDK
+    AnalyticsInitConfig* config = [[AnalyticsInitConfig alloc] init];
+    config.gameKey = sdkConfig.appKey;
+    config.debugEnabled = [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] boolValue];
+    config.appsflyerCustomUserId = sdkConfig.appsflyerCustomUserId;
+    [[Yodo1AnalyticsManager sharedInstance] initializeWithConfig:config];
 
 #ifdef YODO1_UCCENTER
+    //初始化应用内购买
     [Yodo1PurchaseManager.shared willInit];
 #endif
-}
-
-+ (void)analyticInit
-{
-    AnalyticsInitConfig * config = [[AnalyticsInitConfig alloc]init];
-    config.appsflyerCustomUserId = kYodo1Config.appsflyerCustomUserId;
-    [[Yodo1AnalyticsManager sharedInstance]initializeAnalyticsWithConfig:config];
-}
-
-
-+ (NSDictionary*)config {
-    NSBundle *bundle = [[NSBundle alloc] initWithPath:[[NSBundle mainBundle]
-                                                       pathForResource:@"Yodo1Suit"
-                                                       ofType:@"bundle"]];
-    if (bundle) {
-        NSString *configPath = [bundle pathForResource:@"config" ofType:@"plist"];
-        if (configPath) {
-            NSDictionary *config =[NSDictionary dictionaryWithContentsOfFile:configPath];
-            return config;
-        }
-    }
-    return nil;
-}
-
-+ (NSString*)publishType {
-    NSDictionary* _config = [Yodo1Manager config];
-    NSString* _publishType = @"";
-    if (_config && [[_config allKeys]containsObject:@"PublishType"]) {
-        _publishType = (NSString*)[_config objectForKey:@"PublishType"];
-    }
-    return _publishType;
-}
-    
-+ (NSString*)publishVersion {
-    NSDictionary* _config = [Yodo1Manager config];
-    NSString* _publishVersion = @"";
-    if (_config && [[_config allKeys]containsObject:@"PublishVersion"]) {
-        _publishVersion = (NSString*)[_config objectForKey:@"PublishVersion"];
-    }
-    return _publishVersion;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self
                                                    name:kYodo1OnlineConfigFinishedNotification
                                                  object:nil];
-    kYodo1Config = nil;
 }
 
 #ifdef __cplusplus
@@ -120,7 +82,6 @@ extern "C" {
         NSString* _sdkConfigJson = Yodo1CreateNSString(sdkConfigJson);
         SDKConfig* yySDKConfig = [SDKConfig yodo1_modelWithJSON:_sdkConfigJson];
         [Yodo1Manager initSDKWithConfig:yySDKConfig];
-        
     }
 
     char* UnityStringParams(const char* key,const char* defaultValue) {
