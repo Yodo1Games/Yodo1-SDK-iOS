@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Analytics'
-  s.version          = '6.2.8'
+  s.version          = '6.2.9'
   s.summary          = 'The Analytics SDK for iOS'
   
   s.description      = <<-DESC
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.author           = { 'Yodo1Games' => 'devadmin@yodo1.com' }
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
   
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '11.0'
   
   s.source_files = s.name + '/Classes/**/*'
   s.public_header_files = s.name + '/Classes/**/*.h'
@@ -26,8 +26,12 @@ Pod::Spec.new do |s|
   }
   
   s.frameworks = [
+  'Foundation',
+  'UIKit',
   'SystemConfiguration',
+  'CoreGraphics',
   'Security',
+  'CoreTelephony',
   'AdSupport',
   'iAd',
   'AdServices',
@@ -38,9 +42,10 @@ Pod::Spec.new do |s|
   s.libraries = [
   'sqlite3.0',
   'c++',
-  'z']
+  'z',
+  ]
   
-  s.dependency 'Yodo1Commons','~>6.1.4'
+  s.dependency 'Yodo1Commons','~>6.1.5'
   s.dependency 'AppsFlyerFramework', '6.7.0'
   s.dependency 'ThinkingSDK','2.8.3.2'
   

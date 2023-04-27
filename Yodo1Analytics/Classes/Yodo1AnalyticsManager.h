@@ -7,7 +7,6 @@
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <StoreKit/StoreKit.h>
 
 @protocol Yodo1DeeplinkDelegate <NSObject>
 //get deeplink result
@@ -15,12 +14,18 @@
 @end
 
 @interface AnalyticsInitConfig : NSObject
+
+@property (nonatomic,strong) NSString *gameKey;
+@property (nonatomic, assign) BOOL debugEnabled;
 @property (nonatomic,strong) NSString *appsflyerCustomUserId;//AppsFlyer自定义UserId
+
+//@property (nonatomic,strong) ThinkingConfig *tdConfig;
+
 @end
 
 typedef NS_ENUM(NSInteger, AnalyticsType) {
+    AnalyticsTypeThinking,      //Thinking
     AnalyticsTypeAppsFlyer,     //AppsFlyer 数据统计
-    AnalyticsTypeThinking,         //Thinking
 };
 
 typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *errorMsg);
@@ -36,12 +41,15 @@ typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *error
  */
 + (Yodo1AnalyticsManager*)sharedInstance;
 
+- (void)initializeWithPlist;
+
+- (void)initializeWithConfig:(AnalyticsInitConfig*)initConfig;
+
 /**
  *  根据统计分析类型，初始化。
  *
  */
-
-- (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig;
+- (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig DEPRECATED_MSG_ATTRIBUTE("Please use [Yodo1AnalyticsManager sharedInstance] initializeWithConfig:]");
 
 /**
  *  使用之前，先初始化initWithAnalytics

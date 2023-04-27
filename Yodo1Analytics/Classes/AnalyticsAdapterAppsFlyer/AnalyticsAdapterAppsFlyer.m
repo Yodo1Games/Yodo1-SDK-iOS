@@ -10,7 +10,6 @@
 #import <AppsFlyerLib/AppsFlyerLib.h>
 #import "Yodo1Commons.h"
 #import "Yodo1KeyInfo.h"
-#import <AdSupport/AdSupport.h>
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1AFNetworking.h"
@@ -44,12 +43,15 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
     return AnalyticsTypeAppsFlyer;
 }
 
-+ (void)load
-{
++ (void)load {
     [[Yodo1Registry sharedRegistry] registerClass:self withRegistryType:@"analyticsType"];
 }
 
-- (id)initWithAnalytics:(AnalyticsInitConfig *)initConfig {
+- (void)dealloc {
+    [NSNotificationCenter.defaultCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (id)initWithConfig:(AnalyticsInitConfig *)initConfig {
     self = [super init];
     if (self) {
         
@@ -60,18 +62,21 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
         AppsFlyerLib.shared.appsFlyerDevKey = devkey;
         AppsFlyerLib.shared.appleAppID = appleAppId;
         
-        
         NSString* oneLinkId = [[Yodo1KeyInfo shareInstance] configInfoForKey:OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID];
         if (oneLinkId.length > 0) {
             AppsFlyerLib.shared.appInviteOneLinkID = oneLinkId;
         }
-
+        
         AppsFlyerLib.shared.delegate = self;
         AppsFlyerLib.shared.deepLinkDelegate = self;
         
-        NSInteger debug = [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] integerValue];
-        if (debug) {
+        if (initConfig.debugEnabled) {
+            //Log TAG: [AppsFlyerSDK]
             AppsFlyerLib.shared.isDebug = YES;
+        }
+        
+        if (initConfig.appsflyerCustomUserId && initConfig.appsflyerCustomUserId.length > 0) {
+            AppsFlyerLib.shared.customerUserID = initConfig.appsflyerCustomUserId;
         }
         
         if (ThinkingAnalyticsSDK.sharedInstance.getDistinctId) {
@@ -83,10 +88,6 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
             [AppsFlyerLib.shared waitForATTUserAuthorizationWithTimeoutInterval:timeInterval.floatValue];
         }
         
-        if (initConfig.appsflyerCustomUserId && initConfig.appsflyerCustomUserId.length > 0) {
-            AppsFlyerLib.shared.customerUserID = initConfig.appsflyerCustomUserId;
-        }
-        
         BOOL isGDPR = [[NSUserDefaults standardUserDefaults]boolForKey:@"gdpr_data_consent"];
         if (isGDPR) {
             AppsFlyerLib.shared.isStopped = true;
@@ -94,9 +95,9 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
             
             [AppsFlyerLib.shared start];
             [[NSNotificationCenter defaultCenter] addObserver:self
-                selector:@selector(sendLaunch:)
-                name:UIApplicationDidBecomeActiveNotification
-                object:nil];
+                                                     selector:@selector(sendLaunch:)
+                                                         name:UIApplicationDidBecomeActiveNotification
+                                                       object:nil];
         }
     }
     return self;
@@ -106,13 +107,11 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
     [AppsFlyerLib.shared start];
 }
 
-- (void)eventWithAnalyticsEventName:(NSString *)eventName
-                          eventData:(NSDictionary *)eventData
-{
+- (void)track:(NSString *)eventName properties:(NSDictionary *)eventData {
+    
 }
 
-- (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName eventData:(NSDictionary *)eventData
-{
+- (void)trackAppsFlyer:(NSString *)eventName properties:(NSDictionary *)eventData {
     [AppsFlyerLib.shared logEvent:eventName withValues:eventData];
 }
 
@@ -124,16 +123,16 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
                           quantity:(NSString*)quantity
                          contentId:(NSString*)contentId
                          receiptId:(NSString*)receiptId {
-
-        float revenueFloat = [revenue floatValue];
-        int quantityInt = [quantity intValue];
-        
-        [[AppsFlyerLib shared] logEvent:AFEventPurchase
-                             withValues: @{AFEventParamRevenue : [NSNumber numberWithFloat:revenueFloat],
-                                           AFEventParamCurrency : currency,
-                                           AFEventParamQuantity : [NSNumber numberWithInt:quantityInt],
-                                           AFEventParamContentId: contentId,
-                                           AFEventParamReceiptId: receiptId}];
+    
+    float revenueFloat = [revenue floatValue];
+    int quantityInt = [quantity intValue];
+    
+    [[AppsFlyerLib shared] logEvent:AFEventPurchase
+                         withValues: @{AFEventParamRevenue : [NSNumber numberWithFloat:revenueFloat],
+                                       AFEventParamCurrency : currency,
+                                       AFEventParamQuantity : [NSNumber numberWithInt:quantityInt],
+                                       AFEventParamContentId: contentId,
+                                       AFEventParamReceiptId: receiptId}];
     
 }
 
@@ -153,18 +152,25 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
     }];
 }
 
+/**
+ *  AppsFlyer  set  custom user id
+ */
+- (void)login:(NSString *)userId {
+    AppsFlyerLib.shared.customerUserID = userId;//123456
+}
+
+#pragma mark - AppsFlyerLibDelegate
 // AppsFlyerTracker implementation
 //Handle Conversion Data (Deferred Deep Link)
 -(void)onConversionDataSuccess:(NSDictionary*) installData {
-    
     if ([installData objectForKey:@"deep_link_value"]) {
-
+        
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
         NSString *jsonString = [Yodo1Commons stringWithJSONObject:installData error:nil];
-
+        
         [dict setObject:jsonString forKey:Y_AF_DEEPLINK];
         [dict setObject:AppsFlyerLib.shared.getAppsFlyerUID forKey:Y_AF_ID];
-
+        
         [self.delegate getDeeplinkResult:dict];
     }
     
@@ -189,10 +195,9 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
     YD1LOG(@"error = %@",error);
 }
 
-- (void)dealloc {
-    [NSNotificationCenter.defaultCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-}
 
+
+#pragma mark - DeepLink
 //Deeplink
 - (void)setDeeplink {
     NSDictionary *openUrlDic = [[NSDictionary alloc] initWithDictionary:(NSDictionary *)[Yd1OpsTools.cached objectForKey:Y_DEEPLINK_OPEN_URL]];
@@ -208,6 +213,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
     }
 }
 
+#pragma mark - AppsFlyerDeepLinkDelegate
 - (void)didResolveDeepLink:(AppsFlyerDeepLinkResult *)result {
     switch (result.status) {
         case AFSDKDeepLinkResultStatusNotFound:
@@ -238,10 +244,10 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
     }
 }
 
+#pragma mark - Invite user
 - (void)generateInviteUrlWithLinkGenerator:(NSDictionary *)linkDic CallBack:(InviteUrlCallBack)callBack {
     
     [AppsFlyerShareInviteHelper generateInviteUrlWithLinkGenerator:^AppsFlyerLinkGenerator * _Nonnull(AppsFlyerLinkGenerator * _Nonnull generator) {
-        
         if([[linkDic allKeys] containsObject:YODO1AF_TARGET_VIEW]) {
             if ([linkDic[YODO1AF_TARGET_VIEW] length] > 0) {
                 [generator addParameterValue:linkDic[YODO1AF_TARGET_VIEW] forKey:YODO1AF_DEEP_LINK_VALUE];
@@ -274,7 +280,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
         }
         return generator;
     } completionHandler:^(NSURL * _Nullable url) {
-
+        
         if (url != nil) {
             YD1LOG(@"AppsFlyer share-invite link:%@", url.absoluteString);
             callBack(url.absoluteString, 1, @"");
@@ -285,15 +291,7 @@ NSString* const OPENSUIT_ANALYTICS_APPSFLYER_ONE_LINK_ID   = @"AppsFlyerOneLinkI
 }
 
 - (void)logInviteAppsFlyerWithEventData:(NSDictionary *)eventData {
-    
     [AppsFlyerShareInviteHelper logInvite:AFEventInvite parameters:eventData];
-}
-
-/**
- *  AppsFlyer  set  custom user id
- */
-- (void)login:(NSString *)userId {
-    AppsFlyerLib.shared.customerUserID = userId;//123456
 }
 
 @end

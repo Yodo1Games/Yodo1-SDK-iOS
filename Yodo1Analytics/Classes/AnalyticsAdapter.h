@@ -25,14 +25,13 @@
 
 typedef void (^InviteUrlCallBack) (NSString *url, int code, NSString *errorMsg);
 
-- (id)initWithAnalytics:(AnalyticsInitConfig*)initConfig;
+- (id)initWithConfig:(AnalyticsInitConfig*)initConfig;
 
-- (void)eventWithAnalyticsEventName:(NSString*)eventName
-                          eventData:(NSDictionary*)eventData;
+- (void)track:(NSString*)eventName properties:(NSDictionary*)eventData;
 
 //AppsFlyer Event
-- (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName
-                       eventData:(NSDictionary *)eventData;
+- (void)trackAppsFlyer:(NSString *)eventName
+            properties:(NSDictionary *)eventData;
 
 //AppsFlyer
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier

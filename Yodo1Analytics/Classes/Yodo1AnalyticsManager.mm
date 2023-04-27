@@ -14,13 +14,14 @@
 #import "Yodo1UnityTool.h"
 #import "Yodo1Base.h"
 #import "Yodo1Tool+Storage.h"
+#import "Yodo1KeyInfo.h"
 
 @implementation AnalyticsInitConfig
 
 
 @end
 
-@interface Yodo1AnalyticsManager ()<Yodo1AdapterBaseDelegate>
+@interface Yodo1AnalyticsManager()<Yodo1AdapterBaseDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary* analyticsDict;
 
@@ -47,35 +48,36 @@
     return self;
 }
 
-- (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig
-{
+- (void)initializeWithPlist {
+    AnalyticsInitConfig* config = [[AnalyticsInitConfig alloc]init];
+    config.gameKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
+    config.debugEnabled = [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] boolValue];
     
+    [self initializeWithConfig:config];
+}
+
+- (void)initializeWithConfig:(AnalyticsInitConfig*)initConfig {
+    [self initAdapters:initConfig];
+    [self setDeeplink];
+}
+
+- (void)initializeAnalyticsWithConfig:(AnalyticsInitConfig*)initConfig {
+    [self initializeWithConfig:initConfig];
+}
+
+- (void)initAdapters:(AnalyticsInitConfig*)initConfig {
     NSDictionary* dic = [[Yodo1Registry sharedRegistry] getClassesStatusType:@"analyticsType"
                                                               replacedString:@"AnalyticsAdapter"
                                                                replaceString:@"AnalyticsType"];
     if (dic) {
         NSArray* keyArr = [dic allKeys];
-        
-        Class adapter = [[[Yodo1Registry sharedRegistry] adapterClassFor:AnalyticsTypeThinking classType:@"analyticsType"] theYodo1Class];
-        AnalyticsAdapter* advideoAdapter = [[adapter alloc] initWithAnalytics:initConfig];
-        NSNumber* tdBack = [NSNumber numberWithInt:AnalyticsTypeThinking];
-        [self.analyticsDict setObject:advideoAdapter forKey:tdBack];
-        
         for (id key in keyArr) {
-            
-            // 忽略ThinkingData
-            if ([key integerValue] == AnalyticsTypeThinking) {
-                continue;
-            }
             Class adapter = [[[Yodo1Registry sharedRegistry] adapterClassFor:[key integerValue] classType:@"analyticsType"] theYodo1Class];
-            AnalyticsAdapter* advideoAdapter = [[adapter alloc] initWithAnalytics:initConfig];
+            AnalyticsAdapter* advideoAdapter = [[adapter alloc] initWithConfig:initConfig];
             NSNumber* analyticsBack = [NSNumber numberWithInt:[key intValue]];
             [self.analyticsDict setObject:advideoAdapter forKey:analyticsBack];
-            
         }
     }
-    
-    [self setDeeplink];
 }
 
 - (void)setDeeplink {
@@ -99,12 +101,12 @@
     
     for (id key in [self.analyticsDict allKeys]) {
         AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-        [adapter eventWithAnalyticsEventName:eventName eventData:eventData];
+        [adapter track:eventName properties:eventData];
     }
 }
 
 - (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName
-                       eventData:(NSDictionary *)eventData
+                              eventData:(NSDictionary *)eventData
 {
     if (eventName == nil) {
         NSAssert(eventName != nil, @"eventName cannot nil!");
@@ -112,7 +114,7 @@
     for (id key in [self.analyticsDict allKeys]) {
         if ([key integerValue]==AnalyticsTypeAppsFlyer){
             AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
-            [adapter eventAppsFlyerAnalyticsWithName:eventName eventData:eventData];
+            [adapter trackAppsFlyer:eventName properties:eventData];
             break;
         }
     }
@@ -255,8 +257,6 @@
     self.analyticsDict = nil;
 }
 
-
-
 #ifdef __cplusplus
 
 extern "C" {
@@ -271,7 +271,7 @@ extern "C" {
             
             NSString* playerId = [user objectForKey:@"playerId"];
             [[Yodo1AnalyticsManager sharedInstance]login:playerId];
-
+            
             YD1LOG(@"playerId:%@",playerId);
         } else {
             YD1LOG(@"user is not playerId!");
@@ -292,7 +292,7 @@ extern "C" {
                                                     eventData:eventDataDic];
     }
     
-     #pragma mark - AppsFlyer
+#pragma mark - AppsFlyer
     // AppsFlyer
     void UnityValidateAndTrackInAppPurchase(const char*productIdentifier,
                                             const char*price,
@@ -306,10 +306,10 @@ extern "C" {
     
     // AppsFlyer
     void UnityEventAndTrackInAppPurchase(const char*revenue,
-                                            const char*currency,
-                                            const char*quantity,
-                                            const char*contentId,
-                                            const char*receiptId){
+                                         const char*currency,
+                                         const char*quantity,
+                                         const char*contentId,
+                                         const char*receiptId){
         
         
         [[Yodo1AnalyticsManager sharedInstance] eventAndTrackInAppPurchase:Yodo1CreateNSString(revenue)

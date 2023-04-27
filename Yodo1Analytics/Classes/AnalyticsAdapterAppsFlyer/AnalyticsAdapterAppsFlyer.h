@@ -8,6 +8,7 @@
 #import "AnalyticsAdapter.h"
 #import "Yodo1AnalyticsManager.h"
 
+
 @interface AnalyticsAdapterAppsFlyer : AnalyticsAdapter
 
 + (AnalyticsType)analyticsType;
