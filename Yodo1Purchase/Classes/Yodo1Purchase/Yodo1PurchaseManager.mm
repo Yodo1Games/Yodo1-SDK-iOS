@@ -79,9 +79,9 @@
     }
     
     persistence = [[RMStoreUserDefaultsPersistence alloc] init];
-    RMStore.defaultStore.transactionPersistor = persistence;
+    [RMStore.defaultStore setTransactionPersistor:persistence];
     [RMStore.defaultStore addStoreObserver:self];
-    
+        
     self.user = [Yodo1UCenter.shared getUserInfo];
     self.isLogined = self.user != nil ? YES : NO;
     
@@ -344,8 +344,6 @@
                 [Yd1OpsTools.cached setObject:weakSelf.user forKey:@"yd1User"];
             }
             if (user && !error) {
-                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter"
-                                                           eventData:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
                 weakSelf.isLogined = YES;
                 
                 [self createOrderIdWithUniformProductId:uniformProductId
@@ -370,7 +368,6 @@
                     }
                 }];
             }else{
-                [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter" eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":@"1", @"usercenter_error_message":error.localizedDescription}];
                 weakSelf.isLogined = NO;
                 
                 NSString* message = [NSString stringWithFormat:@"The user is not logged in Yodo1 ucenter. %@ (error %ld.)", error.localizedDescription, error.code];

@@ -59,15 +59,8 @@
         _transaction.exclude_old_transactions = @"false";
     }
     _gameAppKey = [Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"]? :@"";
+    _regionCode = [Yodo1KeyInfo.shareInstance configInfoForKey:@"RegionCode"]? :@"";
 }
-
-- (NSString *)regionCode {
-    if (_regionCode == nil) {
-        _regionCode = @"";
-    }
-    return _regionCode;
-}
-
 
 /// Generate an order id from IAP payment, please check here(https://confluence.yodo1.com/display/OPP/generateOrderId) for the details
 ///
@@ -608,8 +601,8 @@
     NSDictionary* data = @{
         @"uid":user.uid,
         @"gameAppkey":self.gameAppKey,
-        @"channelCode":Yodo1Tool.shared.paymentChannelCodeValue,
-        @"regionCode":Yodo1PurchaseAPI.shared.regionCode
+        @"regionCode":self.regionCode,
+        @"channelCode":Yodo1Tool.shared.paymentChannelCodeValue
     };
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:data forKey:Yd1OpsTools.data];
