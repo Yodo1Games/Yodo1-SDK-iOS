@@ -5,7 +5,6 @@
 //  Created by zhaojun on 16/3/18.
 //  Copyright © 2016年 zhaojun. All rights reserved.
 //
-#import <GameKit/GameKit.h>
 #import <CloudKit/CloudKit.h>
 
 #import "Yodo1iCloud.h"
