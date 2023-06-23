@@ -15,10 +15,13 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   
   s.xcconfig = {
-    'OTHER_LDFLAGS' => '-ObjC',
-    "VALID_ARCHS": "armv7 arm64",
-    "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-    "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+    "OTHER_LDFLAGS" => "-ObjC",
+    "GENERATE_INFOPLIST_FILE" => "YES"
+  }
+  s.pod_target_xcconfig = {
+    "VALID_ARCHS" => "arm64 arm64e armv7 armv7s x86_64",
+    "VALID_ARCHS[sdk=iphoneos*]" => "arm64 arm64e armv7 armv7s",
+    "VALID_ARCHS[sdk=iphonesimulator*]" => "x86_64 arm64"
   }
   
   s.frameworks = [
@@ -60,6 +63,7 @@ Pod::Spec.new do |s|
     'AdServices',
     'AppTrackingTransparency'
     ]
+    sub.dependency 'Yodo1Analytics/Core', "#{s.version}"
   end
   
   s.subspec 'Adjust' do |sub|
@@ -72,5 +76,6 @@ Pod::Spec.new do |s|
     'StoreKit',
     'AppTrackingTransparency'
     ]
+    sub.dependency 'Yodo1Analytics/Core', "#{s.version}"
   end
 end
