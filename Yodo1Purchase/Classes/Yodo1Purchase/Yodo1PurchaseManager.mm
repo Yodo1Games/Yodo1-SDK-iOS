@@ -1080,11 +1080,11 @@
         isSandbox = [[receiptURL absoluteString] containsString:@"sandboxReceipt"];
     }
     
-    //AppsFlyer 数据统计
-    [Yodo1AnalyticsManager.sharedInstance validateAndTrackInAppPurchase:productIdentifier
-                                                                  price:product.productPrice
-                                                               currency:product.currency
-                                                          transactionId:channelOrderId];
+//    //AppsFlyer 数据统计
+//    [Yodo1AnalyticsManager.sharedInstance validateAndTrackInAppPurchase:productIdentifier
+//                                                                  price:product.productPrice
+//                                                               currency:product.currency
+//                                                          transactionId:channelOrderId];
     
     if (Yodo1PurchaseManager.shared.validatePaymentBlock) {
         NSDictionary* responseDict = @{@"productIdentifier":productIdentifier,
@@ -1114,6 +1114,14 @@
         }
         YD1LOG(@"error_code:%d",errorCode);
         if (verifySuccess) {
+            Yodo1IAPRevenue* iapRevenue = [[Yodo1IAPRevenue alloc] init];
+            iapRevenue.productIdentifier = productIdentifier;
+            iapRevenue.revenue = product.productPrice;
+            iapRevenue.currency = product.currency;
+            iapRevenue.transactionId = channelOrderId;
+            iapRevenue.receiptId = encodedReceipt;
+            [Yodo1AnalyticsManager.sharedInstance trackIAPRevenue:iapRevenue];
+            
             [Yodo1PurchaseAPI.shared clientNotifyToServer:@[orderId]
                                                  callback:^(BOOL success, NSArray * _Nonnull notExistOrders, NSArray * _Nonnull notPayOrders, NSString * _Nonnull error) {
                 if (success) {

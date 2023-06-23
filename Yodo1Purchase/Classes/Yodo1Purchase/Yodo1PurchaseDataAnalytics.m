@@ -68,14 +68,14 @@ static NSString* const __status                 = @"status";
     [properties addEntriesFromDictionary:_superProperty];
     [properties addEntriesFromDictionary:_itemProperty];
     YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-    [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Request" eventData:properties];
+    [Yodo1AnalyticsManager.sharedInstance trackEvent:@"order_Request" eventValues:properties];
 }
 
 - (void)trackOrderPending {
     NSMutableDictionary* properties = [NSMutableDictionary dictionary];
     [properties addEntriesFromDictionary:_superProperty];
     [properties addEntriesFromDictionary:_itemProperty];
-    [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Pending" eventData:properties];
+    [Yodo1AnalyticsManager.sharedInstance trackEvent:@"order_Pending" eventValues:properties];
 }
 
 - (void)trackOrderItemReceived:(BOOL)success {
@@ -84,7 +84,7 @@ static NSString* const __status                 = @"status";
     [properties addEntriesFromDictionary:_superProperty];
     [properties addEntriesFromDictionary:_itemProperty];
     YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-    [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Item_Received" eventData:properties];
+    [Yodo1AnalyticsManager.sharedInstance trackEvent:@"order_Item_Received" eventValues:properties];
 }
 
 - (void)trackReplaceOrder {
@@ -93,7 +93,7 @@ static NSString* const __status                 = @"status";
     [properties addEntriesFromDictionary:_itemProperty];
     
     YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-    [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"replace_Order" eventData:properties];
+    [Yodo1AnalyticsManager.sharedInstance trackEvent:@"replace_Order" eventValues:properties];
 }
 
 - (void)trackOrderError:(NSNumber*) errorCode errorMessage:(NSString *)errorMessage {
@@ -104,7 +104,7 @@ static NSString* const __status                 = @"status";
     [properties setObject:errorCode forKey:__yodo1ErrorCode];
     [properties setObject:errorMessage forKey:__yodo1ErrorMessage];
     YD1LOG(@"%@",[Yd1OpsTools stringWithJSONObject:properties error:nil]);
-    [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"order_Error" eventData:properties];
+    [Yodo1AnalyticsManager.sharedInstance trackEvent:@"order_Error" eventValues:properties];
 }
 
 @end
