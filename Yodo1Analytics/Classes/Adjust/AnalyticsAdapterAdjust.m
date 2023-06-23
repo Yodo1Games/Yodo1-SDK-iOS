@@ -178,7 +178,7 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
         YD1LOG(@"dict. %@", dict);
 
         NSMutableDictionary *resultDict = [NSMutableDictionary dictionary];
-        [resultDict setObject:dict forKey:Y_AF_DEEPLINK];
+        [resultDict setObject:[self dictionaryToJson:dict] forKey:Y_AF_DEEPLINK];
         [resultDict setObject:[Adjust adid] forKey:Y_AF_ID];
         [self.delegate yodo1DeeplinkResult:resultDict];
         
@@ -196,6 +196,14 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
         [parm setObject:obj.value forKey:obj.name];
     }];
     return parm;
+}
+
+//字典转json格式字符串：
+- (NSString*)dictionaryToJson:(NSDictionary *)dic{
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
+
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 #pragma mark - AdjustDelegate

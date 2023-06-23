@@ -78,4 +78,5 @@ Pod::Spec.new do |s|
     ]
     sub.dependency 'Yodo1Analytics/Core', "#{s.version}"
   end
+  
 end
