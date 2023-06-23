@@ -43,10 +43,32 @@ Pod::Spec.new do |s|
     'c++',
     'z']
     
-    ss.dependency 'Yodo1Analytics','6.3.0'
+    ss.dependency 'Yodo1Analytics/Core','6.3.0'
     ss.dependency 'Yodo1Commons','6.1.6'
     ss.dependency 'Yodo1OnlineParameter','6.1.5'
     ss.dependency 'Yodo1UCenter','6.3.0'
+  end
+  
+  s.subspec 'Yodo1_UA_Adjust' do |ss|
+    ss.xcconfig = {
+      'OTHER_LDFLAGS' => '-ObjC',
+      "VALID_ARCHS": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+    }
+    ss.dependency 'Yodo1Analytics/Adjust','6.3.0'
+    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+  end
+  
+  s.subspec 'Yodo1_UA_AppsFlyer' do |ss|
+    ss.xcconfig = {
+      'OTHER_LDFLAGS' => '-ObjC',
+      "VALID_ARCHS": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+    }
+    ss.dependency 'Yodo1Analytics/AppsFlyer','6.3.0'
+    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
   s.subspec 'Yodo1_UnityConfigKey' do |ss|
@@ -77,30 +99,6 @@ Pod::Spec.new do |s|
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
-  #s.subspec 'Yodo1_Share' do |ss|
-  #    ss.xcconfig = {
-  #        "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_SHARE',
-  #        'OTHER_LDFLAGS' => '-ObjC',
-  #        "VALID_ARCHS": "armv7 arm64",
-  #        "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-  #        "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-  #    }
-  #    ss.dependency 'Yodo1Share','6.1.6'
-  #    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
-  #end
-  
-  s.subspec 'Yodo1_iRate' do |ss|
-    ss.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'IRATE',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-    }
-    ss.dependency 'Yodo1iRate','6.1.1'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
-  end
-  
   s.subspec 'Yodo1_GameCenter' do |ss|
     ss.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'GAMECENTER',
@@ -122,6 +120,18 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     ss.dependency 'Yodo1iCloud','6.1.4'
+    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+  end
+  
+  s.subspec 'Yodo1_iRate' do |ss|
+    ss.xcconfig = {
+      "GCC_PREPROCESSOR_DEFINITIONS" => 'IRATE',
+      'OTHER_LDFLAGS' => '-ObjC',
+      "VALID_ARCHS": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+    }
+    ss.dependency 'Yodo1iRate','6.1.1'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
@@ -148,5 +158,18 @@ Pod::Spec.new do |s|
     ss.dependency 'Yodo1Replay','6.1.4'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
+  
+  #s.subspec 'Yodo1_Share' do |ss|
+  #    ss.xcconfig = {
+  #        "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_SHARE',
+  #        'OTHER_LDFLAGS' => '-ObjC',
+  #        "VALID_ARCHS": "armv7 arm64",
+  #        "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
+  #        "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+  #    }
+  #    ss.dependency 'Yodo1Share','6.1.6'
+  #    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+  #end
+  
   
 end
