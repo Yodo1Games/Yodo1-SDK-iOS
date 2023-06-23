@@ -7,32 +7,49 @@
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Yodo1AdRevenue.h"
+#import "Yodo1IAPRevenue.h"
 
-@protocol Yodo1DeeplinkDelegate <NSObject>
-//get deeplink result
-- (void)getDeeplinkResult:(NSDictionary *)result;
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ * @brief Optional delegate that will get informed about tracking results.
+ */
+@protocol Yodo1UADelegate <NSObject>
+
+@optional
+/**
+ * @brief Optional delegate method that gets called when a deep link is about to be opened by the SDK.
+ */
+- (void)yodo1DeeplinkResult:(NSDictionary * _Nonnull)result;
+
 @end
 
+typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *errorMsg);
+
+/**
+ * @brief Yodo1 analytics configuration object class.
+ */
 @interface AnalyticsInitConfig : NSObject
 
-@property (nonatomic,strong) NSString *gameKey;
+@property (nonatomic,strong, nonnull) NSString * gameKey;
 @property (nonatomic, assign) BOOL debugEnabled;
-@property (nonatomic,strong) NSString *appsflyerCustomUserId;//AppsFlyer自定义UserId
-
-//@property (nonatomic,strong) ThinkingConfig *tdConfig;
+@property (nonatomic,strong, nullable) NSString *appsflyerCustomUserId;
 
 @end
 
 typedef NS_ENUM(NSInteger, AnalyticsType) {
-    AnalyticsTypeThinking,      //Thinking
-    AnalyticsTypeAppsFlyer,     //AppsFlyer 数据统计
+    AnalyticsTypeThinking,
+    AnalyticsTypeAdjust,
+    AnalyticsTypeAppsFlyer,
 };
 
-typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *errorMsg);
-
+/**
+ * @brief The main interface to  Analytics and UA.
+ */
 @interface Yodo1AnalyticsManager : NSObject
 
-@property (nonatomic, weak) id<Yodo1DeeplinkDelegate> delegate;
+@property (nonatomic, weak) id<Yodo1UADelegate> delegate;
 
 /**
  *  Yodo1AnalyticsManager单例
@@ -55,18 +72,27 @@ typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *error
  *  使用之前，先初始化initWithAnalytics
  *
  *  @param eventName  事件id(必须)
- *  @param eventData  事件数据(必须)
+ *  @param eventValues  事件数据(必须)
  */
 - (void)eventAnalytics:(NSString*)eventName
-             eventData:(NSDictionary*)eventData;
+             eventData:(NSDictionary*)eventValues DEPRECATED_MSG_ATTRIBUTE("Please use [Yodo1AnalyticsManager sharedInstance] trackEvent:]");
 
+- (void)trackEvent:(NSString *)eventName eventValues:(NSDictionary *)eventValues;
+
+#pragma mark - UA
 /**
  *  使用appsflyer 自定义事件
  *  @param eventName  事件id(必须)
- *  @param eventData  事件数据(必须)
+ *  @param eventValues  事件数据(必须)
  */
 - (void)eventAppsFlyerAnalyticsWithName:(NSString *)eventName 
-                       eventData:(NSDictionary *)eventData;
+                              eventData:(NSDictionary *)eventValues DEPRECATED_MSG_ATTRIBUTE("Please use [Yodo1AnalyticsManager sharedInstance] trackUAEvent:]");
+
+- (void)trackUAEvent:(NSString *)eventName eventValues:(NSDictionary *)eventValues;
+
+- (void)trackAdRevenue:(Yodo1AdRevenue *)adRevenue;
+
+- (void)trackIAPRevenue:(Yodo1IAPRevenue *)iapRevenue;
 
 /**
  *  AppsFlyer Apple 内付费验证和事件统计
@@ -74,7 +100,7 @@ typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *error
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
                                 price:(NSString*)price
                              currency:(NSString*)currency
-                        transactionId:(NSString*)transactionId;
+                        transactionId:(NSString*)transactionId DEPRECATED_MSG_ATTRIBUTE("Please use [Yodo1AnalyticsManager sharedInstance] trackIAPRevenue:]");
 
 /**
  *  AppsFlyer Apple 内付费使用自定义事件上报
@@ -83,7 +109,7 @@ typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *error
                           currency:(NSString*)currency
                           quantity:(NSString*)quantity
                          contentId:(NSString*)contentId
-                         receiptId:(NSString*)receiptId;
+                         receiptId:(NSString*)receiptId DEPRECATED_MSG_ATTRIBUTE("Please use [Yodo1AnalyticsManager sharedInstance] trackIAPRevenue:]");
 
 /**
  *  AppsFlyer User invite attribution
@@ -99,6 +125,8 @@ typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *error
  *  AppsFlyer and ThinkingData set user id
  */
 - (void)login:(NSString *)userId;
+
+#pragma mark - lifecycle
 
 /**
  *  订阅openURL
@@ -116,3 +144,5 @@ typedef void (^Yodo1InviteUrlCallBack) (NSString *url, int code, NSString *error
 - (void)continueUserActivity:(nonnull NSUserActivity *)userActivity;
 
 @end
+
+NS_ASSUME_NONNULL_END

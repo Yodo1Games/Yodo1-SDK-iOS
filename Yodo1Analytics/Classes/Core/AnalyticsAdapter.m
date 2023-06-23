@@ -17,40 +17,44 @@
     return self;
 }
 
-- (void)track:(NSString *)eventName properties:(NSDictionary *)properties {}
+- (void)login:(NSString * _Nonnull)userId {}
 
-- (void)trackAppsFlyer:(NSString *)eventName
-            properties:(NSDictionary *)properties{}
+- (void)trackEvent:(NSString * _Nonnull)eventName eventValues:(NSDictionary * _Nullable)eventValues {}
+
+#pragma mark - UA in-app events
+
+- (void)trackUAEvent:(NSString *_Nonnull)eventName eventValues:(NSDictionary * _Nullable)eventValues {}
+
+- (void)trackAdRevenue:(Yodo1AdRevenue* _Nonnull)adRevenue{}
+
+- (void)trackIAPRevenue:(Yodo1IAPRevenue* _Nonnull)iapRevenue{}
 
 - (void)validateAndTrackInAppPurchase:(NSString*)productIdentifier
                                 price:(NSString*)price
                              currency:(NSString*)currency
                         transactionId:(NSString*)transactionId {}
 
-/**
- *  AppsFlyer Apple 内付费使用自定义事件上报
- */
 - (void)eventAndTrackInAppPurchase:(NSString*)revenue
                           currency:(NSString*)currency
                           quantity:(NSString*)quantity
                          contentId:(NSString*)contentId
                          receiptId:(NSString*)receiptId {}
 
-/**
- *  AppsFlyer and ThinkingData set user id
- */
-- (void)login:(NSString *)userId {}
+#pragma mark - Deep Link
+
+- (void)handleOpenUrl:(NSURL * _Nonnull)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *_Nullable)options {}
+- (void)continueUserActivity:(NSUserActivity * _Nonnull)userActivity {}
+
+#pragma mark - User Invite
 
 /**
  *  AppsFlyer User invite attribution
  */
-- (void)generateInviteUrlWithLinkGenerator:(NSDictionary *)linkDic CallBack:(InviteUrlCallBack)callBack {}
-
-- (void)setDeeplink{}
+- (void)generateInviteUrlWithLinkGenerator:(NSDictionary *_Nonnull)linkDic CallBack:(InviteUrlCallBack _Nonnull)callBack {}
 
 /**
  *  AppsFlyer logInvite AFEventInvite
  */
-- (void)logInviteAppsFlyerWithEventData:(NSDictionary *)eventData {}
+- (void)logInviteAppsFlyerWithEventData:(NSDictionary * _Nonnull)eventData {}
 
 @end
