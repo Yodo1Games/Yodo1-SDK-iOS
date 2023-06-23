@@ -310,14 +310,14 @@ extern "C" {
         }
     }
     
-    void UnityTrackEvent(const char* eventId, const char* jsonVaules) {
-        NSString* eventValues = Yodo1CreateNSString(jsonVaules);
+    void UnityTrackEvent(const char* eventId, const char* jsonValues) {
+        NSString* eventValues = Yodo1CreateNSString(jsonValues);
         NSDictionary *eventValuesDict = [Yodo1Commons JSONObjectWithString:eventValues error:nil];
         [[Yodo1AnalyticsManager sharedInstance] trackEvent:Yodo1CreateNSString(eventId) eventValues:eventValuesDict];
     }
     
-    void UnityTrackUAEvent(const char* eventId, const char* jsonVaules) {
-        NSString* eventValues = Yodo1CreateNSString(jsonVaules);
+    void UnityTrackUAEvent(const char* eventId, const char* jsonValues) {
+        NSString* eventValues = Yodo1CreateNSString(jsonValues);
         NSDictionary *eventValuesDict = [Yodo1Commons JSONObjectWithString:eventValues error:nil];
         [[Yodo1AnalyticsManager sharedInstance] trackUAEvent:Yodo1CreateNSString(eventId) eventValues:eventValuesDict];
     }

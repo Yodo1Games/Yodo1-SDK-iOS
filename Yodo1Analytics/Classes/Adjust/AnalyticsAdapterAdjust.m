@@ -108,12 +108,15 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
     [adjRevenue setRevenue:adRevenue.revenue currency:adRevenue.currency];
     // pass optional parameters
     [adjRevenue setAdImpressionsCount:1];
-    [adjRevenue setAdRevenueUnit:adRevenue.unitId];
-    [adjRevenue setAdRevenuePlacement:adRevenue.placementId];
-    [adjRevenue setAdRevenueNetwork:adRevenue.networkName];
-    // attach callback and/or partner parameter if needed
-    //    [adRevenue addCallbackParameter:key value:value];
-    //    [adRevenue addPartnerParameter:key value:value];
+    if (adRevenue.unitId != nil && adRevenue.unitId.length > 0) {
+        [adjRevenue setAdRevenueUnit:adRevenue.unitId];
+    }
+    if (adRevenue.placementId != nil && adRevenue.placementId.length > 0) {
+        [adjRevenue setAdRevenuePlacement:adRevenue.placementId];
+    }
+    if (adRevenue.networkName != nil && adRevenue.networkName.length > 0) {
+        [adjRevenue setAdRevenueNetwork:adRevenue.networkName];
+    }
     
     // track ad revenue
     [Adjust trackAdRevenue:adjRevenue];
@@ -132,7 +135,9 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
     
     ADJEvent *event = [ADJEvent eventWithEventToken:eventToken];
     [event setRevenue:revenueDoulbe currency:iapRevenue.currency];
-    [event setTransactionId:iapRevenue.transactionId];
+    if (iapRevenue.transactionId != nil && iapRevenue.transactionId.length > 0) {
+        [event setTransactionId:iapRevenue.transactionId];
+    }
     
     [Adjust trackEvent:event];
 }
