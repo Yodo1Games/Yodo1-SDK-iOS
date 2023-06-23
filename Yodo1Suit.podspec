@@ -1,27 +1,22 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.2.1'
+  s.version          = '6.3.0'
   s.summary          = 'The Yodo1 Suit SDK for iOS'
   
   s.description      = <<-DESC
   TODO: Add long description of the pod here.
   DESC
   
-  s.homepage         = 'https://github.com'
-  s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
+  s.homepage         = 'https://www.yodo1.com/'
+  s.author           = { 'Yodo1Games' => 'devadmin@yodo1.com' }
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
+  
   s.ios.deployment_target = '11.0'
   
   s.subspec 'Yodo1_Suit' do |ss|
-    ss.source_files = ["*.{h,m,mm}", "YD1Layout/*.{h,m,mm}"]
-    
-    ss.public_header_files = ["*.h", "YD1Layout/*.h"]
-    
-    # ss.vendored_libraries = ["*.a"]
-    
-    ss.resources = ["Yodo1Suit.bundle", "*.bundle"]
-    
-    # ss.vendored_frameworks = ["*.framework"]
+    ss.source_files = s.name + '/Classes/**/*'
+    ss.public_header_files = s.name + '/Classes/**/*.h'
+    ss.resource = s.name + '/Assets/**/*.bundle'
     
     ss.requires_arc = true
     
@@ -48,10 +43,10 @@ Pod::Spec.new do |s|
     'c++',
     'z']
     
-    ss.dependency 'Yodo1Analytics','6.2.9'
+    ss.dependency 'Yodo1Analytics','6.3.0'
+    ss.dependency 'Yodo1Commons','6.1.6'
     ss.dependency 'Yodo1OnlineParameter','6.1.5'
-    ss.dependency 'Yodo1Commons','6.1.5'
-    
+    ss.dependency 'Yodo1UCenter','6.3.0'
   end
   
   s.subspec 'Yodo1_UnityConfigKey' do |ss|
@@ -63,7 +58,7 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     ss.dependency 'Yodo1iCloud','6.1.4'
-    ss.dependency 'Yodo1GameCenter','6.2.6'
+    ss.dependency 'Yodo1GameCenter','6.3.0'
     ss.dependency 'Yodo1iRate','6.1.1'
     ss.dependency 'Yodo1Replay','6.1.4'
     ss.dependency 'Yodo1Notification','6.1.4'
@@ -78,7 +73,7 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1Purchase','6.2.9'
+    ss.dependency 'Yodo1Purchase','6.3.0'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
@@ -114,7 +109,7 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1GameCenter','6.2.6'
+    ss.dependency 'Yodo1GameCenter','6.3.0'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
@@ -129,6 +124,7 @@ Pod::Spec.new do |s|
     ss.dependency 'Yodo1iCloud','6.1.4'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
+  
   s.subspec 'Yodo1_Notification' do |ss|
     ss.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'NOTIFICATION',

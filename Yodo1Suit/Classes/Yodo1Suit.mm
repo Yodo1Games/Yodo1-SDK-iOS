@@ -20,6 +20,7 @@
 #import "Yodo1KeyInfo.h"
 
 #import "Yodo1Manager.h"
+#import "Yodo1Privacy.h"
 
 //Unity3d
 const char* UNITY3D_YODO1SUIT_METHOD     = "Yodo1U3dSDKCallBackResult";
@@ -173,23 +174,23 @@ static NSString* kYodo1SuitGameObject    = @"Yodo1Suit";//默认
 }
 
 + (void)setUserConsent:(BOOL)consent {
-
+    [Yodo1Privacy shareInstance].userConsent = consent;
 }
 
 + (BOOL)isUserConsent {
-    return YES;
+    return [Yodo1Privacy shareInstance].userConsent;
 }
 
 + (void)setTagForUnderAgeOfConsent:(BOOL)isBelowConsentAge {
-
+    [Yodo1Privacy shareInstance].ageRestrictedUser = isBelowConsentAge;
 }
 
 + (BOOL)isTagForUnderAgeOfConsent {
-    return NO;
+    return [Yodo1Privacy shareInstance].ageRestrictedUser;
 }
 
 + (void)setDoNotSell:(BOOL)doNotSell {
-
+    [Yodo1Privacy shareInstance].doNotSell = doNotSell;
 }
 
 + (BOOL)isDoNotSell {
