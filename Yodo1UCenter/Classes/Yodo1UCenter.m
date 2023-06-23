@@ -157,8 +157,8 @@
             YD1User* user = [YD1User yodo1_modelWithDictionary:m_data];
             [Yd1OpsTools.cached setObject:user forKey:@"yd1User"];
 
-            [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter"
-                                                       eventData:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
+            [Yodo1AnalyticsManager.sharedInstance trackEvent:@"sdk_login_usercenter"
+                                                 eventValues:@{@"usercenter_login_status":@"success", @"usercenter_error_code":@"0", @"usercenter_error_message":@""}];
 
             if (callback) {
                 callback(user,nil);
@@ -167,8 +167,8 @@
             [Yd1OpsTools.cached removeObjectForKey:@"yd1User"];
             
             NSError* error = [NSError errorWithDomain:@"com.yodo1.ucenter" code:errorCode userInfo:@{NSLocalizedDescriptionKey:errorString}];
-            [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter"
-                                                       eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":[NSString stringWithFormat:@"%ld", error.code], @"usercenter_error_message":error.localizedDescription}];
+            [Yodo1AnalyticsManager.sharedInstance trackEvent:@"sdk_login_usercenter"
+                                                 eventValues:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":[NSString stringWithFormat:@"%ld", error.code], @"usercenter_error_message":error.localizedDescription}];
             
             if (callback) {
                 callback(nil, error);
@@ -176,8 +176,8 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         YD1LOG(@"%@",error.localizedDescription);
-        [Yodo1AnalyticsManager.sharedInstance eventAnalytics:@"sdk_login_usercenter"
-                                                   eventData:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":[NSString stringWithFormat:@"%ld", error.code], @"usercenter_error_message":error.localizedDescription}];
+        [Yodo1AnalyticsManager.sharedInstance trackEvent:@"sdk_login_usercenter"
+                                             eventValues:@{@"usercenter_login_status":@"fail", @"usercenter_error_code":[NSString stringWithFormat:@"%ld", error.code], @"usercenter_error_message":error.localizedDescription}];
         if (callback) {
             callback(nil, error);
         }
