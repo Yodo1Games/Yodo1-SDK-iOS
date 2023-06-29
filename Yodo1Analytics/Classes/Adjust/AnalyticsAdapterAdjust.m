@@ -104,11 +104,8 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
     }
     
     double revenue = adRevenue.revenue;
-    if (revenue <= 0) {
+    if (revenue <= 0 || revenue > 1) {
         return;
-    }
-    if (revenue >= 1) {
-        revenue = 1;
     }
     
     ADJAdRevenue *adjRevenue = [[ADJAdRevenue alloc] initWithSource:adjSource];
