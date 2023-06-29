@@ -104,7 +104,7 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
     }
     
     double revenue = adRevenue.revenue;
-    if (revenue <= 0 || revenue > 1) {
+    if (revenue <= 0 || revenue >= 1) {
         return;
     }
     
