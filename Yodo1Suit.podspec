@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.3.0'
+  s.version          = '6.3.1'
   s.summary          = 'The Yodo1 Suit SDK for iOS'
   
   s.description      = <<-DESC
@@ -43,10 +43,10 @@ Pod::Spec.new do |s|
     'c++',
     'z']
     
-    ss.dependency 'Yodo1Analytics/Core','6.3.0'
+    ss.dependency 'Yodo1Analytics/Core','6.3.1'
     ss.dependency 'Yodo1Commons','6.1.6'
     ss.dependency 'Yodo1OnlineParameter','6.1.5'
-    ss.dependency 'Yodo1UCenter','6.3.0'
+    ss.dependency 'Yodo1UCenter','6.3.1'
   end
   
   s.subspec 'Yodo1_UA_Adjust' do |ss|
@@ -56,7 +56,7 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1Analytics/Adjust','6.3.0'
+    ss.dependency 'Yodo1Analytics/Adjust','6.3.1'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
@@ -67,7 +67,7 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1Analytics/AppsFlyer','6.3.0'
+    ss.dependency 'Yodo1Analytics/AppsFlyer','6.3.1'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     ss.dependency 'Yodo1iCloud','6.1.4'
-    ss.dependency 'Yodo1GameCenter','6.3.0'
+    ss.dependency 'Yodo1GameCenter','6.3.1'
     ss.dependency 'Yodo1iRate','6.1.1'
     ss.dependency 'Yodo1Replay','6.1.4'
     ss.dependency 'Yodo1Notification','6.1.4'
@@ -95,7 +95,7 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1Purchase','6.3.0'
+    ss.dependency 'Yodo1Purchase','6.3.1'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
@@ -107,7 +107,7 @@ Pod::Spec.new do |s|
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1GameCenter','6.3.0'
+    ss.dependency 'Yodo1GameCenter','6.3.1'
     ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
   end
   
