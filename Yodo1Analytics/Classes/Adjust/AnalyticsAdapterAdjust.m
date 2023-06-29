@@ -103,9 +103,17 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
         return;
     }
     
+    double revenue = adRevenue.revenue;
+    if (revenue <= 0) {
+        return;
+    }
+    if (revenue >= 1) {
+        revenue = 1;
+    }
+    
     ADJAdRevenue *adjRevenue = [[ADJAdRevenue alloc] initWithSource:adjSource];
     // pass revenue and currency values
-    [adjRevenue setRevenue:adRevenue.revenue currency:adRevenue.currency];
+    [adjRevenue setRevenue:revenue currency:adRevenue.currency];
     // pass optional parameters
     [adjRevenue setAdImpressionsCount:1];
     if (adRevenue.unitId != nil && adRevenue.unitId.length > 0) {
