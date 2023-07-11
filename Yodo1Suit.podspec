@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.3.1'
+  s.version          = '6.3.2-beta.1'
   s.summary          = 'The Yodo1 Suit SDK for iOS'
   
   s.description      = <<-DESC
@@ -13,150 +13,211 @@ Pod::Spec.new do |s|
   
   s.ios.deployment_target = '11.0'
   
-  s.subspec 'Yodo1_Suit' do |ss|
-    ss.source_files = s.name + '/Classes/**/*'
-    ss.public_header_files = s.name + '/Classes/**/*.h'
-    ss.resource = s.name + '/Assets/**/*.bundle'
+  s.requires_arc = true
+  s.xcconfig = {
+    "OTHER_LDFLAGS" => "-ObjC",
+    "GENERATE_INFOPLIST_FILE" => "YES"
+  }
+  s.pod_target_xcconfig = {
+    "DEFINES_MODULE" => "YES",
+    "VALID_ARCHS" => "arm64 arm64e armv7 armv7s x86_64",
+    "VALID_ARCHS[sdk=iphoneos*]" => "arm64 arm64e armv7 armv7s",
+    "VALID_ARCHS[sdk=iphonesimulator*]" => "x86_64 arm64"
+  }
+  s.libraries = [ 'sqlite3.0', 'c++', 'z']
+  
+  s.subspec 'Base' do |sub|
+    sub.source_files = s.name + '/Commons/Classes/**/*'
+    sub.public_header_files = s.name + '/Commons/Classes/**/*.h'
     
-    ss.requires_arc = true
-    
-    ss.xcconfig = {
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-    }
-    
-    ss.frameworks = [
-    'Foundation',
-    'UIKit',
-    'Security',
-    ]
-    
-    ss.weak_frameworks = [
-    'AdSupport',
-    'SafariServices',
-    ]
-    
-    ss.libraries = [
-    'sqlite3.0',
-    'c++',
-    'z']
-    
-    ss.dependency 'Yodo1Analytics/Core','6.3.1'
-    ss.dependency 'Yodo1Commons','6.1.6'
-    ss.dependency 'Yodo1OnlineParameter','6.1.5'
-    ss.dependency 'Yodo1UCenter','6.3.1'
+    sub.frameworks = ['UIKit','Foundation','CoreFoundation','QuartzCore','SystemConfiguration','MobileCoreServices','CoreServices','CoreTelephony','Security']
+    sub.weak_frameworks = [ 'AdSupport' ]
   end
   
-  s.subspec 'Yodo1_UA_Adjust' do |ss|
-    ss.xcconfig = {
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-    }
-    ss.dependency 'Yodo1Analytics/Adjust','6.3.1'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+  s.subspec 'OnlineParameter' do |sub|
+    sub.source_files = s.name + '/OnlineParameter/Classes/**/*'
+    sub.public_header_files = s.name + '/OnlineParameter/Classes/**/*.h'
+    
+    sub.frameworks = [ 'CoreTelephony', 'CoreLocation', 'MobileCoreServices', 'SystemConfiguration', 'Security' ]
+    sub.weak_frameworks = [ 'AdSupport', 'SafariServices' ]
+    
+    sub.dependency 'Yodo1Suit/Base',"#{s.version}"
   end
   
-  s.subspec 'Yodo1_UA_AppsFlyer' do |ss|
-    ss.xcconfig = {
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-    }
-    ss.dependency 'Yodo1Analytics/AppsFlyer','6.3.1'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+  s.subspec 'Analytics' do |sub|
+    sub.frameworks = [ 'Foundation', 'UIKit', 'SystemConfiguration', 'CoreGraphics', 'Security', 'CoreTelephony' ]
+    sub.weak_frameworks = []
+    sub.dependency 'Yodo1Suit/Base',"#{s.version}"
+    
+    sub.subspec 'Core' do |sub1|
+      sub1.source_files = s.name + '/Analytics/Classes/Core/**/*'
+      sub1.public_header_files = s.name + '/Analytics/Classes/Core/**/*.h'
+      
+      sub1.dependency 'ThinkingSDK','2.8.3.2'
+    end
+    
+    sub.subspec 'AppsFlyer' do |sub1|
+      sub1.source_files = s.name + '/Analytics/Classes/AppsFlyer/**/*'
+      sub1.public_header_files = s.name + '/Analytics/Classes/AppsFlyer/**/*.h'
+      sub1.frameworks = ['SystemConfiguration','Security','CoreTelephony','iAd','AdSupport','AdServices','AppTrackingTransparency']
+      
+      sub1.dependency 'AppsFlyerFramework', '6.7.0'
+      sub1.dependency 'Yodo1Suit/Analytics/Core', "#{s.version}"
+    end
+    
+    sub.subspec 'Adjust' do |sub1|
+      sub1.source_files = s.name + '/Analytics/Classes/Adjust/**/*'
+      sub1.public_header_files = s.name + '/Analytics/Classes/Adjust/**/*.h'
+      sub1.frameworks = ['AdSupport','AdServices','StoreKit','AppTrackingTransparency']
+      sub1.dependency 'Adjust', '4.33.4'
+      sub1.dependency 'Yodo1Suit/Analytics/Core', "#{s.version}"
+    end
   end
   
-  s.subspec 'Yodo1_UnityConfigKey' do |ss|
-    ss.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'UNITY_PROJECT',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-    }
-    ss.dependency 'Yodo1iCloud','6.1.4'
-    ss.dependency 'Yodo1GameCenter','6.3.1'
-    ss.dependency 'Yodo1iRate','6.1.1'
-    ss.dependency 'Yodo1Replay','6.1.4'
-    ss.dependency 'Yodo1Notification','6.1.4'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+  s.subspec 'UCenter' do |sub|
+    sub.source_files = s.name + '/UCenter/Classes/**/*'
+    sub.public_header_files = s.name + '/UCenter/Classes/**/*.h'
+    
+    sub.frameworks = [ 'Foundation', 'UIKit', 'CoreTelephony', 'Security' ]
+    sub.weak_frameworks = [ 'AdSupport', 'SafariServices' ]
+    
+    sub.dependency 'Yodo1Suit/Base',"#{s.version}"
+    sub.dependency 'Yodo1Suit/Analytics/Core',"#{s.version}"
   end
   
-  s.subspec 'Yodo1_Purchase' do |ss|
-    ss.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_UCCENTER',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-    }
-    ss.dependency 'Yodo1Purchase','6.3.1'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
-  end
-  
-  s.subspec 'Yodo1_GameCenter' do |ss|
-    ss.xcconfig = {
+  s.subspec 'GameCenter' do |sub|
+    sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'GAMECENTER',
       'OTHER_LDFLAGS' => '-ObjC',
       "VALID_ARCHS": "armv7 arm64",
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1GameCenter','6.3.1'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+    
+    sub.source_files = s.name + '/GameCenter/Classes/**/*'
+    sub.public_header_files = s.name + '/GameCenter/Classes/**/*.h'
+    
+    sub.frameworks = [ 'Foundation', 'UIKit', 'CoreTelephony', 'MobileCoreServices', 'SystemConfiguration', 'Security']
+    sub.weak_frameworks = [ 'AdSupport', 'SafariServices', 'GameKit' ]
+    
+    sub.dependency 'Yodo1Suit/Base',"#{s.version}"
+    sub.dependency 'Yodo1Suit/Analytics/Core',"#{s.version}"
+    sub.dependency 'Yodo1Suit/UCenter',"#{s.version}"
   end
   
-  s.subspec 'Yodo1_iCloud' do |ss|
-    ss.xcconfig = {
+  s.subspec 'iCloud' do |sub|
+    sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'ICLOUD',
       'OTHER_LDFLAGS' => '-ObjC',
       "VALID_ARCHS": "armv7 arm64",
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1iCloud','6.1.4'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+    
+    sub.source_files = s.name + '/iCloud/Classes/**/*'
+    sub.public_header_files = s.name + '/iCloud/Classes/**/*.h'
+    
+    sub.frameworks = [ 'Foundation', 'UIKit', 'CoreTelephony', 'MobileCoreServices', 'SystemConfiguration', 'Security']
+    sub.weak_frameworks = [ 'AdSupport', 'SafariServices', 'CloudKit' ]
+    
+    sub.dependency 'Yodo1Suit/Base',"#{s.version}"
   end
   
-  s.subspec 'Yodo1_iRate' do |ss|
-    ss.xcconfig = {
+  s.subspec 'iRate' do |sub|
+    sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'IRATE',
       'OTHER_LDFLAGS' => '-ObjC',
       "VALID_ARCHS": "armv7 arm64",
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1iRate','6.1.1'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+    
+    sub.source_files = s.name + '/iRate/Classes/**/*'
+    sub.public_header_files = s.name + '/iRate/Classes/**/*.h'
+    sub.resource = s.name + '/iRate/Assets/**/*.bundle'
+    sub.frameworks = [ 'StoreKit' ]
   end
   
-  s.subspec 'Yodo1_Notification' do |ss|
-    ss.xcconfig = {
+  s.subspec 'Notification' do |sub|
+    sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'NOTIFICATION',
       'OTHER_LDFLAGS' => '-ObjC',
       "VALID_ARCHS": "armv7 arm64",
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1Notification','6.1.4'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+    
+    sub.source_files = s.name + '/Notification/Classes/**/*'
+    sub.public_header_files = s.name + '/Notification/Classes/**/*.h'
+    
+    sub.dependency 'Yodo1Suit/Base',"#{s.version}"
   end
   
-  s.subspec 'Yodo1_Replay' do |ss|
-    ss.xcconfig = {
+  s.subspec 'Replay' do |sub|
+    sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'REPLAY',
       'OTHER_LDFLAGS' => '-ObjC',
       "VALID_ARCHS": "armv7 arm64",
       "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
       "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
-    ss.dependency 'Yodo1Replay','6.1.4'
-    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+    
+    sub.source_files = s.name + '/Replay/Classes/**/*'
+    sub.public_header_files = s.name + '/Replay/Classes/**/*.h'
+    sub.weak_frameworks = [ 'ReplayKit' ]
+    
+    sub.dependency 'Yodo1Suit/Base',"#{s.version}"
+  end
+  
+  s.subspec 'Purchase' do |sub|
+    sub.xcconfig = {
+      "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_UCCENTER',
+      'OTHER_LDFLAGS' => '-ObjC',
+      "VALID_ARCHS": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+    }
+    
+    sub.source_files = s.name + '/Purchase/Classes/**/*'
+    sub.public_header_files = s.name + '/Purchase/Classes/**/*.h'
+    sub.resource = s.name + '/Purchase/Assets/**/*.bundle'
+    sub.frameworks = [ 'Foundation', 'UIKit', 'CoreTelephony',  'CoreLocation', 'ImageIO', 'MobileCoreServices', 'StoreKit', 'WebKit', 'SystemConfiguration',  'Security']
+    sub.weak_frameworks = [ 'AdSupport', 'SafariServices' ]
+    
+    sub.dependency 'Yodo1Suit/Base',"#{s.version}"
+    sub.dependency 'Yodo1Suit/Analytics/Core',"#{s.version}"
+    sub.dependency 'Yodo1Suit/UCenter',"#{s.version}"
+  end
+  
+  s.subspec 'Core' do |sub|
+    sub.source_files = s.name + '/Core/Classes/**/*'
+    sub.public_header_files = s.name + '/Core/Classes/**/*.h'
+    sub.resource = s.name + '/Core/Assets/**/*.bundle'
+    
+    sub.frameworks = [ 'Foundation', 'UIKit', 'Security']
+    sub.weak_frameworks = ['AdSupport','SafariServices']
+    
+    sub.dependency 'Yodo1Suit/OnlineParameter',"#{s.version}"
+    sub.dependency 'Yodo1Suit/Analytics/Core',"#{s.version}"
+    sub.dependency 'Yodo1Suit/UCenter',"#{s.version}"
+  end
+  
+  s.subspec 'UnityCore' do |sub|
+    sub.xcconfig = {
+      "GCC_PREPROCESSOR_DEFINITIONS" => 'UNITY_PROJECT',
+      'OTHER_LDFLAGS' => '-ObjC',
+      "VALID_ARCHS": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
+      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+    }
+    
+    sub.dependency 'Yodo1Suit/Core',"#{s.version}"
+    
+    sub.dependency 'Yodo1Suit/iCloud',"#{s.version}"
+    sub.dependency 'Yodo1Suit/GameCenter',"#{s.version}"
+    sub.dependency 'Yodo1Suit/iRate',"#{s.version}"
+    sub.dependency 'Yodo1Suit/Replay',"#{s.version}"
+    sub.dependency 'Yodo1Suit/Notification',"#{s.version}"
   end
   
   #s.subspec 'Yodo1_Share' do |ss|
@@ -168,7 +229,7 @@ Pod::Spec.new do |s|
   #        "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
   #    }
   #    ss.dependency 'Yodo1Share','6.1.6'
-  #    ss.dependency 'Yodo1Suit/Yodo1_Suit',"#{s.version}"
+  #    ss.dependency 'Yodo1Suit/Core',"#{s.version}"
   #end
   
   
