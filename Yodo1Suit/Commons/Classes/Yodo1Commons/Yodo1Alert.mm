@@ -121,7 +121,7 @@ static Yodo1Alert* _instance = nil;
                gameObjName:(NSString*)gameObjName
                 methodName:(NSString*)methodName
 {
-#ifndef UNITY_PROJECT
+#ifndef UNITY_VERSION
   if(gameObjName && methodName){
     const char* unityGameObjectName = [gameObjName UTF8String];
     const char* unityMethodName = [methodName UTF8String];

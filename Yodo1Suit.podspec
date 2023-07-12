@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.3.2-beta.1'
+  s.version          = '6.3.2-beta.2'
   s.summary          = 'The Yodo1 Suit SDK for iOS'
   
   s.description      = <<-DESC
@@ -88,10 +88,6 @@ Pod::Spec.new do |s|
   s.subspec 'GameCenter' do |sub|
     sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'GAMECENTER',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     
     sub.source_files = s.name + '/GameCenter/Classes/**/*'
@@ -108,10 +104,6 @@ Pod::Spec.new do |s|
   s.subspec 'iCloud' do |sub|
     sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'ICLOUD',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     
     sub.source_files = s.name + '/iCloud/Classes/**/*'
@@ -126,10 +118,6 @@ Pod::Spec.new do |s|
   s.subspec 'iRate' do |sub|
     sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'IRATE',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     
     sub.source_files = s.name + '/iRate/Classes/**/*'
@@ -141,10 +129,6 @@ Pod::Spec.new do |s|
   s.subspec 'Notification' do |sub|
     sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'NOTIFICATION',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     
     sub.source_files = s.name + '/Notification/Classes/**/*'
@@ -156,10 +140,6 @@ Pod::Spec.new do |s|
   s.subspec 'Replay' do |sub|
     sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'REPLAY',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     
     sub.source_files = s.name + '/Replay/Classes/**/*'
@@ -172,10 +152,6 @@ Pod::Spec.new do |s|
   s.subspec 'Purchase' do |sub|
     sub.xcconfig = {
       "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_UCCENTER',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
     }
     
     sub.source_files = s.name + '/Purchase/Classes/**/*'
@@ -203,17 +179,8 @@ Pod::Spec.new do |s|
   end
   
   s.subspec 'UnityCore' do |sub|
-    sub.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'UNITY_PROJECT',
-      'OTHER_LDFLAGS' => '-ObjC',
-      "VALID_ARCHS": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-      "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
-    }
-    
     sub.dependency 'Yodo1Suit/Core',"#{s.version}"
-    
-    sub.dependency 'Yodo1Suit/iCloud',"#{s.version}"
+
     sub.dependency 'Yodo1Suit/GameCenter',"#{s.version}"
     sub.dependency 'Yodo1Suit/iRate',"#{s.version}"
     sub.dependency 'Yodo1Suit/Replay',"#{s.version}"

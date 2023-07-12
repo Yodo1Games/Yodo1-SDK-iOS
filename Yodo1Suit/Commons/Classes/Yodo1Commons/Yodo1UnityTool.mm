@@ -4,14 +4,15 @@
 
 #import "Yodo1UnityTool.h"
 
-#ifdef UNITY_PROJECT
+#ifdef UNITY_VERSION
 /// Unity3d引擎 项目
 #else
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-#if UNITY_VERSION < 500
+
+    #if UNITY_VERSION < 500
     void UnityPause(bool pause) {}
     #else
     void UnityPause(int pause){}
