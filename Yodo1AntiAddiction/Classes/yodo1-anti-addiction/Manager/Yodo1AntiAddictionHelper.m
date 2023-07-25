@@ -21,6 +21,8 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1AntiAddictionBehaviour.h"
 
+#import "Yodo1UCenter.h"
+
 
 /// code:成功:200, 失败:-1,用户登录错误:-2,网络错误:-100
 /// response: 服务器返回内容
@@ -129,6 +131,8 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     _autoTimer = YES;
     _regionCode = regionCode ? regionCode : @"00000000";
     _systemSwitch = NO;
+    
+    [[Yodo1UCenter shared] init:appKey regionCode:regionCode];
     
     [[Yodo1AntiAddictionDatabase shared] initWithAppKey:appKey];
     [[Yodo1AntiAddictionNet manager] initWithAppKey:appKey];
