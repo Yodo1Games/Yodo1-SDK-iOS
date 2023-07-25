@@ -1,79 +1,74 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Share'
-  s.version          = '1.0.1'
-  s.summary          = '---A short description of Yodo1 Share-----'
+  s.version          = '1.0.3'
+  s.summary          = 'Yodo1 Sharing SDK for iOS'
   
   s.description      = <<-DESC
   TODO: Add long description of the pod here.
   DESC
   
-  s.homepage         = 'https://github.com'
-  s.author           = { 'yixian huang' => 'huangyixian@yodo1.com' }
+  s.homepage         = 'https://www.yodo1.com/'
+  s.author           = { 'Yodo1Games' => 'devadmin@yodo1.com' }
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
   
-  
-  s.ios.deployment_target = '9.0'
-  
-  #s.vendored_libraries = ["Yodo1Share/*.a"]
-  
-  s.source_files = ["Yodo1Share/**/*.{h,m,mm,c}"]
-  
-  s.public_header_files = ["Yodo1Share/**/*.h"]
-  
-  s.resources = ["Yodo1Share/*.bundle"]
-  
-#  s.vendored_frameworks = ["Yodo1Share/libs/Tencent/TencentOpenAPI.framework"]
+  s.ios.deployment_target = '12.0'
   
   s.requires_arc = true
-  
   s.xcconfig = {
-    'OTHER_LDFLAGS' => '-ObjC',
-    "VALID_ARCHS": "armv7 arm64",
-    "VALID_ARCHS[sdk=iphoneos*]": "armv7 arm64",
-    "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64"
+    "OTHER_LDFLAGS" => "-ObjC",
+    "GENERATE_INFOPLIST_FILE" => "YES"
   }
+  s.pod_target_xcconfig = {
+    "DEFINES_MODULE" => "YES",
+    "VALID_ARCHS" => "arm64 arm64e armv7 armv7s x86_64",
+    "VALID_ARCHS[sdk=iphoneos*]" => "arm64 arm64e armv7 armv7s",
+    "VALID_ARCHS[sdk=iphonesimulator*]" => "x86_64 arm64"
+  }
+  s.libraries = [ 'sqlite3.0', 'c++', 'z', 'iconv']
   
-  s.frameworks = [
-  'Accounts',
-  'AssetsLibrary',
-  'AVFoundation',
-  'CoreTelephony',
-  'CoreLocation',
-  'CoreMotion',
-  'CoreMedia',
-  'EventKit',
-  'EventKitUI',
-  'iAd',
-  'ImageIO',
-  'MobileCoreServices',
-  'MediaPlayer',
-  'MessageUI',
-  'MapKit',
-  'Social',
-  'StoreKit',
-  'WebKit',
-  'SystemConfiguration',
-  'AudioToolbox',
-  'Security']
+  s.frameworks = ['UIKit','Foundation','CoreFoundation','QuartzCore','SystemConfiguration','MobileCoreServices','CoreServices','CoreTelephony','Security', 'Social']
+  s.weak_frameworks = [ 'AdSupport' ]
   
-  s.weak_frameworks = [
-  'AdSupport',
-  'SafariServices',
-  'ReplayKit',
-  'CloudKit',
-  'GameKit']
+  s.subspec 'Core' do |sub|
+    sub.source_files = s.name + '/Core/Classes/**/*'
+    sub.public_header_files = s.name + '/Core/Classes/**/*.h'
+    sub.resource = s.name + '/Core/Assets/**/*.bundle'
+    
+    sub.dependency 'Yodo1Suit/Base'
+  end
   
-  s.libraries = [
-  'sqlite3.0',
-  'c++',
-  'z']
+  s.subspec 'Facebook' do |sub|
+    sub.source_files = s.name + '/Facebook/Classes/**/*'
+    sub.public_header_files = s.name + '/Facebook/Classes/**/*.h'
+    
+    sub.dependency 'Yodo1Share/Core', "#{s.version}"
+    sub.dependency 'FBSDKShareKit','12.3.2'
+  end
   
-  s.dependency 'Yodo1Commons','6.1.3'
-  s.dependency 'Yodo1QQSDK','6.1.0'
-#  s.dependency 'QQSDK','3.5.11'
-  s.dependency 'FBSDKShareKit','12.3.2'
-  s.dependency 'Weibo_SDK','3.3.0'#'Yodo1WeiboSDK', '5.0.0'
-  s.dependency 'WechatOpenSDK', '1.8.7.1'#'Yodo1WeChatSDK', '5.0.0'
-
+  s.subspec 'QQ' do |sub|
+    sub.source_files = s.name + '/QQ/Classes/**/*'
+    sub.public_header_files = s.name + '/QQ/Classes/**/*.h'
+    sub.resource = s.name + '/QQ/Assets/**/*.bundle'
+    sub.vendored_frameworks = s.name + '/QQ/Lib/**/*.framework', s.name + '/QQ/Lib/**/*.xcframework'
+    
+    sub.dependency 'Yodo1Share/Core', "#{s.version}"
+  end
+  
+  s.subspec 'SinaWeibo' do |sub|
+    sub.source_files = s.name + '/SinaWeibo/Classes/**/*'
+    sub.public_header_files = s.name + '/SinaWeibo/Classes/**/*.h'
+    
+    sub.dependency 'Yodo1Share/Core', "#{s.version}"
+    sub.dependency 'Weibo_SDK','3.3.0'
+  end
+  
+  s.subspec 'Wechat' do |sub|
+    sub.source_files = s.name + '/Wechat/Classes/**/*'
+    sub.public_header_files = s.name + '/Wechat/Classes/**/*.h'
+    
+    sub.dependency 'Yodo1Share/Core', "#{s.version}"
+    sub.dependency 'WechatOpenSDK', '1.8.7.1'
+  end
+  
 end
 
