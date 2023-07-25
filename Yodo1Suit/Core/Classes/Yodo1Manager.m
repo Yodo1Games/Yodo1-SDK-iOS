@@ -16,6 +16,7 @@
 #import "Yodo1AFHTTPSessionManager.h"
 
 #import "Yodo1AnalyticsManager.h"
+#import "Yodo1UCenter.h"
 
 #ifdef YODO1_UCCENTER
 #import "Yodo1PurchaseManager.h"
