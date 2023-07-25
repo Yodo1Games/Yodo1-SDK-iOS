@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.3.2-beta.2'
+  s.version          = '6.3.2-beta.3'
   s.summary          = 'The Yodo1 Suit SDK for iOS'
   
   s.description      = <<-DESC
@@ -87,7 +87,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'GameCenter' do |sub|
     sub.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'GAMECENTER',
+      "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_GAMECENTER',
     }
     
     sub.source_files = s.name + '/GameCenter/Classes/**/*'
@@ -103,7 +103,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'iCloud' do |sub|
     sub.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'ICLOUD',
+      "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_ICLOUD',
     }
     
     sub.source_files = s.name + '/iCloud/Classes/**/*'
@@ -117,7 +117,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'iRate' do |sub|
     sub.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'IRATE',
+      "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_IRATE',
     }
     
     sub.source_files = s.name + '/iRate/Classes/**/*'
@@ -128,7 +128,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'Notification' do |sub|
     sub.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'NOTIFICATION',
+      "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_NOTIFICATION',
     }
     
     sub.source_files = s.name + '/Notification/Classes/**/*'
@@ -139,7 +139,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'Replay' do |sub|
     sub.xcconfig = {
-      "GCC_PREPROCESSOR_DEFINITIONS" => 'REPLAY',
+      "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_REPLAY',
     }
     
     sub.source_files = s.name + '/Replay/Classes/**/*'

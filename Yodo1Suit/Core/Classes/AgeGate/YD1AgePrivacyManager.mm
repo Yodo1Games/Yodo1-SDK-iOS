@@ -600,6 +600,7 @@ void Unity3dShowUserConsent(const char *SdkObjectName,const char* SdkMethodName)
         }
     }];
 }
+
 void Unity3dSelectLocalLanguage(const char *language)
 {
     [YD1AgePrivacyManager selectLocalLanguage:Yodo1CreateNSString(language)];

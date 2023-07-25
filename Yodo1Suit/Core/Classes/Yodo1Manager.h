@@ -1,6 +1,5 @@
 //
 //  Yodo1Manager.h
-//  localization_sdk_sample
 //
 //  Created by shon wang on 13-8-13.
 //  Copyright (c) 2013年 游道易. All rights reserved.
@@ -9,18 +8,35 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SDKConfig : NSObject
 
+/// Unique identifier for your game
 @property (nonatomic,copy) NSString* appKey;
-@property (nonatomic,copy) NSString* regionCode;//可以传入@"",不能传入nil
-@property (nonatomic,strong) NSString *appsflyerCustomUserId;//AppsFlyer,ThinkingData自定义UserId
+
+/// Optional, If your game has multiple environments, you can use `RegionCode` to initialize the SDK. You can think of these environments as different regions for your game. Using `RegionCode` allows you to set up different server callbacks for your different backends
+@property (nonatomic,copy) NSString* regionCode;
+
+@property (nonatomic,strong) NSString *appsflyerCustomUserId DEPRECATED_MSG_ATTRIBUTE("Please use [Yodo1AnalyticsManager sharedInstance] login:]");
 
 @end
 
 @interface Yodo1Manager : NSObject
 
-//初始化:数据统计，Yodo1Track激活统计，视频广告
-//插屏广告，Banner广告，SNS分享，MoreGame
-+ (void)initSDKWithConfig:(SDKConfig*)sdkConfig;
+@property (nonatomic, strong) SDKConfig *config;
+
++ (Yodo1Manager*)shared;
+
+- (void)initWithAppKey:(NSString *)appKey;
+
+- (void)initWithConfig:(SDKConfig*)sdkConfig;
+
+/**
+ * 激活码/优惠券
+ */
+- (void)verifyWithActivationCode:(NSString *)activationCode
+                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSDictionary* _Nullable error))callback;
 
 @end
+NS_ASSUME_NONNULL_END

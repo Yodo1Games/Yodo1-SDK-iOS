@@ -40,70 +40,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark -【可弃用】
-@interface YD1ItemInfo : NSObject
-/// 产品ID
-@property (nonatomic,strong)NSString *productId;
-/// payment订单号
-@property (nonatomic,strong)NSString *orderId;
-/// 订单号(苹果transaction_id)
-@property (nonatomic,strong)NSString *channelOrderid;
-/// 不传默认0 商品类型,0-不可消耗;1-可消耗;2-自动订阅;3-非自动订阅
-@property (nonatomic,assign)int product_type;
-/// 是否获得所有数据
-@property (nonatomic,strong)NSString *exclude_old_transactions;
-/// 道具代码(同IAP代码)
-@property (nonatomic,strong)NSString *item_code;
-/// playerid
-@property (nonatomic,strong)NSString *playerid;
-/// 用户id
-@property (nonatomic,strong)NSString *uid;
-/// yid
-@property (nonatomic,strong)NSString *yid;
-/// 登录时，返回的ucuid（登陆uc的情况使用）
-@property (nonatomic,strong)NSString *ucuid;
-/// 例如idfa等设备id
-@property (nonatomic,strong)NSString *deviceid;
-/// 苹果验证收据
-@property (nonatomic,strong)NSString *trx_receipt;
-/// true为连接沙盒环境，不传或其他为正式环境
-@property (nonatomic,strong)NSString *is_sandbox;
-/// 附加信息
-@property (nonatomic,strong)NSString *extra;
-/// 渠道号 - AppStore
-@property (nonatomic,strong)NSString *channelCode;
-/// 失败订单的三方返回code
-@property (nonatomic,strong)NSString *statusCode;
-/// 三方返回的msg，可空
-@property (nonatomic,strong)NSString *statusMsg;
 
-@end
-
-#pragma mark -【可弃用】
-@interface SubscriptionInfo : NSObject
-///通用产品id
-@property (nonatomic, retain) NSString* uniformProductId;
-///渠道产品id:比如91的产品id，AppStore的产品
-@property (nonatomic, retain) NSString* channelProductId;
-///过期时间
-@property (nonatomic, assign) NSTimeInterval expiresTime;
-///购买时间
-@property (nonatomic, assign) NSTimeInterval purchase_date_ms;
-
-- (id)initWithUniformProductId:(NSString*)uniformProductId
-              channelProductId:(NSString*)channelProductId
-                       expires:(NSTimeInterval)expiresTime
-                  purchaseDate:(NSTimeInterval)purchaseDateMs;
-@end
 
 @interface Yodo1UCenter:NSObject
 
 @property(nonatomic,strong)NSString* gameAppKey;
 @property(nonatomic,strong)NSString* regionCode;
-#pragma mark -【可弃用】
-@property(nonatomic,strong)YD1ItemInfo* itemInfo;
 
 + (instancetype)shared;
+
+- (void)init:(NSString *)appKey regionCode:(NSString *)regionCode;
 
 /// Log in to the Yodo1 user center with device ID
 ///
@@ -126,65 +72,6 @@ NS_ASSUME_NONNULL_BEGIN
                        callback:(void(^)(YD1User* _Nullable user, NSError* _Nullable  error))callback DEPRECATED_MSG_ATTRIBUTE("Please use [Yodo1UCenter shared] loginWithPlayerId: callback:]");
 
 - (YD1User *)getUserInfo;
-
-#pragma mark -【可弃用】
-/**
- *  创建订单号
- */
-- (void)generateOrderId:(void (^)(NSString* _Nullable orderId,NSError* _Nullable error))callback;
-
-/**
- *  创建订单
- */
-- (void)createOrder:(NSDictionary*) parameter
-           callback:(void (^)(int error_code,NSString* error))callback;
-
-/**
- *  App Store verify IAP
- */
-- (void)verifyAppStoreIAPOrder:(YD1ItemInfo *)itemInfo
-                      callback:(void (^)(BOOL verifySuccess,NSString* response,NSError* error))callback;
-
-/**
- * 查询订阅
- */
-- (void)querySubscriptions:(YD1ItemInfo *)itemInfo
-                  callback:(void (^)(BOOL success,NSString* _Nullable response,NSError* _Nullable error))callback;
-
-/**
- * 通知已发货成功
- */
-- (void)sendGoodsOver:(NSString *)orderIds
-             callback:(void (^)(BOOL success,NSString* error))callback;
-
-
-/**
- * 通知已发货失败
- */
-- (void)sendGoodsOverForFault:(NSString *)orderIds
-                     callback:(void (^)(BOOL success,NSString* error))callback;
-
-/**
- *  上报订单已支付成功接口
- */
-- (void)clientCallback:(YD1ItemInfo *)itemInfo callbakc:(void (^)(BOOL success,NSString* error))callback;
-
-/**
- *  上报支付失败接口
- */
-- (void)reportOrderStatus:(YD1ItemInfo *)itemInfo callbakc:(void (^)(BOOL success,NSString* error))callback;
-
-/**
- *  客户端通知服务端已同步unity接口
- */
-- (void)clientNotifyForSyncUnityStatus:(NSArray *)orderIds
-                              callback:(void (^)(BOOL success,NSArray* notExistOrders,NSArray* notPayOrders,NSString* error))callback;
-
-/**
- *  查询漏单接口（单机版，支持SDK V4.0）
- */
-- (void)offlineMissorders:(YD1ItemInfo *)itemInfo
-                 callback:(void (^)(BOOL success,NSArray* missorders,NSString* error))callback;
 
 @end
 

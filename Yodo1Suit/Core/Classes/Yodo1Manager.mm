@@ -13,21 +13,13 @@
 #import "Yd1OnlineParameter.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+Commons.h"
-#import <SafariServices/SafariServices.h>
-
-#import "Yodo1Suit.h"
+#import "Yodo1AFHTTPSessionManager.h"
 
 #import "Yodo1AnalyticsManager.h"
 
 #ifdef YODO1_UCCENTER
 #import "Yodo1PurchaseManager.h"
 #endif
-
-#ifdef ANTI_ADDICTION
-#import "Yodo1RealNameManager.h"
-#endif
-
-#import "Yodo1Model.h"
 
 #define Yodo1Debug [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] integerValue]
 
@@ -37,34 +29,61 @@
 
 static BOOL isInitialized = false;
 
-@interface Yodo1Manager ()
+@interface Yodo1Manager()
 
 @end
 
 @implementation Yodo1Manager
 
-+ (void)initSDKWithConfig:(SDKConfig*)sdkConfig {
-    
-    NSAssert(sdkConfig.appKey != nil, @"appKey is not set!");
-    if (isInitialized) {
-        YD1LOG(@"[Yodo1 SDK] has already been initialized! && Appkey = %@", sdkConfig.appKey);
++ (Yodo1Manager *)shared {
+    static Yodo1Manager* _instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instance = [[Yodo1Manager alloc] init];
+    });
+    return _instance;
+}
+
+- (void)initWithAppKey:(NSString *)appKey {
+    SDKConfig* config = [[SDKConfig alloc] init];
+    config.appKey = appKey;
+    [self initWithConfig:config];
+}
+
+- (void)initWithConfig:(SDKConfig*)sdkConfig {
+    self.config = sdkConfig;
+    if (self.config == nil) {
+        YD1LOG(@"[Yodo1 SDK] Failed to initialize SDK with nil config");
         return;
     }
-    isInitialized = true;
-        
+    NSAssert(self.config.appKey != nil, @"appKey is not set!");
+    
+    if (self.config.appKey == nil || self.config.appKey.length <= 0) {
+        YD1LOG(@"[Yodo1 SDK] Failed to initialize SDK with invalid config.appKey");
+        return;
+    }
+    
+    if (isInitialized) {
+        YD1LOG(@"[Yodo1 SDK] has already been initialized! && Appkey = %@", self.config.appKey);
+        return;
+    }
+    isInitialized = YES;
+    
     //初始化在线参数
-    [Yd1OnlineParameter.shared initWithAppKey:sdkConfig.appKey channelId:Yodo1Tool.shared.publishChannelCodeValue];
+    [Yd1OnlineParameter.shared initWithAppKey:self.config.appKey channelId:Yodo1Tool.shared.publishChannelCodeValue];
     
     //初始化统计SDK
-    AnalyticsInitConfig* config = [[AnalyticsInitConfig alloc] init];
-    config.gameKey = sdkConfig.appKey;
-    config.debugEnabled = [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] boolValue];
-    config.appsflyerCustomUserId = sdkConfig.appsflyerCustomUserId;
-    [[Yodo1AnalyticsManager sharedInstance] initializeWithConfig:config];
+    AnalyticsInitConfig* analyticsConfig = [[AnalyticsInitConfig alloc] init];
+    analyticsConfig.gameKey = self.config.appKey;
+    analyticsConfig.debugEnabled = [[[Yodo1KeyInfo shareInstance] configInfoForKey:@"debugEnabled"] boolValue];
+    //    analyticsConfig.appsflyerCustomUserId = self.config.appsflyerCustomUserId;
+    [[Yodo1AnalyticsManager sharedInstance] initializeWithConfig:analyticsConfig];
+    
+    [[Yodo1UCenter shared] init:self.config.appKey regionCode:self.config.regionCode];
 
 #ifdef YODO1_UCCENTER
     //初始化应用内购买
-    [Yodo1PurchaseManager.shared willInit];
+    [Yodo1PurchaseManager.shared init:self.config.appKey regionCode:self.config.regionCode];
 #endif
 }
 
@@ -74,102 +93,50 @@ static BOOL isInitialized = false;
                                                  object:nil];
 }
 
-#ifdef __cplusplus
-
-extern "C" {
-
-    void UnityInitSDKWithConfig(const char* sdkConfigJson) {
-        NSString* _sdkConfigJson = Yodo1CreateNSString(sdkConfigJson);
-        SDKConfig* yySDKConfig = [SDKConfig yodo1_modelWithJSON:_sdkConfigJson];
-        [Yodo1Manager initSDKWithConfig:yySDKConfig];
-    }
-
-    char* UnityStringParams(const char* key,const char* defaultValue) {
-        NSString* _defaultValue = Yodo1CreateNSString(defaultValue);
-        NSString* _key = Yodo1CreateNSString(key);
-        NSString* param = [Yd1OnlineParameter.shared stringConfigWithKey:_key defaultValue:_defaultValue];
-        YD1LOG(@"defaultValue = %@, key = %@, param = %@", _defaultValue, _key, param);
-        return Yodo1MakeStringCopy([param cStringUsingEncoding:NSUTF8StringEncoding]);
+/**
+ * 激活码/优惠券
+ */
+- (void)verifyWithActivationCode:(NSString *)activationCode
+                        callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSDictionary* _Nullable error))callback {
+    
+    if (!isInitialized) {
+        callback(false,@{}, @{@"error":@"The SDK is not initialized"});
+        return;
     }
     
-    bool UnityBoolParams(const char* key,bool defaultValue) {
-        bool param = [Yd1OnlineParameter.shared boolConfigWithKey:Yodo1CreateNSString(key) defaultValue:defaultValue];
-        YD1LOG(@"defaultValue = %d, key = %@, param = %d", defaultValue, Yodo1CreateNSString(key), param);
-        return param;
-    }
-
-    char* UnityGetDeviceId() {
-        const char* deviceId = Yd1OpsTools.keychainDeviceId.UTF8String;
-        YD1LOG(@"deviceId = %@", Yd1OpsTools.keychainDeviceId);
-        return Yodo1MakeStringCopy(deviceId);
+    if (!activationCode || activationCode.length < 1) {
+        callback(false,@{}, @{@"error":@"code is empty!"});
+        return;
     }
     
-    char* UnityGetSDKVersion() {
-        const char* sdkVersion = [Yodo1Suit sdkVersion].UTF8String;
-        return Yodo1MakeStringCopy(sdkVersion);
-    }
-
-    char* UnityUserId(){
-        const char* userId = Yd1OpsTools.keychainUUID.UTF8String;
-        YD1LOG(@"userId = %@", Yd1OpsTools.keychainUUID);
-        return Yodo1MakeStringCopy(userId);
-    }
+    Yodo1AFHTTPSessionManager *manager = [[Yodo1AFHTTPSessionManager alloc]init];
+    manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
+    [manager.requestSerializer setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
     
-    void UnityOpenWebPage(const char* url, const char* jsonparam) {
-        NSString *_url = Yodo1CreateNSString(url);
-        NSString *_jsonparam = Yodo1CreateNSString(jsonparam);
-        
-        YD1LOG(@"url = %@, jsonparam = %@", _url, _jsonparam);
-        
-        if ([_jsonparam isEqualToString:@"1"]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_url]];
-        } else if ([_jsonparam isEqualToString:@"0"]) {
-            SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:_url] entersReaderIfAvailable:YES];
-            UIViewController *rootViewController = [UIViewController new];
-            rootViewController = [Yodo1Commons getRootViewController];
-            [rootViewController presentViewController:viewController animated:YES completion:nil];
+    NSString *urlString = [NSString stringWithFormat:@"https://activationcode.yodo1api.com/activationcode/activateWithReward?game_appkey=%@&channel_code=%@&activation_code=%@&dev_id=%@",
+                           self.config.appKey, Yodo1Tool.shared.paymentChannelCodeValue, activationCode, Yd1OpsTools.keychainDeviceId];
+    
+    [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary* response = [Yd1OpsTools JSONObjectWithObject:responseObject];
+        int errorCode = -1;
+        NSString* error = @"";
+        if ([[response allKeys]containsObject:Yd1OpsTools.errorCode]) {
+            errorCode = [[response objectForKey:Yd1OpsTools.errorCode] intValue];
         }
-        
-        
-    }
-    
-    char* UnityGetConfigParameter(const char* key) {
-        return NULL;
-    }
-    
-    char* UnityGetCountryCode() {
-        
-        NSLocale *locale = [NSLocale currentLocale];
-        NSString *countrycode = [locale localeIdentifier];
-        
-        YD1LOG(@"countryCode = %@", countrycode);
-             
-        return Yodo1MakeStringCopy([countrycode cStringUsingEncoding:NSUTF8StringEncoding]);
-    }
-    
-    void UnitySubmitUser(const char* jsonUser)
-    {
-        NSString* _jsonUser = Yodo1CreateNSString(jsonUser);
-        NSDictionary* user = [Yodo1Commons JSONObjectWithString:_jsonUser error:nil];
-        if (user) {
-            
-#ifdef YODO1_UCCENTER
-            NSString* playerId = [user objectForKey:@"playerId"];
-            NSString* nickName = [user objectForKey:@"nickName"];
-
-            Yodo1PurchaseManager.shared.user.playerid = playerId;
-            Yodo1PurchaseManager.shared.user.nickname = nickName;
-            [Yd1OpsTools.cached setObject:Yodo1PurchaseManager.shared.user
-                                   forKey:@"yd1User"];
-            YD1LOG(@"playerId:%@",playerId);
-            YD1LOG(@"nickName:%@",nickName);
-#endif
+        if ([[response allKeys]containsObject:Yd1OpsTools.error]) {
+            error = [response objectForKey:Yd1OpsTools.error];
+        }
+        if (errorCode == 0) {
+            callback(true,response,NULL);
         } else {
-            YD1LOG(@"user is not submit!");
+            callback(false,@{},response);
         }
-    }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        callback(false,@{},@{@"error": error.localizedDescription});
+    }];
+    
 }
 
-#endif
 
 @end

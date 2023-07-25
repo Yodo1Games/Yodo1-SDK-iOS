@@ -93,8 +93,9 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
 
 + (instancetype)shared;
 
-- (void)willInit;
+- (void)init:(NSString *)appKey regionCode:(NSString *)regionCode;
 
+@property (nonatomic,assign)__block BOOL isInitialized;
 @property (nonatomic,assign)__block BOOL isLogined;
 @property (nonatomic,strong)__block YD1User* user;
 
@@ -198,12 +199,6 @@ typedef void (^ValidatePaymentBlock) (NSString *uniformProductId,NSString* respo
  */
 - (void)sendGoodsFail:(NSString *)orderIds
              callback:(void (^)(BOOL success,NSString* error))callback;
-
-/**
- * 激活码/优惠券
- */
-- (void)verifyWithActivationCode:(NSString *)activationCode
-                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSDictionary* _Nullable error))callback;
 
 @end
 

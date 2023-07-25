@@ -22,9 +22,8 @@
 #import "Yodo1Manager.h"
 #import "Yodo1Privacy.h"
 
-//Unity3d
-const char* UNITY3D_YODO1SUIT_METHOD     = "Yodo1U3dSDKCallBackResult";
-static NSString* kYodo1SuitGameObject    = @"Yodo1Suit";//默认
+#import <SafariServices/SafariServices.h>
+
 
 @interface Yodo1SuitDelegate : NSObject
 
@@ -129,49 +128,46 @@ static NSString* kYodo1SuitGameObject    = @"Yodo1Suit";//默认
 @end
 
 
-#pragma mark- ///OC实现
+#pragma mark- OC Manily Methods
 
-@interface Yodo1Suit ()
+@interface Yodo1Suit()
 
 @end
 
 @implementation Yodo1Suit
 
++ (void)setLogEnable:(BOOL)enable {
+    //    [[Yodo1Analytics instance]setDebugMode:enable];
+}
+
+#pragma mark - Init
+
 + (void)initWithAppKey:(NSString *)appKey {
-    if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
-        appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
-    }
-    
     SDKConfig* config = [[SDKConfig alloc] init];
     config.appKey = appKey;
-    [Yodo1Manager initSDKWithConfig:config];
+    [[Yodo1Manager shared] initWithConfig:config];
 }
 
-+ (NSString *)sdkVersion {
-    return Yodo1Tool.shared.sdkVersionValue;
++ (void)initWithConfig:(SDKConfig*)config {
+    [[Yodo1Manager shared] initWithConfig:config];
 }
 
-+ (NSString *)getDeviceId {
-    return Yd1OpsTools.keychainDeviceId;
++ (void)initWithPlist {
+    SDKConfig* config = [[SDKConfig alloc] init];
+    if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
+        config.appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
+    } else {
+        config.appKey = @"";
+    }
+    if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"RegionCode"]) {
+        config.regionCode = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"RegionCode"];
+    } else {
+        config.regionCode = @"";
+    }
+    [[Yodo1Manager shared] initWithConfig:config];
 }
 
-+ (NSString *)GetCountryCode {
-    NSLocale *locale = [NSLocale currentLocale];
-    NSString *countryCode = [locale localeIdentifier];
-    return countryCode;
-}
-
-// 在线参数功能
-+ (NSString *)stringParamsConfigWithKey:(NSString *)key defaultValue:(NSString *)value {
-    return [Yd1OnlineParameter.shared stringConfigWithKey:key defaultValue:value];
-}
-+ (BOOL)boolParamsConfigWithKey:(NSString *)key defaultValue:(bool)value {
-    return [Yd1OnlineParameter.shared boolConfigWithKey:key defaultValue:value];
-}
-
-+ (void)setLogEnable:(BOOL)enable {
-//    [[Yodo1Analytics instance]setDebugMode:enable];
-}
+#pragma mark - Privacy
 
 + (void)setUserConsent:(BOOL)consent {
     [Yodo1Privacy shareInstance].userConsent = consent;
@@ -194,105 +190,54 @@ static NSString* kYodo1SuitGameObject    = @"Yodo1Suit";//默认
 }
 
 + (BOOL)isDoNotSell {
-    return NO;
+    return [Yodo1Privacy shareInstance].doNotSell;
 }
+
+#pragma mark - Online Config
+
++ (NSString *)stringParamsConfigWithKey:(NSString *)key defaultValue:(NSString *)value {
+    return [Yd1OnlineParameter.shared stringConfigWithKey:key defaultValue:value];
+}
+
++ (BOOL)boolParamsConfigWithKey:(NSString *)key defaultValue:(bool)value {
+    return [Yd1OnlineParameter.shared boolConfigWithKey:key defaultValue:value];
+}
+
+#pragma mark - 兑换码功能
+
++ (void)verifyWithActivationCode:(NSString *)activationCode
+                        callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSDictionary* _Nullable error))callback {
+    [[Yodo1Manager shared] verifyWithActivationCode:activationCode callback:callback];
+}
+
+#pragma mark - Other
+
++ (NSString *)sdkVersion {
+    return Yodo1Tool.shared.sdkVersionValue;
+}
+
++ (NSString *)getDeviceId {
+    return Yd1OpsTools.keychainDeviceId;
+}
+
++ (NSString *)getCountryCode {
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString *countryCode = [locale localeIdentifier];
+    return countryCode;
+}
+
++ (void)openWebPage:(NSString *)url paramter:(NSString *)param {
+    YD1LOG(@"url = %@, param = %@", url, param);
+    
+    if ([param isEqualToString:@"1"]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    } else if ([param isEqualToString:@"0"]) {
+        SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url] entersReaderIfAvailable:YES];
+        UIViewController *rootViewController = [UIViewController new];
+        rootViewController = [Yodo1Commons getRootViewController];
+        [rootViewController presentViewController:viewController animated:YES completion:nil];
+    }
+}
+
 
 @end
-
-
-#pragma mark- ///Unity3d
-
-extern "C" {
-
-void Unity3dInitWithAppKey(const char *appKey,const char* gameObject)
-{
-    NSString* m_appKey = Yodo1CreateNSString(appKey);
-    NSCAssert(m_appKey != nil, @"AppKey 没有设置!");
-    
-    NSString* m_gameObject = Yodo1CreateNSString(gameObject);
-    if (m_gameObject) {
-        kYodo1SuitGameObject = m_gameObject;
-    }
-    NSCAssert(m_gameObject != nil, @"Unity3d gameObject isn't set!");
-    
-    [Yodo1Suit initWithAppKey:m_appKey];
-}
-
-void Unity3dSetLogEnable(BOOL enable)
-{
-    [Yodo1Suit setLogEnable:enable];
-}
-
-#pragma mark - Privacy
-
-void UnitySetUserConsent(BOOL consent)
-{
-    [Yodo1Suit setUserConsent:consent];
-}
-
-bool UnityGetUserConsent()
-{
-    return [Yodo1Suit isUserConsent];
-}
-
-void UnitySetTagForUnderAgeOfConsent(BOOL underAgeOfConsent)
-{
-    [Yodo1Suit setTagForUnderAgeOfConsent:underAgeOfConsent];
-}
-
-bool UnityGetTagForUnderAgeOfConsent()
-{
-    return [Yodo1Suit isTagForUnderAgeOfConsent];
-}
-
-void UnitySetDoNotSell(BOOL doNotSell)
-{
-    [Yodo1Suit setDoNotSell:doNotSell];
-}
-
-bool UnityGetDoNotSell()
-{
-    return [Yodo1Suit isDoNotSell];
-}
-
-void UnityShowUserConsent(const char *SdkObjectName,const char* SdkMethodName)
-{
-    NSString* m_appKey = nil;
-    if ([[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"]) {
-        m_appKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"GameKey"];
-    }
-    NSCAssert(m_appKey != nil, @"AppKey 没有设置!");
-    NSString* m_gameObject = Yodo1CreateNSString(SdkObjectName);
-    NSCAssert(m_gameObject != nil, @"Unity3d gameObject isn't set!");
-    NSString* m_methodName = Yodo1CreateNSString(SdkMethodName);
-    NSCAssert(m_methodName != nil, @"Unity3d methodName isn't set!");
-    UIViewController* rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
-    if (rootViewController == nil) {
-        rootViewController = [Yodo1Commons getRootViewController];
-    }
-    [YD1AgePrivacyManager dialogShowUserConsentWithGameAppKey:m_appKey
-                                                  channelCode:Yodo1Tool.shared.paymentChannelCodeValue
-                                               viewController:rootViewController
-                                                        block:^(BOOL accept, BOOL child, int age) {
-        if (m_gameObject && m_methodName) {
-            NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-            [dict setObject:[NSNumber numberWithInt:8001] forKey:@"resulType"];
-            [dict setObject:[NSNumber numberWithInt:age] forKey:@"age"];
-            [dict setObject:[NSNumber numberWithBool:child] forKey:@"isChild"];
-            [dict setObject:[NSNumber numberWithBool:accept] forKey:@"accept"];
-            
-            NSError* parseJSONError = nil;
-            NSString* msg = [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
-            NSString* jsonError = @"";
-            if(parseJSONError){
-                jsonError = @"Convert result to json failed!";
-                [dict setObject:jsonError forKey:@"error"];
-                msg =  [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
-            }
-            
-            UnitySendMessage([kYodo1SuitGameObject cStringUsingEncoding:NSUTF8StringEncoding],UNITY3D_YODO1SUIT_METHOD,
-                             [msg cStringUsingEncoding:NSUTF8StringEncoding] );
-        }
-    }];
-}
-}

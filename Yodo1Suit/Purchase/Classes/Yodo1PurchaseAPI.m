@@ -58,8 +58,22 @@
         _transaction.statusMsg = @"";
         _transaction.exclude_old_transactions = @"false";
     }
-    _gameAppKey = [Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"]? :@"";
-    _regionCode = [Yodo1KeyInfo.shareInstance configInfoForKey:@"RegionCode"]? :@"";
+//    self.gameAppKey = [Yodo1KeyInfo.shareInstance configInfoForKey:@"GameKey"]? :@"";
+//    self.regionCode = [Yodo1KeyInfo.shareInstance configInfoForKey:@"RegionCode"]? :@"";
+}
+
+- (void)init:(NSString *)appKey regionCode:(NSString *)regionCode {
+    if (appKey != nil && appKey.length > 0) {
+        self.gameAppKey = appKey;
+    } else {
+        self.gameAppKey = @"";
+    }
+    
+    if (regionCode != nil && regionCode.length > 0) {
+        self.regionCode = regionCode;
+    } else {
+        self.regionCode = @"";
+    }
 }
 
 /// Generate an order id from IAP payment, please check here(https://confluence.yodo1.com/display/OPP/generateOrderId) for the details

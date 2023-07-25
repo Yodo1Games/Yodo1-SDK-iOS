@@ -7,24 +7,21 @@
 //
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Yodo1Manager.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface Yodo1Suit : NSObject
 
-+ (NSString *)sdkVersion;
-
-+ (NSString *)getDeviceId;
-
-+ (NSString *)GetCountryCode;
-
-// 在线参数功能
-+ (NSString *)stringParamsConfigWithKey:(NSString *)key defaultValue:(NSString *)value;
-+ (BOOL)boolParamsConfigWithKey:(NSString *)key defaultValue:(bool)value;
+//Enable/Disable log
++ (void)setLogEnable:(BOOL)enable;
 
 //Init Yodo1Suit with appkey.
 + (void)initWithAppKey:(NSString *)appKey;
 
-//Enable/Disable log
-+ (void)setLogEnable:(BOOL)enable;
++ (void)initWithConfig:(SDKConfig*)config;
+
++ (void)initWithPlist;
 
 //This can be used by the integrating App to indicate if
 //the user falls in any of the GDPR applicable countries
@@ -57,4 +54,19 @@
 // sell their personal information
 + (BOOL)isDoNotSell;
 
++ (NSString *)stringParamsConfigWithKey:(NSString *)key defaultValue:(NSString *)value;
++ (BOOL)boolParamsConfigWithKey:(NSString *)key defaultValue:(bool)value;
+
++ (void)verifyWithActivationCode:(NSString *)activationCode
+                    callback:(void (^)(BOOL success,NSDictionary* _Nullable response,NSDictionary* _Nullable error))callback;
+
++ (NSString *)sdkVersion;
+
++ (NSString *)getDeviceId;
+
++ (NSString *)getCountryCode;
+
++ (void)openWebPage:(NSString *)url paramter:(NSString *)jsonparam;
+
 @end
+NS_ASSUME_NONNULL_END

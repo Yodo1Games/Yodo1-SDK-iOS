@@ -61,7 +61,7 @@ static Yodo1Replay* _instance = nil;
 - (void)stopScreenRecorder
 {
     [[RPScreenRecorder sharedRecorder] stopRecordingWithHandler:^(RPPreviewViewController* _Nullable previewViewController, NSError* _Nullable error) {
-        _previewViewController = previewViewController;
+        self->_previewViewController = previewViewController;
     }];
 }
 
@@ -83,7 +83,7 @@ static Yodo1Replay* _instance = nil;
                                           animated:YES
                                         completion:^{
             [UIApplication sharedApplication].statusBarHidden = YES;
-            _previewViewController = nil;
+            self->_previewViewController = nil;
         }];
     }
 }
@@ -104,11 +104,20 @@ static Yodo1Replay* _instance = nil;
 
 #pragma mark- RPScreenRecorderDelegate
 
-- (void)screenRecorder:(RPScreenRecorder *)screenRecorder didStopRecordingWithError:(NSError *)error previewViewController:(nullable RPPreviewViewController *)previewViewController
-{
-    
+/*! @abstract Called when recording has stopped due to an error.
+ @param screenRecorder The instance of the screen recorder.
+ @param error An NSError describing why recording has stopped in the RPRecordingErrorDomain.
+ @param previewViewController If a partial movie is available before it was stopped, an instance of RPPreviewViewController will be returned.
+ */
+- (void)screenRecorder:(RPScreenRecorder *)screenRecorder didStopRecordingWithPreviewViewController:(nullable RPPreviewViewController *)previewViewController error:(nullable NSError *)error {
+    if (error != nil) {
+        YD1LOG(@"record failure with error, %@", error.localizedDescription);
+    }
 }
 
+/*! @abstract Called when the recorder becomes available or stops being available. Check the screen recorder's availability property to check the current availability state. Possible reasons for the recorder to be unavailable include an in-progress Airplay/TVOut session or unsupported hardware.
+ @param screenRecorder The instance of the screen recorder.
+ */
 - (void)screenRecorderDidChangeAvailability:(RPScreenRecorder *)screenRecorder
 {
     if (screenRecorder.isRecording) {

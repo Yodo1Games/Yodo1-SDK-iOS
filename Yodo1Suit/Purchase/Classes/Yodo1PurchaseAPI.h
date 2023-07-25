@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shared;
 
+- (void)init:(NSString *)appKey regionCode:(NSString *)regionCode;
+
 /// Generate an order id from IAP payment
 ///
 /// - Parameter callback: NSString *orderId - An order id that generate by IAP payment, NSError *error - An error when failed to generate an order id from IAP payment

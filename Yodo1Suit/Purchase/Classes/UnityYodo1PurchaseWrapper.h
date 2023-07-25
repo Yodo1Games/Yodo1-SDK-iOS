@@ -1,0 +1,15 @@
+typedef enum {
+    Unity_Result_Type_Payment = 2001,
+    Unity_Result_Type_Restore_Payment = 2002,
+    Unity_Result_Type_Request_Products = 2003,
+    Unity_Result_Type_VerifyProductsInfo = 2004,
+    Unity_Result_Type_LossOrderIdQuery = 2005,
+    Unity_Result_Type_QuerySubscriptions = 2006,
+    Unity_Result_Type_FetchPromotionVisibility = 2007,
+    Unity_Result_Type_FetchStorePromotionOrder = 2008,
+    Unity_Result_Type_UpdateStorePromotionVisibility = 2009,
+    Unity_Result_Type_UpdateStorePromotionOrder = 2010,
+    Unity_Reslut_Type_GetPromotionProduct = 2011,
+    Unity_Result_Type_SendGoodsOver = 2013,
+    Unity_Result_Type_SendGoodsOverFault = 2014,
+}UnityResultType_Purchase;
