@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.3.2-beta.3'
+  s.version          = '6.3.2'
   s.summary          = 'The Yodo1 Suit SDK for iOS'
   
   s.description      = <<-DESC
@@ -180,7 +180,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'UnityCore' do |sub|
     sub.dependency 'Yodo1Suit/Core',"#{s.version}"
-
+    
     sub.dependency 'Yodo1Suit/GameCenter',"#{s.version}"
     sub.dependency 'Yodo1Suit/iRate',"#{s.version}"
     sub.dependency 'Yodo1Suit/Replay',"#{s.version}"
