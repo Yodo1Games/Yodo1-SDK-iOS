@@ -18,6 +18,7 @@
 #import "Yodo1PurchaseDataAnalytics.h"
 #import "Yodo1PurchaseAPI.h"
 #import "Yodo1Commons.h"
+#import "Yodo1Privacy.h"
 
 @implementation PaymentObject
 
@@ -428,10 +429,8 @@
     NSString* privateTitle = [self localizedStringForKey:@"SubscriptionAlertPrivate" withDefault:@"隐私协议"];
     NSString* serviceTitle = [self localizedStringForKey:@"SubscriptionAlertService" withDefault:@"服务条款"];
     
-    NSString* privacyPolicyUrl = [self localizedStringForKey:@"SubscriptionPrivacyPolicyURL"
-                                                 withDefault:@"https://www.yodo1.com/cn/privacy_policy"];
-    NSString* termsServiceUrl = [self localizedStringForKey:@"SubscriptionTermsServiceURL"
-                                                withDefault:@"https://www.yodo1.com/cn/user_agreement"];
+    NSString* privacyPolicyUrl = [[Yodo1Privacy shareInstance] getPrivacyPolicyUrl];
+    NSString* termsServiceUrl = [[Yodo1Privacy shareInstance] getTermsOfServiceUrl];
     
     UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
     // Ok Action

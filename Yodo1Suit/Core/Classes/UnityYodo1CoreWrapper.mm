@@ -68,6 +68,14 @@ bool UnityGetDoNotSell()
     return [Yodo1Suit isDoNotSell];
 }
 
+char* UnityGetPrivacyPolicyURL() {
+    return Yodo1MakeStringCopy([[Yodo1Suit getPrivacyPolicyUrl] cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
+char* UnityGetTermsOfServiceURL() {
+    return Yodo1MakeStringCopy([[Yodo1Suit getTermsOfServiceUrl] cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
 #pragma mark - Online Config
 
 char* UnityStringParams(const char* key,const char* defaultValue)

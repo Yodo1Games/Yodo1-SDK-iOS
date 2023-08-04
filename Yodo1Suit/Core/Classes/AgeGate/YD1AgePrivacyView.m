@@ -32,7 +32,6 @@ static NSBundle *yd1Bundle = nil;
     if (self) {
     }
     return self;
-    
 }
 
 - (void)layoutSubviews {
@@ -644,7 +643,7 @@ static NSBundle *yd1Bundle = nil;
         make.centerX.yd1_equalTo(ageView.yd1_centerX);
         make.top.yd1_equalTo(title.yd1_bottom).offset(5);
     }];
-
+    
     UIButton* acceptBt = [UIButton buttonWithType:UIButtonTypeSystem];
     acceptBt.tag = 1020;
     [acceptBt setTitle:@"同意" forState:UIControlStateNormal];
@@ -663,8 +662,8 @@ static NSBundle *yd1Bundle = nil;
     [noAcceptBt setTitle:@"不同意" forState:UIControlStateNormal];
     [ageView addSubview:noAcceptBt];
     [noAcceptBt addTarget:self
-                 action:@selector(acceptButton:)
-       forControlEvents:UIControlEventTouchUpInside];
+                   action:@selector(acceptButton:)
+         forControlEvents:UIControlEventTouchUpInside];
     [noAcceptBt makeLayout:^(YD1MakeLayout *make) {
         make.left.yd1_equalTo(10);
         make.size.yd1_equalTo(CGSizeMake(60, 30));

@@ -193,6 +193,13 @@
     return [Yodo1Privacy shareInstance].doNotSell;
 }
 
++ (NSString *)getPrivacyPolicyUrl {
+    return [[Yodo1Privacy shareInstance] getPrivacyPolicyUrl];
+}
++ (NSString *)getTermsOfServiceUrl {
+    return [[Yodo1Privacy shareInstance] getTermsOfServiceUrl];
+}
+
 #pragma mark - Online Config
 
 + (NSString *)stringParamsConfigWithKey:(NSString *)key defaultValue:(NSString *)value {

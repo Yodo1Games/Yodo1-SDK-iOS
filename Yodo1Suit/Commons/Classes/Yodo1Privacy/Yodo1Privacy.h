@@ -13,6 +13,11 @@
 
 - (BOOL)isReportData;
 
+- (NSString*)getTermsOfServiceUrl;
+- (NSString*)getTermsOfServiceUrlWithLanguageCode:(NSString*)languageCode;
+- (NSString*)getPrivacyPolicyUrl;
+- (NSString*)getPrivacyPolicyUrlWithLanguageCode:(NSString*)languageCode;
+
 @end
 
 #endif /* Yodo1KeyInfo_h */

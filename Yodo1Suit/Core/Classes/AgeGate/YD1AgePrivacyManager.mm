@@ -10,7 +10,7 @@
 #import "Yodo1KeyInfo.h"
 #import "Yodo1Base.h"
 #import "Yodo1Tool+Commons.h"
-
+#import "Yodo1Privacy.h"
 
 NSString* const YD1_Default = @"default";
 NSString* const YD1_ChineseHans = @"zh";//简体，不一样
@@ -34,17 +34,6 @@ NSString* const URL_Privacy = @"https://olc.yodo1api.com";
 NSString* const Sub_URL_Privacy = @"/config/userLicense/getInfo";
 
 NSString* const kPrivacyDataKey = @"com.yodo1.privacy.data";
-
-///用户协议
-NSString* const kUserAgreementDefault = @"https://www.yodo1.com/en/terms/";
-NSString* const kUserAgreementEN = @"https://www.yodo1.com/en/terms/";
-NSString* const kUserAgreementZH = @"https://www.yodo1.com/cn/user_agreement/";
-NSString* const kUserAgreementJA = @"https://www.yodo1.com/en/jpn-terms-of-use/";
-///隐私政策
-NSString* const kPrivacyPolicyDefault = @"https://www.yodo1.com/en/privacy/";
-NSString* const kPrivacyPolicyEN = @"https://www.yodo1.com/en/privacy/";
-NSString* const kPrivacyPolicyZH = @"https://www.yodo1.com/cn/privacy_policy/";
-NSString* const kPrivacyPolicyJA = @"https://www.yodo1.com/en/jpn-privacy-policy/";
 
 static bool kOpenSwitch = false;
 static int kCurrentYearOld = 16;
@@ -101,16 +90,12 @@ static YD1AgePrivacyManager* _instance = nil;
 
 + (void)selectLocalLanguage:(NSString*)language {
     if (language) {
-        [PrivacyUtils selectLocalLanguage:language
-                      isSectlocalLanguage:YES];
-        
+        [PrivacyUtils selectLocalLanguage:language isSectlocalLanguage:YES];
         isPrivacySelectLanguage = YES;
         yd1PrivacySpecifiedLanguage = language;
     }else{
         YD1LOG(@"no specified language!");
-        [PrivacyUtils selectLocalLanguage:yd1PrivacySpecifiedLanguage
-                      isSectlocalLanguage:NO];
-        
+        [PrivacyUtils selectLocalLanguage:yd1PrivacySpecifiedLanguage isSectlocalLanguage:NO];
         isPrivacySelectLanguage = NO;
     }
     kPrivacyView = nil;
@@ -150,9 +135,11 @@ static YD1AgePrivacyManager* _instance = nil;
                     for (NSString* key in [tmp allKeys]) {
                         if ([key isEqualToString:urlKey]) {
                             url = [tmp objectForKey:urlKey];
+                            break;
                         }
                     }
                 }
+                break;;
             }
         }
     }];
@@ -160,29 +147,27 @@ static YD1AgePrivacyManager* _instance = nil;
 }
 
 ///urlKey 指定语言
-+ (NSString*)currentPrivacyURL:(NSString*)urlKey
++ (NSString*)currentPrivacyURL:(NSString*)languageCode
                    licenseName:(NSString*)licenseName
                      isOffline:(BOOL)isOffline {
     NSString* url = @"";
     if (isOffline) {//取不到在线参数情况，返回默认的URL
-        if ([urlKey isEqualToString:YD1_ChineseHans]) {
-            url = kUserAgreementZH;
-        }else if ([urlKey isEqualToString:YD1_Japanese]){
-            url = kUserAgreementJA;
-        }else if ([urlKey isEqualToString:YD1_English]){
-            url = kUserAgreementEN;
-        }else{//默认是en
-            url = kUserAgreementDefault;
+        if ([YD1_UserAgreementName isEqualToString:licenseName]) {
+            url = [[Yodo1Privacy shareInstance] getTermsOfServiceUrlWithLanguageCode:languageCode];
+        } else if ([YD1_PrivacyPolicyName isEqualToString:licenseName]){
+            url = [[Yodo1Privacy shareInstance] getPrivacyPolicyUrlWithLanguageCode:languageCode];
         }
     }else{
-        url = [YD1AgePrivacyManager onlinePrivacyURL:urlKey
-                                         licenseName:licenseName];
+        url = [YD1AgePrivacyManager onlinePrivacyURL:languageCode licenseName:licenseName];
         if ([url isEqualToString:@""]) {// 指定语言没有，就取默认的
-            url = [YD1AgePrivacyManager onlinePrivacyURL:YD1_Default
-                                             licenseName:licenseName];
+            url = [YD1AgePrivacyManager onlinePrivacyURL:YD1_Default licenseName:licenseName];
         }
         if ([url isEqualToString:@""]) {//在没有，就指定默认的
-            url = kUserAgreementDefault;
+            if ([YD1_UserAgreementName isEqualToString:licenseName]) {
+                url = [[Yodo1Privacy shareInstance] getTermsOfServiceUrlWithLanguageCode:languageCode];
+            } else if ([YD1_PrivacyPolicyName isEqualToString:licenseName]){
+                url = [[Yodo1Privacy shareInstance] getPrivacyPolicyUrlWithLanguageCode:languageCode];
+            }
         }
     }
     return url;
@@ -192,7 +177,6 @@ static YD1AgePrivacyManager* _instance = nil;
                                 channelCode:(NSString*)channelCode
                              viewController:(UIViewController*)viewcontroller
                                       block:(PrivacyBlock)privacyBlock {
-    
     [YD1AgePrivacyManager startGetPrivacyOnlineServiceWithGameAppKey:gameAppKey channelCode:channelCode block:^(BOOL finish, NSError *error) {
         BOOL isOnline = true;
         if (finish && error == nil) {
@@ -217,8 +201,8 @@ static YD1AgePrivacyManager* _instance = nil;
         BOOL isChild = true;
         int selectOld = 16;
         if (saveInfo) {
-            isOpen = [((NSNumber*)[saveInfo objectForKey:@"IsOpen"])boolValue];
-            isAccept = [((NSNumber*)[saveInfo objectForKey:@"Accept"])boolValue];
+            isOpen = NO;//[((NSNumber*)[saveInfo objectForKey:@"IsOpen"])boolValue];
+            isAccept = NO;//[((NSNumber*)[saveInfo objectForKey:@"Accept"])boolValue];
             isChild = [((NSNumber*)[saveInfo objectForKey:@"Child"])boolValue];
             selectOld = [((NSNumber*)[saveInfo objectForKey:@"Age"])intValue];
         }

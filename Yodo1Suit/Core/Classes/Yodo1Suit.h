@@ -54,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 // sell their personal information
 + (BOOL)isDoNotSell;
 
++ (NSString *)getPrivacyPolicyUrl;
++ (NSString *)getTermsOfServiceUrl;
+
 + (NSString *)stringParamsConfigWithKey:(NSString *)key defaultValue:(NSString *)value;
 + (BOOL)boolParamsConfigWithKey:(NSString *)key defaultValue:(bool)value;
 
