@@ -167,14 +167,12 @@ typedef void (^isChinaCallBack)(BOOL isChina);
 }
 
 - (void)checkIP:(isChinaCallBack)callBack {
-    
     NSURL* url = [NSURL URLWithString:@"https://ais.yodo1api.com/ais/config/checkIp"];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     request.HTTPMethod = @"POST";
     NSString* timestamp = Yodo1Tool.shared.nowTimeTimestamp;
     NSString* sign = [Yodo1Tool.shared signMd5String:[NSString stringWithFormat:@"%@yodo1",timestamp]];
-    NSDictionary* param = @{@"timestamp":timestamp,
-                            @"sign":sign};
+    NSDictionary* param = @{@"timestamp":timestamp, @"sign":sign};
     request.HTTPBody = [NSJSONSerialization dataWithJSONObject:param
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:nil];
@@ -186,17 +184,16 @@ typedef void (^isChinaCallBack)(BOOL isChina);
             if ([[responseObject allKeys]containsObject:@"data"]) {
                 NSDictionary* data = responseObject[@"data"];
                 if ([[data allKeys]containsObject:@"isChina"]) {
-                    self->_isChina = [data[@"isChina"]boolValue];
-                    if (self->_isChina) {
+                    BOOL isChina = [data[@"isChina"]boolValue];
+                    if (isChina) {
                         NSLog(@"It's China!");
                     }
-                    callBack(self->_isChina);
+                    callBack(isChina);
                 }
             }
             NSLog(@"responseObject:%@",responseObject);
         } else {
-            self->_isChina = NO;
-            callBack(self->_isChina);
+            callBack(NO);
         }
     }];
     [dataTask resume];
@@ -550,41 +547,26 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     }];
 }
 
-//- (void)getIsIpChina {
-//    __weak typeof(self) weakSelf = self;
-//    [self checkIP:^(BOOL isChina) {
-//        [weakSelf isChineseMainland:isChina];
-//    }];
-//}
-
-
 - (BOOL)isChineseMainland {
-    
-    dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-
-    dispatch_group_t group = dispatch_group_create();
-
-    dispatch_group_enter(group);
-    
-    if (!self.isChina) {//大陆IP
-    
-        __block BOOL ip = NO;
-        dispatch_group_async(group, globalQueue, ^{
-            [self checkIP:^(BOOL isChina) {
-                ip = isChina;
-                dispatch_group_leave(group);
-            }];
-        });
+    if (![[Yd1OpsTools networkType] isEqualToString:@"NONE"]) { // 有网络
+        dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_group_enter(group);
+        if (!self.isCheckedIP) {
+            dispatch_group_async(group, globalQueue, ^{
+                [self checkIP:^(BOOL isChina) {
+                    self.isCheckedIP = YES;
+                    self.isChinaIP = isChina;
+                    dispatch_group_leave(group);
+                }];
+            });
+            dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+        }
         
-        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-        
-        return ip;
+        return self.isChinaIP;
+    } else {
+        return [Yodo1Tool.shared.language isEqualToString:@"zh-Hans"];
     }
-    
-    if (![Yodo1Tool.shared.language isEqualToString:@"zh-Hans"]) {//简体中文
-        return NO;
-    }
-    return YES;
 }
 
 #pragma mark - 数据库操作

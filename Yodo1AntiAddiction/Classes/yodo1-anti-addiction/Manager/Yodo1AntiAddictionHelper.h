@@ -22,7 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL systemSwitch;//在线开关
 @property (nonatomic, assign) BOOL enterGameFlag;//进游戏
 @property (nonatomic, assign) BOOL enterBackground;//进后台
-@property (nonatomic, assign) BOOL isChina;//进后台
+@property (nonatomic, assign) BOOL isChinaIP;
+@property (nonatomic, assign) BOOL isCheckedIP;
 
 + (Yodo1AntiAddictionHelper *)shared;
 

@@ -42,10 +42,7 @@ Pod::Spec.new do |s|
   s.dependency 'TPKeyboardAvoiding'
   s.dependency 'FMDB'
   s.dependency 'Masonry'
-  
-  #  s.dependency 'Yodo1Commons'
-  #  s.dependency 'Yodo1UCenter'
-  #
+ 
   s.dependency 'Yodo1Suit/Base'
   s.dependency 'Yodo1Suit/UCenter'
 end
