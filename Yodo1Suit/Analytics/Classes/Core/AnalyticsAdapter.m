@@ -57,4 +57,11 @@
  */
 - (void)logInviteAppsFlyerWithEventData:(NSDictionary * _Nonnull)eventData {}
 
+
+#pragma mark - Device Identifiers
+
+- (NSDictionary*)deviceIdentifiers {
+    return nil;
+}
+
 @end

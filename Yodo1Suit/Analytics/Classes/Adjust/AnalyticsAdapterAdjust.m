@@ -211,6 +211,13 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
     return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
+#pragma mark - Device Identifiers
+
+- (NSDictionary*)deviceIdentifiers {
+    NSDictionary *identifier = [[NSDictionary alloc] initWithObjectsAndKeys:[Adjust adid], @"adj_adid", nil];
+    return identifier;
+}
+
 #pragma mark - AdjustDelegate
 
 /**

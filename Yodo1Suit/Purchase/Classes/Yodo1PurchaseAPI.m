@@ -12,6 +12,7 @@
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+PayParameters.h"
 #import "Yodo1KeyInfo.h"
+#import "Yodo1AnalyticsManager.h"
 
 @implementation Yodo1Transaction
 @end
@@ -188,7 +189,14 @@
         @"manufacturer":@"Apple",
         @"wifi":Yd1OpsTools.networkType,
         @"carrier":Yd1OpsTools.networkOperatorName,
+        @"idfa":Yd1OpsTools.idfa,
+        @"idfv":Yd1OpsTools.idfv,
     };
+    
+    NSMutableDictionary* mergedDeviceInfo = [[NSMutableDictionary alloc] init];
+    [mergedDeviceInfo addEntriesFromDictionary:deviceInfo];
+    [mergedDeviceInfo addEntriesFromDictionary:Yodo1AnalyticsManager.sharedInstance.deviceIdentifiers];
+    
     NSDictionary* data = @{
         @"game_appkey":self.gameAppKey,
         @"region_code":self.regionCode,
@@ -212,7 +220,7 @@
         @"game_extra":gameExtra,
         @"extra":extra,
         @"deviceid":Yd1OpsTools.keychainDeviceId,
-        @"deviceInfo":deviceInfo,
+        @"deviceInfo":mergedDeviceInfo,
         @"productInfo":productInfo,
         @"channelUserid":channelUserid
     };

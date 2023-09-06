@@ -143,6 +143,10 @@ typedef NS_ENUM(NSInteger, AnalyticsType) {
  */
 - (void)continueUserActivity:(nonnull NSUserActivity *)userActivity;
 
+#pragma mark - Device Identifiers
+
+- (NSDictionary*)deviceIdentifiers;
+
 @end
 
 NS_ASSUME_NONNULL_END

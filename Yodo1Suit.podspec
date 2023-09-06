@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.3.3'
+  s.version          = '6.3.4'
   s.summary          = 'The Yodo1 Suit SDK for iOS'
   
   s.description      = <<-DESC

@@ -20,4 +20,4 @@
 
 @end
 
-#endif /* Yodo1KeyInfo_h */
+#endif /* Yodo1Privacy_h */

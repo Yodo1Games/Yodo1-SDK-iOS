@@ -289,4 +289,19 @@
     }
 }
 
+#pragma mark - Device Identifiers
+
+- (NSDictionary*)deviceIdentifiers {
+    NSMutableDictionary* identifiers = [[NSMutableDictionary alloc] init];
+    for (id key in [self.analyticsDict allKeys]) {
+        AnalyticsAdapter* adapter = [self.analyticsDict objectForKey:key];
+        NSDictionary* dict = [adapter deviceIdentifiers];
+        if (dict == nil) {
+            continue;
+        }
+        [identifiers addEntriesFromDictionary:dict];
+    }
+    return identifiers;
+}
+
 @end

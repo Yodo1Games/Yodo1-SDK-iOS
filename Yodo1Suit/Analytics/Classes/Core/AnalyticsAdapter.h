@@ -35,7 +35,6 @@ typedef void (^InviteUrlCallBack) (NSString * _Nullable url, int code, NSString 
 /// - Parameter userId: The unique identifier of the user
 - (void)login:(NSString * _Nonnull)userId;
 
-
 /// Use this method to track an events with multiple values.
 /// - Parameters:
 ///   - eventName: Event name
@@ -85,6 +84,10 @@ typedef void (^InviteUrlCallBack) (NSString * _Nullable url, int code, NSString 
  *  AppsFlyer logInvite AFEventInvite
  */
 - (void)logInviteAppsFlyerWithEventData:(NSDictionary * _Nonnull)eventData;
+
+#pragma mark - Device Identifiers
+
+- (NSDictionary*)deviceIdentifiers;
 
 @end
 
