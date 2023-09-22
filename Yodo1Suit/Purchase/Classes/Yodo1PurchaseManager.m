@@ -177,15 +177,8 @@
     if (weakSelf.user == nil || weakSelf.user.yid == nil || weakSelf.user.yid.length <= 0) {
         [Yodo1UCenter.shared loginWitheDeviceId:^(YD1User * _Nullable user, NSError * _Nullable error) {
             if (user) {
-                weakSelf.user.yid = user.yid;
-                weakSelf.user.uid = user.uid;
+                weakSelf.user = user;
                 weakSelf.user.ucuid = user.ucuid? : user.uid;
-                weakSelf.user.token = user.token;
-                weakSelf.user.isOLRealName = user.isOLRealName;
-                weakSelf.user.isRealName = user.isRealName;
-                weakSelf.user.isnewuser = user.isnewuser;
-                weakSelf.user.isnewyaccount = user.isnewyaccount;
-                weakSelf.user.extra = user.extra;
                 [Yd1OpsTools.cached setObject:weakSelf.user forKey:@"yd1User"];
             }
             if (user && !error) {

@@ -198,5 +198,4 @@ Pod::Spec.new do |s|
   #    ss.dependency 'Yodo1Share','6.1.6'
   #    ss.dependency 'Yodo1Suit/Core',"#{s.version}"
   #end
-  
 end
