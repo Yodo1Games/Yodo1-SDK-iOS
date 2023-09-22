@@ -16,10 +16,11 @@ typedef NS_ENUM(NSUInteger, Yodo1ReachabilityStatus) {
 };
 
 typedef NS_ENUM(NSUInteger, Yodo1ReachabilityWWANStatus) {
-    Yodo1ReachabilityWWANStatusNone  = 0, ///< Not Reachable vis WWAN
+    Yodo1ReachabilityWWANStatusNone = 0, ///< Not Reachable vis WWAN
     Yodo1ReachabilityWWANStatus2G = 2, ///< Reachable via 2G (GPRS/EDGE)       10~100Kbps
     Yodo1ReachabilityWWANStatus3G = 3, ///< Reachable via 3G (WCDMA/HSDPA/...) 1~10Mbps
     Yodo1ReachabilityWWANStatus4G = 4, ///< Reachable via 4G (eHRPD/LTE)       100Mbps
+    Yodo1ReachabilityWWANStatus5G = 5,
 };
 
 @interface Yodo1Reachability : NSObject
@@ -27,6 +28,7 @@ typedef NS_ENUM(NSUInteger, Yodo1ReachabilityWWANStatus) {
 @property (nonatomic, readonly) SCNetworkReachabilityFlags flags;                           ///< Current flags.
 @property (nonatomic, readonly) Yodo1ReachabilityStatus status;                                ///< Current status.
 @property (nonatomic, readonly) Yodo1ReachabilityWWANStatus wwanStatus NS_AVAILABLE_IOS(7_0);  ///< Current WWAN status.
+@property (nonatomic, readonly) NSString* networkType;
 @property (nonatomic, readonly, getter=isReachable) BOOL reachable;                         ///< Current reachable status.
 
 /// Notify block which will be called on main thread when network changed.

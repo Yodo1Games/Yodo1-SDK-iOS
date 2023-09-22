@@ -171,23 +171,7 @@
 }
 
 - (NSString*)networkType {
-    NSString* type = @"NONE";
-    Yodo1ReachabilityStatus reachStatus = [Yodo1Reachability reachability].status;
-    if (reachStatus == Yodo1ReachabilityStatusWiFi) {
-        type = @"WIFI";
-    }else if(reachStatus == Yodo1ReachabilityStatusWWAN){
-        Yodo1ReachabilityWWANStatus wwanStatus = [Yodo1Reachability reachability].wwanStatus;
-        if (wwanStatus == Yodo1ReachabilityWWANStatus2G) {
-            type = @"2G";
-        }else if (wwanStatus == Yodo1ReachabilityWWANStatus3G){
-            type = @"3G";
-        }else if (wwanStatus == Yodo1ReachabilityWWANStatus4G){
-            type = @"4G";
-        }else{
-            type = @"NONE";
-        }
-    }
-    return type;
+    return [Yodo1Reachability reachability].networkType;
 }
 
 - (CTTelephonyNetworkInfo *)telephonyInfo {

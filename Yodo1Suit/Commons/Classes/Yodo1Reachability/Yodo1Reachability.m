@@ -36,7 +36,6 @@ static void Yodo1ReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 @property (nonatomic, assign) SCNetworkReachabilityRef ref;
 @property (nonatomic, assign) BOOL scheduled;
 @property (nonatomic, assign) BOOL allowWWAN;
-@property (nonatomic, strong) CTTelephonyNetworkInfo *networkInfo;
 @end
 
 @implementation Yodo1Reachability
@@ -72,9 +71,6 @@ static void Yodo1ReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
     if (!self) return nil;
     _ref = ref;
     _allowWWAN = YES;
-    if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_7_0) {
-        _networkInfo = [CTTelephonyNetworkInfo new];
-    }
     return self;
 }
 
@@ -110,16 +106,32 @@ static void Yodo1ReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 }
 
 - (Yodo1ReachabilityWWANStatus)wwanStatus {
-    if (!self.networkInfo) return Yodo1ReachabilityWWANStatusNone;
-    NSString *status = self.networkInfo.currentRadioAccessTechnology;
-    if (!status) return Yodo1ReachabilityWWANStatusNone;
-    if ([status isEqualToString:CTRadioAccessTechnologyGPRS]||[status isEqualToString:CTRadioAccessTechnologyEdge]) {
+    NSString* radio = [self currentRadio];
+    if ([radio isEqualToString:@"NULL"]) {
+        return Yodo1ReachabilityWWANStatusNone;
+    } else if ([radio isEqualToString:@"2G"]) {
         return Yodo1ReachabilityWWANStatus2G;
-    }else if ([status isEqualToString:CTRadioAccessTechnologyLTE]){
+    } else if ([radio isEqualToString:@"3G"]) {
+        return Yodo1ReachabilityWWANStatus3G;
+    } else if ([radio isEqualToString:@"4G"]) {
         return Yodo1ReachabilityWWANStatus4G;
+    } else if ([radio isEqualToString:@"5G"]) {
+        return Yodo1ReachabilityWWANStatus5G;
     }
-    return Yodo1ReachabilityWWANStatus3G;
+    return Yodo1ReachabilityWWANStatusNone;
+}
 
+- (NSString*)networkType {
+    NSString* type = @"NONE";
+    Yodo1ReachabilityStatus reachStatus = [Yodo1Reachability reachability].status;
+    if (reachStatus == Yodo1ReachabilityStatusWiFi) {
+        type = @"WIFI";
+    }else if(reachStatus == Yodo1ReachabilityStatusWWAN){
+        if (![[self currentRadio] isEqualToString:@"NULL"]) {
+            type = [self currentRadio];
+        }
+    }
+    return type;
 }
 
 - (BOOL)isReachable {
@@ -138,6 +150,59 @@ static void Yodo1ReachabilityCallback(SCNetworkReachabilityRef target, SCNetwork
 - (void)setNotifyBlock:(void (^)(Yodo1Reachability *reachability))notifyBlock {
     _notifyBlock = [notifyBlock copy];
     self.scheduled = (self.notifyBlock != nil);
+}
+
+- (NSString *)currentRadio {
+    NSString *networkType = @"NULL";
+    @try {
+        static CTTelephonyNetworkInfo *info = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            info = [[CTTelephonyNetworkInfo alloc] init];
+        });
+        NSString *currentRadio = nil;
+#ifdef __IPHONE_12_0
+        if (@available(iOS 12.0, *)) {
+            NSDictionary *serviceCurrentRadio = [info serviceCurrentRadioAccessTechnology];
+            if ([serviceCurrentRadio isKindOfClass:[NSDictionary class]] && serviceCurrentRadio.allValues.count>0) {
+                currentRadio = serviceCurrentRadio.allValues[0];
+            }
+        }
+#endif
+        if (currentRadio == nil && [info.currentRadioAccessTechnology isKindOfClass:[NSString class]]) {
+            currentRadio = info.currentRadioAccessTechnology;
+        }
+        
+        if ([currentRadio isEqualToString:CTRadioAccessTechnologyLTE]) {
+            networkType = @"4G";
+        } else if ([currentRadio isEqualToString:CTRadioAccessTechnologyeHRPD] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyCDMAEVDORevB] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyCDMAEVDORevA] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyCDMAEVDORev0] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyCDMA1x] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyHSUPA] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyHSDPA] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyWCDMA]) {
+            networkType = @"3G";
+        } else if ([currentRadio isEqualToString:CTRadioAccessTechnologyEdge] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyGPRS]) {
+            networkType = @"2G";
+        }
+#ifdef __IPHONE_14_1
+        else if (@available(iOS 14.1, *)) {
+            if ([currentRadio isKindOfClass:[NSString class]]) {
+                if([currentRadio isEqualToString:CTRadioAccessTechnologyNRNSA] ||
+                   [currentRadio isEqualToString:CTRadioAccessTechnologyNR]) {
+                    networkType = @"5G";
+                }
+            }
+        }
+#endif
+    } @catch (NSException *exception) {
+//        TDLogError(@"%@: %@", self, exception);
+    }
+    
+    return networkType;
 }
 
 @end
