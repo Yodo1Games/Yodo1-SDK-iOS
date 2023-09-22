@@ -64,7 +64,7 @@ static NSString *kRESULT_ALERT_MSG    = @"alertMsg";
         [dict setObject:@"Convert result to json failed!" forKey:kRESULT_CONTENT];
         msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
     }
-    UnitySendMessage([_gameObjectName cStringUsingEncoding:NSUTF8StringEncoding],
+    Yodo1UnitySendMessage([_gameObjectName cStringUsingEncoding:NSUTF8StringEncoding],
                      [_callbackName cStringUsingEncoding:NSUTF8StringEncoding],
                      [msg cStringUsingEncoding:NSUTF8StringEncoding]);
 }
@@ -89,7 +89,7 @@ static NSString *kRESULT_ALERT_MSG    = @"alertMsg";
         [dict setObject:@"Convert result to json failed!" forKey:kRESULT_CONTENT];
         msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
     }
-    UnitySendMessage([_gameObjectName cStringUsingEncoding:NSUTF8StringEncoding],
+    Yodo1UnitySendMessage([_gameObjectName cStringUsingEncoding:NSUTF8StringEncoding],
                      [_callbackName cStringUsingEncoding:NSUTF8StringEncoding],
                      [msg cStringUsingEncoding:NSUTF8StringEncoding]);
     return YES;
@@ -104,11 +104,11 @@ extern "C" {
     void UnityInit(const char* appKey, const char*extraSettings, const char* regionCode, const char* gameObjectName, const char* methodName)
     {
         NSLog(@"%@UnityCall %s, appKey = %s, extraSettings = %s, regionCode = %s",kLog_TAG, __FUNCTION__, appKey, extraSettings, regionCode);
-        NSString* ocAppKey = Yodo1CreateNSString(appKey);
-        NSString* ocExtraSettings = Yodo1CreateNSString(extraSettings);
-        NSString* ocRegionCode = Yodo1CreateNSString(regionCode);
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        NSString* ocAppKey = ConvertCharToNSString(appKey);
+        NSString* ocExtraSettings = ConvertCharToNSString(extraSettings);
+        NSString* ocRegionCode = ConvertCharToNSString(regionCode);
+        NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+        NSString* ocMethodName = ConvertCharToNSString(methodName);
         [[Yodo1U3dAntiAddictionDelegate shared] initWith:ocGameObjName callbackName:ocMethodName];
         [[Yodo1AntiAddiction shared] init:ocAppKey regionCode:ocRegionCode delegate:[Yodo1U3dAntiAddictionDelegate shared]];
     }
@@ -116,9 +116,9 @@ extern "C" {
     void UnityVerifyCertificationInfo(const char* accountId, const char* gameObjectName, const char* methodName)
     {
         NSLog(@"%@UnityCall %s, accountId = %s",kLog_TAG, __FUNCTION__, accountId);
-        NSString* ocAccountId = Yodo1CreateNSString(accountId);
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        NSString* ocAccountId = ConvertCharToNSString(accountId);
+        NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+        NSString* ocMethodName = ConvertCharToNSString(methodName);
         
         
         [[Yodo1AntiAddiction shared] verifyCertificationInfo:ocAccountId success:^BOOL(id data) {
@@ -135,7 +135,7 @@ extern "C" {
                 [dict setObject:@"Convert result to json failed!" forKey:kRESULT_CONTENT];
                 msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             return YES;
@@ -152,7 +152,7 @@ extern "C" {
                 [dict setObject:@"Convert result to json failed!" forKey:kRESULT_CONTENT];
                 msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             return YES;
@@ -161,8 +161,8 @@ extern "C" {
     
     void UnityOnline(const char* gameObjectName, const char*  methodName)
     {
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+        NSString* ocMethodName = ConvertCharToNSString(methodName);
         [Yodo1AntiAddiction.shared online:^(BOOL result, NSString * _Nonnull content) {
             
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
@@ -178,7 +178,7 @@ extern "C" {
                 [dict setObject:@"Convert result to json failed!" forKey:kRESULT_CONTENT];
                 msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
 
@@ -188,8 +188,8 @@ extern "C" {
 
     void UnityOffline(const char* gameObjectName, const char*  methodName)
     {
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+        NSString* ocMethodName = ConvertCharToNSString(methodName);
         [Yodo1AntiAddiction.shared offline:^(BOOL result, NSString * _Nonnull content) {
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
             [dict setObject:[NSNumber numberWithInteger:ResulTypeVerifyBehaviorReult] forKey:kRESULT_TYPE];
@@ -204,7 +204,7 @@ extern "C" {
                 [dict setObject:@"Convert result to json failed!" forKey:kRESULT_CONTENT];
                 msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
 
@@ -213,8 +213,8 @@ extern "C" {
 
     void UnityPlayerDisconnection(const char* gameObjectName, const char*  methodName)
     {
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+        NSString* ocMethodName = ConvertCharToNSString(methodName);
         [Yodo1AntiAddiction.shared setDisconnection:^(NSString * _Nonnull title, NSString * _Nonnull content) {
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
             [dict setObject:[NSNumber numberWithInteger:ResulTypeVerifyDisconnected] forKey:kRESULT_TYPE];
@@ -229,7 +229,7 @@ extern "C" {
                 [dict setObject:title? :@"" forKey:kRESULT_TITLE];
                 msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
 
@@ -240,8 +240,8 @@ extern "C" {
     void UnityVerifyPurchase(double price, const char*  currency, const char* gameObjectName, const char*  methodName)
     {
         NSLog(@"%@UnityCall %s, price = %f, currency = %s",kLog_TAG, __FUNCTION__, price, currency);
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-        NSString* ocMethodName = Yodo1CreateNSString(methodName);
+        NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+        NSString* ocMethodName = ConvertCharToNSString(methodName);
         [[Yodo1AntiAddiction shared] verifyPurchase:(NSInteger)price success:^(id data) {
             id hasLimit = data[kRESULT_LIMIT];
             id alertMsg = data[kRESULT_ALERT_MSG];
@@ -261,7 +261,7 @@ extern "C" {
                 [dict setObject:@"Convert result to json failed!" forKey:kRESULT_CONTENT];
                 msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             return YES;
@@ -281,7 +281,7 @@ extern "C" {
                 [dict setObject:@"Convert result to json failed!" forKey:kRESULT_CONTENT];
                 msg =  [Yodo1AntiAddictionUtils stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             return YES;
@@ -291,7 +291,7 @@ extern "C" {
 
     void UnityReportProductReceipt(const char* receipt)
     {
-        NSString* receiptJson = Yodo1CreateNSString(receipt);
+        NSString* receiptJson = ConvertCharToNSString(receipt);
         NSLog(@"%@UnityCall %s receipt = %@",kLog_TAG, __FUNCTION__, receiptJson);
         Yodo1AntiAddictionProductReceipt* receiptData = [Yodo1AntiAddictionProductReceipt yodo1_modelWithJSON:receiptJson];
         receiptData.spendDate = [Yodo1AntiAddictionUtils dateString:[NSDate date]];

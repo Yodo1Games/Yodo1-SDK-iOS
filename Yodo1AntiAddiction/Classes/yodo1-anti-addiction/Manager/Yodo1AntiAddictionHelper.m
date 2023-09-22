@@ -547,6 +547,10 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     }];
 }
 
+/// Check whether it is mainland China
+/// The rules are as follows:
+/// * If there is a network, use the IP address
+/// * If there is no network, use the phone system language
 - (BOOL)isChineseMainland {
     if (![[Yd1OpsTools networkType] isEqualToString:@"NONE"]) { // 有网络
         dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
