@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "Yodo1ShareContent.h"
 
+#define Y_SHARE_VERSION                  @"1.0.4"
+
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1QQAppId;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1QQUniversalLink;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1WechatAppId;
@@ -18,6 +20,24 @@ FOUNDATION_EXPORT NSString * _Nonnull const kYodo1SinaWeiboAppKey;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1SinaWeiboUniversalLink;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1FacebookAppId;
 FOUNDATION_EXPORT NSString * _Nonnull const kYodo1FacebookDisplayName;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface Yodo1SMContent : NSObject
+@property (nonatomic,assign) NSInteger shareType;     //对单个平台分享模式有效
+@property (nonatomic,assign) NSInteger contentType;   //分享样式<link,image>
+@property (nonatomic,strong) NSString *contentTitle;       //仅对qq和微信有效
+@property (nonatomic,strong) NSString *contentText;        //分享描述
+@property (nonatomic,strong) NSString *contentImage;       //分享图片
+@property (nonatomic,strong) NSString *contentUrl;         //分享URL
+@property (nonatomic,strong) NSString *gameLogo;   //game of Logo
+@property (nonatomic,assign) float gameLogoX;      //game of logo X偏移量
+@property (nonatomic,strong) NSString *qrLogo;      //二维码logo
+@property (nonatomic,strong) NSString *qrText;      //二维码右边的文本
+@property (nonatomic,assign) float qrTextX;         //文字X偏移量
+@property (nonatomic,assign) float qrImageX;        //二维码偏移量
+@end
+
 
 @interface Yodo1Share: NSObject
 
@@ -64,3 +84,5 @@ FOUNDATION_EXPORT NSString * _Nonnull const kYodo1FacebookDisplayName;
 - (void)setDebugLog:(BOOL)debugLog;
 
 @end
+
+NS_ASSUME_NONNULL_END

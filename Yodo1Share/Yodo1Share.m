@@ -31,8 +31,6 @@
 
 #define Yodo1SHARELOG(fmt, ...) NSLog((@"[Yodo1 Share] %s [Line %d] \n" fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
-#define Y_SHARE_VERSION                  @"1.0.0"
-
 #define Y_SHARE_DEBUG_LOG                  @"y_share_debug_log"
 
 NSString * const kYodo1QQAppId                  = @"QQAppId";
@@ -44,22 +42,8 @@ NSString * const kYodo1SinaWeiboUniversalLink   = @"SinaUniversalLink";
 NSString * const kYodo1FacebookAppId            = @"FacebookAppID";
 NSString * const kYodo1FacebookDisplayName      = @"FacebookDisplayName";
 
-@interface Yodo1SMContent : NSObject
-@property (nonatomic,assign) NSInteger shareType;     //对单个平台分享模式有效
-@property (nonatomic,assign) NSInteger contentType;   //分享样式<link,image>
-@property (nonatomic,strong) NSString *contentTitle;       //仅对qq和微信有效
-@property (nonatomic,strong) NSString *contentText;        //分享描述
-@property (nonatomic,strong) NSString *contentImage;       //分享图片
-@property (nonatomic,strong) NSString *contentUrl;         //分享URL
-@property (nonatomic,strong) NSString *gameLogo;   //game of Logo
-@property (nonatomic,assign) float gameLogoX;      //game of logo X偏移量
-@property (nonatomic,strong) NSString *qrLogo;      //二维码logo
-@property (nonatomic,strong) NSString *qrText;      //二维码右边的文本
-@property (nonatomic,assign) float qrTextX;         //文字X偏移量
-@property (nonatomic,assign) float qrImageX;        //二维码偏移量
-@end
-
 @implementation Yodo1SMContent
+
 @end
 
 @interface Yodo1Share()
@@ -475,89 +459,6 @@ static Yodo1Share* sDefaultInstance;
     isDebug = debugLog;
 }
 
-#ifdef __cplusplus
 
-extern "C" {
-
-    void UnityShareInit() {
-        [Yodo1Share.sharedInstance initWithPlist];
-    }
-    
-    void UnityShare(char* paramJson, char* gameObjectName, char* methodName)
-    {
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-        NSString* ocMethodName = Yodo1CreateNSString(methodName);
-        NSString* _paramJson = Yodo1CreateNSString(paramJson);
-        
-        Yodo1SMContent* smContent = [Yodo1SMContent yodo1_modelWithJSON:_paramJson];
-        
-        UIImage* image = [UIImage imageNamed:smContent.contentImage];
-        if(image==nil){
-            image = [UIImage imageWithContentsOfFile:smContent.contentImage];
-        }
-        
-        UIImage* qrLogo = [UIImage imageNamed:smContent.qrLogo];
-        if(qrLogo==nil){
-            qrLogo = [UIImage imageWithContentsOfFile:smContent.qrLogo];
-        }
-        
-        UIImage* gameLogo = [UIImage imageNamed:smContent.gameLogo];
-        if(gameLogo==nil){
-            gameLogo = [UIImage imageWithContentsOfFile:smContent.gameLogo];
-        }
-        
-        ShareContent* content = [[ShareContent alloc]init];
-        content.contentImage = image;
-        content.contentTitle = smContent.contentTitle;
-        content.contentText = smContent.contentText;
-        content.contentUrl = smContent.contentUrl;
-        content.gameLogo = gameLogo;
-        content.qrLogo = qrLogo;
-        content.qrText = smContent.qrText;
-        content.qrTextX = smContent.qrTextX;
-        content.qrImageX = smContent.qrImageX;
-        content.gameLogoX = smContent.gameLogoX;
-        Yodo1ShareType shareType = (Yodo1ShareType)smContent.shareType;
-        content.shareType = shareType;
-        ShareContentType contentType = (ShareContentType)smContent.contentType;
-        content.contentType = contentType;
-        
-        [[Yodo1Share sharedInstance]showSocial:content
-                                         block:^(Yodo1ShareType shareType, Yodo1ShareContentState state, NSError *error) {
-                                             if(ocGameObjName && ocMethodName){
-                                                 NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-                                                 [dict setObject:[NSNumber numberWithInt:(state == Yodo1ShareContentStateSuccess?1:0)] forKey:@"status"];
-                                                 [dict setObject:[NSNumber numberWithInteger:shareType] forKey:@"shareType"];
-                                                 
-                                                 NSString* msg = [Yd1OpsTools stringWithJSONObject:dict error:nil];
-                                                 
-                                                 UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
-                                                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
-                                                                  [msg cStringUsingEncoding:NSUTF8StringEncoding] );
-                                             }
-                                             
-                                         }];
-    }
-    
-    char* UnityShareGetSdkVersion() {
-        const char* sdkVersion = Y_SHARE_VERSION.UTF8String;
-        Yodo1SHARELOG(@"sdkVersion = %@", Y_SHARE_VERSION);
-        return Yodo1MakeStringCopy(sdkVersion);
-    }
-    
-    bool UnityShareCheckSNSInstalledWithType(int type)
-    {
-        Yodo1ShareType kType = (Yodo1ShareType)type;
-        if([[Yodo1Share sharedInstance] isInstalledWithType:kType]){
-            return true;
-        }
-        return false;
-    }
-    
-    void UnityShareSetDebugLog(bool debugLog) {
-        [Yodo1Share.sharedInstance setDebugLog:debugLog];
-    }
-}
-#endif
 
 @end
