@@ -1,26 +1,28 @@
-#import "UnityYodo1iCloudWrapper.h"
 #import "Yodo1UnityTool.h"
 #import "Yodo1Commons.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1iCloud.h"
 
+typedef enum {
+    Unity_Result_Type_iCloudGetValue = 6001,
+}UnityResultType_iCloud;
+
 #ifdef __cplusplus
 extern "C" {
-    
-#pragma mark- Unity of iClound
-    
+#endif
+
     void UnitySaveToCloud(const char* saveName,const char* saveValue)
     {
-        NSString* pName = Yodo1CreateNSString(saveName);
-        NSString* pData = Yodo1CreateNSString(saveValue);
+        NSString* pName = ConvertCharToNSString(saveName);
+        NSString* pData = ConvertCharToNSString(saveValue);
         [[Yodo1iCloud sharedInstance] saveToCloud:pName saveValue:pData];
     }
     
     void UnityLoadToCloud(const char* saveName, const char* gameObjcetName, const char* callbackName)
     {
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjcetName);
-        NSString* ocMethodName = Yodo1CreateNSString(callbackName);
-        NSString* name = Yodo1CreateNSString(saveName);
+        NSString* ocGameObjName = ConvertCharToNSString(gameObjcetName);
+        NSString* ocMethodName = ConvertCharToNSString(callbackName);
+        NSString* name = ConvertCharToNSString(saveName);
         [[Yodo1iCloud sharedInstance] loadToCloud:name completionHandler:^(NSString *results, NSError *error) {
             if (error != nil){
                 YD1LOG(@"LoadToCloud error : %@", error.description);
@@ -46,7 +48,7 @@ extern "C" {
                 [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                 msg =  [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
         }];
@@ -54,8 +56,10 @@ extern "C" {
     
     void UnityRemoveRecordWithRecordName(const char* saveName)
     {
-        NSString* _saveName = Yodo1CreateNSString(saveName);
+        NSString* _saveName = ConvertCharToNSString(saveName);
         [[Yodo1iCloud sharedInstance] removeRecordWithRecordName:_saveName];
     }
+
+#ifdef __cplusplus
 }
 #endif

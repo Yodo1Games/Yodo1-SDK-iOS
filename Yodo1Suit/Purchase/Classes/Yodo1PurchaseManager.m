@@ -19,14 +19,14 @@
 #import "Yodo1PurchaseAPI.h"
 #import "Yodo1Commons.h"
 #import "Yodo1Privacy.h"
+#import "Yodo1Product.h"
+#import "Yodo1PurchaseUtils.h"
 
 @implementation PaymentObject
 
 @end
 
 @interface Yodo1PurchaseManager ()<RMStoreObserver> {
-    NSMutableDictionary* productInfos;
-    NSMutableArray* channelProductIds;
     RMStoreUserDefaultsPersistence *persistence;
     __block BOOL isBuying;
     __block PaymentObject* paymentObject;
@@ -36,13 +36,6 @@
 @property (nonatomic,retain) SKPayment* addedStorePayment;//promot Appstore Buy
 @property (nonatomic,copy)PaymentCallback paymentCallback;
 
-- (Yodo1Product *)productWithChannelProductId:(NSString *)channelProductId;
-- (NSArray *)productInfoWithProducts:(NSArray *)products;
-- (void)updateProductInfo:(NSArray *)products;
-- (NSString *)diplayPrice:(SKProduct *)product;
-- (NSString *)productPrice:(SKProduct *)product;
-- (NSString *)periodUnitWithProduct:(SKProduct *)product;
-- (NSString *)localizedStringForKey:(NSString *)key withDefault:(NSString *)defaultString;
 - (void)rechargedProuct;
 
 @end
@@ -68,196 +61,40 @@
     }
     self.isInitialized = YES;
     
-    [[Yodo1PurchaseAPI shared] init:appKey regionCode:regionCode];
-
-    productInfos = [NSMutableDictionary dictionary];
-    channelProductIds = [NSMutableArray array];
-    NSString* pathName = @"Yodo1KeyConfig.bundle/Yodo1ProductInfo";
-    NSString* path=[NSBundle.mainBundle pathForResource:pathName ofType:@"plist"];
-    NSDictionary* productInfo =[NSMutableDictionary dictionaryWithContentsOfFile:path];
-    if (productInfo.count == 0) {
-        YD1LOG(@"Not found the products information in Yodo1ProductInof.plist file, please check it.");
-    } else {
-        for (id key in productInfo){
-            NSDictionary* item = [productInfo objectForKey:key];
-            Yodo1Product* product = [[Yodo1Product alloc] initWithDict:item productId:key];
-            [productInfos setObject:product forKey:key];
-            [channelProductIds addObject:[item objectForKey:@"ChannelProductId"]];
-        }
-    }
-    
-    persistence = [[RMStoreUserDefaultsPersistence alloc] init];
+    self->persistence = [[RMStoreUserDefaultsPersistence alloc] init];
     [RMStore.defaultStore setTransactionPersistor:persistence];
     [RMStore.defaultStore addStoreObserver:self];
-        
+    
+    [[Yodo1PurchaseAPI shared] init:appKey regionCode:regionCode];
+    [[Yodo1ProductManager shared] initProducts];
+    
     self.user = [Yodo1UCenter.shared getUserInfo];
-    self.isLogined = self.user != nil ? YES : NO;
     
     isBuying = false;
     paymentObject = [PaymentObject new];
-    
-    [self requestProducts];
-    
-    /// 网络变化监测
-    __weak typeof(self) weakSelf = self;
-    [Yodo1Reachability.reachability setNotifyBlock:^(Yodo1Reachability * _Nonnull reachability) {
-        if (reachability.reachable) {
-            [weakSelf requestProducts];
-        }
-    }];
 }
 
 #pragma mark - 请求商品信息
 
-- (void)requestProducts {
-    NSSet* productIds = [NSSet setWithArray:channelProductIds];
-    [RMStore.defaultStore requestProducts:productIds success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
-        [self updateProductInfo:products];
-    } failure:^(NSError *error) {
+- (void)productWithUniformProductId:(NSString *)uniformProductId callback:(ProductsInfoCallback)callback {
+    NSSet* identifiers = [[NSSet alloc] initWithObjects:uniformProductId, nil];
+    [Yodo1ProductManager.shared requestProducts:identifiers success:^(NSArray * _Nonnull products) {
+        if (callback) {
+            callback(products);
+        }
+    } failure:^(NSError * _Nonnull error) {
         
     }];
 }
 
-- (void)productWithUniformProductId:(NSString *)uniformProductId callback:(ProductsInfoCallback)callback {
-    if (uniformProductId == nil || uniformProductId.length == 0) {
-        return;
-    }
-    
-    Yodo1Product* product = [productInfos objectForKey:uniformProductId];
-    NSMutableArray* productArray = [NSMutableArray array];
-    if (product != nil) {
-        [productArray addObject:product];
-    }
-    if (callback) {
-        callback([self productInfoWithProducts:productArray]);
-    }
-}
-
 - (void)products:(ProductsInfoCallback)callback {
-    NSArray* products = [self productInfoWithProducts:[productInfos allValues]];
-    if (callback) {
-        callback(products);
-    }
-}
-
-- (NSArray *)productInfoWithProducts:(NSArray *)products {
-    NSMutableArray* dicProducts = [NSMutableArray array];
-    for (Yodo1Product* product in products) {
-        NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-        [dict setObject:product.uniformProductId == nil?@"":product.uniformProductId forKey:@"productId"];
-        [dict setObject:product.channelProductId == nil?@"":product.channelProductId forKey:@"marketId"];
-        [dict setObject:product.productName == nil?@"":product.productName forKey:@"productName"];
-        [dict setObject:product.orderId == nil?@"":product.orderId forKey:@"orderId"];
-        
-        SKProduct* skp = [RMStore.defaultStore productForIdentifier:product.channelProductId];
-        NSString* price = nil;
-        if (skp) {
-            price = [self productPrice:skp];
-        }else{
-            price = product.productPrice;
+    [Yodo1ProductManager.shared requestProducts:^(NSArray * _Nonnull products) {
+        if (callback) {
+            callback(products);
         }
+    } failure:^(NSError * _Nonnull error) {
         
-        NSString* priceDisplay = [NSString stringWithFormat:@"%@ %@",price,product.currency];
-        [dict setObject:priceDisplay == nil?@"":priceDisplay forKey:@"priceDisplay"];
-        [dict setObject:price == nil?@"":price forKey:@"price"];
-        [dict setObject:product.productDescription == nil?@"":product.productDescription forKey:@"description"];
-        [dict setObject:[NSNumber numberWithInt:(int)product.productType] forKey:@"ProductType"];
-        [dict setObject:product.currency == nil?@"":product.currency forKey:@"currency"];
-        [dict setObject:[NSNumber numberWithInt:0] forKey:@"coin"];
-        [dict setObject:product.periodUnit == nil?@"":[self periodUnitWithProduct:skp] forKey:@"periodUnit"];
-        
-        [dicProducts addObject:dict];
-    }
-    return dicProducts;
-}
-
-- (void)updateProductInfo:(NSArray *)products {
-    for (NSString* uniformProductId in [productInfos allKeys]) {
-        Yodo1Product* product = [productInfos objectForKey:uniformProductId];
-        for (SKProduct* sk in products) {
-            if ([sk.productIdentifier isEqualToString:product.channelProductId]) {
-                product.productName = sk.localizedTitle;
-                product.channelProductId = sk.productIdentifier;
-                product.productPrice = [sk.price stringValue];
-                product.productDescription = sk.localizedDescription;
-                product.currency = [Yd1OpsTools currencyCode:sk.priceLocale];
-                product.priceDisplay = [self diplayPrice:sk];
-                product.periodUnit = [self periodUnitWithProduct:sk];
-            }
-        }
-    }
-}
-
-- (NSString *)diplayPrice:(SKProduct *)product {
-    return [NSString stringWithFormat:@"%@ %@",[self productPrice:product],[Yd1OpsTools currencyCode:product.priceLocale]];
-}
-
-- (NSString *)productPrice:(SKProduct *)product {
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [numberFormatter setLocale:product.priceLocale];
-    [numberFormatter setCurrencySymbol:@""];
-    NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
-    return formattedPrice;
-}
-
-- (NSString*)periodUnitWithProduct:(SKProduct*)product {
-    if (@available(iOS 11.2, *)) {
-        NSString* unit = @"";
-        int numberOfUnits = (int)product.subscriptionPeriod.numberOfUnits;
-        switch (product.subscriptionPeriod.unit)
-        {
-            case SKProductPeriodUnitDay:
-            {
-                if (numberOfUnits == 7) {
-                    unit = [self localizedStringForKey:@"SubscriptionWeek" withDefault:@"每周"];
-                }else if (numberOfUnits == 30){
-                    unit = [self localizedStringForKey:@"SubscriptionMonth" withDefault:@"每月"];
-                } else {
-                    unit = [NSString stringWithFormat:[self localizedStringForKey:@"SubscriptionDay" withDefault:@"每%d天"],numberOfUnits];
-                }
-            }
-                break;
-            case SKProductPeriodUnitWeek:
-            {
-                if (numberOfUnits == 1) {
-                    unit = [self localizedStringForKey:@"SubscriptionWeek" withDefault:@"每周"];
-                } else {
-                    unit = [NSString stringWithFormat:[self localizedStringForKey:@"SubscriptionWeeks" withDefault:@"每%d周"],numberOfUnits];
-                }
-            }
-                break;
-            case SKProductPeriodUnitMonth:
-            {
-                if (numberOfUnits == 1) {
-                    unit = [self localizedStringForKey:@"SubscriptionMonth" withDefault:@"每月"];
-                } else {
-                    unit = [NSString stringWithFormat:[self localizedStringForKey:@"SubscriptionMonths" withDefault:@"每%d个月"],numberOfUnits];
-                }
-            }
-                break;
-            case SKProductPeriodUnitYear:
-            {
-                if (numberOfUnits == 1) {
-                    unit = [self localizedStringForKey:@"SubscriptionYear" withDefault:@"每年"];
-                } else {
-                    unit = [NSString stringWithFormat:[self localizedStringForKey:@"SubscriptionYears" withDefault:@"每%d年"],numberOfUnits];
-                }
-            }
-                break;
-        }
-        return unit;
-    } else {
-        return @"";
-    }
-    return @"";
-}
-
-#pragma mark - Localized String
-
-- (NSString *)localizedStringForKey:(NSString *)key withDefault:(NSString *)defaultString {
-    return [Yd1OpsTools localizedString:@"Yodo1SDKStrings" key:key defaultString:defaultString];
+    }];
 }
 
 #pragma mark - 购买
@@ -281,7 +118,7 @@
                                               code:PaymentErrorCodeUnKnow
                                           userInfo:@{NSLocalizedDescriptionKey:@""}];
     
-    __block Yodo1Product* product = [productInfos objectForKey:uniformProductId];
+    __block Yodo1Product* product = [Yodo1ProductManager.shared productForIdentifier:uniformProductId];
     if (product != nil) {
         [[Yodo1PurchaseDataAnalytics shared] updateItemProperties:product];
     }
@@ -338,7 +175,7 @@
     __weak typeof(self) weakSelf = self;
     weakSelf.user = [Yodo1UCenter.shared getUserInfo];
     if (weakSelf.user == nil || weakSelf.user.yid == nil || weakSelf.user.yid.length <= 0) {
-        [Yodo1UCenter.shared deviceLoginWithPlayerId:@"" callback:^(YD1User * _Nullable user, NSError * _Nullable error) {
+        [Yodo1UCenter.shared loginWitheDeviceId:^(YD1User * _Nullable user, NSError * _Nullable error) {
             if (user) {
                 weakSelf.user.yid = user.yid;
                 weakSelf.user.uid = user.uid;
@@ -352,14 +189,12 @@
                 [Yd1OpsTools.cached setObject:weakSelf.user forKey:@"yd1User"];
             }
             if (user && !error) {
-                weakSelf.isLogined = YES;
-                
                 [self createOrderIdWithUniformProductId:uniformProductId
                                                   extra:extra
-                                               callback:^(bool success, NSString * _Nonnull orderid, NSError * _Nonnull error) {
+                                               callback:^(bool success, NSString * _Nonnull orderId, NSError * _Nonnull error) {
                     if (success) {
                         if (product.productType == Auto_Subscription) {
-                            product.orderId = orderid;
+                            product.orderId = orderId;
                             [weakSelf paymentAutoSubscriptionProduct:product];
                         } else {
                             [weakSelf paymentProduct:product];
@@ -376,8 +211,6 @@
                     }
                 }];
             }else{
-                weakSelf.isLogined = NO;
-                
                 NSString* message = [NSString stringWithFormat:@"The user is not logged in Yodo1 ucenter. %@ (error %ld.)", error.localizedDescription, error.code];
                 YD1LOG(@"%@", message);
                 self->paymentObject.paymentState = PaymentFail;
@@ -419,15 +252,15 @@
     self->paymentObject.orderId = product.orderId;
     Yodo1PurchaseAPI.shared.transaction.orderId = product.orderId;
     
-    NSString* msg = [self localizedStringForKey:@"SubscriptionAlertMessage"
+    NSString* msg = [Yodo1PurchaseUtils localizedStringForKey:@"SubscriptionAlertMessage"
                                     withDefault:@"确认启用后，您的iTunes账户将支付 %@ %@ 。%@自动续订此服务时您的iTunes账户也会支付相同费用。系统在订阅有效期结束前24小时会自动为您续订并扣费，除非您在有效期结束前取消服务。若需取消订阅，可前往设备设置-iTunes与App Store-查看Apple ID-订阅，管理或取消已经启用的服务。"];
     NSString* message = [NSString stringWithFormat:msg,product.productPrice,product.currency,product.periodUnit];
     
-    NSString* title = [self localizedStringForKey:@"SubscriptionAlertTitle" withDefault:@"确认启用订阅服务"];
-    NSString* cancelTitle = [self localizedStringForKey:@"SubscriptionAlertCancel" withDefault:@"取消"];
-    NSString* okTitle = [self localizedStringForKey:@"SubscriptionAlertOK" withDefault:@"启用"];
-    NSString* privateTitle = [self localizedStringForKey:@"SubscriptionAlertPrivate" withDefault:@"隐私协议"];
-    NSString* serviceTitle = [self localizedStringForKey:@"SubscriptionAlertService" withDefault:@"服务条款"];
+    NSString* title = [Yodo1PurchaseUtils localizedStringForKey:@"SubscriptionAlertTitle" withDefault:@"确认启用订阅服务"];
+    NSString* cancelTitle = [Yodo1PurchaseUtils localizedStringForKey:@"SubscriptionAlertCancel" withDefault:@"取消"];
+    NSString* okTitle = [Yodo1PurchaseUtils localizedStringForKey:@"SubscriptionAlertOK" withDefault:@"启用"];
+    NSString* privateTitle = [Yodo1PurchaseUtils localizedStringForKey:@"SubscriptionAlertPrivate" withDefault:@"隐私协议"];
+    NSString* serviceTitle = [Yodo1PurchaseUtils localizedStringForKey:@"SubscriptionAlertService" withDefault:@"服务条款"];
     
     NSString* privacyPolicyUrl = [[Yodo1Privacy shareInstance] getPrivacyPolicyUrl];
     NSString* termsServiceUrl = [[Yodo1Privacy shareInstance] getTermsOfServiceUrl];
@@ -491,38 +324,55 @@
     if (product == nil) {
         return;
     }
-    [self updateOrderId:product.orderId withProductId:product.uniformProductId];
+    
+    [self removeOrder:product.orderId storeProductIdentifier:product.channelProductId];
+    
     self->paymentObject.paymentState = paymentState;
     self->paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
                                                     code:paymentErrorCode
                                                 userInfo:@{NSLocalizedDescriptionKey:@"The user cancelled a payment request from Subscription action."}];
     [self invokePaymentCallback:self->paymentObject];
     self->isBuying = NO;
-    Yodo1PurchaseAPI.shared.transaction.statusCode = [NSString stringWithFormat:@"%d",self->paymentObject.paymentState];
+    Yodo1PurchaseAPI.shared.transaction.statusCode = [NSString stringWithFormat:@"%ld",(long)self->paymentObject.paymentState];
     [Yodo1PurchaseAPI.shared reportOrderFail:Yodo1PurchaseAPI.shared.transaction callback:^(BOOL success, NSString * _Nonnull error) {
         YD1LOG(@"report %@.", success ? @"success" : @"failed");
     }];
 }
 
-- (void)updateOrderId:(NSString *)orderId withProductId:(NSString *)productIdentifier {
-    NSString* oldOrderIdStr = [Yd1OpsTools keychainWithService:productIdentifier];
+- (void)addOrder:(NSString *)orderId storeProductIdentifier:(NSString*)storeProductIdentifier {
+    NSString* oldOrderIdStr = [Yd1OpsTools keychainWithService:storeProductIdentifier];
     NSArray* oldOrderId = (NSArray *)[Yd1OpsTools JSONObjectWithString:oldOrderIdStr error:nil];
-    NSMutableArray* newOrderId = [[NSMutableArray alloc]initWithArray:oldOrderId];
-    for (NSString *checkOrderId in newOrderId) {
+    NSMutableArray* newOrderId = [NSMutableArray array];
+    if (oldOrderId) {
+        [newOrderId setArray:oldOrderId];
+    }
+    [newOrderId addObject:orderId];
+    NSString* orderidJson = [Yd1OpsTools stringWithJSONObject:newOrderId error:nil];
+    [Yd1OpsTools saveKeychainWithService:storeProductIdentifier str:orderidJson];
+}
+
+- (void)removeOrder:(NSString *)orderId storeProductIdentifier:(NSString*)storeProductIdentifier {
+    NSString* oldOrderIdStr = [Yd1OpsTools keychainWithService:storeProductIdentifier];
+    NSArray* oldOrderId = (NSArray *)[Yd1OpsTools JSONObjectWithString:oldOrderIdStr error:nil];
+    NSMutableArray* newOrderId = [NSMutableArray array];
+    if (oldOrderId) {
+        [newOrderId setArray:oldOrderId];
+    }
+    for (NSString* checkOrderId in oldOrderId) {
         if ([checkOrderId isEqualToString:orderId]) {
             [newOrderId removeObject:checkOrderId];
-            break;;
+            break;
         }
     }
     NSString* orderidJson = [Yd1OpsTools stringWithJSONObject:newOrderId error:nil];
-    [Yd1OpsTools saveKeychainWithService:productIdentifier str:orderidJson];
+    [Yd1OpsTools saveKeychainWithService:storeProductIdentifier str:orderidJson];
 }
 
 - (void)createOrderIdWithUniformProductId:(NSString *)uniformProductId
                                     extra:(NSString*)extra
                                  callback:(void (^)(bool, NSString * _Nonnull, NSError * _Nonnull))callback {
     self.currentUniformProductId = uniformProductId;
-    __block Yodo1Product* product = [productInfos objectForKey:uniformProductId];
+    __block Yodo1Product* product = [Yodo1ProductManager.shared productForIdentifier:uniformProductId];
     __weak typeof(self) weakSelf = self;
     [Yodo1PurchaseAPI.shared generateOrderId:^(NSString * _Nullable orderId, NSError * _Nullable error) {
         if ((orderId == nil || [orderId isEqualToString:@""])) {
@@ -533,16 +383,7 @@
             return;
         }
         
-        //保存orderId
-        NSString* oldOrderIdStr = [Yd1OpsTools keychainWithService:product.channelProductId];
-        NSArray* oldOrderId = (NSArray *)[Yd1OpsTools JSONObjectWithString:oldOrderIdStr error:nil];
-        NSMutableArray* newOrderId = [NSMutableArray array];
-        if (oldOrderId) {
-            [newOrderId setArray:oldOrderId];
-        }
-        [newOrderId addObject:orderId];
-        NSString* orderidJson = [Yd1OpsTools stringWithJSONObject:newOrderId error:nil];
-        [Yd1OpsTools saveKeychainWithService:product.channelProductId str:orderidJson];
+        [weakSelf addOrder:orderId storeProductIdentifier:product.channelProductId];
         
         Yodo1PurchaseAPI.shared.transaction.orderId = orderId;
         Yodo1PurchaseAPI.shared.transaction.product_type = (int)product.productType;
@@ -604,26 +445,25 @@
 #pragma mark - 恢复购买
 
 - (void)restorePayment:(RestoreCallback)callback {
-    __weak typeof(self) weakSelf = self;
     [RMStore.defaultStore restoreTransactionsOnSuccess:^(NSArray *transactions) {
-        NSMutableArray* restore = [NSMutableArray array];
+        NSMutableArray* restoredProducts = [NSMutableArray array];
         for (SKPaymentTransaction *transaction in transactions) {
-            Yodo1Product* product = [weakSelf productWithChannelProductId:transaction.payment.productIdentifier];
+            YD1LOG(@"transaction.payment.productIdentifier -- %@", transaction.payment.productIdentifier);
+            Yodo1Product* product = [Yodo1ProductManager.shared productForStoreIdentifier:transaction.payment.productIdentifier];
             if (product) {
                 BOOL isHave = false;
-                for (Yodo1Product* pro in restore) {
+                for (Yodo1Product* pro in restoredProducts) {
                     if ([pro.channelProductId isEqualToString:product.channelProductId]) {
                         isHave = true;
                         continue;
                     }
                 }
                 if (!isHave) {
-                    [restore addObject:product];
+                    [restoredProducts addObject:product];
                 }
             }
         }
-        NSArray* restoreProduct = [weakSelf productInfoWithProducts:restore];
-        callback(restoreProduct,@"Restore purchased successfully");
+        callback(restoredProducts,@"Restore purchased successfully");
     } failure:^(NSError *error) {
         callback(@[],error.localizedDescription);
     }];
@@ -635,7 +475,7 @@
     __weak typeof(self) weakSelf = self;
     weakSelf.user = [Yodo1UCenter.shared getUserInfo];
     if (weakSelf.user == nil || weakSelf.user.yid == nil || weakSelf.user.yid.length <= 0) {
-        [Yodo1UCenter.shared deviceLoginWithPlayerId:@"" callback:^(YD1User * _Nullable user, NSError * _Nullable error) {
+        [Yodo1UCenter.shared loginWitheDeviceId:^(YD1User * _Nullable user, NSError * _Nullable error) {
             if (user && !error) {
                 weakSelf.user = user;
                 [weakSelf queryLossOrderAfterLogin:callback];
@@ -664,7 +504,8 @@
         lossOrderCallback(@[],@"No lost orders");
         return;
     }
-    /// 去掉订单一样的对象
+    
+    // 去掉订单一样的对象
     NSMutableArray *rp = [NSMutableArray array];
     for (RMStoreTransaction *transaction in lostTransactions) {
         __block BOOL isExist = NO;
@@ -683,7 +524,6 @@
     __block NSMutableArray* lossOrderProduct = [NSMutableArray array];
     __block int lossOrderCount = 0;
     __block int lossOrderReceiveCount = 0;
-    __weak typeof(self) weakSelf = self;
     for (RMStoreTransaction* transaction in rp) {
         lossOrderCount++;
         
@@ -705,7 +545,8 @@
         Yodo1PurchaseAPI.shared.transaction.item_code = transaction.productIdentifier;
         Yodo1PurchaseAPI.shared.transaction.trx_receipt = encodedReceipt;
         Yodo1PurchaseAPI.shared.transaction.is_sandbox = isSandbox? @"true" : @"";
-        Yodo1Product* paymentProduct = [self productWithChannelProductId:transaction.productIdentifier];
+                
+        Yodo1Product* paymentProduct = [Yodo1ProductManager.shared productForStoreIdentifier:transaction.productIdentifier];
         Yodo1PurchaseAPI.shared.transaction.product_type = (int)paymentProduct.productType;
 
         [Yodo1PurchaseAPI.shared verifyOrder:Yodo1PurchaseAPI.shared.transaction
@@ -734,60 +575,63 @@
                     }
                 }
                 lossOrderReceiveCount++;
-                if (lossOrderReceiveCount == lossOrderCount) {
-                    [Yodo1PurchaseAPI.shared queryLossOrders:Yodo1PurchaseAPI.shared.transaction
-                                                        user:self.user
-                                                    callback:^(BOOL success, NSArray * _Nonnull missorders, NSString * _Nonnull error) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            if (success && [missorders count] > 0) {
-                                for (NSDictionary* item in missorders) {
-                                    NSString* productId2 = (NSString*)[item objectForKey:@"productId"];
-                                    NSString* orderId2 = (NSString*)[item objectForKey:@"orderId"];
-                                    
-                                    if ([[lossOrder allKeys]containsObject:orderId2]) {
-                                        continue;
-                                    }
-                                    if (productId2 && orderId2) {
-                                        [lossOrder setObject:productId2 forKey:orderId2];
-                                    }
-                                }
-                            }
-                            
-                            for (NSString* orderId in lossOrder) {
-                                NSString* itemCode = [lossOrder objectForKey:orderId];
-                                Yodo1Product* product = [weakSelf productWithChannelProductId:itemCode];
-                                if (product) {
-                                    Yodo1Product* product2 = [[Yodo1Product alloc] initWithProduct:product];
-                                    product2.orderId = orderId;
-                                    [lossOrderProduct addObject:product2];
-                                    //同步信息
-                                    [Yodo1PurchaseAPI.shared clientNotifyToServer:@[orderId]
-                                                                         callback:^(BOOL success, NSArray * _Nonnull notExistOrders, NSArray * _Nonnull notPayOrders, NSString * _Nonnull error) {
-                                        if (success) {
-                                            YD1LOG(@"The information is synchronized successfully.");
-                                        } else {
-                                            YD1LOG(@"The information is synchronized unsuccessfully:%@",error);
-                                        }
-                                    }];
-                                }
-                            }
-                            NSArray* dics = [weakSelf productInfoWithProducts:lossOrderProduct];
-                            if (lossOrderCallback) {
-                                lossOrderCallback(dics,@"");
-                            }
-                        });
-                    }];
+                if (lossOrderReceiveCount == lossOrderCount) { // we got the verify resluts of all orders from IAP payment system
+                    [self queryLossOrdersFromServer:lossOrder lostProducts:lossOrderProduct callback:lossOrderCallback];
                 }
             });
         }];
     }
 }
 
+- (void)queryLossOrdersFromServer:(NSMutableDictionary*)lossOrder lostProducts:(NSMutableArray*)lossOrderProducts callback:(LossOrderCallback)lossOrderCallback {
+    [Yodo1PurchaseAPI.shared queryLossOrders:self.user
+                                    callback:^(BOOL success, NSArray * _Nonnull missorders, NSString * _Nonnull error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Get all missed orders inlucde local and server records
+            if (success && [missorders count] > 0) {
+                for (NSDictionary* item in missorders) {
+                    NSString* productId2 = (NSString*)[item objectForKey:@"productId"];
+                    NSString* orderId2 = (NSString*)[item objectForKey:@"orderId"];
+                    
+                    if ([[lossOrder allKeys]containsObject:orderId2]) {
+                        continue;
+                    }
+                    if (productId2 && orderId2) {
+                        [lossOrder setObject:productId2 forKey:orderId2];
+                    }
+                }
+            }
+            
+            // Get all missed products and callback to the developer
+            for (NSString* orderId in lossOrder) {
+                NSString* itemCode = [lossOrder objectForKey:orderId];
+                Yodo1Product* product = [Yodo1ProductManager.shared productForStoreIdentifier:itemCode];
+                if (product) {
+                    Yodo1Product* product2 = [[Yodo1Product alloc] initWithProduct:product];
+                    product2.orderId = orderId;
+                    [lossOrderProducts addObject:product2];
+                    //同步信息
+                    [Yodo1PurchaseAPI.shared clientNotifyToServer:@[orderId]
+                                                         callback:^(BOOL success, NSArray * _Nonnull notExistOrders, NSArray * _Nonnull notPayOrders, NSString * _Nonnull error) {
+                        if (success) {
+                            YD1LOG(@"The information is synchronized successfully.");
+                        } else {
+                            YD1LOG(@"The information is synchronized unsuccessfully:%@",error);
+                        }
+                    }];
+                }
+            }
+            if (lossOrderCallback) {
+                lossOrderCallback(lossOrderProducts,@"");
+            }
+        });
+    }];
+}
+
 #pragma mark - 查询订阅商品
 
 - (void)querySubscriptions:(BOOL)excludeOldTransactions
                   callback:(QuerySubscriptionCallback)callback {
-    __weak typeof(self) weakSelf = self;
     NSMutableArray* result = [NSMutableArray array];
     Yodo1PurchaseAPI.shared.transaction.exclude_old_transactions = excludeOldTransactions?@"true":@"false";
     NSString* receipt = [[NSData dataWithContentsOfURL:RMStore.receiptURL] base64EncodedStringWithOptions:0];
@@ -813,8 +657,15 @@
                     }
                     NSTimeInterval purchase_date_ms = [[latest_receipt_info objectForKey:@"purchase_date_ms"] doubleValue];
                     NSString* channelProductId = [latest_receipt_info objectForKey:@"product_id"];
-                    NSString* uniformProductId = [[weakSelf productWithChannelProductId:channelProductId] uniformProductId];
-                    SubscriptionProductInfo* info = [[SubscriptionProductInfo alloc] initWithUniformProductId:uniformProductId channelProductId:channelProductId expires:expires_date_ms purchaseDate:purchase_date_ms];
+                    Yodo1Product* product = [Yodo1ProductManager.shared productForStoreIdentifier:channelProductId];
+                    if (product == nil) {
+                        continue;
+                    }
+                    NSString* uniformProductId = product.uniformProductId;
+                    SubscriptionProductInfo* info = [[SubscriptionProductInfo alloc] initWithUniformProductId:uniformProductId
+                                                                                             channelProductId:channelProductId
+                                                                                                      expires:expires_date_ms
+                                                                                                 purchaseDate:purchase_date_ms];
                     [result addObject:info];
                 }
                 //去重
@@ -843,15 +694,17 @@
 
 - (void)fetchStorePromotionOrder:(FetchStorePromotionOrderCallback)callback {
 #ifdef __IPHONE_11_0
-    __weak typeof(self) weakSelf = self;
     if (@available(iOS 11.0, *)) {
         [[SKProductStorePromotionController defaultController] fetchStorePromotionOrderWithCompletionHandler:^(NSArray<SKProduct *> * _Nonnull storePromotionOrder, NSError * _Nullable error) {
             if(callback){
                 NSMutableArray<NSString*>* uniformProductIDs = [[NSMutableArray alloc] init];
                 for (int i = 0; i < [storePromotionOrder count]; i++) {
-                    NSString* productID = [[storePromotionOrder objectAtIndex:i] productIdentifier];
-                    NSString* uniformProductID = [[weakSelf productWithChannelProductId:productID] uniformProductId];
-                    [uniformProductIDs addObject:uniformProductID];
+                    NSString* storeProductID = [[storePromotionOrder objectAtIndex:i] productIdentifier];
+                    Yodo1Product* product = [Yodo1ProductManager.shared productForStoreIdentifier:storeProductID];
+                    if (product == nil) {
+                        continue;
+                    }
+                    [uniformProductIDs addObject:product.uniformProductId];
                 }
                 callback(uniformProductIDs, error == nil, [error description]);
             }
@@ -865,7 +718,8 @@
 - (void)fetchStorePromotionVisibilityForProduct:(NSString *)uniformProductId callback:(FetchStorePromotionVisibilityCallback)callback {
 #ifdef __IPHONE_11_0
     if (@available(iOS 11.0, *)) {
-        NSString* channelProductId = [[productInfos objectForKey:uniformProductId] channelProductId];
+        Yodo1Product* product = [Yodo1ProductManager.shared productForIdentifier:uniformProductId];
+        NSString* channelProductId = product.channelProductId;
         [[SKProductStorePromotionController defaultController] fetchStorePromotionVisibilityForProduct:[RMStore.defaultStore productForIdentifier:channelProductId] completionHandler:^(SKProductStorePromotionVisibility storePromotionVisibility, NSError * _Nullable error) {
             if(callback){
                 PromotionVisibility result = Default;
@@ -893,7 +747,8 @@
     if (@available(iOS 11.0, *)) {
         NSMutableArray<SKProduct *> *productsArray = [[NSMutableArray alloc] init];
         for (NSString* uniformProductId in uniformProductIdArray) {
-            NSString* channelProductId = [[productInfos objectForKey:uniformProductId] channelProductId];
+            Yodo1Product* product = [Yodo1ProductManager.shared productForIdentifier:uniformProductId];
+            NSString* channelProductId = product.channelProductId;
             [productsArray addObject:[RMStore.defaultStore productForIdentifier:channelProductId]];
         }
         [[SKProductStorePromotionController defaultController] updateStorePromotionOrder:productsArray completionHandler:^(NSError * _Nullable error) {
@@ -910,9 +765,10 @@
                               callback:(UpdateStorePromotionVisibilityCallback)callback {
 #ifdef __IPHONE_11_0
     if (@available(iOS 11.0, *)) {
-        NSString* channelProductId = [[productInfos objectForKey:uniformProductId] channelProductId];
-        SKProduct* product = [RMStore.defaultStore productForIdentifier:channelProductId];
-        [[SKProductStorePromotionController defaultController] updateStorePromotionVisibility:visibility ? SKProductStorePromotionVisibilityShow : SKProductStorePromotionVisibilityHide forProduct:product completionHandler:^(NSError * _Nullable error) {
+        Yodo1Product* product = [Yodo1ProductManager.shared productForIdentifier:uniformProductId];
+        NSString* channelProductId = product.channelProductId;
+        SKProduct* skProduct = [RMStore.defaultStore productForIdentifier:channelProductId];
+        [[SKProductStorePromotionController defaultController] updateStorePromotionVisibility:visibility ? SKProductStorePromotionVisibilityShow : SKProductStorePromotionVisibilityHide forProduct:skProduct completionHandler:^(NSError * _Nullable error) {
             callback(error == nil, [error description]);
         }];
     } else {
@@ -924,7 +780,11 @@
 #ifdef __IPHONE_11_0
     if (@available(iOS 11.0, *)) {
         if(self.addedStorePayment){
-            NSString* uniformP = [self uniformProductIdWithChannelProductId:self.addedStorePayment.productIdentifier];
+            Yodo1Product* product = [Yodo1ProductManager.shared productForStoreIdentifier:self.addedStorePayment.productIdentifier];
+            NSString* uniformP = @"";
+            if (product != nil) {
+                uniformP = product.uniformProductId? :@"";
+            }
             [self paymentWithUniformProductId:uniformP extra:@"" callback:callback];
         } else {
             paymentObject.uniformProductId = self.currentUniformProductId;
@@ -947,31 +807,14 @@
 
 - (Yodo1Product*)promotionProduct {
     if (self.addedStorePayment) {
-        NSString* uniformProductId = [[self productWithChannelProductId:self.addedStorePayment.productIdentifier] uniformProductId];
-        Yodo1Product* product = [productInfos objectForKey:uniformProductId];
+        Yodo1Product* product = [Yodo1ProductManager.shared productForStoreIdentifier:self.addedStorePayment.productIdentifier];
         return product;
     }
     return nil;
 }
 
-- (NSString *)uniformProductIdWithChannelProductId:(NSString *)channelProductId {
-    return [self productWithChannelProductId:channelProductId].uniformProductId? :@"";
-}
-
-- (Yodo1Product*)productWithChannelProductId:(NSString*)channelProductId {
-    NSArray* allProduct = [productInfos allValues];
-    for (Yodo1Product *productInfo in allProduct) {
-        if ([productInfo.channelProductId isEqualToString:channelProductId]) {
-            return productInfo;
-        }
-    }
-    return nil;
-}
-
-
-
 - (void)rechargedProuct {
-    Yodo1Product* product = [productInfos objectForKey:self.currentUniformProductId];
+    Yodo1Product* product = [Yodo1ProductManager.shared productForIdentifier:self.currentUniformProductId];
     if (self->persistence) {
         [self->persistence rechargedProuctOfIdentifier:product.channelProductId];
     }
@@ -983,28 +826,15 @@
 }
 
 - (void)storePaymentTransactionFailed:(NSNotification*)notification {
-    NSString* productIdentifier = notification.rm_productIdentifier;
-    if (!productIdentifier) {
-        Yodo1Product* pr = [productInfos objectForKey:self.currentUniformProductId];
-        if (pr.channelProductId) {
-            productIdentifier = pr.channelProductId;
+    NSString* storeProductIdentifier = notification.rm_productIdentifier;
+    if (!storeProductIdentifier) {
+        Yodo1Product* product = [Yodo1ProductManager.shared productForIdentifier:self.currentUniformProductId];
+        if (product.channelProductId) {
+            storeProductIdentifier = product.channelProductId;
         }
     }
-    if (productIdentifier) {
-        NSString* oldOrderIdStr = [Yd1OpsTools keychainWithService:productIdentifier];
-        NSArray* oldOrderId = (NSArray *)[Yd1OpsTools JSONObjectWithString:oldOrderIdStr error:nil];
-        NSMutableArray* newOrderId = [NSMutableArray array];
-        if (oldOrderId) {
-            [newOrderId setArray:oldOrderId];
-        }
-        for (NSString* oderid in oldOrderId) {
-            if ([oderid isEqualToString:Yodo1PurchaseAPI.shared.transaction.orderId]) {
-                [newOrderId removeObject:oderid];
-                break;
-            }
-        }
-        NSString* orderidJson = [Yd1OpsTools stringWithJSONObject:newOrderId error:nil];
-        [Yd1OpsTools saveKeychainWithService:productIdentifier str:orderidJson];
+    if (storeProductIdentifier) {
+        [self removeOrder:Yodo1PurchaseAPI.shared.transaction.orderId storeProductIdentifier:storeProductIdentifier];
     }
     
     NSString* channelOrderid = notification.rm_transaction.transactionIdentifier;
@@ -1022,18 +852,18 @@
     paymentObject.channelOrderid = channelOrderid;
     paymentObject.orderId = Yodo1PurchaseAPI.shared.transaction.orderId;
     paymentObject.response = @"";
-    bool isCanncelled = NO;
+    bool isCancelled = NO;
     if (@available(iOS 12.2, *)) {
         if (notification.rm_storeError.code == SKErrorPaymentCancelled || notification.rm_storeError.code == SKErrorOverlayCancelled) {
-            isCanncelled = YES;
+            isCancelled = YES;
         }
     } else {
         // Fallback on earlier versions
         if (notification.rm_storeError.code == SKErrorPaymentCancelled) {
-            isCanncelled = YES;
+            isCancelled = YES;
         }
     }
-    if (isCanncelled) {
+    if (isCancelled) {
         paymentObject.paymentState = PaymentCancel;
         paymentObject.error = [NSError errorWithDomain:@"com.yodo1.payment"
                                                   code:PaymentErrorCodeCancelled
@@ -1047,7 +877,7 @@
     
     Yodo1PurchaseAPI.shared.transaction.channelOrderid = paymentObject.channelOrderid;
     Yodo1PurchaseAPI.shared.transaction.orderId = paymentObject.orderId;
-    Yodo1PurchaseAPI.shared.transaction.statusCode = [NSString stringWithFormat:@"%d", paymentObject.paymentState];
+    Yodo1PurchaseAPI.shared.transaction.statusCode = [NSString stringWithFormat:@"%ld", (long)paymentObject.paymentState];
     Yodo1PurchaseAPI.shared.transaction.statusMsg = message;
     [Yodo1PurchaseAPI.shared reportOrderFail:Yodo1PurchaseAPI.shared.transaction
                                     callback:^(BOOL success, NSString * _Nonnull error) {
@@ -1063,14 +893,17 @@
 }
 
 - (void)storePaymentTransactionFinished:(NSNotification*)notification {
-    NSString* channelOrderId = notification.rm_transaction.transactionIdentifier;
+    SKPaymentTransaction* paymentTransaction = notification.rm_transaction;
+    
+    NSString* channelOrderId = paymentTransaction.transactionIdentifier;
     if (channelOrderId == nil) {
         channelOrderId = @"";
     }
-    Yodo1Product* product = [productInfos objectForKey:self.currentUniformProductId];
-    NSString* productIdentifier = notification.rm_productIdentifier;
-    if (!productIdentifier) {
-        productIdentifier = product.channelProductId;
+        
+    Yodo1Product* product = [Yodo1ProductManager.shared productForIdentifier:self.currentUniformProductId];
+    NSString* storeProductIdentifier = notification.rm_productIdentifier;
+    if (!storeProductIdentifier) {
+        storeProductIdentifier = product.channelProductId;
     }
     
     BOOL isSandbox = NO;
@@ -1086,22 +919,8 @@
         isSandbox = [[receiptURL absoluteString] containsString:@"sandboxReceipt"];
     }
     
-//    //AppsFlyer 数据统计
-//    [Yodo1AnalyticsManager.sharedInstance validateAndTrackInAppPurchase:productIdentifier
-//                                                                  price:product.productPrice
-//                                                               currency:product.currency
-//                                                          transactionId:channelOrderId];
-    
-    if (Yodo1PurchaseManager.shared.validatePaymentBlock) {
-        NSDictionary* responseDict = @{@"productIdentifier":productIdentifier,
-                                       @"transactionIdentifier":channelOrderId,
-                                       @"transactionReceipt":encodedReceipt};
-        NSString* response = [Yd1OpsTools stringWithJSONObject:responseDict error:nil];
-        Yodo1PurchaseManager.shared.validatePaymentBlock(product.uniformProductId,response);
-    }
-    
     Yodo1PurchaseAPI.shared.transaction.channelOrderid = channelOrderId;
-    Yodo1PurchaseAPI.shared.transaction.productId = productIdentifier;
+    Yodo1PurchaseAPI.shared.transaction.productId = storeProductIdentifier;
     Yodo1PurchaseAPI.shared.transaction.trx_receipt = encodedReceipt;
     Yodo1PurchaseAPI.shared.transaction.is_sandbox = isSandbox? @"true" : @"";
 
@@ -1121,7 +940,7 @@
         YD1LOG(@"error_code:%d",errorCode);
         if (verifySuccess) {
             Yodo1IAPRevenue* iapRevenue = [[Yodo1IAPRevenue alloc] init];
-            iapRevenue.productIdentifier = productIdentifier;
+            iapRevenue.productIdentifier = storeProductIdentifier;
             iapRevenue.revenue = product.productPrice;
             iapRevenue.currency = product.currency;
             iapRevenue.transactionId = channelOrderId;
@@ -1159,7 +978,7 @@
             
             Yodo1PurchaseAPI.shared.transaction.channelOrderid = Yodo1PurchaseAPI.shared.transaction.channelOrderid;
             Yodo1PurchaseAPI.shared.transaction.orderId = orderId;
-            Yodo1PurchaseAPI.shared.transaction.statusCode = [NSString stringWithFormat:@"%d",PaymentFail];
+            Yodo1PurchaseAPI.shared.transaction.statusCode = [NSString stringWithFormat:@"%ld",(long)PaymentFail];
             Yodo1PurchaseAPI.shared.transaction.statusMsg = message;
             [Yodo1PurchaseAPI.shared reportOrderFail:Yodo1PurchaseAPI.shared.transaction
                                             callback:^(BOOL success, NSString * _Nonnull error) {

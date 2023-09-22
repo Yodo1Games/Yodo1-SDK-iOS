@@ -78,31 +78,4 @@
     }
 }
 
-#pragma mark- Unity 接口
-
-#ifdef __cplusplus
-extern "C" {
-    
-    void UnityRegisterLocalNotification(const char* notificationKey, int notificationId, const char* alertTime, const char* title, const char* msg)
-    {
-        NSString * ocKey = Yodo1CreateNSString(notificationKey);
-        NSString * ocTitle = Yodo1CreateNSString(title);
-        NSString * ocMsg = Yodo1CreateNSString(msg);
-        
-        NSString * nsAlertTime = Yodo1CreateNSString(alertTime);
-        NSInteger alertTimeInteter = [nsAlertTime integerValue];
-        
-        [Yodo1LocalNotification registerLocalNotification:ocKey notificationId:notificationId
-                                        alertTime:alertTimeInteter title:ocTitle msg:ocMsg];
-    }
-    
-    void UnityCancelLocalNotificationWithKey(const char* notificationKey, int notificationId)
-    {
-        NSString * ocKey = Yodo1CreateNSString(notificationKey);
-        [Yodo1LocalNotification cancelLocalNotificationWithKey:ocKey notificationId:notificationId];
-    }
-}
-#endif
 @end
-
-

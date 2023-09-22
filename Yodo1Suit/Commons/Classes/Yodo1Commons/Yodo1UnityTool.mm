@@ -1,40 +1,48 @@
 //
-//  Yodo1UnityTool.m
+//  Yodo1UnityTool.mm
 //
 
 #import "Yodo1UnityTool.h"
-
-#ifdef UNITY_VERSION
-/// Unity3d引擎 项目
-#else
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    #if UNITY_VERSION < 500
-    void UnityPause(bool pause) {}
-    #else
-    void UnityPause(int pause){}
-    #endif
-    void UnitySendMessage(const char* obj, const char* method, const char* msg) {}
+void Yodo1UnitySendMessage(const char* goName, const char* functionName, const char* message) {
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+    [dict setObject:ConvertCharToNSString(goName) forKey:@"object_name"];
+    [dict setObject:ConvertCharToNSString(functionName) forKey:@"function_name"];
+    [dict setObject:ConvertCharToNSString(message) forKey:@"message"];
     
-#ifdef __cplusplus
+    Class sendMessageWrapper = NSClassFromString(@"Yodo1UnitySendMessageWrapper");
+    if (sendMessageWrapper) {
+        SEL sel = NSSelectorFromString(@"sendMessageToGOWithDictionary:");
+        if (sel && [sendMessageWrapper respondsToSelector:sel]) {
+            [sendMessageWrapper performSelector:sel withObject:dict afterDelay:0];
+        }
+    }
 }
-#endif
 
-#endif
-
-NSString* Yodo1CreateNSString(const char* string)
+NSString* ConvertCharToNSString(const char* string)
 {
     return string ? [NSString stringWithUTF8String:string] : [NSString stringWithUTF8String:""];
 }
 
-char* Yodo1MakeStringCopy(const char* string)
+char* ConvertNSStringToChar(NSString* string)
 {
-    if (string == NULL)
+    if (string == nil) {
+        string = @"";
+    }
+    
+    const char * cString = [string cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    if (cString == NULL)
         return NULL;
-    char* res = (char*)malloc(strlen(string) + 1);
-    strcpy(res, string);
+    char* res = (char*)malloc(strlen(cString) + 1);
+    strcpy(res, cString);
     return res;
 }
+
+#ifdef __cplusplus
+}
+#endif

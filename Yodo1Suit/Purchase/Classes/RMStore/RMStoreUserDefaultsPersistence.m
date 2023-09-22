@@ -65,7 +65,12 @@ NSString* const RMStoreTransactionsUserDefaultsKey = @"RMStoreTransactions";
     [Yd1OpsTools saveKeychainWithService:productIdentifier str:orderidJson];
     __weak typeof(self) weakSelf = self;
     if (!transaction.orderId) { //杀死进程/重新安装应用
-        NSString* uniformProductId = [Yodo1PurchaseManager.shared uniformProductIdWithChannelProductId:productIdentifier];
+        NSString* uniformProductId = @"";
+        Yodo1Product* product = [Yodo1ProductManager.shared productForStoreIdentifier:productIdentifier];
+        if (product != nil) {
+            uniformProductId = product.uniformProductId? :@"";
+        }
+        
         [Yodo1PurchaseManager.shared createOrderIdWithUniformProductId:uniformProductId
                                                                  extra:@""
                                                               callback:^(bool success, NSString * _Nonnull orderid, NSError * _Nonnull error) {

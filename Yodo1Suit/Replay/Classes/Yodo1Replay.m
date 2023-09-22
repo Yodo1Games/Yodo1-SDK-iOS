@@ -125,34 +125,4 @@ static Yodo1Replay* _instance = nil;
     }
 }
 
-#pragma mark- Unity 接口
-
-#ifdef __cplusplus
-extern "C" {
-    
-#pragma mark- Recorder Video
-    
-    void UnityStartScreenRecorder()
-    {
-        [[Yodo1Replay sharedInstance]startScreenRecorder];
-    }
-    
-    bool UnitySupportReplay()
-    {
-        return [[Yodo1Replay sharedInstance]bSupportReplay];
-    }
-    
-    void UnityStopScreenRecorder()
-    {
-        [[Yodo1Replay sharedInstance]stopScreenRecorder];
-    }
-    
-    void UnityShowRecorder ()
-    {
-        [[Yodo1Replay sharedInstance]showRecorder:[Yodo1Commons getRootViewController]];
-    }
-}
-#endif
 @end
-
-

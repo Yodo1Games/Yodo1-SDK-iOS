@@ -1,5 +1,5 @@
 //
-//  Yodo1Alert.h
+//  Yodo1UnityTool.h
 //
 //
 //
@@ -11,16 +11,11 @@
 extern "C" {
 #endif
     
-    extern void UnitySendMessage(const char* obj, const char* method, const char* msg);
-#if UNITY_VERSION < 500
-    extern void UnityPause(bool pause);
-#else
-    extern void UnityPause(int pause);
-#endif
-    extern NSString* Yodo1CreateNSString(const char* string);
-    extern char* Yodo1MakeStringCopy(const char* string);
+    extern void Yodo1UnitySendMessage(const char* goName, const char* functionName, const char* message);
+    extern NSString* ConvertCharToNSString(const char* string);
+    extern char* ConvertNSStringToChar(NSString* string);
+//    extern char* Yodo1MakeStringCopy(const char* string);
     
 #ifdef __cplusplus
 }
 #endif
-

@@ -1,22 +1,36 @@
-#import "UnityYodo1PurchaseWrapper.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1UnityTool.h"
 #import "Yodo1PurchaseManager.h"
 #import "Yodo1PurchaseAPI.h"
 
+typedef enum {
+    Unity_Result_Type_Payment = 2001,
+    Unity_Result_Type_Restore_Payment = 2002,
+    Unity_Result_Type_Request_Products = 2003,
+    Unity_Result_Type_VerifyProductsInfo = 2004,
+    Unity_Result_Type_LossOrderIdQuery = 2005,
+    Unity_Result_Type_QuerySubscriptions = 2006,
+    Unity_Result_Type_FetchPromotionVisibility = 2007,
+    Unity_Result_Type_FetchStorePromotionOrder = 2008,
+    Unity_Result_Type_UpdateStorePromotionVisibility = 2009,
+    Unity_Result_Type_UpdateStorePromotionOrder = 2010,
+    Unity_Reslut_Type_GetPromotionProduct = 2011,
+    Unity_Result_Type_SendGoodsOver = 2013,
+    Unity_Result_Type_SendGoodsOverFault = 2014,
+}UnityResultType_Purchase;
+
 #ifdef __cplusplus
 extern "C" {
-
-#pragma mark - 请求商品信息
+#endif
 
 /**
  *根据产品ID,获取产品信息
  */
 void UnityProductInfoWithProductId(const char* uniformProductId, const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
-    NSString* _uniformProductId = Yodo1CreateNSString(uniformProductId);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
+    NSString* _uniformProductId = ConvertCharToNSString(uniformProductId);
     [Yodo1PurchaseManager.shared productWithUniformProductId:_uniformProductId callback:^(NSArray<Yodo1Product *> * _Nonnull productInfo) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(ocGameObjName && ocMethodName) {
@@ -24,7 +38,11 @@ void UnityProductInfoWithProductId(const char* uniformProductId, const char* gam
                 [dict setObject:[NSNumber numberWithInt:Unity_Result_Type_Request_Products] forKey:@"resulType"];
                 if([productInfo count] > 0){
                     [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
-                    [dict setObject:productInfo forKey:@"data"];
+                    NSMutableArray* productArray = [NSMutableArray array];
+                    for (Yodo1Product* product in productInfo) {
+                        [productArray addObject:[product dictionary]];
+                    }
+                    [dict setObject:productArray forKey:@"data"];
                 }else{
                     [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
                 }
@@ -36,7 +54,7 @@ void UnityProductInfoWithProductId(const char* uniformProductId, const char* gam
                     [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                     msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                 }
-                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             }
@@ -49,15 +67,19 @@ void UnityProductInfoWithProductId(const char* uniformProductId, const char* gam
  */
 void UnityProductsInfo(const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     [Yodo1PurchaseManager.shared products:^(NSArray<Yodo1Product *> * _Nonnull productInfo) {
         if(ocGameObjName && ocMethodName) {
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
             [dict setObject:[NSNumber numberWithInt:Unity_Result_Type_Request_Products] forKey:@"resulType"];
             if([productInfo count] > 0){
                 [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
-                [dict setObject:productInfo forKey:@"data"];
+                NSMutableArray* productArray = [NSMutableArray array];
+                for (Yodo1Product* product in productInfo) {
+                    [productArray addObject:[product dictionary]];
+                }
+                [dict setObject:productArray forKey:@"data"];
             }else{
                 [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
             }
@@ -69,7 +91,7 @@ void UnityProductsInfo(const char* gameObjectName, const char* methodName)
                 [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                 msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
         }
@@ -80,10 +102,10 @@ void UnityProductsInfo(const char* gameObjectName, const char* methodName)
 
 void UnityPayNetGame(const char* mUniformProductId,const char* extra, const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
-    NSString* _uniformProductId = Yodo1CreateNSString(mUniformProductId);
-    NSString* _extra = Yodo1CreateNSString(extra);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
+    NSString* _uniformProductId = ConvertCharToNSString(mUniformProductId);
+    NSString* _extra = ConvertCharToNSString(extra);
     
     [Yodo1PurchaseManager.shared paymentWithUniformProductId:_uniformProductId
                                                        extra:_extra
@@ -111,7 +133,7 @@ void UnityPayNetGame(const char* mUniformProductId,const char* extra, const char
                     [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                     msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                 }
-                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             }
@@ -128,8 +150,8 @@ void UnityCancelPromotion(const char* gameObjectName, const char* methodName)
 
 void UnityGetPromotionProduct(const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     Yodo1Product* product = [Yodo1PurchaseManager.shared promotionProduct];
     if(ocGameObjName && ocMethodName){
         NSMutableDictionary* dict = [NSMutableDictionary dictionary];
@@ -141,7 +163,7 @@ void UnityGetPromotionProduct(const char* gameObjectName, const char* methodName
             [dict setObject:product.priceDisplay forKey:@"priceDisplay"];
             [dict setObject:product.productDescription forKey:@"description"];
             [dict setObject:product.currency forKey:@"currency"];
-            [dict setObject:[NSNumber numberWithInt:product.productType] forKey:@"ProductType"];
+            [dict setObject:[NSNumber numberWithInt:(int)product.productType] forKey:@"ProductType"];
         }
         [dict setObject:[NSNumber numberWithInt:Unity_Reslut_Type_GetPromotionProduct] forKey:@"resulType"];
         [dict setObject:[NSNumber numberWithInt:product==nil ? 0 : 1] forKey:@"code"];
@@ -154,7 +176,7 @@ void UnityGetPromotionProduct(const char* gameObjectName, const char* methodName
             [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
             msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
         }
-        UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+        Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                          [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                          [msg cStringUsingEncoding:NSUTF8StringEncoding]);
     }
@@ -162,8 +184,8 @@ void UnityGetPromotionProduct(const char* gameObjectName, const char* methodName
 
 void UnityReadyToContinuePurchaseFromPromotion(const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     
     [Yodo1PurchaseManager.shared readyToContinuePurchaseFromPromot:^(PaymentObject * _Nonnull payemntObject) {
         if (payemntObject.paymentState == PaymentSuccess) {
@@ -183,7 +205,7 @@ void UnityReadyToContinuePurchaseFromPromotion(const char* gameObjectName, const
             if ([payemntObject.orderId length] > 0) {
                 Yodo1PurchaseAPI.shared.transaction.channelOrderid = payemntObject.channelOrderid? :@"";
                 Yodo1PurchaseAPI.shared.transaction.orderId = payemntObject.orderId;
-                Yodo1PurchaseAPI.shared.transaction.statusCode = [NSString stringWithFormat:@"%d",payemntObject.paymentState];
+                Yodo1PurchaseAPI.shared.transaction.statusCode = [NSString stringWithFormat:@"%ld",(long)payemntObject.paymentState];
                 Yodo1PurchaseAPI.shared.transaction.statusMsg = payemntObject.response? :@"";
                 [Yodo1PurchaseAPI.shared reportOrderFail:Yodo1PurchaseAPI.shared.transaction
                                                 callback:^(BOOL success, NSString * _Nonnull error) {
@@ -218,7 +240,7 @@ void UnityReadyToContinuePurchaseFromPromotion(const char* gameObjectName, const
                     [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                     msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                 }
-                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             }
@@ -228,9 +250,9 @@ void UnityReadyToContinuePurchaseFromPromotion(const char* gameObjectName, const
 
 void UnityFetchStorePromotionVisibilityForProduct(const char* uniformProductId, const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
-    NSString* _uniformProductId = Yodo1CreateNSString(uniformProductId);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
+    NSString* _uniformProductId = ConvertCharToNSString(uniformProductId);
     [Yodo1PurchaseManager.shared fetchStorePromotionVisibilityForProduct:_uniformProductId callback:^(PromotionVisibility storePromotionVisibility, BOOL success, NSString * _Nonnull error) {
         if(ocGameObjName && ocMethodName){
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
@@ -256,7 +278,7 @@ void UnityFetchStorePromotionVisibilityForProduct(const char* uniformProductId, 
                 [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                 msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
         }
@@ -265,8 +287,8 @@ void UnityFetchStorePromotionVisibilityForProduct(const char* uniformProductId, 
 
 void UnityFetchStorePromotionOrder(const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     [Yodo1PurchaseManager.shared fetchStorePromotionOrder:^(NSArray<NSString *> * _Nonnull storePromotionOrder, BOOL success, NSString * _Nonnull error) {
         if(ocGameObjName && ocMethodName){
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
@@ -282,7 +304,7 @@ void UnityFetchStorePromotionOrder(const char* gameObjectName, const char* metho
                 [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                 msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
         }
@@ -291,8 +313,8 @@ void UnityFetchStorePromotionOrder(const char* gameObjectName, const char* metho
 
 void UnityUpdateStorePromotionOrder(const char* productids, const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     [Yodo1PurchaseManager.shared updateStorePromotionOrder:[[NSString stringWithUTF8String:productids] componentsSeparatedByString:@","] callback:^(BOOL success, NSString * _Nonnull error) {
         if(ocGameObjName && ocMethodName) {
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
@@ -306,7 +328,7 @@ void UnityUpdateStorePromotionOrder(const char* productids, const char* gameObje
                 [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                 msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
         }
@@ -315,8 +337,8 @@ void UnityUpdateStorePromotionOrder(const char* productids, const char* gameObje
 
 void UnityUpdateStorePromotionVisibility(bool visible, const char* uniformProductId, const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     [Yodo1PurchaseManager.shared  updateStorePromotionVisibility:visible product:[NSString stringWithUTF8String:uniformProductId] callback:^(BOOL success, NSString * _Nonnull error) {
         if(ocGameObjName && ocMethodName){
             NSMutableDictionary* dict = [NSMutableDictionary dictionary];
@@ -330,7 +352,7 @@ void UnityUpdateStorePromotionVisibility(bool visible, const char* uniformProduc
                 [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                 msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
         }
@@ -341,8 +363,8 @@ void UnityUpdateStorePromotionVisibility(bool visible, const char* uniformProduc
 
 void UnityQueryLossOrder(const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     
     [Yodo1PurchaseManager.shared queryLossOrder:^(NSArray * _Nonnull productIds, NSString * _Nonnull response) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -351,7 +373,11 @@ void UnityQueryLossOrder(const char* gameObjectName, const char* methodName)
                 [dict setObject:[NSNumber numberWithInt:Unity_Result_Type_LossOrderIdQuery] forKey:@"resulType"];
                 if([productIds count] > 0 ){
                     [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
-                    [dict setObject:productIds forKey:@"data"];
+                    NSMutableArray* productArray = [NSMutableArray array];
+                    for (Yodo1Product* product in productIds) {
+                        [productArray addObject:[product dictionary]];
+                    }
+                    [dict setObject:productArray forKey:@"data"];
                 }else{
                     [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
                 }
@@ -363,7 +389,7 @@ void UnityQueryLossOrder(const char* gameObjectName, const char* methodName)
                     [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                     msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                 }
-                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             }
@@ -377,8 +403,8 @@ void UnityQueryLossOrder(const char* gameObjectName, const char* methodName)
 
 void UnityQuerySubscriptions(BOOL excludeOldTransactions, const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     
     [Yodo1PurchaseManager.shared querySubscriptions:excludeOldTransactions callback:^(NSArray * _Nonnull subscriptions, NSTimeInterval serverTime, BOOL success, NSString * _Nullable error) {
         if(ocGameObjName && ocMethodName){
@@ -413,7 +439,7 @@ void UnityQuerySubscriptions(BOOL excludeOldTransactions, const char* gameObject
                 [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                 msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
             }
-            UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+            Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                              [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                              [msg cStringUsingEncoding:NSUTF8StringEncoding]);
         }
@@ -424,8 +450,8 @@ void UnityQuerySubscriptions(BOOL excludeOldTransactions, const char* gameObject
 
 void UnityRestorePayment(const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
     [Yodo1PurchaseManager.shared restorePayment:^(NSArray * _Nonnull productIds, NSString * _Nonnull response) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(ocGameObjName && ocMethodName){
@@ -433,7 +459,11 @@ void UnityRestorePayment(const char* gameObjectName, const char* methodName)
                 [dict setObject:[NSNumber numberWithInt:Unity_Result_Type_Restore_Payment] forKey:@"resulType"];
                 if([productIds count] > 0 ){
                     [dict setObject:[NSNumber numberWithInt:1] forKey:@"code"];
-                    [dict setObject:productIds forKey:@"data"];
+                    NSMutableArray* productArray = [NSMutableArray array];
+                    for (Yodo1Product* product in productIds) {
+                        [productArray addObject:[product dictionary]];
+                    }
+                    [dict setObject:productArray forKey:@"data"];
                 }else{
                     [dict setObject:[NSNumber numberWithInt:0] forKey:@"code"];
                 }
@@ -445,7 +475,7 @@ void UnityRestorePayment(const char* gameObjectName, const char* methodName)
                     [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                     msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                 }
-                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             }
@@ -460,9 +490,9 @@ void UnityRestorePayment(const char* gameObjectName, const char* methodName)
  */
 void UnitySendGoodsOver(const char* orders,const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
-    NSString* ocOrders = Yodo1CreateNSString(orders);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
+    NSString* ocOrders = ConvertCharToNSString(orders);
     
     [[Yodo1PurchaseManager shared] sendGoodsSuccess:ocOrders callback:^(BOOL success, NSString * _Nonnull error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -482,7 +512,7 @@ void UnitySendGoodsOver(const char* orders,const char* gameObjectName, const cha
                     [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                     msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                 }
-                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             }
@@ -495,9 +525,9 @@ void UnitySendGoodsOver(const char* orders,const char* gameObjectName, const cha
  */
 void UnitySendGoodsOverFault(const char* orders,const char* gameObjectName, const char* methodName)
 {
-    NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-    NSString* ocMethodName = Yodo1CreateNSString(methodName);
-    NSString* ocOrders = Yodo1CreateNSString(orders);
+    NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+    NSString* ocMethodName = ConvertCharToNSString(methodName);
+    NSString* ocOrders = ConvertCharToNSString(orders);
     [Yodo1PurchaseManager.shared sendGoodsFail:ocOrders
                                       callback:^(BOOL success, NSString * _Nonnull error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -517,7 +547,7 @@ void UnitySendGoodsOverFault(const char* orders,const char* gameObjectName, cons
                     [dict setObject:@"Convert result to json failed!" forKey:@"msg"];
                     msg =  [Yd1OpsTools stringWithJSONObject:dict error:&parseJSONError];
                 }
-                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [msg cStringUsingEncoding:NSUTF8StringEncoding]);
             }
@@ -525,6 +555,6 @@ void UnitySendGoodsOverFault(const char* orders,const char* gameObjectName, cons
     }];
 }
 
+#ifdef __cplusplus
 }
-
 #endif

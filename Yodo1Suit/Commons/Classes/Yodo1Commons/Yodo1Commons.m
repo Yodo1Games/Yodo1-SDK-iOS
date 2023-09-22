@@ -1046,29 +1046,6 @@ static Yodo1Commons* _instance = nil;
     }
 }
 
-#pragma mark- Unity 接口
-
-#ifdef __cplusplus
-extern "C" {
-#endif 
-    
-#pragma mark- Unity of iClound
-    /**
-     *  获取iOS App版本号
-     *
-     *  @return 版本号
-     */
-    char* UnityGetVersionName()
-    {
-        NSString* version = [Yodo1Commons appVersion];
-        return Yodo1MakeStringCopy(version.UTF8String);;
-    }
-    
-    
-#ifdef __cplusplus
-}
-#endif
-
 @end
 
 @implementation YD1Preferences

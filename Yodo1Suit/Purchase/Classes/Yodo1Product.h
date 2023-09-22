@@ -9,12 +9,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ProductType) {
     NonConsumables = 0,     //非消耗品
     Consumables,            //消耗品
     Auto_Subscription,      //自动订阅
     None_Auto_Subscription  //非自动订阅
-}ProductType;
+};
+
+#pragma mark - Yodo1Product
 
 @interface Yodo1Product : NSObject
 
@@ -32,6 +34,33 @@ typedef enum {
 - (instancetype)initWithDict:(NSDictionary*)dictProduct
                    productId:(NSString*)uniformProductId;
 - (instancetype)initWithProduct:(Yodo1Product*)product;
+
+-(NSMutableDictionary*)dictionary;
+
+@end
+
+
+#pragma mark - Yodo1ProductManager
+
+typedef void (^Yodo1ProductsRequestFailureBlock)(NSError *error);
+typedef void (^Yodo1ProductsRequestSuccessBlock)(NSArray *products);
+
+@interface Yodo1ProductManager : NSObject
+
++ (instancetype)shared;
+
+- (void)initProducts;
+
+- (void)requestProducts:(Yodo1ProductsRequestSuccessBlock)successBlock
+                failure:(Yodo1ProductsRequestFailureBlock)failureBlock;
+
+- (void)requestProducts:(NSSet*)identifiers
+                success:(Yodo1ProductsRequestSuccessBlock)successBlock
+                failure:(Yodo1ProductsRequestFailureBlock)failureBlock;
+
+- (Yodo1Product*)productForIdentifier:(NSString*)productIdentifier;
+
+- (Yodo1Product*)productForStoreIdentifier:(NSString*)storeProductIdentifier;
 
 @end
 

@@ -130,23 +130,6 @@
 }
 
 /**
- *  save订单号
- */
-- (void)saveOrderId:(NSString *)orderId withProductId:(NSString *)productIdentifier {
-    
-    //保存orderId
-    NSString* oldOrderIdStr = [Yd1OpsTools keychainWithService:productIdentifier];
-    NSArray* oldOrderId = (NSArray *)[Yd1OpsTools JSONObjectWithString:oldOrderIdStr error:nil];
-    NSMutableArray* newOrderId = [NSMutableArray array];
-    if (oldOrderId) {
-        [newOrderId setArray:oldOrderId];
-    }
-    [newOrderId addObject:orderId];
-    NSString* orderidJson = [Yd1OpsTools stringWithJSONObject:newOrderId error:nil];
-    [Yd1OpsTools saveKeychainWithService:productIdentifier str:orderidJson];
-}
-
-/**
  *  假如error_code:0 error值代表剩余可
  *  花费金额不为0，则是具体返回信息
  *  Create an order id in IAP payment, please check here(https://confluence.yodo1.com/pages/viewpage.action?pageId=24061090) for the details
@@ -606,8 +589,7 @@
     }];
 }
 
-- (void)queryLossOrders:(Yodo1Transaction *)transaction
-                   user:(YD1User *)user
+- (void)queryLossOrders:(YD1User *)user
                callback:(nonnull void (^)(BOOL success, NSArray * _Nonnull missorders,NSString* _Nonnull error))callback {
     if (!user.uid) {
         callback(false,@[],@"uid  is nil!");

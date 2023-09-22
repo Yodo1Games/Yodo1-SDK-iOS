@@ -1,4 +1,3 @@
-#import "UnityYodo1AnalytcisWrapper.h"
 #import "Yodo1UnityTool.h"
 #import "Yodo1Commons.h"
 #import "Yodo1Tool+Commons.h"
@@ -6,13 +5,17 @@
 #import "Yodo1AnalyticsManager.h"
 #import "AnalyticsAdapter.h"
 
-#ifdef __cplusplus
+typedef enum {
+    Unity_Result_Type_GenerateInviteUrl = 4002,
+}UnityResultType_Analytcis;
 
+#ifdef __cplusplus
 extern "C" {
-    
+#endif
+
     void UnityLogin(const char* jsonUser)
     {
-        NSString* _jsonUser = Yodo1CreateNSString(jsonUser);
+        NSString* _jsonUser = ConvertCharToNSString(jsonUser);
         NSDictionary* user = [Yodo1Commons JSONObjectWithString:_jsonUser error:nil];
         
         if (user) {
@@ -26,26 +29,26 @@ extern "C" {
     }
     
     void UnityTrackEvent(const char* eventId, const char* jsonValues) {
-        NSString* eventValues = Yodo1CreateNSString(jsonValues);
+        NSString* eventValues = ConvertCharToNSString(jsonValues);
         NSDictionary *eventValuesDict = [Yodo1Commons JSONObjectWithString:eventValues error:nil];
-        [[Yodo1AnalyticsManager sharedInstance] trackEvent:Yodo1CreateNSString(eventId) eventValues:eventValuesDict];
+        [[Yodo1AnalyticsManager sharedInstance] trackEvent:ConvertCharToNSString(eventId) eventValues:eventValuesDict];
     }
     
     void UnityTrackUAEvent(const char* eventId, const char* jsonValues) {
-        NSString* eventValues = Yodo1CreateNSString(jsonValues);
+        NSString* eventValues = ConvertCharToNSString(jsonValues);
         NSDictionary *eventValuesDict = [Yodo1Commons JSONObjectWithString:eventValues error:nil];
-        [[Yodo1AnalyticsManager sharedInstance] trackUAEvent:Yodo1CreateNSString(eventId) eventValues:eventValuesDict];
+        [[Yodo1AnalyticsManager sharedInstance] trackUAEvent:ConvertCharToNSString(eventId) eventValues:eventValuesDict];
     }
     
     void UnityTrackAdRevenue(const char* jsonRevenue) {
-        NSString* revenue = Yodo1CreateNSString(jsonRevenue);
+        NSString* revenue = ConvertCharToNSString(jsonRevenue);
         NSDictionary *revenueDict = [Yodo1Commons JSONObjectWithString:revenue error:nil];
         Yodo1AdRevenue* adRevenue = [[Yodo1AdRevenue alloc] initWithDictionary:revenueDict];
         [[Yodo1AnalyticsManager sharedInstance] trackAdRevenue:adRevenue];
     }
     
     void UnityTrackIAPRevenue(const char* jsonRevenue) {
-        NSString* revenue = Yodo1CreateNSString(jsonRevenue);
+        NSString* revenue = ConvertCharToNSString(jsonRevenue);
         NSDictionary *revenueDict = [Yodo1Commons JSONObjectWithString:revenue error:nil];
         Yodo1IAPRevenue* iapRevenue = [[Yodo1IAPRevenue alloc] initWithDict:revenueDict];
         [[Yodo1AnalyticsManager sharedInstance] trackIAPRevenue:iapRevenue];
@@ -53,8 +56,8 @@ extern "C" {
     
     // save AppsFlyer deeplink
     void UnitySaveToNativeRuntime(const char*key, const char*valuepairs) {
-        NSString *keyString = Yodo1CreateNSString(key);
-        NSString *valuepairsString = Yodo1CreateNSString(valuepairs);
+        NSString *keyString = ConvertCharToNSString(key);
+        NSString *valuepairsString = ConvertCharToNSString(valuepairs);
         
         NSDictionary *openUrlDic = [[NSDictionary alloc] initWithDictionary:(NSDictionary *)[Yd1OpsTools.cached objectForKey:Y_DEEPLINK_RESULT]];
         
@@ -73,22 +76,21 @@ extern "C" {
     
     // get AppsFlyer deeplink
     char* UnityGetNativeRuntime(const char*key) {
-        NSString *keyString = Yodo1CreateNSString(key);
+        NSString *keyString = ConvertCharToNSString(key);
         
         NSDictionary *openUrlDic = [[NSDictionary alloc] initWithDictionary:(NSDictionary *)[Yd1OpsTools.cached objectForKey:Y_DEEPLINK_RESULT]];
         
         if ([[openUrlDic allKeys] containsObject:keyString]) {
-            NSString *msg = openUrlDic[keyString];
-            return Yodo1MakeStringCopy(msg.UTF8String);
+            return ConvertNSStringToChar(openUrlDic[keyString]);
         }
         
         return NULL;
     }
     
     void UnityGenerateInviteUrlWithLinkGenerator(const char* dicJson, char* gameObjectName, char* methodName) {
-        NSString* ocGameObjName = Yodo1CreateNSString(gameObjectName);
-        NSString* ocMethodName = Yodo1CreateNSString(methodName);
-        NSString* _dicJson = Yodo1CreateNSString(dicJson);
+        NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
+        NSString* ocMethodName = ConvertCharToNSString(methodName);
+        NSString* _dicJson = ConvertCharToNSString(dicJson);
         
         NSDictionary *dic = [Yodo1Commons JSONObjectWithString:_dicJson error:nil];
         
@@ -107,7 +109,7 @@ extern "C" {
                     msg =  [Yodo1Commons stringWithJSONObject:dict error:&parseJSONError];
                 }
                 
-                UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
+                Yodo1UnitySendMessage([ocGameObjName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [ocMethodName cStringUsingEncoding:NSUTF8StringEncoding],
                                  [msg cStringUsingEncoding:NSUTF8StringEncoding] );
             });
@@ -115,7 +117,7 @@ extern "C" {
     }
     
     void UnityLogInviteAppsFlyerWithEventData(const char *eventData) {
-        NSString* _eventData = Yodo1CreateNSString(eventData);
+        NSString* _eventData = ConvertCharToNSString(eventData);
         NSDictionary *dicData = [Yodo1Commons JSONObjectWithString:_eventData error:nil];
         [[Yodo1AnalyticsManager sharedInstance] logInviteAppsFlyerWithEventData:dicData];
     }
@@ -124,14 +126,14 @@ extern "C" {
     // TODO - the below methods are deprecated and will be removed later
     
     void UnityEventWithJson(const char* eventId, const char* eventValues) {
-        NSString* eventData = Yodo1CreateNSString(eventValues);
+        NSString* eventData = ConvertCharToNSString(eventValues);
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
-        [[Yodo1AnalyticsManager sharedInstance] trackEvent:Yodo1CreateNSString(eventId) eventValues:eventDataDic];
+        [[Yodo1AnalyticsManager sharedInstance] trackEvent:ConvertCharToNSString(eventId) eventValues:eventDataDic];
     }
 
     void UnityEventAppsFlyerAnalyticsWithName(const char*eventName, const char* jsonData) {
-        NSString* m_EventName = Yodo1CreateNSString(eventName);
-        NSString* eventData = Yodo1CreateNSString(jsonData);
+        NSString* m_EventName = ConvertCharToNSString(eventName);
+        NSString* eventData = ConvertCharToNSString(jsonData);
         NSDictionary *eventDataDic = [Yodo1Commons JSONObjectWithString:eventData error:nil];
         [[Yodo1AnalyticsManager sharedInstance] trackUAEvent:m_EventName eventValues:eventDataDic];
     }
@@ -140,10 +142,10 @@ extern "C" {
                                             const char*price,
                                             const char*currency,
                                             const char*transactionId) {
-        [[Yodo1AnalyticsManager sharedInstance] validateAndTrackInAppPurchase:Yodo1CreateNSString(productIdentifier)
-                                                                        price:Yodo1CreateNSString(price)
-                                                                     currency:Yodo1CreateNSString(currency)
-                                                                transactionId:Yodo1CreateNSString(transactionId)];
+        [[Yodo1AnalyticsManager sharedInstance] validateAndTrackInAppPurchase:ConvertCharToNSString(productIdentifier)
+                                                                        price:ConvertCharToNSString(price)
+                                                                     currency:ConvertCharToNSString(currency)
+                                                                transactionId:ConvertCharToNSString(transactionId)];
     }
     
     void UnityEventAndTrackInAppPurchase(const char*revenue,
@@ -151,13 +153,13 @@ extern "C" {
                                          const char*quantity,
                                          const char*contentId,
                                          const char*receiptId) {
-        [[Yodo1AnalyticsManager sharedInstance] eventAndTrackInAppPurchase:Yodo1CreateNSString(revenue)
-                                                                  currency:Yodo1CreateNSString(currency)
-                                                                  quantity:Yodo1CreateNSString(quantity)
-                                                                 contentId:Yodo1CreateNSString(contentId)
-                                                                 receiptId:Yodo1CreateNSString(receiptId)];
+        [[Yodo1AnalyticsManager sharedInstance] eventAndTrackInAppPurchase:ConvertCharToNSString(revenue)
+                                                                  currency:ConvertCharToNSString(currency)
+                                                                  quantity:ConvertCharToNSString(quantity)
+                                                                 contentId:ConvertCharToNSString(contentId)
+                                                                 receiptId:ConvertCharToNSString(receiptId)];
     }
     
-    
+#ifdef __cplusplus
 }
 #endif
