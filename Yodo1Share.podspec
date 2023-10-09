@@ -43,7 +43,6 @@ Pod::Spec.new do |s|
   'CoreMedia',
   'EventKit',
   'EventKitUI',
-  'iAd',
   'ImageIO',
   'MobileCoreServices',
   'MediaPlayer',
