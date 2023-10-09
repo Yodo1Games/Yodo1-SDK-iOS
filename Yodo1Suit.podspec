@@ -59,7 +59,7 @@ Pod::Spec.new do |s|
     sub.subspec 'AppsFlyer' do |sub1|
       sub1.source_files = s.name + '/Analytics/Classes/AppsFlyer/**/*'
       sub1.public_header_files = s.name + '/Analytics/Classes/AppsFlyer/**/*.h'
-      sub1.frameworks = ['SystemConfiguration','Security','CoreTelephony','iAd','AdSupport','AdServices','AppTrackingTransparency']
+      sub1.frameworks = ['SystemConfiguration','Security','CoreTelephony', 'AdSupport','AdServices','AppTrackingTransparency']
       
       sub1.dependency 'AppsFlyerFramework', '6.7.0'
       sub1.dependency 'Yodo1Suit/Analytics/Core', "#{s.version}"
