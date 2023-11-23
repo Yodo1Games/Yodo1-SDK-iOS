@@ -17,7 +17,7 @@
 // 抖音分享能力需引入
 #import <UnionOpenPlatform/UOPShareManager.h>
 #import <UnionOpenPlatform/UOPShareDouyinContent.h>
-#import "Yodo1Alert.h"
+#import "Yodo1KeyInfo.h"
 
 @interface Yodo1ReplayAdapterDouyin()<UOPReplayManagerDelegate>
 
@@ -42,6 +42,16 @@
     
     [[UOPReplayManager sharedManager] removeAllReplayFile];
     
+    NSString* appId = replayConfig.douyinConfig.appId;
+    if (appId == nil || appId.length == 0) {
+        replayConfig.douyinConfig.appId = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"DouyinAppId"];;
+    }
+    
+    NSString* clientKey = replayConfig.douyinConfig.clientKey;
+    if (clientKey == nil || clientKey.length == 0) {
+        replayConfig.douyinConfig.clientKey = [[Yodo1KeyInfo shareInstance] configInfoForKey:@"DouyinClientKey"];
+    }
+    
     UOPConfigManager *config = [UOPConfigManager sharedConfiguration];
     config.appId = replayConfig.douyinConfig.appId;
     config.unionMode = UOPGameUnionModeUnionCP;
@@ -54,7 +64,7 @@
     
     self.hashtag = replayConfig.douyinConfig.hashtag;
     
-    __weak typeof(self) weakSelf = self;
+    __weak Yodo1ReplayAdapterDouyin* weakSelf = self;
     [[UOPManager sharedManager] startConfig:config launchOptions:self.launchOptions complete:^(NSError * _Nullable error) {
         if (error) {
             YD1LOG(@"DouyinReplay, 初始化失败：%@", error);

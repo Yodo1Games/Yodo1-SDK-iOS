@@ -27,12 +27,13 @@
 - (instancetype)initWithDictionary:(NSDictionary*)dict {
     self = [super init];
     if (self) {
-        self.replayPlatform = (Yodo1ReplayPlatform)[[dict objectForKey:@"replay_platform"] intValue];
-        self.sharingType = (Yodo1ReplaySharingType)[[dict objectForKey:@"sharing_type"] intValue];
-        self.douyinConfig.appId = [dict objectForKey:@"douyin_app_id"];
-        self.douyinConfig.clientKey = [dict objectForKey:@"douyin_client_key"];
-        self.douyinConfig.hashtag = [dict objectForKey:@"douyin_hash_tag"];
-        self.douyinConfig.replayType = (Yodo1ReplayType)[[dict objectForKey:@"douyin_replay_type"] intValue];
+        _replayPlatform = (Yodo1ReplayPlatform)[[dict objectForKey:@"replay_platform"] intValue];
+        _sharingType = (Yodo1ReplaySharingType)[[dict objectForKey:@"sharing_type"] intValue];
+        _douyinConfig = [[Yodo1ReplayDouyinConfig alloc] init];
+        _douyinConfig.appId = [dict objectForKey:@"douyin_app_id"];
+        _douyinConfig.clientKey = [dict objectForKey:@"douyin_client_key"];
+        _douyinConfig.hashtag = [dict objectForKey:@"douyin_hash_tag"];
+        _douyinConfig.replayType = (Yodo1ReplayType)[[dict objectForKey:@"douyin_replay_type"] intValue];
     }
     return self;
 }
