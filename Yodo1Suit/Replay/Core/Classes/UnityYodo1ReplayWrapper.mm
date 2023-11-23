@@ -4,6 +4,8 @@
 #import "NSObject+Yodo1Model.h"
 #import "Yodo1Tool+Commons.h"
 
+#import "Yodo1Replay.h"
+
 typedef enum {
     Unity_Result_Type_Replay_Init = 5001,
     Unity_Result_Type_Replay_Start_Record = 5002,
@@ -233,6 +235,27 @@ void UnityReplay_StartRecord() {
 /// 自动模式接口
 void UnityReplay_StopRecord() {
     [[Yodo1ReplayManager sharedInstance] stopRecord];
+}
+
+#pragma mark - Obsolete
+void UnityStartScreenRecorder()
+{
+    [[Yodo1Replay sharedInstance]startScreenRecorder];
+}
+
+bool UnitySupportReplay()
+{
+    return [[Yodo1Replay sharedInstance]bSupportReplay];
+}
+
+void UnityStopScreenRecorder()
+{
+    [[Yodo1Replay sharedInstance]stopScreenRecorder];
+}
+
+void UnityShowRecorder ()
+{
+    [[Yodo1Replay sharedInstance]showRecorder:[Yodo1Commons getRootViewController]];
 }
 
 
