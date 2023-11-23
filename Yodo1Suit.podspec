@@ -144,7 +144,7 @@ Pod::Spec.new do |s|
     
     sub.dependency 'Yodo1Suit/Base',"#{s.version}"
     sub.dependency 'Yodo1Suit/Analytics/Core',"#{s.version}"
-    
+
     sub.subspec 'Core' do |sub1|
       sub1.source_files = s.name + '/Replay/Core/Classes/**/*'
       sub1.public_header_files = s.name + '/Replay/Core/Classes/**/*.h'
