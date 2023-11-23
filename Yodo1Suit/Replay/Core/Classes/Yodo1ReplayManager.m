@@ -9,7 +9,6 @@
 #import "Yodo1ReplayAdapter.h"
 #import "Yodo1Registry.h"
 #import "Yodo1ClassWrapper.h"
-#import "Yodo1ReplayAdapterApple.h"
 #import "Yodo1Commons.h"
 #import "Yodo1AnalyticsManager.h"
 
