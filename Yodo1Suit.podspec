@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1Suit'
-  s.version          = '6.3.5'
+  s.version          = '6.3.7'
   s.summary          = 'The Yodo1 Suit SDK for iOS'
   
   s.description      = <<-DESC
@@ -142,11 +142,32 @@ Pod::Spec.new do |s|
       "GCC_PREPROCESSOR_DEFINITIONS" => 'YODO1_REPLAY',
     }
     
-    sub.source_files = s.name + '/Replay/Classes/**/*'
-    sub.public_header_files = s.name + '/Replay/Classes/**/*.h'
-    sub.weak_frameworks = [ 'ReplayKit' ]
-    
     sub.dependency 'Yodo1Suit/Base',"#{s.version}"
+    sub.dependency 'Yodo1Suit/Analytics/Core',"#{s.version}"
+
+    sub.subspec 'Core' do |sub1|
+      sub1.source_files = s.name + '/Replay/Core/Classes/**/*'
+      sub1.public_header_files = s.name + '/Replay/Core/Classes/**/*.h'
+    end
+    
+    sub.subspec 'Apple' do |sub1|
+      sub1.source_files = s.name + '/Replay/Apple/Classes/**/*'
+      sub1.public_header_files = s.name + '/Replay/Apple/Classes/**/*.h'
+      sub1.weak_frameworks = [ 'ReplayKit' ]
+      
+      sub1.dependency 'Yodo1Suit/Replay/Core', "#{s.version}"
+    end
+    
+     sub.subspec 'UOPGame' do |sub1|
+       sub1.source_files = s.name + '/Replay/UOPGame/Classes/**/*'
+       sub1.public_header_files = s.name + '/Replay/UOPGame/Classes/**/*.h'
+       sub1.resources = s.name + '/Replay/UOPGame/Assets/**/*.bundle'
+       sub1.vendored_frameworks = s.name + '/Replay/UOPGame/Lib/**/*.framework'
+      
+       sub1.frameworks = [ 'UIKit', 'Foundation', 'AppTrackingTransparency' ]
+
+       sub1.dependency 'Yodo1Suit/Replay/Core', "#{s.version}"
+     end
   end
   
   s.subspec 'Purchase' do |sub|

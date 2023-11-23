@@ -1,0 +1,6 @@
+framework module BDAudioRecord {
+  umbrella header "BDAudioRecord-umbrella.h"
+
+  export *
+  module * { export * }
+}
