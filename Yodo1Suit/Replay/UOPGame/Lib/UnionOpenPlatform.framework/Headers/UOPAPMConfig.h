@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *hostAppID;
 
 @property (nonatomic, copy, readonly) NSString *sdkAppID;
-@property (nonatomic, copy, readonly) NSString *sdkToken;
 @property (nonatomic, copy, readonly) NSString *sdkVersion;
 @property (nonatomic, copy, readonly) NSString *sdkName;
 /// 默认为"App Store"

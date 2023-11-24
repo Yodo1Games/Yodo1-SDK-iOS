@@ -27,4 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+/// 抖音链接分享
+/// @attention 仅支持抖音好友分享；
+@interface UOPShareDouyinLinkContent : UOPShareDouyinContent<UOPShareDouyinLinkContentProtocol>
+
+@end
+
 NS_ASSUME_NONNULL_END

@@ -1,0 +1,13 @@
+{
+    "apm_key": true,
+    "app_log": true,
+    "pay_monitor": true,
+    "payment_switch": false,
+    "login_key": true,
+    "douyin_auth": true,
+    "screen_cap": true,
+    "douyin_share": true,
+    "anchor": true,
+    "prevent_ment": true,
+    "http_dns": true
+}

@@ -14,7 +14,6 @@
 
 @interface Yodo1ReplayManager()<Yodo1ReplayManagerDelegate>
 
-@property (nonatomic, assign) BOOL isInitialized;
 @property (nonatomic, strong) NSMutableDictionary* replayDict;
 @property (nonatomic, strong) Yodo1ReplayConfig* replayConfig;
 @property (nonatomic, weak) id<Yodo1ReplayManagerDelegate> delegate;
@@ -34,9 +33,7 @@
 
 - (id)init {
     self = [super init];
-    if (self) {
-        _isInitialized = NO;
-        
+    if (self) {        
         NSDictionary* dic = [[Yodo1Registry sharedRegistry] getClassesStatusType:@"replayPlatform"
                                                                   replacedString:@"ReplayAdapter"
                                                                    replaceString:@"ReplayPlatform"];
@@ -60,10 +57,6 @@
 }
 
 - (void)initializeWithConfig:(Yodo1ReplayConfig* _Nonnull)replayConfig delegate:(id<Yodo1ReplayManagerDelegate> __nullable)delegate {
-    if (self.isInitialized) {
-        return;
-    }
-    
     self.replayConfig = replayConfig;
     self.delegate = delegate;
     
@@ -74,8 +67,6 @@
             break;
         }
     }
-    
-    self.isInitialized = YES;
 }
 
 - (BOOL)isSupport {

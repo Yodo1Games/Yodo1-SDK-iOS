@@ -9,6 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//typedef void(^UOPAuthResponse)(NSString *code, NSError *error);
+
 @interface UOPAuthRequest : NSObject
 
 /** 需要使用的的第三方授权平台APP所需权限,目前仅头条、抖音等公司内app使用,空值时 默认权限为user_info **/

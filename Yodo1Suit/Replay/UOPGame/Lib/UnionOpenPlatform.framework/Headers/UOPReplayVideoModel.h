@@ -18,9 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *videoFileName;
 /// 视频封面
 @property (nonatomic, strong) UIImage *videoCover;
-/// 视频封面
-@property (nonatomic, strong) NSString *videoCoverFilePath;
-
 /// 视频创建时间戳，单位s
 @property (nonatomic, assign) NSTimeInterval createTime;
 /// 视频时长，单位s

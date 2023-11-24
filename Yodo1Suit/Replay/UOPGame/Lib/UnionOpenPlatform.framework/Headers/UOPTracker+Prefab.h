@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 调用前须知
 // 1. 方法仅在 UOPManager 初始化完成之后的调用才有实际上报
 // 2. 方法调用时 UOPManager 还未完成初始化，不会导致崩溃
-// 3. 如果上报时机和 UOPManager 初始化时机产生冲突，允许延后在 UOPManager 初始化后上报 (例如 idfa 的请求时机在游戏账号创建之后的，那建议保持在idfa请求完成之后再初始化 UOPManager，在初始化完成后再上报账号注册的事件)；
+// 3. 如果调用时机和 UOPManager 初始化时机产生冲突，建议优先保障 UOPManager 初始化在idfa请求时机之后(例如idfa的请求时机在游戏角色创建之后的，那建议保持在idfa请求完成之后再初始化，放弃角色创建的埋点上报)
 
 @interface UOPTracker (Prefab)
 
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @discussion 内部已经处理，无需手动上报
 + (void)trackGameLaunch API_DEPRECATED("初始化已自动上报，无需手动调用", ios(9.0, API_TO_BE_DEPRECATED));
 
-/// 账号注册
+/// 角色注册
 /// @param accountType 账号类型，0-游客，1-非游客
 /// @param method 注册方式，@"douyin"、@"wechat"、@"qq"、@"mobile"、@”weibo“
 /// @param isSuccess 注册结果

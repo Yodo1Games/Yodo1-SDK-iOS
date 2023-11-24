@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(int, UOPReplayType) {
     /// 关闭
     UOPReplayTypeClose,
-    /// 厂商控制录制
+    /// 自动模式
     UOPReplayTypeAuto,
-    /// 用户自由录制
+    /// 自由模式
     UOPReplayTypeManual
 };
 
@@ -92,6 +92,9 @@ typedef NS_ENUM(int, UOPReplayType) {
 /// 获取当前已录制视频对象列表
 - (NSArray <UOPReplayVideoModel *>*)fetchReplayFileList;
 
+/// 获取当前已录制视频根目录
++ (NSString *)getReplayFolderPath;
+
 /// 删除指定视频及封面文件
 - (void)removeReplayFileAtPath:(NSString *)filePath;
 
@@ -100,15 +103,15 @@ typedef NS_ENUM(int, UOPReplayType) {
 
 @end
 
-/// 厂商控制录制接口
+/// 自动模式接口
 @interface UOPReplayManager (AutoType)
 
 /// 开始录制
-/// @discussion 仅厂商控制录制下使用
+/// @discussion 仅自动模式下使用
 - (void)startAutoRecord;
 
 /// 结束录制
-/// @discussion 仅厂商控制录制下使用
+/// @discussion 仅自动模式下使用
 - (void)stopAutoRecord;
 
 @end

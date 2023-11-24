@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSDictionary *launchOptions;
 
+@property (nonatomic, copy) NSString *appName;
+
 #pragma mark - 可选属性
 /// 火山引擎应用id，如不设置，默认为SDK的appid
 @property (nonatomic, copy) NSString *appID;

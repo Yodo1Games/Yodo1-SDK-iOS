@@ -9,9 +9,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM(NSInteger, UOPGameUnionMode) {
-    UOPGameUnionModeUnionCP = 1     // 联运模式，默认
+typedef NS_ENUM(NSUInteger, UOPGameUnionMode) {
+    UOPGameUnionModeDefault = 0, // 普通模式
+    UOPGameUnionModeLive = 1, // 直播联运模式，默认
+    UOPGameUnionModeCPS = 2 // CPS模式
 };
+
 
 @interface UOPConfigManager : NSObject
 
@@ -19,15 +22,15 @@ typedef NS_ENUM(NSInteger, UOPGameUnionMode) {
 
 /// 应用id
 @property (nonatomic, copy) NSString *appId;
+/// 应用名称（英文）
+/// @discussion 游戏完善资料后的 appName，联系技术支持获取
+@property (nonatomic, copy) NSString *appName;
 /// 渠道
 /// @discussion 初始化默认已赋值'App Store'，无特殊情况无需修改
 @property (nonatomic, copy) NSString *channel;
-
-/// SDK接入模式
-/// @abstract 抖音联运模式设置为 UOPGameUnionModeUnionCP；
-/// @see UOPGameUnionMode
-/// @discussion 对入参有疑问的，可以在服务台答疑；
-@property (nonatomic, assign) NSInteger unionMode;
+/// 联运模式
+/// @discussion 初始化默认已赋值 UOPGameUnionModeLive，无特殊情况无需修改，不确定取值可以询问技术支持
+@property (nonatomic, assign) UOPGameUnionMode unionMode;
 
 /************ 调试接口  ************/
 

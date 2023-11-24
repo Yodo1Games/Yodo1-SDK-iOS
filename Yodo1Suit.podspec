@@ -158,17 +158,16 @@ Pod::Spec.new do |s|
       sub1.dependency 'Yodo1Suit/Replay/Core', "#{s.version}"
     end
     
-#    sub.subspec 'UOPGame' do |sub1|
-#      sub1.source_files = s.name + '/Replay/UOPGame/Classes/**/*'
-#      sub1.public_header_files = s.name + '/Replay/UOPGame/Classes/**/*.h'
-#      sub1.resources = s.name + '/Replay/UOPGame/Assets/**/*.bundle'
-#      sub1.vendored_frameworks = s.name + '/Replay/UOPGame/Lib/**/*.framework'
-#      
-#      sub1.frameworks = [ 'UIKit', 'Foundation', 'AppTrackingTransparency' ]
-#      
-#      sub1.dependency 'Yodo1Suit/Replay/Core', "#{s.version}"
-#    end
+     # sub.subspec 'UOPGame' do |sub1|
+     #   sub1.source_files = s.name + '/Replay/UOPGame/Classes/**/*'
+     #   sub1.public_header_files = s.name + '/Replay/UOPGame/Classes/**/*.h'
+     #   sub1.resources = s.name + '/Replay/UOPGame/Assets/**/*.bundle'
+     #   sub1.vendored_frameworks = s.name + '/Replay/UOPGame/Lib/**/*.framework'
+      
+     #   sub1.frameworks = [ 'UIKit', 'Foundation', 'AppTrackingTransparency' ]
 
+     #   sub1.dependency 'Yodo1Suit/Replay/Core', "#{s.version}"
+     # end
   end
   
   s.subspec 'Purchase' do |sub|

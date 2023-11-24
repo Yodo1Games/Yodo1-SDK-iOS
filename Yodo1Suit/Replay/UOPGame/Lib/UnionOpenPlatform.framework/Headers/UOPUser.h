@@ -24,7 +24,8 @@ typedef NS_ENUM(NSInteger, UOPAggregationAttributionType) {
 @property (nonatomic, copy) NSString *userLastLoginTime;
 /// 需要额外透传的用户信息
 @property (nonatomic, copy) NSString *extraJson;
-
+/// 独立账号登录token
+@property (nonatomic, copy) NSString *indieToken;
 /// 用户归因类型，@1表示不明确，@2表示直播联运归因，@3表示自然量
 @property (nonatomic, assign, readonly) UOPAggregationAttributionType attributionType;
 @end

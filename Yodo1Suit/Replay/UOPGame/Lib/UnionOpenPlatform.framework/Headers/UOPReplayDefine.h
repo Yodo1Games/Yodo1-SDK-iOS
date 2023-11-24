@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, UOPReplayErrorCode) {
     UOPReplayErrorCodeFeatureNotSupport = 3,    // 功能不支持
     UOPReplayErrorCodeNoDiskSpace = 4,          // 设备空间不足
     UOPReplayErrorCodeTypeNoConfig = 5,         // 未完成初始化配置
-    UOPReplayErrorCodeTypeNotMatch = 6,         // 在用户自由录制下调用厂商控制录制接口
+    UOPReplayErrorCodeTypeNotMatch = 6,         // 在手动录制下调用自动录制接口
 
     // 结束录制阶段
     UOPReplayErrorCodeNoRecording = 9,          // 未在录制

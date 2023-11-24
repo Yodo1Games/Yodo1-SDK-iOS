@@ -7,9 +7,7 @@
 
 #ifndef UOPServiceShareProtocol_h
 #define UOPServiceShareProtocol_h
-
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import <UnionOpenPlatform/UOPSingletonService.h>
 
 typedef NS_ENUM(NSInteger, UOPThirdShareType) {
     UOPThirdShareTypeDouyin
@@ -18,7 +16,8 @@ typedef NS_ENUM(NSInteger, UOPThirdShareType) {
 // 支持的内容类型
 typedef NS_ENUM(NSInteger, UOPShareDouyinContentType) {
     UOPShareDouyinContentTypeVideo, // 视频
-    UOPShareDouyinContentTypeImage  // 图片
+    UOPShareDouyinContentTypeImage, // 图片
+    UOPShareDouyinContentTypeLink   // 链接
 };
 
 // 分享至抖音
@@ -106,8 +105,23 @@ typedef NS_ENUM(NSInteger, UOPShareDouyinWay) {
 
 @end
 
+/// 抖音链接分享结构协议
+/// @attention 仅支持抖音好友分享；
+@protocol UOPShareDouyinLinkContentProtocol <UOPShareDouyinContentProtocol>
+
+/// 标题
+@property (nonatomic, copy) NSString * _Nonnull linkTitle;
+/// 链接URL
+@property (nonatomic, copy) NSString * _Nonnull linkUrlString;
+/// 链接描述
+@property (nonatomic, copy) NSString * _Nonnull linkDesc;
+/// 缩略图
+@property (nonatomic, copy) NSString * _Nonnull linkThumbImageUrlString;
+
+@end
+
 /// 分享行为协议
-@protocol UOPServiceShareProtocol <NSObject>
+@protocol UOPServiceShareProtocol <UOPSingletonService>
 
 /// 执行分享操作
 /// @param content 分享内容，需遵循 UOPServiceShareBaseContentProtocol 协议

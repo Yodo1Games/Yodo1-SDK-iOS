@@ -3,6 +3,8 @@
 <plist version="1.0">
 <dict>
     <key>APMInsightVersion</key>
-    <string>3.5.4</string>
+    <string>3.0.3</string>
+    <key>MemoryGraphVersion</key>
+    <string>0.0.12</string>
 </dict>
 </plist>
