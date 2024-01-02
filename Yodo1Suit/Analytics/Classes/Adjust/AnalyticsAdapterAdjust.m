@@ -140,10 +140,14 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
     
     ADJEvent *event = [ADJEvent eventWithEventToken:eventToken];
     [event setRevenue:revenueDoulbe currency:iapRevenue.currency];
+    [event setProductId: iapRevenue.productIdentifier];
     if (iapRevenue.transactionId != nil && iapRevenue.transactionId.length > 0) {
         [event setTransactionId:iapRevenue.transactionId];
     }
-    
+    if (iapRevenue.receiptId != nil && iapRevenue.receiptId.length > 0) {
+        NSData* receipt = [iapRevenue.receiptId dataUsingEncoding:NSUTF8StringEncoding];
+        [event setReceipt:receipt];
+    }
     [Adjust trackEvent:event];
 }
 

@@ -6,7 +6,7 @@
 //
 
 #import "AnalyticsAdapterThinking.h"
-#import "ThinkingAnalyticsSDK.h"
+#import <ThinkingSDK/ThinkingSDK.h>
 #import "Yodo1AnalyticsManager.h"
 #import "Yodo1Registry.h"
 #import "Yodo1Commons.h"
@@ -19,9 +19,7 @@
 NSString* const YODO1_THINKING_APP_ID     = @"ThinkingAppId";
 NSString* const YODO1_THINKING_SERVER_URL = @"ThinkingServerUrl";
 
-@implementation AnalyticsAdapterThinking {
-    
-}
+@implementation AnalyticsAdapterThinking
 
 + (AnalyticsType)analyticsType {
     return AnalyticsTypeThinking;
@@ -44,7 +42,7 @@ NSString* const YODO1_THINKING_SERVER_URL = @"ThinkingServerUrl";
         
         if (initConfig.debugEnabled) {
             //Log TAG: [THINKING]
-            [ThinkingAnalyticsSDK setLogLevel:TDLoggingLevelDebug];
+            [TDAnalytics enableLog:YES];
         }
         
         NSString* appId = [[Yodo1KeyInfo shareInstance] configInfoForKey:YODO1_THINKING_APP_ID];
@@ -54,14 +52,14 @@ NSString* const YODO1_THINKING_SERVER_URL = @"ThinkingServerUrl";
         
         TDConfig *tdConfig = [TDConfig new];
         tdConfig.appid = appId;
-        tdConfig.configureURL = configURL;
+        tdConfig.serverUrl = configURL;
         
-        [ThinkingAnalyticsSDK startWithConfig:tdConfig];
+        [TDAnalytics startAnalyticsWithConfig:tdConfig];
         
         //设置访客ID
-        [ThinkingAnalyticsSDK.sharedInstance identify:Yodo1Tool.shared.keychainDeviceId];
+        [TDAnalytics setDistinctId:Yodo1Tool.shared.keychainDeviceId];
         
-        [ThinkingAnalyticsSDK.sharedInstance setSuperProperties:@{
+        [TDAnalytics setSuperProperties:@{
             @"gameKey":initConfig.gameKey,
             @"device_id":Yodo1Tool.shared.keychainDeviceId,
             @"publishChannelCode":Yodo1Tool.shared.publishChannelCodeValue,
@@ -69,7 +67,7 @@ NSString* const YODO1_THINKING_SERVER_URL = @"ThinkingServerUrl";
             @"channel_code":Yodo1Tool.shared.paymentChannelCodeValue
         }];
         
-        [[ThinkingAnalyticsSDK sharedInstance] enableAutoTrack:ThinkingAnalyticsEventTypeAll];
+        [TDAnalytics enableAutoTrack:TDAutoTrackEventTypeAll];
     }
     return self;
 }
@@ -77,15 +75,15 @@ NSString* const YODO1_THINKING_SERVER_URL = @"ThinkingServerUrl";
 /// ThinkingData  set  account id
 /// - Parameter userId: The unique identifier of the user
 - (void)login:(NSString * _Nonnull)userId {
-    [ThinkingAnalyticsSDK.sharedInstance login:userId];//索引存在--重置 索引不存在--设置
-    [ThinkingAnalyticsSDK.sharedInstance user_set:@{@"playerId": userId}];
+    [TDAnalytics login:userId];//索引存在--重置 索引不存在--设置
+    [TDAnalytics userSet:@{@"playerId": userId}];
 }
 
 - (void)trackEvent:(NSString * _Nonnull)eventName eventValues:(NSDictionary * _Nullable)eventValues {
     if (eventValues == nil) {
-        [ThinkingAnalyticsSDK.sharedInstance track:eventName];
+        [TDAnalytics track:eventName];
     } else {
-        [ThinkingAnalyticsSDK.sharedInstance track:eventName properties:eventValues];
+        [TDAnalytics track:eventName properties:eventValues];
     }
 }
 
