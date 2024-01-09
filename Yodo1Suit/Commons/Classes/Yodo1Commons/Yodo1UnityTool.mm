@@ -18,7 +18,7 @@ void Yodo1UnitySendMessage(const char* goName, const char* functionName, const c
     if (sendMessageWrapper) {
         SEL sel = NSSelectorFromString(@"sendMessageToGOWithDictionary:");
         if (sel && [sendMessageWrapper respondsToSelector:sel]) {
-            [sendMessageWrapper performSelector:sel withObject:dict afterDelay:0];
+            [sendMessageWrapper performSelector:sel withObject:dict afterDelay:0.01];
         }
     }
 }
