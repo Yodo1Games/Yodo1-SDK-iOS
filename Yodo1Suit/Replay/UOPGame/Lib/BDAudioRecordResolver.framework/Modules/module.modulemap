@@ -1,6 +1,0 @@
-framework module BDAudioRecordResolver {
-  umbrella header "BDAudioRecordResolver-umbrella.h"
-
-  export *
-  module * { export * }
-}
