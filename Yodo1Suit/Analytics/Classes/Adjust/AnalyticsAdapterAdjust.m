@@ -144,8 +144,18 @@ NSString* const YODO1_ADJUST_ENVIRONMENT = @"AdjustEnvironmentSandbox";
     if (iapRevenue.transactionId != nil && iapRevenue.transactionId.length > 0) {
         [event setTransactionId:iapRevenue.transactionId];
     }
+    NSData *receipt = nil;
     if (iapRevenue.receiptId != nil && iapRevenue.receiptId.length > 0) {
-        NSData* receipt = [iapRevenue.receiptId dataUsingEncoding:NSUTF8StringEncoding];
+        receipt = [[NSData alloc] initWithBase64EncodedString:iapRevenue.receiptId options:0];
+    }
+//    ADJPurchase *purchase = [[ADJPurchase alloc] initWithTransactionId:iapRevenue.transactionId productId:iapRevenue.productIdentifier andReceipt:receipt];
+//    [Adjust verifyPurchase:purchase completionHandler:^(ADJPurchaseVerificationResult * _Nonnull verificationResult) {
+//        NSLog(@"Purchase verification response arrived!");
+//        NSLog(@"Status: %@", verificationResult.verificationStatus);
+//        NSLog(@"Code: %d", verificationResult.code);
+//        NSLog(@"Message: %@", verificationResult.message);
+//    }];
+    if (receipt != nil) {
         [event setReceipt:receipt];
     }
     [Adjust trackEvent:event];

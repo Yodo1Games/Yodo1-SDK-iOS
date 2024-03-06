@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString* currency;
 @property (nonatomic, strong) NSString* productIdentifier;
 @property (nonatomic, strong) NSString* transactionId;
-@property (nonatomic, strong) NSString* receiptId;
+@property (nonatomic, strong) NSString* receiptId; // Base64 encoded receipt
 
 - (instancetype)initWithDict:(NSDictionary*)dic;
 
