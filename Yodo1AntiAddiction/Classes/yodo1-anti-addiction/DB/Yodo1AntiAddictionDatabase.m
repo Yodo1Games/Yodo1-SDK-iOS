@@ -12,6 +12,7 @@
 #import "Yodo1AntiAddictionUser.h"
 #import "Yodo1AntiAddictionRecord.h"
 #import "Yodo1AntiAddictionBehaviour.h"
+#import "Yodo1AntiAddictionLog.h"
 
 @interface Yodo1AntiAddictionDatabase()
 
@@ -40,7 +41,7 @@
 
 - (void)initWithAppKey:(NSString*)appKey {
     if (appKey == nil || appKey.length <= 0) {
-        NSLog(@"Anti do not set AppKey!");
+        Yodo1AntiAddictionLog(@"Anti do not set AppKey!");
         return;
     }
     
@@ -89,7 +90,7 @@
         return  [_database lastInsertRowId];
     }
     if ([_database hadError]) {
-        NSLog(@"insert failed! reason: %@", [_database lastErrorMessage]);
+        Yodo1AntiAddictionLog(@"insert failed! reason: %@", [_database lastErrorMessage]);
     }
     return 0;
 }

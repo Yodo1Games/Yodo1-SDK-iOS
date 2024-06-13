@@ -12,6 +12,7 @@
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1AntiAddictionHelper.h"
 #import "Yodo1AntiAddictionUserManager.h"
+#import "Yodo1AntiAddictionLog.h"
 
 #define Yodo1Anti_Debug 0
 
@@ -40,12 +41,14 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-#if Yodo1Anti_Debug
-        NSURL *baseURL = [NSURL URLWithString:@"https://ais-frontend-test.yodo1api.com/ais"];
-#else
-        //    https://ais-frontend.yodo1api.com/ais
         NSURL *baseURL = [NSURL URLWithString:@"https://ais.yodo1api.com/ais"];
-#endif
+        NSDictionary *config = [[NSBundle mainBundle] infoDictionary][@"AntiAddictionDevelopmentConfig"];
+        BOOL debugEnv = config[@"DevelopmentEnvironment"] && [config[@"DevelopmentEnvironment"] boolValue];
+        Yodo1AntiAddictionLog(@"debugEnv: %@", @(debugEnv));
+        if (debugEnv) {
+            baseURL = [NSURL URLWithString:@"https://ais-frontend-test.yodo1api.com/ais"];
+        }
+        
         _manager = [[Yodo1AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
         _manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
         _manager.responseSerializer = [Yodo1AFJSONResponseSerializer serializer];
@@ -62,7 +65,7 @@
 - (void)initWithAppKey:(NSString*)appKey {
     self.appKey = appKey;
     if (self.appKey == nil || appKey.length == 0) {
-        NSLog(@"Anti do not set AppKey!");
+        Yodo1AntiAddictionLog(@"Anti do not set AppKey!");
     }
 }
 

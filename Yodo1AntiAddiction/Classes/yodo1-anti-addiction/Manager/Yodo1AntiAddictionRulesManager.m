@@ -12,6 +12,7 @@
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1AntiAddictionUtils.h"
+#import "Yodo1AntiAddictionLog.h"
 
 #define kAntiAddictionRules @"Yodo1AntiAddictionRules" // 规则
 #define kAntiAddictionHolidays @"Yodo1AntiAddictionHolidays" // 节假日列表
@@ -42,7 +43,7 @@
         Yodo1AntiAddictionRules *rules = [Yodo1AntiAddictionRules yodo1_modelWithJSON:res.data];
         if (rules) {
             NSString * st =  [Yodo1AntiAddictionUtils stringWithJSONObject:res.data error:nil];
-            NSLog(@"获取规则 - %@ \n",st);
+            Yodo1AntiAddictionLog(@"获取规则 - %@ \n",st);
             self->_currentRules = rules;
             [Yd1OpsTools.cached setObject:rules forKey:kAntiAddictionRules];
         }
@@ -72,7 +73,7 @@
             if (rules) {
                 [Yd1OpsTools.cached setObject:rules forKey:kAntiAddictionHolidayRules];
             }
-            NSLog(@"获取节假日规则 - %@ \n", [Yodo1AntiAddictionUtils stringWithJSONObject:res.data error:nil]);
+            Yodo1AntiAddictionLog(@"获取节假日规则 - %@ \n", [Yodo1AntiAddictionUtils stringWithJSONObject:res.data error:nil]);
         }
         if (success) {
             success(res.data);
@@ -100,7 +101,7 @@
             NSArray *records = res.data[@"records"];
             if (records) {
                 [Yd1OpsTools.cached setObject:records forKey:kAntiAddictionHolidays];
-                NSLog(@"获取节假日列表 - %@", records);
+                Yodo1AntiAddictionLog(@"获取节假日列表 - %@", records);
             }
         }
         if (success) {

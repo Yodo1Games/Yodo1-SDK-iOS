@@ -20,7 +20,7 @@
 #import "Yodo1Tool+Storage.h"
 #import "Yodo1Tool+Commons.h"
 #import "Yodo1AntiAddictionBehaviour.h"
-
+#import "Yodo1AntiAddictionLog.h"
 #import "Yodo1UCenter.h"
 
 
@@ -90,9 +90,11 @@ typedef void (^isChinaCallBack)(BOOL isChina);
 }
 
 - (void)onlineBehaviour {
+    Yodo1AntiAddictionLog(@"enterGameFlag:%@, isOnline:%@",@(self.enterGameFlag),@(self.isOnline));
     if (self.enterGameFlag && !self.isOnline) {
         __weak typeof(self) weakSelf = self;
         [self online:^(BOOL result, NSString * _Nonnull content) {
+            Yodo1AntiAddictionLog(@"result:%@",@(result));
             if (result) {
                 //不必有特殊处理
                 [weakSelf startTimer];
@@ -107,10 +109,11 @@ typedef void (^isChinaCallBack)(BOOL isChina);
 }
 
 - (void)offlineBehaviour {
+    Yodo1AntiAddictionLog(@"self.isOnline %@", @(self.isOnline));
     if (self.isOnline) {
         __weak typeof(self) weakSelf = self;
         [self offline:^(BOOL result, NSString * _Nonnull content) {
-            NSLog(@"enter Background, auto-offline. result = %d,%@",result,content);
+            Yodo1AntiAddictionLog(@"enter Background, auto-offline. result = %d,%@",result,content);
             [weakSelf stopTimer];
             weakSelf.enterBackground = YES;
         }];
@@ -121,7 +124,7 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     if (self.isOnline) {
         [self stopTimer];
         [self offline:^(BOOL result, NSString * _Nonnull content) {
-            NSLog(@"appTerminate, auto-offline. result = %d,%@",result,content);
+            Yodo1AntiAddictionLog(@"appTerminate, auto-offline. result = %d,%@",result,content);
         }];
     }
 }
@@ -186,12 +189,12 @@ typedef void (^isChinaCallBack)(BOOL isChina);
                 if ([[data allKeys]containsObject:@"isChina"]) {
                     BOOL isChina = [data[@"isChina"]boolValue];
                     if (isChina) {
-                        NSLog(@"It's China!");
+                        Yodo1AntiAddictionLog(@"It's China!");
                     }
                     callBack(isChina);
                 }
             }
-            NSLog(@"responseObject:%@",responseObject);
+            Yodo1AntiAddictionLog(@"responseObject:%@",responseObject);
         } else {
             callBack(NO);
         }
@@ -392,7 +395,7 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     self.behaviour.userType = user.certificationStatus == UserCertificationStatusNot ? 2 : 1;
     
     NSTimeInterval interval = [Yodo1AntiAddictionTimeManager.manager getNowTime];
-    NSLog(@"interval:%lf",interval);
+    Yodo1AntiAddictionLog(@"interval:%lf",interval);
     self.behaviour.happenTimestamp = interval;
     self.behaviour.sessionId = @"";
     self.behaviour.deviceId = Yodo1Tool.shared.keychainDeviceId;
@@ -409,12 +412,14 @@ typedef void (^isChinaCallBack)(BOOL isChina);
                     if (res.success && res.data) {
                         id sessionId = res.data[@"sessionId"];
                         if (sessionId) {
-                            NSLog(@"sessionId:%@",sessionId);
+                            Yodo1AntiAddictionLog(@"sessionId:%@",sessionId);
                             if ([sessionId isKindOfClass:[NSNull class]]) {
                                 sessionId = @"";
                             }
                             weakSelf.behaviour.sessionId = sessionId;
                             [weakSelf update:weakSelf.behaviour];
+                        } else {
+                            Yodo1AntiAddictionLog(@"reportCNUserBehavior callback sessionId is null");
                         }
                         weakSelf.isOnline = YES;
                         callback(YES,res.message);
@@ -437,16 +442,16 @@ typedef void (^isChinaCallBack)(BOOL isChina);
 - (void)offline:(OnBehaviourResult)callback {
     if (!self.systemSwitch) {
         if (callback) {
-            callback(YES,@"Yodo1AntiAddiction offline, anti switchStatus = false, return");
+            callback(YES,@"call offline, anti switchStatus = false, return");
         }
-        NSLog(@"Yodo1AntiAddiction offline, anti switchStatus = false, return");
+        Yodo1AntiAddictionLog(@"call offline, anti switchStatus = false, return");
         return;
     }
     if (!self.isOnline) {
         if (callback) {
-            callback(YES,@"Yodo1AntiAddiction call offline, player is offline, not-repeated");
+            callback(YES,@"call offline, player is offline, not-repeated");
         }
-        NSLog(@"Yodo1AntiAddiction call offline, player is offline, not-repeated");
+        Yodo1AntiAddictionLog(@"call offline, player is offline, not-repeated");
         return;
     }
     
@@ -454,14 +459,14 @@ typedef void (^isChinaCallBack)(BOOL isChina);
         if (callback) {
             callback(NO,@"用户为空");
         }
-        NSLog(@"Yodo1AntiAddiction call offline, failed, sessionid is null");
+        Yodo1AntiAddictionLog(@"call offline, failed, behaviour is null");
         return;
     }
     if ([self.behaviour.sessionId isEqualToString:@""]) {
         if (callback) {
             callback(NO,@"sessionId为空");
         }
-        NSLog(@"Yodo1AntiAddiction call offline, failed, sessionid is null");
+        Yodo1AntiAddictionLog(@"call offline, failed, sessionid is null");
         return;
     }
     
@@ -480,7 +485,7 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     self.behaviour.deviceId = Yodo1Tool.shared.keychainDeviceId;
     
     [self reportCNUserBehavior:self.behaviour callback:^(int code, id response) {
-        NSLog(@"user offline, reportBehaviour content:%@",response);
+        Yodo1AntiAddictionLog(@"user offline, reportBehaviour content:%@",response);
         Yodo1AntiAddictionResponse *res = [Yodo1AntiAddictionResponse yodo1_modelWithJSON:response];
         if (code == 200) {
             if (res.success && res.data) {
@@ -531,7 +536,7 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     parameters[@"behaviorType"] = [NSNumber numberWithInteger:behaviour.behaviorType];
     parameters[@"userType"] = [NSNumber numberWithInteger:behaviour.userType];
     
-    NSLog(@"parameters:%@",parameters);
+    Yodo1AntiAddictionLog(@"parameters:%@",parameters);
     
     [[Yodo1AntiAddictionNet manager] POST:@"behavior/info" parameters:parameters success:^(NSURLSessionDataTask *task, id data) {
         Yodo1AntiAddictionResponse *res = [Yodo1AntiAddictionResponse yodo1_modelWithJSON:data];

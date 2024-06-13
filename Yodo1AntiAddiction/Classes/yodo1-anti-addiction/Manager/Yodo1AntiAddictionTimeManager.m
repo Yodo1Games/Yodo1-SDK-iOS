@@ -16,6 +16,7 @@
 
 #import "Yodo1AntiAddictionUtils.h"
 #import "Yodo1AntiAddictionDialogVC.h"
+#import "Yodo1AntiAddictionLog.h"
 
 typedef enum: NSInteger {
     CheckActionNone = 0,
@@ -622,7 +623,7 @@ typedef enum: NSInteger {
     content[@"playingTime"] = @(record.playingTime);
     content[@"awaitTime"] = @(record.awaitTime);
     
-    NSLog(@"更新一次计时 - %@", content);
+    Yodo1AntiAddictionLog(@"更新一次计时 - %@", content);
     
     NSMutableString *where = [NSMutableString string];
     NSMutableArray *args = [NSMutableArray array];

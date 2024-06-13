@@ -10,6 +10,7 @@
 #import "Yodo1AntiAddictionUserManager.h"
 #import "Yodo1AntiAddictionRulesManager.h"
 #import "Yodo1AntiAddictionTimeManager.h"
+#import "Yodo1AntiAddictionLog.h"
 
 @interface Yodo1AntiAddictionDialogVC ()
 
@@ -107,7 +108,7 @@
         case Yodo1AntiAddictionDialogStyleVisitorOver: {
             // 游客模式结束
             [Yodo1AntiAddiction.shared offline:^(BOOL result, NSString * _Nonnull content) {
-                NSLog(@"游客体验结束，下线！");
+                Yodo1AntiAddictionLog(@"游客体验结束，下线！");
             }];
             _iconView.image = [UIImage imageNamed:@"error"];
             _titleLabel.text = @"游客体验模式已结束";

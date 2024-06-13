@@ -16,6 +16,7 @@
 #import "Yodo1AntiAddictionNet.h"
 #import "Yodo1AntiAddictionHelper.h"
 #import "Yodo1AntiAddictionUtils.h"
+#import "Yodo1AntiAddictionLog.h"
 
 #define TABLE_NAME NSStringFromClass([Yodo1AntiAddictionUser class])
 
@@ -59,22 +60,22 @@
     }
     
     if (antiUser.yid) {
-        NSLog(@"-------------user of info---------------------");
-        NSLog(@"accountId:%@", antiUser.accountId);
-        NSLog(@"yid:%@", antiUser.yid);
-        NSLog(@"uid:%@", antiUser.uid);
-        NSLog(@"-------------user of info---------------------");
+        Yodo1AntiAddictionLog(@"-------------user of info---------------------");
+        Yodo1AntiAddictionLog(@"accountId:%@", antiUser.accountId);
+        Yodo1AntiAddictionLog(@"yid:%@", antiUser.yid);
+        Yodo1AntiAddictionLog(@"uid:%@", antiUser.uid);
+        Yodo1AntiAddictionLog(@"-------------user of info---------------------");
         
         [self getCertificationInfo:antiUser success:success failure:failure];
     } else {
         [[Yodo1UCenter shared] loginWithPlayerId:antiUser.accountId callback:^(YD1User *user, NSError *error) {
             
-            NSLog(@"-------------user of info---------------------");
-            NSLog(@"accountId:%@", antiUser.accountId);
-            NSLog(@"yid:%@", user.yid);
-            NSLog(@"uid:%@", user.uid);
-            NSLog(@"ucuid:%@", user.ucuid);
-            NSLog(@"-------------user of info---------------------");
+            Yodo1AntiAddictionLog(@"-------------user of info---------------------");
+            Yodo1AntiAddictionLog(@"accountId:%@", antiUser.accountId);
+            Yodo1AntiAddictionLog(@"yid:%@", user.yid);
+            Yodo1AntiAddictionLog(@"uid:%@", user.uid);
+            Yodo1AntiAddictionLog(@"ucuid:%@", user.ucuid);
+            Yodo1AntiAddictionLog(@"-------------user of info---------------------");
             
             if (!error) {
                 
