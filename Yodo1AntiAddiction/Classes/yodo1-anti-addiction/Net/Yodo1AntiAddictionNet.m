@@ -149,11 +149,33 @@
         return nil;
     }
     
+#ifdef DEBUG
+    if (parameters != nil) {
+        NSError *parseError;
+        NSData *data = [NSJSONSerialization dataWithJSONObject:(NSDictionary*)parameters options:NSJSONWritingPrettyPrinted error:&parseError];
+        NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        Yodo1AntiAddictionLog(@"Sending a request to %@ with %@ method and parameters\n%@\n", request.URL, request.HTTPMethod, jsonString);
+    } else {
+        Yodo1AntiAddictionLog(@"Sending a request to %@ with %@ method\n", request.URL, request.HTTPMethod);
+    }
+#endif
+    
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [_manager dataTaskWithRequest:request
                               uploadProgress:nil
                             downloadProgress:nil
                            completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+#ifdef DEBUG
+        if (responseObject != nil) {
+            NSError *parseError;
+            NSData *data = [NSJSONSerialization dataWithJSONObject:(NSDictionary*)responseObject options:NSJSONWritingPrettyPrinted error:&parseError];
+            NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            Yodo1AntiAddictionLog(@"\nReceived a response from %@\nResponse: %@", request.URL, jsonString);
+        }
+        if (error) {
+            Yodo1AntiAddictionLog(@"\nReceived a error from %@\nError: %@", request.URL, error);
+        }
+#endif
         if (error) {
             if (failure) {
                 failure(dataTask, error);
