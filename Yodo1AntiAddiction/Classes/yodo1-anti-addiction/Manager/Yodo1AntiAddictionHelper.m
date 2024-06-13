@@ -22,7 +22,7 @@
 #import "Yodo1AntiAddictionBehaviour.h"
 #import "Yodo1AntiAddictionLog.h"
 #import "Yodo1UCenter.h"
-
+#import "Yodo1AFNetworkReachabilityManager.h"
 
 /// code:成功:200, 失败:-1,用户登录错误:-2,网络错误:-100
 /// response: 服务器返回内容
@@ -90,11 +90,9 @@ typedef void (^isChinaCallBack)(BOOL isChina);
 }
 
 - (void)onlineBehaviour {
-    Yodo1AntiAddictionLog(@"enterGameFlag:%@, isOnline:%@",@(self.enterGameFlag),@(self.isOnline));
     if (self.enterGameFlag && !self.isOnline) {
         __weak typeof(self) weakSelf = self;
         [self online:^(BOOL result, NSString * _Nonnull content) {
-            Yodo1AntiAddictionLog(@"result:%@",@(result));
             if (result) {
                 //不必有特殊处理
                 [weakSelf startTimer];
@@ -109,7 +107,6 @@ typedef void (^isChinaCallBack)(BOOL isChina);
 }
 
 - (void)offlineBehaviour {
-    Yodo1AntiAddictionLog(@"self.isOnline %@", @(self.isOnline));
     if (self.isOnline) {
         __weak typeof(self) weakSelf = self;
         [self offline:^(BOOL result, NSString * _Nonnull content) {
