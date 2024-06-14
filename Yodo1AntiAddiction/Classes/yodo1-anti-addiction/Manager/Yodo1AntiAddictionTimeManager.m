@@ -100,24 +100,34 @@ typedef enum: NSInteger {
 }
 
 - (void)didNeedGetAppTime {
+    Yodo1AntiAddictionLog(@"didNeedGetAppTime method...");
     Yodo1AntiAddictionUser *user = [Yodo1AntiAddictionUserManager manager].currentUser;
-    if (user != nil && user.certificationStatus == UserCertificationStatusMinor) {
-        [self getAppTime:NO success:^{
-            NSTimeInterval timeInterval = [NSDate date].timeIntervalSince1970;
-            if (fabs(self -> serverTime - timeInterval) >= 20) {
+    if (user == nil) {
+        Yodo1AntiAddictionLog(@"didNeedGetAppTime Yodo1AntiAddictionUser is nil");
+    } else {
+        Yodo1AntiAddictionLog(@"didNeedGetAppTime certificationStatus %@", @(user.certificationStatus));
+        if (user.certificationStatus == UserCertificationStatusMinor) {
+            Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime...");
+            [self getAppTime:NO success:^{
+                Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime success...");
+                NSTimeInterval timeInterval = [NSDate date].timeIntervalSince1970;
+                if (fabs(self -> serverTime - timeInterval) >= 20) {
+                    Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime success, but the time discrepancy exceeds 20 seconds, the player will be kicked out.");
+                    dispatch_async(dispatch_get_main_queue(),^{
+                        if (Yodo1AntiAddiction.shared.disconnection) {
+                            Yodo1AntiAddiction.shared.disconnection(@"提示", @"手机系统时间有误，请校正！");
+                        }
+                    });
+                }
+            } failure:^{
+                Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime failure, internet issue, the player will be kicked out");
                 dispatch_async(dispatch_get_main_queue(),^{
                     if (Yodo1AntiAddiction.shared.disconnection) {
-                        Yodo1AntiAddiction.shared.disconnection(@"提示", @"手机系统时间有误，请校正！");
+                        Yodo1AntiAddiction.shared.disconnection(@"提示", @"网速不给力，请确保网络通畅后重试");
                     }
                 });
-            }
-        } failure:^{
-            dispatch_async(dispatch_get_main_queue(),^{
-                if (Yodo1AntiAddiction.shared.disconnection) {
-                    Yodo1AntiAddiction.shared.disconnection(@"提示", @"网速不给力，请确保网络通畅后重试");
-                }
-            });
-        }];
+            }];
+        }
     }
 }
 

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1AntiAddiction'
-  s.version          = '3.2.12'
+  s.version          = '3.2.13'
   s.summary          = 'Yodo1 Anti-Addiction SDK for iOS'
   s.description      = <<-DESC
   TODO: Add long description of the pod here.
