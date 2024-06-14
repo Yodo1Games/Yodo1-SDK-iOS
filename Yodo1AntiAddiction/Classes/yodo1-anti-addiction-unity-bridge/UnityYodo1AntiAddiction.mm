@@ -161,6 +161,7 @@ extern "C" {
     
     void UnityOnline(const char* gameObjectName, const char*  methodName)
     {
+        NSLog(@"%@UnityCall %s",kLog_TAG, __FUNCTION__);
         NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
         NSString* ocMethodName = ConvertCharToNSString(methodName);
         [Yodo1AntiAddiction.shared online:^(BOOL result, NSString * _Nonnull content) {
@@ -188,6 +189,7 @@ extern "C" {
 
     void UnityOffline(const char* gameObjectName, const char*  methodName)
     {
+        NSLog(@"%@UnityCall %s",kLog_TAG, __FUNCTION__);
         NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
         NSString* ocMethodName = ConvertCharToNSString(methodName);
         [Yodo1AntiAddiction.shared offline:^(BOOL result, NSString * _Nonnull content) {
@@ -213,6 +215,7 @@ extern "C" {
 
     void UnityPlayerDisconnection(const char* gameObjectName, const char*  methodName)
     {
+        NSLog(@"%@UnityCall %s",kLog_TAG, __FUNCTION__);
         NSString* ocGameObjName = ConvertCharToNSString(gameObjectName);
         NSString* ocMethodName = ConvertCharToNSString(methodName);
         [Yodo1AntiAddiction.shared setDisconnection:^(NSString * _Nonnull title, NSString * _Nonnull content) {
