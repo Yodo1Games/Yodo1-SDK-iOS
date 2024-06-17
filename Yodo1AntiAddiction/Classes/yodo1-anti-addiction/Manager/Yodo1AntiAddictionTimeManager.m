@@ -27,9 +27,6 @@ typedef enum: NSInteger {
 @implementation Yodo1AntiAddictionTimeManager {
     dispatch_source_t timer; // 计时器
     
-    dispatch_source_t appTimeTimer; // 计时器
-
-    
     NSTimeInterval serverTime; // 服务器时间
     NSTimeInterval serverTimer; // 获取服务器时间后的计时
     
@@ -55,11 +52,11 @@ typedef enum: NSInteger {
         [Yodo1Reachability reachability].notifyBlock = ^(Yodo1Reachability *reachability) {
             [weakSelf didNeedGetAppTime];
         };
-        // 监听进入前台
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationEnterForeground) name:UIApplicationDidBecomeActiveNotification object:nil];
-        
-        // 每隔30秒
-        [self startGetAppTimeTimer];
+//        // 监听进入前台
+//        [[NSNotificationCenter defaultCenter] addObserver:self 
+//                                                 selector:@selector(onApplicationEnterForeground)
+//                                                     name:UIApplicationDidBecomeActiveNotification
+//                                                   object:nil];
     }
     return self;
 }
@@ -67,68 +64,43 @@ typedef enum: NSInteger {
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self stopTimer];
-    [self stopGetAppTimeTimer];
 }
 
 - (void)onApplicationEnterForeground {
     [self didNeedGetAppTime];
 }
 
-- (void)startGetAppTimeTimer {
-    NSTimeInterval delay = 0.0f; // 延迟时间
-    NSTimeInterval interval = 30.0f; // 间隔时间
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    appTimeTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    // 设置延时
-    dispatch_time_t startDelayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
-    // 设置计时
-    dispatch_source_set_timer(appTimeTimer, startDelayTime, interval * NSEC_PER_SEC, 0.1 * NSEC_PER_SEC);
-    // 处理事件
-    __weak __typeof(self)weakSelf = self;
-    dispatch_source_set_event_handler(appTimeTimer, ^{
-        [weakSelf didNeedGetAppTime];
-    });
-    dispatch_resume(self -> appTimeTimer);
-}
-
-- (void)stopGetAppTimeTimer {
-    if (appTimeTimer != nil) {
-        dispatch_source_cancel(appTimeTimer);
-    }
-    appTimeTimer = nil;
-}
-
 - (void)didNeedGetAppTime {
-    Yodo1AntiAddictionLog(@"didNeedGetAppTime method...");
     Yodo1AntiAddictionUser *user = [Yodo1AntiAddictionUserManager manager].currentUser;
+    // 无登录用户不会开启计时
     if (user == nil) {
-        Yodo1AntiAddictionLog(@"didNeedGetAppTime Yodo1AntiAddictionUser is nil");
-    } else {
-        Yodo1AntiAddictionLog(@"didNeedGetAppTime certificationStatus %@", @(user.certificationStatus));
-        if (user.certificationStatus == UserCertificationStatusMinor) {
-            Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime...");
-            [self getAppTime:NO success:^{
-                Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime success...");
-                NSTimeInterval timeInterval = [NSDate date].timeIntervalSince1970;
-                if (fabs(self -> serverTime - timeInterval) >= 20) {
-                    Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime success, but the time discrepancy exceeds 20 seconds, the player will be kicked out.");
-                    dispatch_async(dispatch_get_main_queue(),^{
-                        if (Yodo1AntiAddiction.shared.disconnection) {
-                            Yodo1AntiAddiction.shared.disconnection(@"提示", @"手机系统时间有误，请校正！");
-                        }
-                    });
-                }
-            } failure:^{
-                Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime failure, internet issue, the player will be kicked out");
-                dispatch_async(dispatch_get_main_queue(),^{
-                    if (Yodo1AntiAddiction.shared.disconnection) {
-                        Yodo1AntiAddiction.shared.disconnection(@"提示", @"网速不给力，请确保网络通畅后重试");
-                    }
-                });
-            }];
-        }
+        return;
     }
+    // 成年人不会开启计时
+    if (user.certificationStatus == UserCertificationStatusAault) {
+        return;
+    }
+    
+    Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime certificationStatus %@", @(user.certificationStatus));
+    [self getAppTime:NO success:^{
+        Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime success...");
+        NSTimeInterval timeInterval = [NSDate date].timeIntervalSince1970;
+        if (fabs(self -> serverTime - timeInterval) >= 20) {
+            Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime success, but the time discrepancy exceeds 20 seconds, the player will be kicked out.");
+            dispatch_async(dispatch_get_main_queue(),^{
+                if (Yodo1AntiAddiction.shared.disconnection) {
+                    Yodo1AntiAddiction.shared.disconnection(@"提示", @"手机系统时间有误，请校正！");
+                }
+            });
+        }
+    } failure:^{
+        Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime failure, internet issue, the player will be kicked out");
+        dispatch_async(dispatch_get_main_queue(),^{
+            if (Yodo1AntiAddiction.shared.disconnection) {
+                Yodo1AntiAddiction.shared.disconnection(@"提示", @"网速不给力，请确保网络通畅后重试");
+            }
+        });
+    }];
 }
 
 #pragma mark - Public
@@ -156,7 +128,6 @@ typedef enum: NSInteger {
 }
 
 - (void)_startTimer {
-    
     Yodo1AntiAddictionRules *rules = [Yodo1AntiAddictionRulesManager manager].currentRules;
     Yodo1AntiAddictionUser *user = [Yodo1AntiAddictionUserManager manager].currentUser;
     
@@ -201,9 +172,7 @@ typedef enum: NSInteger {
         
         [self insert:_record];
     }
-    
-    
-    
+
     NSTimeInterval delay = 0.0f; // 延迟时间
     NSTimeInterval interval = 1.0f; // 间隔时间
     
@@ -266,7 +235,7 @@ typedef enum: NSInteger {
     Yodo1AntiAddictionUser *user = [Yodo1AntiAddictionUserManager manager].currentUser;
     id<Yodo1AntiAddictionDelegate> delegate = [Yodo1AntiAddictionHelper shared].delegate;
     
-    // 先检查是否在禁玩时间
+    // 先检查是否在禁玩时段
     CheckAction forbidden = [self checkForbiddenTime];
     if (forbidden != CheckActionNone) {
         dispatch_async(dispatch_get_main_queue(),^{
@@ -314,7 +283,6 @@ typedef enum: NSInteger {
     // 检测是否已到可玩时间
     CheckAction end = [self checkEndTime];
     if (end != CheckActionNone) {
-        
         dispatch_async(dispatch_get_main_queue(),^{
             if (end == CheckActionNotification) {
                 if (Yodo1AntiAddictionHelper.shared.enterBackground) {
@@ -394,9 +362,10 @@ typedef enum: NSInteger {
         [self update:_record];
     }
     
-    // 每5分钟上报一次数据
+    // 每30秒上报一次数据
     if (_record.awaitTime > 30) {
         [self postPlayTime:NO time:_record.awaitTime success:nil failure:nil];
+        [self didNeedGetAppTime];
     } else if (_record.awaitTime == 0) {
         [self getPlayTime:NO success:nil failure:nil];
     }
@@ -413,7 +382,8 @@ typedef enum: NSInteger {
     Yodo1AntiAddictionRules *rules = [Yodo1AntiAddictionRulesManager manager].currentRules;
     
     NSDate *serverTime = [self getNowDate];
-    NSInteger current = [Yodo1AntiAddictionUtils timeToInt:[Yodo1AntiAddictionUtils dateString:serverTime format:@"HH:mm"]];
+    NSString *dateString = [Yodo1AntiAddictionUtils dateString:serverTime format:@"HH:mm"];
+    NSInteger current = [Yodo1AntiAddictionUtils timeToInt:dateString];
     
     if (user.certificationStatus == UserCertificationStatusMinor) {
         // 查询是否在可玩时段内
@@ -431,14 +401,13 @@ typedef enum: NSInteger {
                 NSRange range = [Yodo1AntiAddictionUtils time:current inRange:time];
                 if (range.location != 0 && range.length != 0) {
                     timeRange = range;
-                } 
+                }
             }
             // 没有匹配可玩时间，直接认为是在非可玩时段
             if (timeRange.location == 0 && timeRange.length == 0) {
                 return CheckActionStop;
             }
             if (current >= timeRange.location && current <= timeRange.location + timeRange.length) {
-                Yodo1AntiAddictionLog(@"NSMaxRange(timeRange):%@, current: %@", @(NSMaxRange(timeRange)), @(current));
                 if (NSMaxRange(timeRange) == current) {
                     return CheckActionStop;
                 } else if (NSMaxRange(timeRange) - current < 10) {
@@ -473,7 +442,6 @@ typedef enum: NSInteger {
         NSString *today = [Yodo1AntiAddictionUtils dateString:[self getNowDate]];
         BOOL isHoliday = [[Yodo1AntiAddictionRulesManager manager].holidays indexOfObject:today] != NSNotFound;
         NSTimeInterval duration = isHoliday ? holidayTime : regularTime;
-        
         if (duration - _record.playingTime <= 0 || _record.leftTime <= 0) {
             return CheckActionStop;
         } else if (duration - _record.playingTime <= residue || (_record.leftTime <= residue && _record.leftTime > 0)) {
@@ -489,7 +457,6 @@ typedef enum: NSInteger {
     }
     return CheckActionNone;
 }
-
 
 /// 获取服务器时间
 /// start 是否器开始计时的第一次请求
@@ -520,6 +487,7 @@ typedef enum: NSInteger {
             }
         }
     } failure:^(NSURLSessionDataTask *task, NSError * error) {
+        Yodo1AntiAddictionLog(@"getAppTime error(code:%@, msg:%@)", @(error.code), error.localizedDescription);
         self -> serverTime = [NSDate date].timeIntervalSince1970;
         self -> serverTimer = 0;
         if (failure) {
@@ -596,7 +564,6 @@ typedef enum: NSInteger {
     [[Yodo1AntiAddictionNet manager] POST:@"time/reportPlayingTime" parameters:parameters success:^(NSURLSessionDataTask *task, id data) {
         Yodo1AntiAddictionResponse *res = [Yodo1AntiAddictionResponse yodo1_modelWithJSON:data];
         if (res.success && res.data) {
-            
             // 服务器时间
             id serverTime = res.data[@"currentTimer"];
             if (serverTime) {

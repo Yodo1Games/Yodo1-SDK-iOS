@@ -99,7 +99,7 @@ typedef void (^isChinaCallBack)(BOOL isChina);
             } else {
                 //通知游戏上线失败
                 if (Yodo1AntiAddiction.shared.disconnection) {
-                    Yodo1AntiAddiction.shared.disconnection(@"提示", @"网速不给力，请确保网络通畅后重试");
+                    Yodo1AntiAddiction.shared.disconnection(@"提示", content);
                 }
             }
         }];

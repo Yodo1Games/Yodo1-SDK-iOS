@@ -50,7 +50,10 @@
         }
         
         _manager = [[Yodo1AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+        // requestSerializer
         _manager.requestSerializer = [Yodo1AFJSONRequestSerializer serializer];
+        _manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+        // responseSerializer
         _manager.responseSerializer = [Yodo1AFJSONResponseSerializer serializer];
 #if Yodo1Anti_Debug
         Yodo1AFSecurityPolicy *security = [Yodo1AFSecurityPolicy policyWithPinningMode:Yodo1AFSSLPinningModeNone];
@@ -119,12 +122,12 @@
                                                                       parameters:parameters
                                                                            error:&serializationError];
     
+    // Header Field
     [request setValue:self.appKey forHTTPHeaderField:@"game-id"];
     [request setValue:[Yodo1Tool shared].publishChannelCodeValue forHTTPHeaderField:@"channel-id"];
     [request setValue:[[Yodo1AntiAddictionHelper shared] getSdkVersion] forHTTPHeaderField:@"sdk-version"];
     [request setValue:[Yodo1Tool shared].keychainDeviceId forHTTPHeaderField:@"device-id"];
     [request setValue:[Yodo1Tool shared].appVersion forHTTPHeaderField:@"game-version"];
-    
     Yodo1AntiAddictionUser *user = [Yodo1AntiAddictionUserManager manager].currentUser;
     if (user) {
         if (user.uid) {
@@ -134,7 +137,6 @@
             [request setValue:user.yid forHTTPHeaderField:@"yid"];
         }
     }
-    
     
     if (serializationError) {
         if (failure) {
@@ -150,14 +152,14 @@
     }
     
 #ifdef DEBUG
+    NSString *requestString = [NSString stringWithFormat:@"Sending a request to %@ with %@ method, header %@", request.URL, request.HTTPMethod, request.allHTTPHeaderFields];
     if (parameters != nil) {
         NSError *parseError;
         NSData *data = [NSJSONSerialization dataWithJSONObject:(NSDictionary*)parameters options:NSJSONWritingPrettyPrinted error:&parseError];
         NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        Yodo1AntiAddictionLog(@"Sending a request to %@ with %@ method and parameters\n%@\n", request.URL, request.HTTPMethod, jsonString);
-    } else {
-        Yodo1AntiAddictionLog(@"Sending a request to %@ with %@ method\n", request.URL, request.HTTPMethod);
+        requestString = [requestString stringByAppendingString:[NSString stringWithFormat:@", parameters %@\n", jsonString]];
     }
+    Yodo1AntiAddictionLog(@"%@", requestString);
 #endif
     
     __block NSURLSessionDataTask *dataTask = nil;
