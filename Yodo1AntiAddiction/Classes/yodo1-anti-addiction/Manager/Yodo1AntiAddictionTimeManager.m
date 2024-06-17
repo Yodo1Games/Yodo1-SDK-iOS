@@ -85,7 +85,7 @@ typedef enum: NSInteger {
     [self getAppTime:NO success:^{
         Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime success...");
         NSTimeInterval timeInterval = [NSDate date].timeIntervalSince1970;
-        if (fabs(self -> serverTime - timeInterval) >= 20) {
+        if (fabs(self -> serverTime - timeInterval) > 20*1000) {
             Yodo1AntiAddictionLog(@"didNeedGetAppTime getAppTime success, but the time discrepancy exceeds 20 seconds, the player will be kicked out.");
             dispatch_async(dispatch_get_main_queue(),^{
                 if (Yodo1AntiAddiction.shared.disconnection) {
