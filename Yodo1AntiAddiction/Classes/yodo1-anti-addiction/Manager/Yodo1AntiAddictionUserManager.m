@@ -17,6 +17,7 @@
 #import "Yodo1AntiAddictionHelper.h"
 #import "Yodo1AntiAddictionUtils.h"
 #import "Yodo1AntiAddictionLog.h"
+#import "Yodo1PersonalInfoCounters.h"
 
 #define TABLE_NAME NSStringFromClass([Yodo1AntiAddictionUser class])
 
@@ -135,6 +136,9 @@
                 user.certificationTime = [NSDate date].timeIntervalSince1970;
                 [self update:user];
             }
+            
+            [[Yodo1PersonalInfoCounters shared] updateUserInfoDataset:name idNumber:identify];
+
             if (success) {
                 success(data);
             }

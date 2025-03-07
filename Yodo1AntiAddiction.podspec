@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Yodo1AntiAddiction'
-  s.version          = '3.2.15'
+  s.version          = '3.3.0'
   s.summary          = 'Yodo1 Anti-Addiction SDK for iOS'
   s.description      = <<-DESC
   TODO: Add long description of the pod here.
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.author           = { 'Yodo1Games' => 'devadmin@yodo1.com' }
   s.source           = { :git => 'https://github.com/Yodo1Games/Yodo1-SDK-iOS.git', :tag => "#{s.name}#{s.version}" }
   
-  s.ios.deployment_target = '11.0'
+  s.ios.deployment_target = '12.0'
   
   s.source_files = 'Yodo1AntiAddiction/Classes/**/*'
   s.public_header_files = 'Yodo1AntiAddiction/Classes/**/*.h'

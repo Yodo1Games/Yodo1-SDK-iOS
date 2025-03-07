@@ -139,10 +139,10 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     __weak __typeof(self)weakSelf = self;
     // 获取防沉迷规则 获取失败则使用本地默认
     [[Yodo1AntiAddictionRulesManager manager] requestRules:^(id data) {
+        weakSelf.systemSwitch = [Yodo1AntiAddictionRulesManager manager].currentRules.switchStatus;
         if (self.delegate && [self.delegate respondsToSelector:@selector(onInitFinish:message:)]) {
             [self.delegate onInitFinish:YES message:@"初始化方沉迷系统成功"];
         }
-        weakSelf.systemSwitch = [Yodo1AntiAddictionRulesManager manager].currentRules.switchStatus;
         [Yodo1AntiAddictionTimeManager.manager didNeedGetAppTime];
     } failure:^(NSError * error) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onInitFinish:message:)]) {
