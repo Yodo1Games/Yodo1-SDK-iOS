@@ -90,27 +90,30 @@ typedef void (^isChinaCallBack)(BOOL isChina);
 }
 
 - (void)onlineBehaviour {
-    if (self.enterGameFlag && !self.isOnline) {
-        __weak typeof(self) weakSelf = self;
-        [self online:^(BOOL result, NSString * _Nonnull content) {
-            if (result) {
-                //不必有特殊处理
-                [weakSelf startTimer];
-            } else {
-                //通知游戏上线失败
-                if (Yodo1AntiAddiction.shared.disconnection) {
-                    Yodo1AntiAddiction.shared.disconnection(@"提示", content);
+    __weak typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (weakSelf.enterGameFlag && !weakSelf.isOnline) {
+            [weakSelf online:^(BOOL result, NSString * _Nonnull content) {
+                Yodo1AntiAddictionLog(@"onlineBehaviour, result = %d,%@", result, content);
+                if (result) {
+                    //不必有特殊处理
+                    [weakSelf startTimer];
+                } else {
+                    //通知游戏上线失败
+                    if (Yodo1AntiAddiction.shared.disconnection) {
+                        Yodo1AntiAddiction.shared.disconnection(@"提示", content);
+                    }
                 }
-            }
-        }];
-    }
+            }];
+        }
+    });
 }
 
 - (void)offlineBehaviour {
     if (self.isOnline) {
         __weak typeof(self) weakSelf = self;
         [self offline:^(BOOL result, NSString * _Nonnull content) {
-            Yodo1AntiAddictionLog(@"enter Background, auto-offline. result = %d,%@",result,content);
+            Yodo1AntiAddictionLog(@"enter Background, auto-offline. result = %d,%@", result, content);
             [weakSelf stopTimer];
             weakSelf.enterBackground = YES;
         }];
@@ -121,7 +124,7 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     if (self.isOnline) {
         [self stopTimer];
         [self offline:^(BOOL result, NSString * _Nonnull content) {
-            Yodo1AntiAddictionLog(@"appTerminate, auto-offline. result = %d,%@",result,content);
+            Yodo1AntiAddictionLog(@"appTerminate, auto-offline. result = %d,%@", result, content);
         }];
     }
 }
@@ -401,9 +404,11 @@ typedef void (^isChinaCallBack)(BOOL isChina);
     // 4.上报本次上线行为之前，应先处理之前上报失败的行为
     [self reportBeforeOfflineBehaviour:self.behaviour
                               callback:^(BOOL result, NSString * _Nonnull content) {
+        Yodo1AntiAddictionLog(@"reportBeforeOfflineBehaviour reslut: %d, %@", result, content);
         if (result) {
             [weakSelf reportCNUserBehavior:weakSelf.behaviour
                                   callback:^(int code, id response) {
+                Yodo1AntiAddictionLog(@"reportCNUserBehavior code: %d, response: %@", code, response);
                 if (code == 200) {
                     Yodo1AntiAddictionResponse *res = [Yodo1AntiAddictionResponse yodo1_modelWithJSON:response];
                     if (res.success && res.data) {
@@ -420,14 +425,14 @@ typedef void (^isChinaCallBack)(BOOL isChina);
                         }
                         weakSelf.isOnline = YES;
                         callback(YES,res.message);
-                    }else{
+                    } else {
                         callback(NO,@"上线请求失败，账户异常");
                     }
-                }else{
+                } else {
                     callback(NO,@"上线请求失败，请检查网络情况");
                 }
             }];
-        }else{
+        } else {
             if (callback) {
                 callback(NO,@"上线请求失败，请检查网络情况");
             }
